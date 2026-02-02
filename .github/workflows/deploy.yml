@@ -39,9 +39,9 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # 如果仓库名不是 username.github.io，需要设置 REPO_NAME
-          # 例如仓库是 username/JasBlog，则设置 REPO_NAME: JasBlog
           REPO_NAME: ${{ github.event.repository.name != format('{0}.github.io', github.repository_owner) && github.event.repository.name || '' }}
+          # 如果 public/CNAME 存在，说明使用自定义域名
+          CUSTOM_DOMAIN: ${{ hashFiles('public/CNAME') != '' && 'true' || '' }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
