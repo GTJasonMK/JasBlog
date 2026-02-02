@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #2c2c2c;
+  --color-ink-light: #4a4a4a;
+  --color-vermilion: #c94043;
+  --color-vermilion-dark: #a33235;
+  --color-gold: #b8860b;
+  --color-paper: #fdfbf7;
+  --color-paper-dark: #f5f0e8;
+  --color-paper-darker: #e8e0d0;
+  --color-gray: #6b6b6b;
+  --color-gray-light: #999;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+body {
+  /* 使用思源宋体，回退到系统中文字体 */
+  font-family: var(--font-chinese), "PingFang SC", "Microsoft YaHei", "SimSun", serif;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  line-height: 1.8;
+}
+
+/* 印章效果 */
+.seal {
+  display: inline-block;
+  color: var(--color-vermilion);
+  border: 2px solid var(--color-vermilion);
+  padding: 6px 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+}
+
+/* 云纹分割线 */
+.divider-cloud {
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 24'%3E%3Cpath d='M0 12 Q25 4 50 12 T100 12' fill='none' stroke='%23c94043' stroke-width='1' opacity='0.2'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+/* 文章卡片 */
+.card-hover {
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-paper-darker);
+  background: #fff;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-vermilion);
+}
+
+a {
+  text-decoration: none;
+}
+
+::selection {
+  background-color: var(--color-vermilion);
+  color: white;
+}
+
+.section-title {
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-vermilion), transparent);
+}
+
+/* Markdown 样式 */
+.prose-chinese {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: var(--color-ink-light);
+}
+
+.prose-chinese h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+  padding-left: 12px;
+  border-left: 3px solid var(--color-vermilion);
+}
+
+.prose-chinese h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose-chinese p {
+  margin-bottom: 1.2em;
+}
+
+.prose-chinese code {
+  background-color: var(--color-paper-dark);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.prose-chinese pre {
+  background: #1a1a2e;
+  color: #e8e8e8;
+  padding: 1.5em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.prose-chinese pre code {
+  background: none;
+  padding: 0;
+}
+
+/* 标签 */
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  background: var(--color-paper-dark);
+  color: var(--color-gray);
+  border-radius: 20px;
+}
+
+/* 按钮 */
+.btn-primary {
+  display: inline-block;
+  padding: 10px 24px;
+  background: var(--color-vermilion);
+  color: white;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: var(--color-vermilion-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

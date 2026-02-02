@@ -1,0 +1,108 @@
+"use client";
+
+import { type Node } from "@xyflow/react";
+import { type KnowledgeNodeData, nodeColorConfig } from "@/types/graph";
+
+interface NodeDetailPanelProps {
+  node: Node;
+  onClose: () => void;
+}
+
+export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps) {
+  const data = node.data as KnowledgeNodeData;
+  const color = data.color || "default";
+  const colorConfig = nodeColorConfig[color];
+
+  return (
+    <div className="h-full flex flex-col bg-white border-l border-[var(--color-border)]">
+      {/* 标题栏 */}
+      <div
+        className="px-4 py-4 flex items-center justify-between shrink-0"
+        style={{ backgroundColor: colorConfig.bg }}
+      >
+        <h3
+          className="font-semibold text-lg"
+          style={{ color: colorConfig.text }}
+        >
+          {data.label}
+        </h3>
+        <button
+          onClick={onClose}
+          className="p-1.5 rounded-lg hover:bg-black/10 transition-colors"
+          title="关闭"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M4 4L12 12M12 4L4 12" />
+          </svg>
+        </button>
+      </div>
+
+      {/* 内容区域 */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-5">
+        {/* 标签 */}
+        {data.tags && data.tags.length > 0 && (
+          <div>
+            <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
+              标签
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {data.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="text-sm px-2.5 py-1 rounded-lg"
+                  style={{
+                    backgroundColor: colorConfig.border,
+                    color: colorConfig.text,
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 内容 */}
+        {data.content && (
+          <div>
+            <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
+              内容
+            </h4>
+            <div
+              className="text-sm text-[var(--color-ink)] prose-sm leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: data.content }}
+            />
+          </div>
+        )}
+
+        {/* 时间信息 */}
+        {(data.createdAt || data.updatedAt) && (
+          <div className="pt-4 border-t border-[var(--color-border)]">
+            <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
+              时间
+            </h4>
+            <div className="text-sm text-[var(--color-gray)] space-y-1">
+              {data.createdAt && (
+                <p>
+                  创建：{new Date(data.createdAt).toLocaleDateString("zh-CN")}
+                </p>
+              )}
+              {data.updatedAt && (
+                <p>
+                  更新：{new Date(data.updatedAt).toLocaleDateString("zh-CN")}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
