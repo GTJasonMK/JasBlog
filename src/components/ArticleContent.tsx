@@ -1,7 +1,6 @@
 "use client";
 
 import TableOfContents from "./TableOfContents";
-import ReadingProgress from "./ReadingProgress";
 import BackToTop from "./BackToTop";
 import GraphViewer from "./graph/GraphViewer";
 import MarkdownRenderer from "./MarkdownRenderer";
@@ -66,7 +65,6 @@ export default function ArticleContent({ content }: ArticleContentProps) {
 
   return (
     <>
-      <ReadingProgress />
       <TableOfContents content={content} />
       <article className="prose-chinese">
         {segments.map((segment, index) => {
