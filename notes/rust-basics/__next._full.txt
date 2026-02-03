@@ -7,17 +7,21 @@
 9:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/0bd6498bda341889.js"],"ViewportBoundary"]
 b:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/0bd6498bda341889.js"],"MetadataBoundary"]
 d:I[68027,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/0bd6498bda341889.js"],"default"]
-:HL["/_next/static/chunks/c7904c9dc9134a42.css","style"]
+:HL["/_next/static/chunks/f675cccbf3a35726.css","style"]
 :HL["/_next/static/chunks/8a5bd6fe3abc8091.css","style"]
-0:{"P":null,"b":"8oWQASEVf851JdV8P9nAi","c":["","notes","rust-basics"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","rust-basics","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/c7904c9dc9134a42.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/224558876611a878.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/67d54a34d59ec747.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","children":["$","body",null,{"className":"min-h-screen flex flex-col","children":[["$","$L2",null,{}],["$","main",null,{"className":"flex-1","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t border-[var(--color-paper-darker)] mt-16 py-8","children":["$","div",null,{"className":"max-w-4xl mx-auto px-6 text-center text-sm text-[var(--color-gray)]","children":["$","p",null,{"children":["© ",2026," JasBlog"]}]}]}],false]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L5",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/8a5bd6fe3abc8091.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/9a778e4244fac701.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/39b5d8b8919c6d04.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/b58bdaba57398edb.js","async":true,"nonce":"$undefined"}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],{},null,false,false]},null,false,false]},null,false,false]},null,false,false],["$","$1","h",{"children":[null,["$","$L9",null,{"children":"$La"}],["$","div",null,{"hidden":true,"children":["$","$Lb",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":"$Lc"}]}]}],null]}],false]],"m":"$undefined","G":["$d",[]],"S":true}
-e:I[22016,["/_next/static/chunks/224558876611a878.js","/_next/static/chunks/67d54a34d59ec747.js","/_next/static/chunks/9a778e4244fac701.js","/_next/static/chunks/39b5d8b8919c6d04.js","/_next/static/chunks/b58bdaba57398edb.js"],""]
-f:I[65916,["/_next/static/chunks/224558876611a878.js","/_next/static/chunks/67d54a34d59ec747.js","/_next/static/chunks/9a778e4244fac701.js","/_next/static/chunks/39b5d8b8919c6d04.js","/_next/static/chunks/b58bdaba57398edb.js"],"default"]
-10:Tee8,
+0:{"P":null,"b":"Zv8t7YS23ymV9H7BzRHD6","c":["","notes","rust-basics"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","rust-basics","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/f675cccbf3a35726.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/224558876611a878.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/67d54a34d59ec747.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","children":["$","body",null,{"className":"min-h-screen flex flex-col","children":[["$","$L2",null,{}],["$","main",null,{"className":"flex-1","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t border-[var(--color-paper-darker)] mt-16 py-8","children":["$","div",null,{"className":"max-w-4xl mx-auto px-6 text-center text-sm text-[var(--color-gray)]","children":["$","p",null,{"children":["© ",2026," JasBlog"]}]}]}],false]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L5",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/8a5bd6fe3abc8091.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/9f2c2b8f3e34904a.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/4c6241c946e4f397.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/b58bdaba57398edb.js","async":true,"nonce":"$undefined"}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],{},null,false,false]},null,false,false]},null,false,false]},null,false,false],["$","$1","h",{"children":[null,["$","$L9",null,{"children":"$La"}],["$","div",null,{"hidden":true,"children":["$","$Lb",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":"$Lc"}]}]}],null]}],false]],"m":"$undefined","G":["$d",[]],"S":true}
+e:I[22016,["/_next/static/chunks/224558876611a878.js","/_next/static/chunks/67d54a34d59ec747.js","/_next/static/chunks/9f2c2b8f3e34904a.js","/_next/static/chunks/4c6241c946e4f397.js","/_next/static/chunks/b58bdaba57398edb.js"],""]
+f:I[65916,["/_next/static/chunks/224558876611a878.js","/_next/static/chunks/67d54a34d59ec747.js","/_next/static/chunks/9f2c2b8f3e34904a.js","/_next/static/chunks/4c6241c946e4f397.js","/_next/static/chunks/b58bdaba57398edb.js"],"default"]
+10:T102c,
 ## 简介
 
 Rust 是一门注重**安全性**、*并发性*和性能的系统编程语言。它由 Mozilla 研究院开发，现已成为最受欢迎的编程语言之一。
 
-> Rust 的设计目标是提供 C/C++ 级别的性能，同时保证内存安全，无需垃圾回收器。
+> [!NOTE]
+> Rust 连续多年被 Stack Overflow 评为"最受喜爱的编程语言"。
+
+> [!TIP]
+> 学习 Rust 时，建议先理解所有权系统，这是 Rust 最核心的概念。
 
 ---
 
@@ -58,20 +62,9 @@ fn main() {
 
     // if 表达式
     if number < 5 {
-        println!("小于 5");
-    } else if number < 10 {
-        println!("小于 10");
+        println!("condition was true");
     } else {
-        println!("大于等于 10");
-    }
-
-    // loop 循环
-    let mut count = 0;
-    loop {
-        count += 1;
-        if count == 3 {
-            break;
-        }
+        println!("condition was false");
     }
 
     // for 循环
@@ -85,7 +78,8 @@ fn main() {
 
 ## 所有权系统
 
-Rust 最独特的特性是**所有权系统**，它使 Rust 无需垃圾回收器即可保证内存安全。
+> [!IMPORTANT]
+> 所有权是 Rust 最独特的特性，它使 Rust 无需垃圾回收器即可保证内存安全。
 
 ### 所有权规则
 
@@ -98,10 +92,13 @@ fn main() {
     let s1 = String::from("hello");
     let s2 = s1; // s1 的所有权移动到 s2
 
-    // println!("{}", s1); // 错误！s1 不再有效
+    // println!("{}", s1); // 编译错误！s1 不再有效
     println!("{}", s2); // 正确
 }
 ```
+
+> [!WARNING]
+> 所有权转移后，原变量将不可用。尝试使用会导致编译错误。
 
 ### 引用与借用
 
@@ -112,7 +109,7 @@ fn main() {
     let s1 = String::from("hello");
     let len = calculate_length(&s1); // 借用 s1
 
-    println!("'{}' 的长度是 {}", s1, len); // s1 仍然有效
+    println!("'{}' length is {}", s1, len); // s1 仍然有效
 }
 
 fn calculate_length(s: &String) -> usize {
@@ -159,14 +156,17 @@ enum Message {
 
 fn process_message(msg: Message) {
     match msg {
-        Message::Quit => println!("退出"),
-        Message::Move { x, y } => println!("移动到 ({}, {})", x, y),
-        Message::Write(text) => println!("写入: {}", text),
+        Message::Quit => println!("Quit"),
+        Message::Move { x, y } => println!("Move to ({}, {})", x, y),
+        Message::Write(text) => println!("Write: {}", text),
     }
 }
 ```
 
 ### 错误处理
+
+> [!CAUTION]
+> 不要滥用 `unwrap()`，在生产代码中应该正确处理错误。
 
 Rust 使用 `Result` 和 `Option` 类型进行错误处理：
 
@@ -181,6 +181,18 @@ fn read_file(path: &str) -> Result<String, std::io::Error> {
     Ok(contents)
 }
 ```
+
+---
+
+## 常用快捷键
+
+使用 `cargo` 命令行工具：
+
+- <kbd>Ctrl</kbd> + <kbd>C</kbd> - 停止运行
+- `cargo new` - 创建新项目
+- `cargo build` - 编译项目
+- `cargo run` - 编译并运行
+- `cargo test` - 运行测试
 
 ---
 
