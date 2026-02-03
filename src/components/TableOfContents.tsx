@@ -134,6 +134,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   if (items.length === 0) return null;
 
   const activeIndex = items.findIndex((item) => item.id === activeId);
+  const progress = items.length > 1 ? (activeIndex / (items.length - 1)) * 100 : 0;
 
   return (
     <nav
@@ -152,6 +153,14 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         <span className="text-xs text-[var(--color-gray)]">
           {activeIndex + 1}/{items.length}
         </span>
+      </div>
+
+      {/* 进度条 */}
+      <div className="h-0.5 bg-[var(--color-paper-darker)] rounded-full mb-4 overflow-hidden">
+        <div
+          className="h-full bg-[var(--color-vermilion)] transition-all duration-300 ease-out"
+          style={{ width: `${progress}%` }}
+        />
       </div>
 
       {/* 目录列表 */}
