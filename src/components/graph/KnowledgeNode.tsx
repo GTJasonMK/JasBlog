@@ -1,17 +1,13 @@
 "use client";
 
 import { memo, useState } from "react";
-import { Handle, Position, type NodeProps } from "@xyflow/react";
-import { type NodeColor, nodeColorConfig } from "@/types/graph";
+import { Handle, Position } from "@xyflow/react";
+import { type NodeColor, nodeColorConfig, type KnowledgeNodeData } from "@/types/graph";
 
-type KnowledgeNodeProps = NodeProps<{
-  label: string;
-  content: string;
-  tags: string[];
-  color?: NodeColor;
-  edgeColor?: string;
-  locked?: boolean;
-}>;
+interface KnowledgeNodeProps {
+  data: KnowledgeNodeData;
+  selected?: boolean;
+}
 
 function KnowledgeNode({ data, selected }: KnowledgeNodeProps) {
   const [isHovered, setIsHovered] = useState(false);

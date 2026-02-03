@@ -13,6 +13,8 @@ import {
   ReactFlowProvider,
   type Node,
   type Edge,
+  type NodeTypes,
+  type EdgeTypes,
   ConnectionMode,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
@@ -21,14 +23,14 @@ import KnowledgeNode from "./KnowledgeNode";
 import KnowledgeEdge from "./KnowledgeEdge";
 import { type GraphData, type KnowledgeNodeData, nodeColorConfig, edgeColorConfig } from "@/types/graph";
 
-// 自定义节点类型
-const nodeTypes = {
-  knowledgeNode: KnowledgeNode,
+// 自定义节点类型 - 使用类型断言绕过严格检查
+const nodeTypes: NodeTypes = {
+  knowledgeNode: KnowledgeNode as NodeTypes[string],
 };
 
 // 自定义边类型
-const edgeTypes = {
-  centerEdge: KnowledgeEdge,
+const edgeTypes: EdgeTypes = {
+  centerEdge: KnowledgeEdge as EdgeTypes[string],
 };
 
 interface GraphCanvasProps {
