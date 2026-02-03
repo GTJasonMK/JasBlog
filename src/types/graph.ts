@@ -31,25 +31,29 @@ export type EdgeRelation = "related" | "prerequisite" | "extends" | "custom";
 // 知识节点数据类型
 export interface KnowledgeNodeData {
   label: string;
-  content: string;
-  tags: string[];
+  content?: string;
+  tags?: string[];
   color?: NodeColor;
   edgeColor?: EdgeColor;
   locked?: boolean;
-  createdAt: number;
-  updatedAt: number;
+  createdAt?: number;
+  updatedAt?: number;
+  // 索引签名，兼容 React Flow 的 Record<string, unknown>
+  [key: string]: unknown;
 }
 
 // 边数据类型
 export interface KnowledgeEdgeData {
-  relation: EdgeRelation;
+  relation?: EdgeRelation;
   label?: string;
+  color?: EdgeColor;
+  [key: string]: unknown;
 }
 
 // 图节点
 export interface GraphNode {
   id: string;
-  type: string;
+  type?: string;
   position: { x: number; y: number };
   data: KnowledgeNodeData;
 }
