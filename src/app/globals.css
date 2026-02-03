@@ -369,6 +369,177 @@ a {
   font-weight: bold;
 }
 
+/* 代码块容器 */
+.code-block-wrapper {
+  position: relative;
+  margin: 1.5em 0;
+}
+
+.code-block-wrapper pre {
+  margin: 0;
+  padding-top: 2.5em;
+}
+
+.code-block-lang {
+  position: absolute;
+  top: 0.5em;
+  left: 1em;
+  font-size: 0.75rem;
+  color: #6c7086;
+  font-family: "Fira Code", "JetBrains Mono", Consolas, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* 标题锚点链接 */
+.heading-anchor {
+  position: absolute;
+  left: -1.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray-light);
+  font-weight: 400;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.group\/heading:hover .heading-anchor {
+  opacity: 1;
+}
+
+.heading-anchor:hover {
+  color: var(--color-vermilion);
+}
+
+.prose-chinese h1,
+.prose-chinese h2,
+.prose-chinese h3,
+.prose-chinese h4 {
+  position: relative;
+}
+
+/* GitHub 风格 Alert */
+.github-alert {
+  margin: 1.5em 0;
+  padding: 1em 1.25em;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.github-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+
+.github-alert-title svg {
+  flex-shrink: 0;
+}
+
+.github-alert-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Alert 类型颜色 */
+.alert-note {
+  background-color: rgba(56, 139, 253, 0.1);
+  border-color: #388bfd;
+}
+
+.alert-note .github-alert-title {
+  color: #388bfd;
+}
+
+.alert-tip {
+  background-color: rgba(46, 160, 67, 0.1);
+  border-color: #2ea043;
+}
+
+.alert-tip .github-alert-title {
+  color: #2ea043;
+}
+
+.alert-important {
+  background-color: rgba(130, 80, 223, 0.1);
+  border-color: #8250df;
+}
+
+.alert-important .github-alert-title {
+  color: #8250df;
+}
+
+.alert-warning {
+  background-color: rgba(187, 128, 9, 0.1);
+  border-color: #bb8009;
+}
+
+.alert-warning .github-alert-title {
+  color: #bb8009;
+}
+
+.alert-caution {
+  background-color: rgba(218, 54, 51, 0.1);
+  border-color: #da3633;
+}
+
+.alert-caution .github-alert-title {
+  color: #da3633;
+}
+
+/* 脚注样式 */
+.prose-chinese .footnotes {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid var(--color-paper-darker);
+  font-size: 0.9em;
+  color: var(--color-gray);
+}
+
+.prose-chinese .footnotes ol {
+  padding-left: 1.5em;
+}
+
+.prose-chinese sup a {
+  color: var(--color-vermilion);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.prose-chinese sup a:hover {
+  text-decoration: underline;
+}
+
+/* 定义列表 */
+.prose-chinese dl {
+  margin: 1.5em 0;
+}
+
+.prose-chinese dt {
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-top: 1em;
+}
+
+.prose-chinese dd {
+  margin-left: 1.5em;
+  color: var(--color-ink-light);
+}
+
+/* 键盘按键 */
+.prose-chinese kbd {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  font-size: 0.85em;
+  font-family: "Fira Code", "JetBrains Mono", Consolas, monospace;
+  background: var(--color-paper-dark);
+  border: 1px solid var(--color-paper-darker);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
 /* 标签 */
 .tag {
   display: inline-block;

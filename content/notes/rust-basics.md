@@ -11,7 +11,11 @@ tags:
 
 Rust 是一门注重**安全性**、*并发性*和性能的系统编程语言。它由 Mozilla 研究院开发，现已成为最受欢迎的编程语言之一。
 
-> Rust 的设计目标是提供 C/C++ 级别的性能，同时保证内存安全，无需垃圾回收器。
+> [!NOTE]
+> Rust 连续多年被 Stack Overflow 评为"最受喜爱的编程语言"。
+
+> [!TIP]
+> 学习 Rust 时，建议先理解所有权系统，这是 Rust 最核心的概念。
 
 ---
 
@@ -52,20 +56,9 @@ fn main() {
 
     // if 表达式
     if number < 5 {
-        println!("小于 5");
-    } else if number < 10 {
-        println!("小于 10");
+        println!("condition was true");
     } else {
-        println!("大于等于 10");
-    }
-
-    // loop 循环
-    let mut count = 0;
-    loop {
-        count += 1;
-        if count == 3 {
-            break;
-        }
+        println!("condition was false");
     }
 
     // for 循环
@@ -79,7 +72,8 @@ fn main() {
 
 ## 所有权系统
 
-Rust 最独特的特性是**所有权系统**，它使 Rust 无需垃圾回收器即可保证内存安全。
+> [!IMPORTANT]
+> 所有权是 Rust 最独特的特性，它使 Rust 无需垃圾回收器即可保证内存安全。
 
 ### 所有权规则
 
@@ -92,10 +86,13 @@ fn main() {
     let s1 = String::from("hello");
     let s2 = s1; // s1 的所有权移动到 s2
 
-    // println!("{}", s1); // 错误！s1 不再有效
+    // println!("{}", s1); // 编译错误！s1 不再有效
     println!("{}", s2); // 正确
 }
 ```
+
+> [!WARNING]
+> 所有权转移后，原变量将不可用。尝试使用会导致编译错误。
 
 ### 引用与借用
 
@@ -106,7 +103,7 @@ fn main() {
     let s1 = String::from("hello");
     let len = calculate_length(&s1); // 借用 s1
 
-    println!("'{}' 的长度是 {}", s1, len); // s1 仍然有效
+    println!("'{}' length is {}", s1, len); // s1 仍然有效
 }
 
 fn calculate_length(s: &String) -> usize {
@@ -153,14 +150,17 @@ enum Message {
 
 fn process_message(msg: Message) {
     match msg {
-        Message::Quit => println!("退出"),
-        Message::Move { x, y } => println!("移动到 ({}, {})", x, y),
-        Message::Write(text) => println!("写入: {}", text),
+        Message::Quit => println!("Quit"),
+        Message::Move { x, y } => println!("Move to ({}, {})", x, y),
+        Message::Write(text) => println!("Write: {}", text),
     }
 }
 ```
 
 ### 错误处理
+
+> [!CAUTION]
+> 不要滥用 `unwrap()`，在生产代码中应该正确处理错误。
 
 Rust 使用 `Result` 和 `Option` 类型进行错误处理：
 
@@ -175,6 +175,18 @@ fn read_file(path: &str) -> Result<String, std::io::Error> {
     Ok(contents)
 }
 ```
+
+---
+
+## 常用快捷键
+
+使用 `cargo` 命令行工具：
+
+- <kbd>Ctrl</kbd> + <kbd>C</kbd> - 停止运行
+- `cargo new` - 创建新项目
+- `cargo build` - 编译项目
+- `cargo run` - 编译并运行
+- `cargo test` - 运行测试
 
 ---
 

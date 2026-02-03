@@ -1,12 +1,10 @@
 "use client";
 
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
 import TableOfContents from "./TableOfContents";
 import ReadingProgress from "./ReadingProgress";
 import BackToTop from "./BackToTop";
 import GraphViewer from "./graph/GraphViewer";
+import MarkdownRenderer from "./MarkdownRenderer";
 import { type GraphData } from "@/types/graph";
 
 interface ArticleContentProps {
@@ -61,88 +59,6 @@ function parseContent(content: string): ContentSegment[] {
   }
 
   return segments;
-}
-
-// 为标题生成 ID
-function generateId(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^\w\u4e00-\u9fa5-]/g, "");
-}
-
-// Markdown 渲染组件
-function MarkdownRenderer({ content }: { content: string }) {
-  return (
-    <Markdown
-      remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeHighlight]}
-      components={{
-        // 标题添加 id 用于目录导航
-        h1: ({ children, ...props }) => {
-          const id = generateId(String(children));
-          return <h1 id={id} {...props}>{children}</h1>;
-        },
-        h2: ({ children, ...props }) => {
-          const id = generateId(String(children));
-          return <h2 id={id} {...props}>{children}</h2>;
-        },
-        h3: ({ children, ...props }) => {
-          const id = generateId(String(children));
-          return <h3 id={id} {...props}>{children}</h3>;
-        },
-        h4: ({ children, ...props }) => {
-          const id = generateId(String(children));
-          return <h4 id={id} {...props}>{children}</h4>;
-        },
-        // 链接在新窗口打开外部链接
-        a: ({ href, children, ...props }) => {
-          const isExternal = href?.startsWith("http");
-          return (
-            <a
-              href={href}
-              target={isExternal ? "_blank" : undefined}
-              rel={isExternal ? "noopener noreferrer" : undefined}
-              {...props}
-            >
-              {children}
-            </a>
-          );
-        },
-        // 图片添加样式
-        img: ({ src, alt, ...props }) => (
-          <span className="block my-6">
-            <img
-              src={src}
-              alt={alt || ""}
-              className="rounded-lg max-w-full h-auto mx-auto"
-              loading="lazy"
-              {...props}
-            />
-            {alt && (
-              <span className="block text-center text-sm text-[var(--color-gray)] mt-2">
-                {alt}
-              </span>
-            )}
-          </span>
-        ),
-        // 代码块
-        pre: ({ children, ...props }) => (
-          <pre className="relative group" {...props}>
-            {children}
-          </pre>
-        ),
-        // 表格容器添加滚动
-        table: ({ children, ...props }) => (
-          <div className="overflow-x-auto my-6">
-            <table {...props}>{children}</table>
-          </div>
-        ),
-      }}
-    >
-      {content}
-    </Markdown>
-  );
 }
 
 export default function ArticleContent({ content }: ArticleContentProps) {
