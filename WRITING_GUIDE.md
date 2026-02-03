@@ -415,6 +415,40 @@ items:
 }
 ```
 
+### 从 GraphAndTable 导入
+
+如果你使用 [GraphAndTable](https://github.com/GTJasonMK/GraphAndTable) 项目创建知识图谱，可以直接导入：
+
+**方法一：手动导入**
+
+1. 在 GraphAndTable 中导出图谱（菜单 → 导出 JSON）
+2. 将导出的 `.json` 文件复制到 `content/graphs/` 目录
+3. 编辑文件，在开头添加 `name` 和 `description` 字段：
+
+```json
+{
+  "name": "图谱名称",
+  "description": "图谱描述",
+  "nodes": [...],
+  "edges": [...]
+}
+```
+
+4. 重命名文件为英文 slug 格式，如 `react-learning.json`
+
+**方法二：使用导入脚本**
+
+```bash
+# 1. 将导出的 JSON 文件放到 content/graphs/ 目录
+# 2. 运行导入脚本
+node scripts/import-graph.js graph_1234567890.json "图谱名称" "图谱描述"
+```
+
+脚本会自动：
+- 添加 name 和 description 字段
+- 生成正确的文件名
+- 验证数据格式
+
 ---
 
 ## 七、写作建议
