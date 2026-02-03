@@ -7,6 +7,9 @@ interface RoadmapPageProps {
   params: Promise<{ slug: string }>;
 }
 
+// 禁止动态路由，只生成 generateStaticParams 返回的页面
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const slugs = getAllRoadmapSlugs();
   return slugs.map((slug) => ({ slug }));

@@ -1,0 +1,26 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "type": "default",
+      "position": { "x": 250, "y": 50 },
+      "data": { "label": "示例知识点" }
+    },
+    {
+      "id": "2",
+      "type": "default",
+      "position": { "x": 100, "y": 150 },
+      "data": { "label": "子主题 A" }
+    },
+    {
+      "id": "3",
+      "type": "default",
+      "position": { "x": 400, "y": 150 },
+      "data": { "label": "子主题 B" }
+    }
+  ],
+  "edges": [
+    { "id": "e1-2", "source": "1", "target": "2" },
+    { "id": "e1-3", "source": "1", "target": "3" }
+  ]
+}

@@ -16,8 +16,8 @@
 }
 
 body {
-  /* 使用思源宋体，回退到系统中文字体 */
-  font-family: var(--font-chinese), "PingFang SC", "Microsoft YaHei", "SimSun", serif;
+  /* 使用系统中文字体 */
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", serif;
   background-color: var(--color-paper);
   color: var(--color-ink);
   line-height: 1.8;
