@@ -1,7 +1,7 @@
 "use client";
 
 import { memo } from "react";
-import { type EdgeProps, EdgeLabelRenderer } from "@xyflow/react";
+import { EdgeLabelRenderer } from "@xyflow/react";
 import { type EdgeColor, edgeColorConfig } from "@/types/graph";
 
 interface KnowledgeEdgeData {
@@ -10,7 +10,16 @@ interface KnowledgeEdgeData {
   color?: EdgeColor;
 }
 
-type KnowledgeEdgeProps = EdgeProps<KnowledgeEdgeData>;
+interface KnowledgeEdgeProps {
+  id: string;
+  sourceX: number;
+  sourceY: number;
+  targetX: number;
+  targetY: number;
+  style?: React.CSSProperties;
+  selected?: boolean;
+  data?: KnowledgeEdgeData;
+}
 
 /**
  * 自定义中心连接边
