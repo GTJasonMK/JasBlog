@@ -87,6 +87,15 @@ a {
   color: var(--color-ink-light);
 }
 
+/* 标题 */
+.prose-chinese h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-top: 2em;
+  margin-bottom: 0.8em;
+}
+
 .prose-chinese h2 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -100,33 +109,261 @@ a {
 .prose-chinese h3 {
   font-size: 1.25rem;
   font-weight: 700;
+  color: var(--color-ink);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
 
+.prose-chinese h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+}
+
+/* 段落和文本 */
 .prose-chinese p {
   margin-bottom: 1.2em;
 }
 
+.prose-chinese strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.prose-chinese em {
+  font-style: italic;
+}
+
+.prose-chinese del {
+  text-decoration: line-through;
+  color: var(--color-gray);
+}
+
+/* 链接 */
+.prose-chinese a {
+  color: var(--color-vermilion);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s;
+}
+
+.prose-chinese a:hover {
+  color: var(--color-vermilion-dark);
+}
+
+/* 列表 */
+.prose-chinese ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin-bottom: 1.2em;
+}
+
+.prose-chinese ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin-bottom: 1.2em;
+}
+
+.prose-chinese li {
+  margin-bottom: 0.4em;
+}
+
+.prose-chinese li > ul,
+.prose-chinese li > ol {
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+
+/* 任务列表 (GFM) */
+.prose-chinese ul:has(input[type="checkbox"]) {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.prose-chinese li:has(> input[type="checkbox"]) {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+
+.prose-chinese input[type="checkbox"] {
+  margin-top: 0.5em;
+  accent-color: var(--color-vermilion);
+}
+
+/* 引用块 */
+.prose-chinese blockquote {
+  border-left: 4px solid var(--color-vermilion);
+  padding: 0.5em 1em;
+  margin: 1.5em 0;
+  background-color: var(--color-paper-dark);
+  border-radius: 0 8px 8px 0;
+  color: var(--color-ink-light);
+}
+
+.prose-chinese blockquote p {
+  margin-bottom: 0.5em;
+}
+
+.prose-chinese blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* 行内代码 */
 .prose-chinese code {
   background-color: var(--color-paper-dark);
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.9em;
+  font-family: "Fira Code", "JetBrains Mono", Consolas, monospace;
 }
 
+/* 代码块 */
 .prose-chinese pre {
-  background: #1a1a2e;
-  color: #e8e8e8;
+  background: #1e1e2e;
+  color: #cdd6f4;
   padding: 1.5em;
   border-radius: 8px;
   overflow-x: auto;
   margin: 1.5em 0;
+  font-family: "Fira Code", "JetBrains Mono", Consolas, monospace;
+  font-size: 0.9em;
+  line-height: 1.6;
 }
 
 .prose-chinese pre code {
   background: none;
   padding: 0;
+  font-size: inherit;
+}
+
+/* 表格 */
+.prose-chinese table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.95em;
+}
+
+.prose-chinese th {
+  background-color: var(--color-paper-dark);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75em 1em;
+  border: 1px solid var(--color-paper-darker);
+}
+
+.prose-chinese td {
+  padding: 0.75em 1em;
+  border: 1px solid var(--color-paper-darker);
+}
+
+.prose-chinese tr:nth-child(even) {
+  background-color: var(--color-paper-dark);
+}
+
+/* 分割线 */
+.prose-chinese hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-vermilion), transparent);
+  margin: 2em 0;
+}
+
+/* 图片 */
+.prose-chinese img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* highlight.js 代码高亮主题 (Catppuccin Mocha 风格) */
+.hljs {
+  background: #1e1e2e;
+  color: #cdd6f4;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in {
+  color: #cba6f7;
+}
+
+.hljs-string,
+.hljs-attr {
+  color: #a6e3a1;
+}
+
+.hljs-number,
+.hljs-literal {
+  color: #fab387;
+}
+
+.hljs-comment {
+  color: #6c7086;
+  font-style: italic;
+}
+
+.hljs-function,
+.hljs-title {
+  color: #89b4fa;
+}
+
+.hljs-variable,
+.hljs-template-variable {
+  color: #f38ba8;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #f9e2af;
+}
+
+.hljs-punctuation {
+  color: #9399b2;
+}
+
+.hljs-property {
+  color: #89dceb;
+}
+
+.hljs-operator {
+  color: #94e2d5;
+}
+
+.hljs-meta {
+  color: #f5c2e7;
+}
+
+.hljs-regexp {
+  color: #f5c2e7;
+}
+
+.hljs-tag {
+  color: #89b4fa;
+}
+
+.hljs-name {
+  color: #89b4fa;
+}
+
+.hljs-attribute {
+  color: #f9e2af;
+}
+
+.hljs-selector-class,
+.hljs-selector-id {
+  color: #cba6f7;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
 }
 
 /* 标签 */
