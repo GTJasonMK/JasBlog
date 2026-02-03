@@ -1,3 +1,6 @@
+/* Google Fonts - Noto Serif SC (中国风衬线字体) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
+
 @import "tailwindcss";
 
 :root {
@@ -16,8 +19,8 @@
 }
 
 body {
-  /* 使用系统中文字体 */
-  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", serif;
+  /* 中国风衬线字体 */
+  font-family: "Noto Serif SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", serif;
   background-color: var(--color-paper);
   color: var(--color-ink);
   line-height: 1.8;
