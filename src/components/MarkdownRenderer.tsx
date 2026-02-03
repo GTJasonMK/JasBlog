@@ -94,63 +94,32 @@ function ImageZoom({ src, alt }: { src?: string | undefined; alt?: string }) {
   );
 }
 
-// GitHub 风格 alert 类型
-const ALERT_TYPES: Record<
-  string,
-  { label: string; className: string; icon: string }
-> = {
-  NOTE: {
-    label: "Note",
-    className: "alert-note",
-    icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z",
-  },
-  TIP: {
-    label: "Tip",
-    className: "alert-tip",
-    icon: "M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z",
-  },
-  IMPORTANT: {
-    label: "Important",
-    className: "alert-important",
-    icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z",
-  },
-  WARNING: {
-    label: "Warning",
-    className: "alert-warning",
-    icon: "M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z",
-  },
-  CAUTION: {
-    label: "Caution",
-    className: "alert-caution",
-    icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.54-12.46L12 11.08 8.46 7.54 7.04 8.96 10.58 12.5l-3.54 3.54 1.42 1.42L12 13.92l3.54 3.54 1.42-1.42L13.42 12.5l3.54-3.54-1.42-1.42z",
-  },
-};
-
-// 解析 blockquote 中的 GitHub alert 语法
-function parseAlert(children: ReactNode): {
+// 解析 blockquote 中的 Alert 标记
+function parseAlertFromChildren(children: ReactNode): {
   type: string;
   content: ReactNode;
 } | null {
-  if (!Array.isArray(children) && !children) return null;
+  if (!children) return null;
 
   const childArray = Array.isArray(children) ? children : [children];
-  const firstChild = childArray[0];
 
-  if (
-    firstChild &&
-    typeof firstChild === "object" &&
-    "props" in firstChild &&
-    firstChild.props?.children
-  ) {
-    const pChildren = firstChild.props.children;
-    const text = extractText(pChildren);
-    const alertMatch = text.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/);
+  // 遍历所有子元素，查找 Alert 标记
+  for (let i = 0; i < childArray.length; i++) {
+    const child = childArray[i];
+    if (!child) continue;
 
+    // 提取文本内容
+    const text = extractText(child);
+
+    // 检查是否包含 ALERTBOX_TYPE_ALERTBOX 标记
+    const alertMatch = text.match(/^ALERTBOX(NOTE|TIP|IMPORTANT|WARNING|CAUTION)ALERTBOX\s*/i);
     if (alertMatch) {
-      const alertType = alertMatch[1];
-      // 去掉 [!TYPE] 标记后的内容
+      const alertType = alertMatch[1].toLowerCase();
+
+      // 获取标记之后的内容（如果有的话）
       const restText = text.slice(alertMatch[0].length).trim();
-      const restChildren = childArray.slice(1);
+      // 获取剩余的子元素
+      const restChildren = childArray.slice(i + 1);
 
       return {
         type: alertType,
@@ -163,8 +132,41 @@ function parseAlert(children: ReactNode): {
       };
     }
   }
+
   return null;
 }
+
+// GitHub 风格 alert 类型配置
+const ALERT_CONFIG: Record<
+  string,
+  { label: string; className: string; icon: string }
+> = {
+  note: {
+    label: "Note",
+    className: "alert-note",
+    icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z",
+  },
+  tip: {
+    label: "Tip",
+    className: "alert-tip",
+    icon: "M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z",
+  },
+  important: {
+    label: "Important",
+    className: "alert-important",
+    icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z",
+  },
+  warning: {
+    label: "Warning",
+    className: "alert-warning",
+    icon: "M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z",
+  },
+  caution: {
+    label: "Caution",
+    className: "alert-caution",
+    icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.54-12.46L12 11.08 8.46 7.54 7.04 8.96 10.58 12.5l-3.54 3.54 1.42 1.42L12 13.92l3.54 3.54 1.42-1.42L13.42 12.5l3.54-3.54-1.42-1.42z",
+  },
+};
 
 // 标题组件（带锚点链接）
 function Heading({
@@ -287,9 +289,10 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
         // 引用块（支持 GitHub alert）
         blockquote: ({ children, ...props }) => {
-          const alert = parseAlert(children);
-          if (alert && ALERT_TYPES[alert.type]) {
-            const { label, className, icon } = ALERT_TYPES[alert.type];
+          // 解析预处理后的 Alert 标记
+          const alert = parseAlertFromChildren(children);
+          if (alert && ALERT_CONFIG[alert.type]) {
+            const { label, className, icon } = ALERT_CONFIG[alert.type];
             return (
               <div className={`github-alert ${className}`}>
                 <div className="github-alert-title">

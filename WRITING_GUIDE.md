@@ -63,7 +63,7 @@ tags:
 ###### 六级标题
 ```
 
-效果：标题会自动生成目录锚点
+**特性**：标题会自动生成锚点链接，鼠标悬停时显示 `#` 符号，点击可跳转和复制链接。
 
 ---
 
@@ -125,6 +125,10 @@ tags:
 - [ ] 未完成
 ```
 
+效果：
+- [x] 已完成
+- [ ] 未完成
+
 ---
 
 ### 5. 链接与图片
@@ -135,11 +139,15 @@ tags:
 [带标题的链接](https://example.com "鼠标悬停显示")
 ```
 
+外部链接会自动在新标签页打开。
+
 **图片：**
 ```markdown
 ![图片描述](图片URL)
 ![本地图片](/images/example.png)
 ```
+
+**特性**：点击图片可放大查看，再次点击或点击背景关闭。
 
 ---
 
@@ -160,7 +168,40 @@ tags:
 
 ---
 
-### 7. 代码块
+### 7. GitHub 风格提示框 (Alert)
+
+支持 5 种提示框类型：
+
+```markdown
+> [!NOTE]
+> 这是一条笔记提示，用于补充信息。
+
+> [!TIP]
+> 这是一条技巧提示，帮助用户更好地使用。
+
+> [!IMPORTANT]
+> 这是重要信息，用户需要特别注意。
+
+> [!WARNING]
+> 这是警告信息，可能会导致问题。
+
+> [!CAUTION]
+> 这是危险警告，可能导致严重后果。
+```
+
+效果展示：
+
+| 类型 | 用途 | 颜色 |
+|------|------|------|
+| `NOTE` | 补充说明 | 蓝色 |
+| `TIP` | 使用技巧 | 绿色 |
+| `IMPORTANT` | 重要信息 | 紫色 |
+| `WARNING` | 警告信息 | 橙色 |
+| `CAUTION` | 危险警告 | 红色 |
+
+---
+
+### 8. 代码块
 
 **行内代码：**
 ```markdown
@@ -177,10 +218,15 @@ function hello() {
 ```
 ````
 
+**特性**：
+- 代码块左上角自动显示语言标签
+- 鼠标悬停时显示复制按钮，点击可复制代码
+
 **常用语言标识：**
 - `javascript` / `js`
 - `typescript` / `ts`
 - `python`
+- `rust`
 - `java`
 - `html`
 - `css`
@@ -190,7 +236,7 @@ function hello() {
 
 ---
 
-### 8. 表格
+### 9. 表格
 
 ```markdown
 | 左对齐 | 居中对齐 | 右对齐 |
@@ -208,7 +254,7 @@ function hello() {
 
 ---
 
-### 9. 分隔线
+### 10. 分隔线
 
 ```markdown
 ---
@@ -220,7 +266,7 @@ ___
 
 ---
 
-### 10. 转义字符
+### 11. 转义字符
 
 如果要显示 Markdown 特殊字符本身，使用反斜杠转义：
 
@@ -232,7 +278,190 @@ ___
 
 ---
 
-## 三、知识图谱嵌入
+## 三、数学公式 (LaTeX)
+
+博客支持 KaTeX 渲染 LaTeX 数学公式。
+
+### 行内公式
+
+使用单个美元符号 `$...$` 包裹：
+
+```markdown
+欧拉公式 $e^{i\pi} + 1 = 0$ 被认为是数学中最美丽的公式。
+
+时间复杂度通常表示为 $O(n \log n)$ 或 $O(n^2)$。
+```
+
+### 块级公式
+
+使用双美元符号 `$$...$$` 包裹（独占一行）：
+
+```markdown
+二次方程求根公式：
+
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+```
+
+### 常用 LaTeX 语法
+
+| 语法 | 效果 | 说明 |
+|------|------|------|
+| `x^2` | x² | 上标 |
+| `x_i` | xᵢ | 下标 |
+| `\frac{a}{b}` | a/b | 分数 |
+| `\sqrt{x}` | √x | 平方根 |
+| `\sum_{i=1}^{n}` | 求和 | 求和符号 |
+| `\int_a^b` | 积分 | 积分符号 |
+| `\alpha, \beta, \gamma` | α, β, γ | 希腊字母 |
+| `\rightarrow` | → | 箭头 |
+| `\leq, \geq` | ≤, ≥ | 比较符号 |
+| `\infty` | ∞ | 无穷大 |
+
+### 矩阵
+
+```markdown
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+$$
+```
+
+### 分段函数
+
+```markdown
+$$
+f(x) = \begin{cases}
+x & \text{if } x \geq 0 \\
+-x & \text{if } x < 0
+\end{cases}
+$$
+```
+
+---
+
+## 四、Mermaid 图表
+
+博客支持 Mermaid 语法绘制多种图表。
+
+### 流程图 (Flowchart)
+
+````markdown
+```mermaid
+flowchart TD
+    A[开始] --> B{条件判断}
+    B -->|是| C[处理1]
+    B -->|否| D[处理2]
+    C --> E[结束]
+    D --> E
+```
+````
+
+**节点形状：**
+- `[文字]` - 矩形
+- `(文字)` - 圆角矩形
+- `{文字}` - 菱形（判断）
+- `((文字))` - 圆形
+- `[[文字]]` - 子程序
+
+**方向：**
+- `TD` / `TB` - 从上到下
+- `BT` - 从下到上
+- `LR` - 从左到右
+- `RL` - 从右到左
+
+### 时序图 (Sequence Diagram)
+
+````markdown
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+
+    Client->>Server: HTTP Request
+    Server->>Database: Query
+    Database-->>Server: Result
+    Server-->>Client: HTTP Response
+```
+````
+
+**箭头类型：**
+- `->` - 实线
+- `-->` - 虚线
+- `->>` - 实线带箭头
+- `-->>` - 虚线带箭头
+
+### 类图 (Class Diagram)
+
+````markdown
+```mermaid
+classDiagram
+    class User {
+        +String username
+        +String email
+        +bool active
+        +new() User
+        +greet()
+    }
+
+    class Post {
+        +String title
+        +String content
+    }
+
+    User --> Post : creates
+```
+````
+
+### 状态图 (State Diagram)
+
+````markdown
+```mermaid
+stateDiagram-v2
+    [*] --> Pending
+    Pending --> Running : start()
+    Running --> Completed : finish()
+    Running --> Failed : error()
+    Completed --> [*]
+    Failed --> Pending : retry()
+```
+````
+
+### 饼图 (Pie Chart)
+
+````markdown
+```mermaid
+pie title 技术栈使用比例
+    "React" : 40
+    "Vue" : 30
+    "Angular" : 20
+    "其他" : 10
+```
+````
+
+### 甘特图 (Gantt Chart)
+
+````markdown
+```mermaid
+gantt
+    title 项目进度
+    dateFormat  YYYY-MM-DD
+    section 设计
+    需求分析     :a1, 2024-01-01, 7d
+    UI设计       :a2, after a1, 5d
+    section 开发
+    前端开发     :b1, after a2, 14d
+    后端开发     :b2, after a2, 14d
+```
+````
+
+---
+
+## 五、知识图谱嵌入
 
 在文章中嵌入知识图谱，使用特殊代码块：
 
@@ -294,7 +523,7 @@ ___
 
 ---
 
-## 四、开源项目 (Projects)
+## 六、开源项目 (Projects)
 
 ### 文件位置
 `content/projects/` 目录下创建 `.md` 文件
@@ -344,7 +573,7 @@ status: active
 
 ---
 
-## 五、规划文档 (Roadmaps)
+## 七、规划文档 (Roadmaps)
 
 ### 文件位置
 `content/roadmaps/` 目录下创建 `.md` 文件
@@ -382,7 +611,7 @@ items:
 
 ---
 
-## 六、独立知识图谱页面
+## 八、独立知识图谱页面
 
 ### 文件位置
 `content/graphs/` 目录下创建 `.json` 文件
@@ -421,7 +650,7 @@ items:
 
 **方法一：手动导入**
 
-1. 在 GraphAndTable 中导出图谱（菜单 → 导出 JSON）
+1. 在 GraphAndTable 中导出图谱（菜单 - 导出 JSON）
 2. 将导出的 `.json` 文件复制到 `content/graphs/` 目录
 3. 编辑文件，在开头添加 `name` 和 `description` 字段：
 
@@ -451,7 +680,7 @@ node scripts/import-graph.js graph_1234567890.json "图谱名称" "图谱描述"
 
 ---
 
-## 七、写作建议
+## 九、写作建议
 
 ### 文章结构
 
@@ -465,7 +694,9 @@ node scripts/import-graph.js graph_1234567890.json "图谱名称" "图谱描述"
 - 代码块指定语言获得高亮
 - 重要内容使用**粗体**强调
 - 列表让内容更清晰
-- 适当加入图表和图谱
+- 使用 Alert 提示框突出重要信息
+- 数学公式使用 LaTeX 语法
+- 流程和关系使用 Mermaid 图表
 
 ### SEO 建议
 
@@ -475,7 +706,7 @@ node scripts/import-graph.js graph_1234567890.json "图谱名称" "图谱描述"
 
 ---
 
-## 八、本地预览
+## 十、本地预览
 
 ```bash
 # 启动开发服务器
@@ -489,7 +720,7 @@ http://localhost:3000
 
 ---
 
-## 九、发布流程
+## 十一、发布流程
 
 1. 在 `content/` 目录下创建或修改文件
 2. 本地预览确认无误
@@ -503,6 +734,24 @@ git push origin master
 
 4. GitHub Actions 自动构建部署
 5. 等待几分钟后访问网站查看
+
+---
+
+## 十二、功能特性速查表
+
+| 功能 | 语法/操作 |
+|------|----------|
+| 标题锚点 | 鼠标悬停标题显示 `#`，点击跳转 |
+| 代码复制 | 鼠标悬停代码块，点击 Copy 按钮 |
+| 图片放大 | 点击图片放大，再点击关闭 |
+| 行内数学公式 | `$公式$` |
+| 块级数学公式 | `$$公式$$` |
+| 提示框 | `> [!NOTE]` / `[!TIP]` / `[!IMPORTANT]` / `[!WARNING]` / `[!CAUTION]` |
+| 流程图 | ` ```mermaid flowchart ``` ` |
+| 时序图 | ` ```mermaid sequenceDiagram ``` ` |
+| 类图 | ` ```mermaid classDiagram ``` ` |
+| 状态图 | ` ```mermaid stateDiagram-v2 ``` ` |
+| 知识图谱 | ` ```graph {...} ``` ` |
 
 ---
 

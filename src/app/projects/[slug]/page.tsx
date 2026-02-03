@@ -5,6 +5,14 @@ import { getProjectBySlug, getAllProjectSlugs } from "@/lib/projects";
 import TechStack from "@/components/TechStack";
 import ProjectContent from "@/components/ProjectContent";
 
+// 预处理 Alert 语法
+function preprocessAlerts(content: string): string {
+  return content.replace(
+    /^(>\s*)\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\r?\n?/gm,
+    "$1ALERTBOX$2ALERTBOX\n"
+  );
+}
+
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -106,7 +114,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <div className="divider-cloud my-8" />
 
       {/* 项目内容 */}
-      <ProjectContent content={project.content} />
+      <ProjectContent content={preprocessAlerts(project.content)} />
     </div>
   );
 }

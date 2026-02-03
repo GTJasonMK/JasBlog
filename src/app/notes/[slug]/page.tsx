@@ -4,6 +4,14 @@ import Link from "next/link";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
 import ArticleContent from "@/components/ArticleContent";
 
+// 预处理 Alert 语法
+function preprocessAlerts(content: string): string {
+  return content.replace(
+    /^(>\s*)\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\r?\n?/gm,
+    "$1ALERTBOX$2ALERTBOX\n"
+  );
+}
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -70,7 +78,7 @@ export default async function NotePage({ params }: Props) {
       <div className="divider-cloud mb-8" />
 
       {/* 文章内容 */}
-      <ArticleContent content={post.content} />
+      <ArticleContent content={preprocessAlerts(post.content)} />
     </div>
   );
 }

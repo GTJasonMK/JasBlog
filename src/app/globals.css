@@ -633,6 +633,24 @@ a {
   padding: 0 0.15em;
 }
 
+/* 目录滚动条样式 */
+.toc-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-paper-darker);
+  border-radius: 2px;
+}
+
+.toc-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-light);
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
