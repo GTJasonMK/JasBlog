@@ -1,0 +1,4 @@
+:HL["/_next/static/chunks/436154351a47b2de.css","style"]
+:HL["/_next/static/chunks/4f934c43048c75f7.css","style"]
+:HC["/",""]
+0:{"buildId":"0cYwts-SIi4pt_LZRusKy","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"projects","paramType":null,"paramKey":"projects","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
