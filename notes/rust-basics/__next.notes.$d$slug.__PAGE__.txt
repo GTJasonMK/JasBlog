@@ -1,0 +1,8 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/424c0bbc38637cae.js","/_next/static/chunks/10059c0eebffa798.js","/_next/static/chunks/50d9e07e2e91258b.js","/_next/static/chunks/9d100e9e52aa6e59.js"],""]
+3:I[65916,["/_next/static/chunks/424c0bbc38637cae.js","/_next/static/chunks/10059c0eebffa798.js","/_next/static/chunks/50d9e07e2e91258b.js","/_next/static/chunks/9d100e9e52aa6e59.js"],"default"]
+4:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+:HL["/_next/static/chunks/8a5bd6fe3abc8091.css","style"]
+0:{"buildId":"HICh6HgluH5zbzo6bRcFP","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"max-w-3xl mx-auto px-6 py-12","children":[["$","$L2",null,{"href":"/notes","className":"text-sm text-[var(--color-gray)] hover:text-[var(--color-vermilion)] mb-8 inline-block","children":"← 返回笔记列表"}],["$","header",null,{"className":"mb-8","children":[["$","time",null,{"className":"text-sm text-[var(--color-gray)]","children":"2026-02-03"}],["$","h1",null,{"className":"text-3xl font-bold mt-2 mb-4","children":"Rust入门笔记"}],false]}],["$","div",null,{"className":"divider-cloud mb-8"}],["$","$L3",null,{"content":"\n"}]]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/8a5bd6fe3abc8091.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/50d9e07e2e91258b.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/9d100e9e52aa6e59.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"loading":null,"isPartial":false}
+6:null
