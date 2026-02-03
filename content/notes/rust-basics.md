@@ -14,9 +14,6 @@ Rust 是一门注重**安全性**、*并发性*和性能的系统编程语言。
 > [!NOTE]
 > Rust 连续多年被 Stack Overflow 评为"最受喜爱的编程语言"。
 
-> [!TIP]
-> 学习 Rust 时，建议先理解所有权系统，这是 Rust 最核心的概念。
-
 ---
 
 ## 基础语法
@@ -48,32 +45,25 @@ Rust 是静态类型语言，常见数据类型包括：
 | `char` | Unicode 字符 | `let d: char = 'A';` |
 | `String` | 字符串 | `let s = String::from("hello");` |
 
-### 控制流
-
-```rust
-fn main() {
-    let number = 7;
-
-    // if 表达式
-    if number < 5 {
-        println!("condition was true");
-    } else {
-        println!("condition was false");
-    }
-
-    // for 循环
-    for i in 1..=5 {
-        println!("{}", i);
-    }
-}
-```
-
 ---
 
 ## 所有权系统
 
 > [!IMPORTANT]
 > 所有权是 Rust 最独特的特性，它使 Rust 无需垃圾回收器即可保证内存安全。
+
+### 所有权流程图
+
+```mermaid
+flowchart TD
+    A[创建变量] --> B{赋值给新变量?}
+    B -->|是| C[所有权转移]
+    B -->|否| D[保持所有权]
+    C --> E[原变量失效]
+    D --> F[离开作用域]
+    E --> F
+    F --> G[内存释放]
+```
 
 ### 所有权规则
 
@@ -94,70 +84,105 @@ fn main() {
 > [!WARNING]
 > 所有权转移后，原变量将不可用。尝试使用会导致编译错误。
 
-### 引用与借用
+---
 
-使用 `&` 创建引用，避免所有权转移：
+## 数学公式示例
 
-```rust
-fn main() {
-    let s1 = String::from("hello");
-    let len = calculate_length(&s1); // 借用 s1
+Rust 中的数值运算遵循标准数学规则。
 
-    println!("'{}' length is {}", s1, len); // s1 仍然有效
-}
+### 行内公式
 
-fn calculate_length(s: &String) -> usize {
-    s.len()
-}
+欧拉公式 $e^{i\pi} + 1 = 0$ 被认为是数学中最美丽的公式之一。
+
+时间复杂度通常表示为 $O(n \log n)$ 或 $O(n^2)$。
+
+### 块级公式
+
+二次方程求根公式：
+
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
+高斯分布（正态分布）的概率密度函数：
+
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+$$
+
+矩阵乘法：
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+\begin{bmatrix}
+e & f \\
+g & h
+\end{bmatrix}
+=
+\begin{bmatrix}
+ae+bg & af+bh \\
+ce+dg & cf+dh
+\end{bmatrix}
+$$
+
+---
+
+## Mermaid 图表示例
+
+### 时序图
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+
+    Client->>Server: HTTP Request
+    Server->>Database: Query
+    Database-->>Server: Result
+    Server-->>Client: HTTP Response
+```
+
+### 类图
+
+```mermaid
+classDiagram
+    class User {
+        +String username
+        +String email
+        +bool active
+        +new() User
+        +greet()
+    }
+
+    class Message {
+        <<enumeration>>
+        Quit
+        Move
+        Write
+    }
+
+    User --> Message : sends
+```
+
+### 状态图
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending
+    Pending --> Running : start()
+    Running --> Completed : finish()
+    Running --> Failed : error()
+    Completed --> [*]
+    Failed --> Pending : retry()
 ```
 
 ---
 
-## 常用特性
-
-### 结构体
-
-```rust
-struct User {
-    username: String,
-    email: String,
-    active: bool,
-}
-
-impl User {
-    fn new(username: String, email: String) -> Self {
-        Self {
-            username,
-            email,
-            active: true,
-        }
-    }
-
-    fn greet(&self) {
-        println!("Hello, {}!", self.username);
-    }
-}
-```
-
-### 枚举与模式匹配
-
-```rust
-enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-}
-
-fn process_message(msg: Message) {
-    match msg {
-        Message::Quit => println!("Quit"),
-        Message::Move { x, y } => println!("Move to ({}, {})", x, y),
-        Message::Write(text) => println!("Write: {}", text),
-    }
-}
-```
-
-### 错误处理
+## 错误处理
 
 > [!CAUTION]
 > 不要滥用 `unwrap()`，在生产代码中应该正确处理错误。
@@ -178,18 +203,6 @@ fn read_file(path: &str) -> Result<String, std::io::Error> {
 
 ---
 
-## 常用快捷键
-
-使用 `cargo` 命令行工具：
-
-- <kbd>Ctrl</kbd> + <kbd>C</kbd> - 停止运行
-- `cargo new` - 创建新项目
-- `cargo build` - 编译项目
-- `cargo run` - 编译并运行
-- `cargo test` - 运行测试
-
----
-
 ## 学习计划
 
 - [x] 完成基础语法学习
@@ -203,5 +216,3 @@ fn read_file(path: &str) -> Result<String, std::io::Error> {
 - [The Rust Programming Language](https://doc.rust-lang.org/book/) - 官方教程
 - [Rust by Example](https://doc.rust-lang.org/rust-by-example/) - 示例学习
 - [Rustlings](https://github.com/rust-lang/rustlings) - 练习题
-
-~~这是删除线文本~~ 用于标记已过时的内容。

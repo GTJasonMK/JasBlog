@@ -16,12 +16,16 @@
     "echarts-for-react": "^3.0.6",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
+    "katex": "^0.16.28",
+    "mermaid": "^11.12.2",
     "next": "^16.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
     "rehype-highlight": "^7.0.2",
-    "remark-gfm": "^4.0.1"
+    "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

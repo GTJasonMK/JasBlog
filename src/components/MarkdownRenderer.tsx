@@ -3,7 +3,11 @@
 import { useState, useCallback, type ReactNode } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import rehypeHighlight from "rehype-highlight";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
+import MermaidDiagram from "./MermaidDiagram";
 
 // 为标题生成 ID
 function generateId(text: string): string {
@@ -195,6 +199,40 @@ function Heading({
   );
 }
 
+// 代码块组件（支持 Mermaid）
+function CodeBlock({ children }: { children?: ReactNode }) {
+  // 从 children 中提取代码和语言
+  let code = "";
+  let language = "";
+  if (children && typeof children === "object" && "props" in children) {
+    const codeElement = children as {
+      props: { children?: ReactNode; className?: string };
+    };
+    code = extractText(codeElement.props?.children);
+    const className = codeElement.props?.className || "";
+    const langMatch = className.match(/language-(\w+)/);
+    language = langMatch ? langMatch[1] : "";
+  }
+
+  // Mermaid 图表
+  if (language === "mermaid") {
+    return (
+      <div className="my-6">
+        <MermaidDiagram code={code} />
+      </div>
+    );
+  }
+
+  // 普通代码块
+  return (
+    <div className="code-block-wrapper">
+      {language && <span className="code-block-lang">{language}</span>}
+      <CopyButton code={code} />
+      <pre>{children}</pre>
+    </div>
+  );
+}
+
 interface MarkdownRendererProps {
   content: string;
 }
@@ -202,8 +240,8 @@ interface MarkdownRendererProps {
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <Markdown
-      remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeHighlight]}
+      remarkPlugins={[remarkGfm, remarkMath]}
+      rehypePlugins={[rehypeHighlight, rehypeKatex]}
       components={{
         // 标题
         h1: ({ children, ...props }) => (
@@ -245,31 +283,8 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           const imgSrc = typeof src === "string" ? src : undefined;
           return <ImageZoom src={imgSrc} alt={alt} />;
         },
-        // 代码块（带复制按钮和语言标签）
-        pre: ({ children }) => {
-          // 从 children 中提取代码和语言
-          let code = "";
-          let language = "";
-          if (
-            children &&
-            typeof children === "object" &&
-            "props" in children
-          ) {
-            const codeElement = children as { props: { children?: ReactNode; className?: string } };
-            code = extractText(codeElement.props?.children);
-            const className = codeElement.props?.className || "";
-            const langMatch = className.match(/language-(\w+)/);
-            language = langMatch ? langMatch[1] : "";
-          }
-
-          return (
-            <div className="code-block-wrapper">
-              {language && <span className="code-block-lang">{language}</span>}
-              <CopyButton code={code} />
-              <pre>{children}</pre>
-            </div>
-          );
-        },
+        // 代码块（带复制按钮、语言标签、Mermaid 支持）
+        pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
         // 引用块（支持 GitHub alert）
         blockquote: ({ children, ...props }) => {
           const alert = parseAlert(children);
@@ -278,7 +293,12 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             return (
               <div className={`github-alert ${className}`}>
                 <div className="github-alert-title">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                  >
                     <path d={icon} />
                   </svg>
                   {label}

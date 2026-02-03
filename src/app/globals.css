@@ -564,6 +564,75 @@ a {
   background: var(--color-vermilion-dark);
 }
 
+/* Mermaid 图表样式 */
+.mermaid-container {
+  display: flex;
+  justify-content: center;
+  padding: 1.5em;
+  background: var(--color-paper-dark);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  background: var(--color-paper-dark);
+  border-radius: 8px;
+  color: var(--color-gray);
+}
+
+.mermaid-error {
+  padding: 1em;
+  background: rgba(218, 54, 51, 0.1);
+  border: 1px solid #da3633;
+  border-radius: 8px;
+}
+
+.mermaid-error-title {
+  font-weight: 600;
+  color: #da3633;
+  margin-bottom: 0.5em;
+}
+
+.mermaid-error-message {
+  font-size: 0.9em;
+  color: var(--color-ink-light);
+  margin-bottom: 0.5em;
+}
+
+.mermaid-error-code {
+  font-size: 0.85em;
+  padding: 0.5em;
+  background: var(--color-paper-dark);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+/* KaTeX 数学公式样式 */
+.prose-chinese .katex-display {
+  margin: 1.5em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5em 0;
+}
+
+.prose-chinese .katex {
+  font-size: 1.1em;
+}
+
+/* 行内公式间距 */
+.prose-chinese .katex-inline {
+  padding: 0 0.15em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
