@@ -74,11 +74,22 @@ export interface GraphData {
   edges: GraphEdge[];
 }
 
-// 图谱元数据
+// 图谱元数据（列表用）
 export interface GraphMeta {
   slug: string;
   name: string;
   description: string;
+  date: string;
   nodeCount: number;
   edgeCount: number;
+}
+
+// 完整的图谱（包含内容）
+export interface Graph {
+  slug: string;
+  name: string;
+  description: string;
+  date: string;
+  content: string; // 正文内容（不含 graph 代码块）
+  graphData: GraphData; // 图谱数据
 }

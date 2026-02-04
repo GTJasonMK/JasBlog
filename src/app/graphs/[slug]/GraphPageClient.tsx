@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import GraphViewer from "@/components/graph/GraphViewer";
-import type { GraphData } from "@/types/graph";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
+import type { Graph } from "@/types/graph";
 
 interface GraphPageClientProps {
-  graph: GraphData;
+  graph: Graph;
 }
 
 export default function GraphPageClient({ graph }: GraphPageClientProps) {
@@ -30,11 +31,24 @@ export default function GraphPageClient({ graph }: GraphPageClientProps) {
 
       {/* 标题 */}
       <header className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">知识图谱</h1>
-        <p className="text-[var(--color-gray)]">
-          包含 {graph.nodes.length} 个节点和 {graph.edges.length} 条连接
+        <h1 className="text-2xl font-bold mb-2">{graph.name}</h1>
+        {graph.description && (
+          <p className="text-[var(--color-gray)] mb-2">{graph.description}</p>
+        )}
+        <p className="text-sm text-[var(--color-gray)]">
+          {graph.date && <span className="mr-4">{graph.date}</span>}
+          <span>{graph.graphData.nodes.length} 个节点</span>
+          <span className="mx-2">·</span>
+          <span>{graph.graphData.edges.length} 条连接</span>
         </p>
       </header>
+
+      {/* 正文内容 */}
+      {graph.content.trim() && (
+        <div className="prose-chinese mb-8">
+          <MarkdownRenderer content={graph.content} />
+        </div>
+      )}
 
       {/* 使用说明 */}
       <div className="mb-6 p-4 bg-[var(--color-paper-dark)] rounded-lg text-sm">
@@ -45,7 +59,7 @@ export default function GraphPageClient({ graph }: GraphPageClientProps) {
       </div>
 
       {/* 图谱查看器 */}
-      <GraphViewer data={graph} />
+      <GraphViewer data={graph.graphData} />
     </div>
   );
 }

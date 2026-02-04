@@ -51,7 +51,8 @@ export default function GraphsPage() {
               </p>
 
               {/* 统计信息 */}
-              <div className="flex gap-4 text-xs text-[var(--color-gray)]">
+              <div className="flex flex-wrap gap-4 text-xs text-[var(--color-gray)]">
+                {graph.date && <span>{graph.date}</span>}
                 <span className="flex items-center gap-1">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="12" cy="12" r="3" />
@@ -90,7 +91,7 @@ export default function GraphsPage() {
             暂无知识图谱，敬请期待...
           </p>
           <p className="text-sm text-[var(--color-gray)] mt-2">
-            将图谱 JSON 文件放入 content/graphs/ 目录即可展示
+            将图谱 Markdown 文件放入 content/graphs/ 目录即可展示
           </p>
         </div>
       )}

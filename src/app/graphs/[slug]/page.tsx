@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: GraphPageProps): Promise<Meta
     return { title: "图谱未找到" };
   }
   return {
-    title: `知识图谱 - ${slug}`,
-    description: `包含 ${graph.nodes.length} 个知识节点的知识图谱`,
+    title: graph.name,
+    description: graph.description || `包含 ${graph.graphData.nodes.length} 个知识节点的知识图谱`,
   };
 }
 
