@@ -34,7 +34,7 @@ export interface Roadmap {
   date: string;
   status: RoadmapStatus;
   items: RoadmapItem[];
-  content: string;
+  content: string; // 非任务的正文内容
 }
 
 // 规划元数据（列表用）
@@ -52,17 +52,95 @@ export interface RoadmapMeta {
   };
 }
 
-// 解析任务列表
-function parseItems(items: unknown): RoadmapItem[] {
-  if (!items || !Array.isArray(items)) return [];
-  return items.map((item, index) => ({
-    id: item.id || String(index + 1),
-    title: item.title || "",
-    description: item.description,
-    status: item.status || "todo",
-    priority: item.priority || "medium",
-    deadline: item.deadline,
-  }));
+/**
+ * 从 Markdown 正文解析任务列表
+ *
+ * 支持的格式：
+ * - [ ] 任务标题 `priority`
+ *   描述文本
+ *   截止: 2026-06-01
+ *
+ * - [-] 进行中的任务 `high`
+ * - [x] 已完成的任务
+ */
+function parseItemsFromContent(content: string): { items: RoadmapItem[]; remainingContent: string } {
+  const lines = content.split("\n");
+  const items: RoadmapItem[] = [];
+  const nonTaskLines: string[] = [];
+
+  let currentItem: RoadmapItem | null = null;
+  let currentDescription: string[] = [];
+  let itemId = 1;
+
+  // 任务行正则：- [ ] 或 - [-] 或 - [x] 开头，后面是标题，可选 `priority`
+  const taskRegex = /^-\s*\[([ x-])\]\s+(.+?)(?:\s+`(high|medium|low)`)?\s*$/;
+  // 缩进行正则（至少2个空格）
+  const indentRegex = /^(\s{2,})(.+)$/;
+  // 截止日期正则
+  const deadlineRegex = /^截止[:：]\s*(.+)$/;
+
+  const saveCurrentItem = () => {
+    if (currentItem) {
+      if (currentDescription.length > 0) {
+        currentItem.description = currentDescription.join("\n").trim();
+      }
+      items.push(currentItem);
+      currentItem = null;
+      currentDescription = [];
+    }
+  };
+
+  for (const line of lines) {
+    const taskMatch = line.match(taskRegex);
+
+    if (taskMatch) {
+      // 保存之前的任务
+      saveCurrentItem();
+
+      // 解析新任务
+      const [, checkbox, title, priority] = taskMatch;
+      let status: RoadmapItem["status"] = "todo";
+      if (checkbox === "x") status = "done";
+      else if (checkbox === "-") status = "in_progress";
+
+      currentItem = {
+        id: String(itemId++),
+        title: title.trim(),
+        status,
+        priority: (priority as RoadmapItem["priority"]) || "medium",
+      };
+    } else if (currentItem) {
+      // 当前有任务，检查是否是缩进的描述行
+      const indentMatch = line.match(indentRegex);
+      if (indentMatch) {
+        const text = indentMatch[2];
+        const deadlineMatch = text.match(deadlineRegex);
+        if (deadlineMatch) {
+          currentItem.deadline = deadlineMatch[1].trim();
+        } else {
+          currentDescription.push(text);
+        }
+      } else if (line.trim() === "") {
+        // 空行，可能是任务之间的分隔
+        // 继续保持当前任务状态，允许多段描述
+      } else {
+        // 非缩进的非空行，任务结束
+        saveCurrentItem();
+        nonTaskLines.push(line);
+      }
+    } else {
+      // 没有当前任务，这是普通内容
+      nonTaskLines.push(line);
+    }
+  }
+
+  // 保存最后一个任务
+  saveCurrentItem();
+
+  return {
+    items,
+    remainingContent: nonTaskLines.join("\n").trim(),
+  };
 }
 
 // 计算进度
@@ -88,8 +166,10 @@ export function getAllRoadmaps(): RoadmapMeta[] {
       const slug = fileName.replace(/\.md$/, "");
       const fullPath = path.join(roadmapsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data } = matter(fileContents);
-      const items = parseItems(data.items);
+      const { data, content } = matter(fileContents);
+
+      // 从正文解析任务
+      const { items } = parseItemsFromContent(content);
 
       return {
         slug,
@@ -115,14 +195,17 @@ export function getRoadmapBySlug(slug: string): Roadmap | null {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
+  // 从正文解析任务和剩余内容
+  const { items, remainingContent } = parseItemsFromContent(content);
+
   return {
     slug,
     name: data.name || data.title || slug,
     description: data.description || "",
     date: formatDate(data.date),
     status: (data.status as RoadmapStatus) || "active",
-    items: parseItems(data.items),
-    content,
+    items,
+    content: remainingContent,
   };
 }
 
