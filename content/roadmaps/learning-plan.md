@@ -21,6 +21,8 @@ status: active
 
 - [x] Learn Next.js `high`
   掌握 Next.js App Router、Server Components、数据获取等
+  截止: 2026-01-31
+  完成: 2026-01-28
 
 - [ ] Learn Docker `medium`
   学习 Docker 容器化基础和 docker-compose

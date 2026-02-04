@@ -21,6 +21,7 @@ export interface RoadmapItem {
   status: "todo" | "in_progress" | "done";
   priority: "high" | "medium" | "low";
   deadline?: string;
+  completedAt?: string; // 实际完成日期
 }
 
 // 规划的状态
@@ -78,6 +79,8 @@ function parseItemsFromContent(content: string): { items: RoadmapItem[]; remaini
   const indentRegex = /^(\s{2,})(.+)$/;
   // 截止日期正则
   const deadlineRegex = /^截止[:：]\s*(.+)$/;
+  // 完成日期正则
+  const completedAtRegex = /^完成[:：]\s*(.+)$/;
 
   const saveCurrentItem = () => {
     if (currentItem) {
@@ -115,8 +118,11 @@ function parseItemsFromContent(content: string): { items: RoadmapItem[]; remaini
       if (indentMatch) {
         const text = indentMatch[2];
         const deadlineMatch = text.match(deadlineRegex);
+        const completedAtMatch = text.match(completedAtRegex);
         if (deadlineMatch) {
           currentItem.deadline = deadlineMatch[1].trim();
+        } else if (completedAtMatch) {
+          currentItem.completedAt = completedAtMatch[1].trim();
         } else {
           currentDescription.push(text);
         }

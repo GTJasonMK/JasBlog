@@ -91,10 +91,15 @@ function ItemCard({ item }: { item: RoadmapItem }) {
           {item.description}
         </p>
       )}
-      {item.deadline && (
-        <p className="text-xs text-[var(--color-gray)] mt-2 ml-5">
-          截止日期: {item.deadline}
-        </p>
+      {(item.deadline || item.completedAt) && (
+        <div className="flex flex-wrap gap-4 text-xs text-[var(--color-gray)] mt-2 ml-5">
+          {item.deadline && (
+            <span>截止: {item.deadline}</span>
+          )}
+          {item.completedAt && (
+            <span className="text-green-600">完成: {item.completedAt}</span>
+          )}
+        </div>
       )}
     </div>
   );
