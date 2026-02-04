@@ -108,24 +108,41 @@ function ItemCard({ item }: { item: RoadmapItem }) {
 // 简单的 Markdown 渲染
 function renderMarkdown(content: string): string {
   if (!content.trim()) return "";
+
+  // 处理行内链接 [text](url)
+  const parseInlineElements = (text: string): string => {
+    return text
+      // 链接
+      .replace(
+        /\[([^\]]+)\]\(([^)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[var(--color-vermilion)] hover:underline">$1</a>'
+      )
+      // 粗体
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      // 斜体
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+      // 行内代码
+      .replace(/`([^`]+)`/g, '<code class="bg-[var(--color-paper-dark)] px-1 rounded text-sm">$1</code>');
+  };
+
   return content
     .split("\n")
     .map((line) => {
       if (line.startsWith("## ")) {
         const text = line.slice(3);
-        return `<h2 class="text-xl font-bold mt-8 mb-4">${text}</h2>`;
+        return `<h2 class="text-xl font-bold mt-8 mb-4">${parseInlineElements(text)}</h2>`;
       }
       if (line.startsWith("### ")) {
         const text = line.slice(4);
-        return `<h3 class="text-lg font-semibold mt-6 mb-3">${text}</h3>`;
+        return `<h3 class="text-lg font-semibold mt-6 mb-3">${parseInlineElements(text)}</h3>`;
       }
       if (line.startsWith("- ")) {
-        return `<li class="ml-4">${line.slice(2)}</li>`;
+        return `<li class="ml-4">${parseInlineElements(line.slice(2))}</li>`;
       }
       if (line.trim() === "") {
         return "";
       }
-      return `<p class="mb-2">${line}</p>`;
+      return `<p class="mb-2">${parseInlineElements(line)}</p>`;
     })
     .join("");
 }
