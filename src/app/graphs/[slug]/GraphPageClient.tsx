@@ -43,13 +43,6 @@ export default function GraphPageClient({ graph }: GraphPageClientProps) {
         </p>
       </header>
 
-      {/* 正文内容 */}
-      {graph.content.trim() && (
-        <div className="prose-chinese mb-8">
-          <MarkdownRenderer content={graph.content} />
-        </div>
-      )}
-
       {/* 使用说明 */}
       <div className="mb-6 p-4 bg-[var(--color-paper-dark)] rounded-lg text-sm">
         <p className="text-[var(--color-gray)]">
@@ -60,6 +53,13 @@ export default function GraphPageClient({ graph }: GraphPageClientProps) {
 
       {/* 图谱查看器 */}
       <GraphViewer data={graph.graphData} />
+
+      {/* 正文内容 */}
+      {graph.content.trim() && (
+        <div className="prose-chinese mt-8">
+          <MarkdownRenderer content={graph.content} />
+        </div>
+      )}
     </div>
   );
 }
