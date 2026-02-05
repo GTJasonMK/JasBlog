@@ -21,7 +21,7 @@ import "@xyflow/react/dist/style.css";
 
 import KnowledgeNode from "./KnowledgeNode";
 import KnowledgeEdge from "./KnowledgeEdge";
-import { type GraphData, type KnowledgeNodeData, nodeColorConfig, edgeColorConfig } from "@/types/graph";
+import { type GraphData, type KnowledgeNodeData, nodeColorConfig, getEdgeStroke } from "@/types/graph";
 
 // 自定义节点类型 - 使用类型断言绕过严格检查
 const nodeTypes: NodeTypes = {
@@ -143,7 +143,7 @@ function GraphCanvasInner({ data, selectedNode, onNodeSelect, showMinimap = true
     return edges.map((edge) => {
       const sourceNodeData = nodeDataMap.get(edge.source);
       const edgeColor = sourceNodeData?.edgeColor || "default";
-      const strokeColor = edgeColorConfig[edgeColor];
+      const strokeColor = getEdgeStroke(edgeColor);
 
       return {
         ...edge,

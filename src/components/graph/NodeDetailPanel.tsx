@@ -1,7 +1,7 @@
 "use client";
 
 import { type Node } from "@xyflow/react";
-import { type KnowledgeNodeData, nodeColorConfig } from "@/types/graph";
+import { type KnowledgeNodeData, nodeColorConfig, edgeColorConfig } from "@/types/graph";
 
 interface NodeDetailPanelProps {
   node: Node;
@@ -12,6 +12,8 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
   const data = node.data as KnowledgeNodeData;
   const color = data.color || "default";
   const colorConfig = nodeColorConfig[color];
+  const edgeColor = data.edgeColor;
+  const edgeColorInfo = edgeColor ? edgeColorConfig[edgeColor] : null;
 
   return (
     <div className="h-full flex flex-col bg-white border-l border-[var(--color-border)]">
@@ -46,6 +48,25 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
 
       {/* 内容区域 */}
       <div className="flex-1 overflow-y-auto p-4 space-y-5">
+        {/* 重要程度 */}
+        {edgeColorInfo && (
+          <div>
+            <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
+              重要程度
+            </h4>
+            <div className="flex items-center gap-2">
+              <span
+                className="w-3 h-3 rounded-full"
+                style={{ backgroundColor: edgeColorInfo.stroke }}
+              />
+              <span className="text-sm font-medium">{edgeColorInfo.label}</span>
+              <span className="text-xs text-[var(--color-gray)]">
+                {edgeColorInfo.description}
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* 标签 */}
         {data.tags && data.tags.length > 0 && (
           <div>
@@ -69,14 +90,14 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
           </div>
         )}
 
-        {/* 内容 */}
+        {/* 内容 - TipTap HTML 渲染 */}
         {data.content && (
           <div>
             <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
               内容
             </h4>
             <div
-              className="text-sm text-[var(--color-ink)] prose-sm leading-relaxed"
+              className="tiptap-content text-sm text-[var(--color-ink)] leading-relaxed"
               dangerouslySetInnerHTML={{ __html: data.content }}
             />
           </div>

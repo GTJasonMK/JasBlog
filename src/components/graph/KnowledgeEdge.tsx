@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import { EdgeLabelRenderer } from "@xyflow/react";
-import { type EdgeColor, edgeColorConfig } from "@/types/graph";
+import { type EdgeColor, getEdgeStroke } from "@/types/graph";
 
 interface KnowledgeEdgeData {
   relation?: string;
@@ -61,7 +61,7 @@ function KnowledgeEdge({
 
   // 连线颜色
   const edgeColor = data?.color || "default";
-  const strokeColor = (style.stroke as string) || edgeColorConfig[edgeColor] || "#14B8A6";
+  const strokeColor = (style.stroke as string) || getEdgeStroke(edgeColor);
   const selectedColor = selected ? "var(--color-vermilion)" : strokeColor;
 
   return (
