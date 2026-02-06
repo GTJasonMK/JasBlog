@@ -17,16 +17,22 @@ interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
 
+const EMPTY_STATIC_PARAM = "__empty_static_params__";
+
 // 禁止动态路由，只生成 generateStaticParams 返回的页面
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const slugs = getAllProjectSlugs();
-  return slugs.map((slug) => ({ slug }));
+  const staticSlugs = slugs.length > 0 ? slugs : [EMPTY_STATIC_PARAM];
+  return staticSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === EMPTY_STATIC_PARAM) {
+    return { title: "项目未找到" };
+  }
   const project = getProjectBySlug(slug);
   if (!project) {
     return { title: "项目未找到" };
@@ -39,6 +45,11 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
+
+  if (slug === EMPTY_STATIC_PARAM) {
+    notFound();
+  }
+
   const project = getProjectBySlug(slug);
 
   if (!project) {

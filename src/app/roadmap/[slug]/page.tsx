@@ -8,16 +8,24 @@ interface RoadmapPageProps {
   params: Promise<{ slug: string }>;
 }
 
+const EMPTY_STATIC_PARAM = "__empty_static_params__";
+
 // 禁止动态路由，只生成 generateStaticParams 返回的页面
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const slugs = getAllRoadmapSlugs();
-  return slugs.map((slug) => ({ slug }));
+  const staticSlugs = slugs.length > 0 ? slugs : [EMPTY_STATIC_PARAM];
+  return staticSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: RoadmapPageProps): Promise<Metadata> {
   const { slug } = await params;
+
+  if (slug === EMPTY_STATIC_PARAM) {
+    return { title: "规划未找到" };
+  }
+
   const roadmap = getRoadmapBySlug(slug);
   if (!roadmap) {
     return { title: "规划未找到" };
@@ -78,36 +86,58 @@ function PriorityIndicator({ priority }: { priority: RoadmapItem["priority"] }) 
 }
 
 function ItemCard({ item }: { item: RoadmapItem }) {
+  const hasDetailContent = Boolean(item.description || item.details || item.deadline || item.completedAt);
+
   return (
-    <div className="card-hover bg-white rounded-lg p-5 border border-[var(--color-paper-dark)]">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <PriorityIndicator priority={item.priority} />
-          <h4 className="font-medium">{item.title}</h4>
+    <details className="card-hover bg-white rounded-lg border border-[var(--color-paper-dark)]">
+      <summary className="list-none cursor-pointer p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <PriorityIndicator priority={item.priority} />
+            <h4 className="font-medium">{item.title}</h4>
+          </div>
+          <StatusBadge status={item.status} />
         </div>
-        <StatusBadge status={item.status} />
-      </div>
-      {item.description && (
-        <p className="text-sm text-[var(--color-gray)] mt-2 ml-5">
-          {item.description}
+        <p className="text-xs text-[var(--color-gray)] mt-2 ml-5">
+          {hasDetailContent ? "点击查看详情" : "暂无详细信息"}
         </p>
-      )}
-      {(item.deadline || item.completedAt) && (
-        <div className="flex flex-wrap gap-4 text-xs text-[var(--color-gray)] mt-2 ml-5">
-          {item.deadline && (
-            <span>截止: {item.deadline}</span>
+      </summary>
+
+      {hasDetailContent && (
+        <div className="px-5 pb-5 pt-0 ml-5">
+          {item.description && (
+            <p className="text-sm text-[var(--color-gray)]">
+              {item.description}
+            </p>
           )}
-          {item.completedAt && (
-            <span className="text-green-600">完成: {item.completedAt}</span>
+          {item.details && (
+            <div className="text-sm text-[var(--color-ink)] whitespace-pre-line mt-2">
+              {item.details}
+            </div>
+          )}
+          {(item.deadline || item.completedAt) && (
+            <div className="flex flex-wrap gap-4 text-xs text-[var(--color-gray)] mt-2">
+              {item.deadline && (
+                <span>截止: {item.deadline}</span>
+              )}
+              {item.completedAt && (
+                <span className="text-green-600">完成: {item.completedAt}</span>
+              )}
+            </div>
           )}
         </div>
       )}
-    </div>
+    </details>
   );
 }
 
 export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
   const { slug } = await params;
+
+  if (slug === EMPTY_STATIC_PARAM) {
+    notFound();
+  }
+
   const roadmap = getRoadmapBySlug(slug);
 
   if (!roadmap) {
@@ -176,51 +206,62 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
         </div>
       )}
 
-      <div className="divider-cloud my-8" />
+      {roadmap.items.length > 0 && roadmap.content.trim() && (
+        <div className="divider-cloud my-8" />
+      )}
 
       {/* 任务列表 */}
-      {/* 进行中 */}
-      {inProgress.length > 0 && (
-        <section className="mb-10">
-          <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-[var(--color-vermilion)]" />
-            正在进行 ({inProgress.length})
-          </h3>
-          <div className="grid gap-3">
-            {inProgress.map((item) => (
-              <ItemCard key={item.id} item={item} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 待开始 */}
-      {todo.length > 0 && (
-        <section className="mb-10">
-          <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-gray-300" />
-            计划中 ({todo.length})
-          </h3>
-          <div className="grid gap-3">
-            {todo.map((item) => (
-              <ItemCard key={item.id} item={item} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 已完成 */}
-      {done.length > 0 && (
+      {roadmap.items.length > 0 && (
         <section>
-          <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-green-500" />
-            已完成 ({done.length})
-          </h3>
-          <div className="grid gap-3">
-            {done.map((item) => (
-              <ItemCard key={item.id} item={item} />
-            ))}
-          </div>
+          <h2 className="text-xl font-semibold mb-8 flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-[var(--color-vermilion)]" />
+            任务列表 ({roadmap.items.length})
+          </h2>
+
+          {/* 进行中 */}
+          {inProgress.length > 0 && (
+            <section className="mb-10">
+              <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[var(--color-vermilion)]" />
+                正在进行 ({inProgress.length})
+              </h3>
+              <div className="grid gap-3">
+                {inProgress.map((item) => (
+                  <ItemCard key={item.id} item={item} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 待开始 */}
+          {todo.length > 0 && (
+            <section className="mb-10">
+              <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-gray-300" />
+                计划中 ({todo.length})
+              </h3>
+              <div className="grid gap-3">
+                {todo.map((item) => (
+                  <ItemCard key={item.id} item={item} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 已完成 */}
+          {done.length > 0 && (
+            <section>
+              <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-green-500" />
+                已完成 ({done.length})
+              </h3>
+              <div className="grid gap-3">
+                {done.map((item) => (
+                  <ItemCard key={item.id} item={item} />
+                ))}
+              </div>
+            </section>
+          )}
         </section>
       )}
 

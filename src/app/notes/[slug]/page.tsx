@@ -16,16 +16,24 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+const EMPTY_STATIC_PARAM = "__empty_static_params__";
+
 // 禁止动态路由，只生成 generateStaticParams 返回的页面
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
-  return slugs.map((slug) => ({ slug }));
+  const staticSlugs = slugs.length > 0 ? slugs : [EMPTY_STATIC_PARAM];
+  return staticSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+
+  if (slug === EMPTY_STATIC_PARAM) {
+    return { title: "文章未找到" };
+  }
+
   const post = getPostBySlug(slug);
 
   if (!post) {
@@ -40,6 +48,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function NotePage({ params }: Props) {
   const { slug } = await params;
+
+  if (slug === EMPTY_STATIC_PARAM) {
+    notFound();
+  }
+
   const post = getPostBySlug(slug);
 
   if (!post) {

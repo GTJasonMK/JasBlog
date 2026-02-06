@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint src scripts next.config.ts postcss.config.mjs --ext .js,.jsx,.ts,.tsx,.mjs",
     "commit:content": "node scripts/auto-commit-content.js"
   },
   "dependencies": {
