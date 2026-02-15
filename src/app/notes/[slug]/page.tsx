@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
 import ArticleContent from "@/components/ArticleContent";
+import Comments from "@/components/Comments";
 
 // 预处理 Alert 语法
 function preprocessAlerts(content: string): string {
@@ -92,6 +93,13 @@ export default async function NotePage({ params }: Props) {
 
       {/* 文章内容 */}
       <ArticleContent content={preprocessAlerts(post.content)} />
+
+      <div className="divider-cloud my-12" />
+
+      <section>
+        <h2 className="text-xl font-semibold mb-6">评论与讨论</h2>
+        <Comments />
+      </section>
     </div>
   );
 }

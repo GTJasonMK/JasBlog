@@ -23,8 +23,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isProd = process.env.NODE_ENV === "production";
+  const repoName = process.env.REPO_NAME || "";
+  const useCustomDomain = process.env.CUSTOM_DOMAIN === "true";
+  const basePath = isProd && repoName && !useCustomDomain ? `/${repoName}` : "";
+
   return (
     <html lang="zh-CN">
+      <head>
+        <meta name="base-path" content={basePath} />
+      </head>
       <body className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">{children}</main>

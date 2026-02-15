@@ -5,11 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "pagefind --site out",
     "start": "next start",
     "lint": "eslint src scripts next.config.ts postcss.config.mjs --ext .js,.jsx,.ts,.tsx,.mjs",
     "commit:content": "node scripts/auto-commit-content.js"
   },
   "dependencies": {
+    "@giscus/react": "^3.1.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@xyflow/react": "^12.10.0",
     "agentation": "^1.3.2",
@@ -34,6 +36,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
+    "pagefind": "^1.4.0",
     "postcss": "^8",
     "tailwindcss": "^4",
     "typescript": "^5"
