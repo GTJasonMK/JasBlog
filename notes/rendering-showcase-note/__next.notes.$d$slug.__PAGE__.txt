@@ -1,0 +1,132 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/224558876611a878.js","/_next/static/chunks/41615ff72c4f5b6d.js","/_next/static/chunks/6716c4894e74365d.js","/_next/static/chunks/a4eab16b7dcd4e33.js","/_next/static/chunks/373287f8a09b8324.js","/_next/static/chunks/5eac621951969859.js","/_next/static/chunks/6f4c5a75f38f686b.js","/_next/static/chunks/9b682520383c8309.js","/_next/static/chunks/de9c5219846f92bb.js","/_next/static/chunks/5e8869f736c79316.js","/_next/static/chunks/4dbee9077a2dd949.js","/_next/static/chunks/89ebb4231102677a.js","/_next/static/chunks/9fe832d77fc9593c.js"],""]
+3:I[65916,["/_next/static/chunks/224558876611a878.js","/_next/static/chunks/41615ff72c4f5b6d.js","/_next/static/chunks/6716c4894e74365d.js","/_next/static/chunks/a4eab16b7dcd4e33.js","/_next/static/chunks/373287f8a09b8324.js","/_next/static/chunks/5eac621951969859.js","/_next/static/chunks/6f4c5a75f38f686b.js","/_next/static/chunks/9b682520383c8309.js","/_next/static/chunks/de9c5219846f92bb.js","/_next/static/chunks/5e8869f736c79316.js","/_next/static/chunks/4dbee9077a2dd949.js","/_next/static/chunks/89ebb4231102677a.js","/_next/static/chunks/9fe832d77fc9593c.js"],"default"]
+5:I[31175,["/_next/static/chunks/224558876611a878.js","/_next/static/chunks/41615ff72c4f5b6d.js","/_next/static/chunks/6716c4894e74365d.js","/_next/static/chunks/a4eab16b7dcd4e33.js","/_next/static/chunks/373287f8a09b8324.js","/_next/static/chunks/5eac621951969859.js","/_next/static/chunks/6f4c5a75f38f686b.js","/_next/static/chunks/9b682520383c8309.js","/_next/static/chunks/de9c5219846f92bb.js","/_next/static/chunks/5e8869f736c79316.js","/_next/static/chunks/4dbee9077a2dd949.js","/_next/static/chunks/89ebb4231102677a.js","/_next/static/chunks/9fe832d77fc9593c.js"],"default"]
+13:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/4ea54db7e410557b.js"],"OutletBoundary"]
+14:"$Sreact.suspense"
+:HL["/_next/static/chunks/8a5bd6fe3abc8091.css","style"]
+:HL["/_next/static/chunks/20bff4eb9a0a6872.css","style"]
+4:T890,
+## Overview
+
+This page is designed to verify `/notes` and `/notes/[slug]` rendering behavior.
+
+- Bullet list item A
+- Bullet list item B
+- [x] GFM checklist done
+- [ ] GFM checklist pending
+
+### Table
+
+| Feature | Status | Notes |
+| --- | --- | --- |
+| Heading anchors | Enabled | Heading hash links are shown on hover. |
+| Code highlighting | Enabled | Powered by `rehype-highlight`. |
+| Math rendering | Enabled | Powered by KaTeX. |
+
+### Math
+
+Inline equation: $E = mc^2$
+
+Block equation:
+
+$$
+\int_0^1 x^2\,dx = \frac{1}{3}
+$$
+
+## Code Block
+
+```ts
+type RenderFeature = {
+  name: string;
+  enabled: boolean;
+};
+
+const features: RenderFeature[] = [
+  { name: "table", enabled: true },
+  { name: "math", enabled: true },
+  { name: "mermaid", enabled: true },
+  { name: "graph", enabled: true },
+];
+
+console.log(features.filter((f) => f.enabled).map((f) => f.name));
+```
+
+## Mermaid Diagram
+
+```mermaid
+flowchart LR
+  A[Markdown Input] --> B[MarkdownRenderer]
+  B --> C[Rendered Output]
+```
+
+## Alert
+
+> ALERTBOXTIPALERTBOX
+> Use this section to verify GitHub-style alert rendering.
+
+## Image Zoom
+
+![Sample image with zoom support](https://picsum.photos/900/360)
+
+## Embedded Graph Block
+
+The `graph` block below should render as an interactive graph inside the article body.
+
+```graph
+{
+  "nodes": [
+    {
+      "id": "n1",
+      "position": { "x": 120, "y": 90 },
+      "data": {
+        "label": "Renderer",
+        "tags": ["core", "flow"],
+        "color": "blue",
+        "edgeColor": "p2",
+        "content": "<p>The markdown rendering entry point.</p>"
+      }
+    },
+    {
+      "id": "n2",
+      "position": { "x": 380, "y": 90 },
+      "data": {
+        "label": "Output",
+        "tags": ["result"],
+        "color": "green",
+        "edgeColor": "p4",
+        "content": "<p>Final page output shown to users.</p>"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "n1",
+      "target": "n2",
+      "label": "render"
+    }
+  ]
+}
+```
+
+## Quick Check
+
+1. Open `/notes` and confirm this card exists.
+2. Open the detail page and verify TOC, math, Mermaid, alert, and image zoom.
+3. Confirm the embedded `graph` block renders as an interactive graph component.
+0:{"buildId":"nqP0NixaOdd7XgZD6bTBw","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"max-w-3xl mx-auto px-6 py-12","children":[["$","$L2",null,{"href":"/notes","className":"text-sm text-[var(--color-gray)] hover:text-[var(--color-vermilion)] mb-8 inline-block","children":"← 返回笔记列表"}],["$","header",null,{"className":"mb-8","children":[["$","time",null,{"className":"text-sm text-[var(--color-gray)]","children":"2026-02-18"}],["$","h1",null,{"className":"text-3xl font-bold mt-2 mb-4","children":"Rendering Showcase Note"}],["$","div",null,{"className":"flex gap-2","children":[["$","$L2","showcase",{"href":"/notes?tag=showcase","className":"tag hover:bg-[var(--color-vermilion)] hover:text-white","children":"showcase"}],["$","$L2","markdown",{"href":"/notes?tag=markdown","className":"tag hover:bg-[var(--color-vermilion)] hover:text-white","children":"markdown"}],["$","$L2","graph",{"href":"/notes?tag=graph","className":"tag hover:bg-[var(--color-vermilion)] hover:text-white","children":"graph"}]]}]]}],["$","div",null,{"className":"divider-cloud mb-8"}],["$","$L3",null,{"content":"$4"}],["$","div",null,{"className":"divider-cloud my-12"}],["$","section",null,{"children":[["$","h2",null,{"className":"text-xl font-semibold mb-6","children":"评论与讨论"}],["$","$L5",null,{}]]}]]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/8a5bd6fe3abc8091.css","precedence":"next"}],"$L6","$L7","$L8","$L9","$La","$Lb","$Lc","$Ld","$Le","$Lf","$L10","$L11"],"$L12"]}],"loading":null,"isPartial":false}
+6:["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/20bff4eb9a0a6872.css","precedence":"next"}]
+7:["$","script","script-0",{"src":"/_next/static/chunks/6716c4894e74365d.js","async":true}]
+8:["$","script","script-1",{"src":"/_next/static/chunks/a4eab16b7dcd4e33.js","async":true}]
+9:["$","script","script-2",{"src":"/_next/static/chunks/373287f8a09b8324.js","async":true}]
+a:["$","script","script-3",{"src":"/_next/static/chunks/5eac621951969859.js","async":true}]
+b:["$","script","script-4",{"src":"/_next/static/chunks/6f4c5a75f38f686b.js","async":true}]
+c:["$","script","script-5",{"src":"/_next/static/chunks/9b682520383c8309.js","async":true}]
+d:["$","script","script-6",{"src":"/_next/static/chunks/de9c5219846f92bb.js","async":true}]
+e:["$","script","script-7",{"src":"/_next/static/chunks/5e8869f736c79316.js","async":true}]
+f:["$","script","script-8",{"src":"/_next/static/chunks/4dbee9077a2dd949.js","async":true}]
+10:["$","script","script-9",{"src":"/_next/static/chunks/89ebb4231102677a.js","async":true}]
+11:["$","script","script-10",{"src":"/_next/static/chunks/9fe832d77fc9593c.js","async":true}]
+12:["$","$L13",null,{"children":["$","$14",null,{"name":"Next.MetadataOutlet","children":"$@15"}]}]
+15:null
