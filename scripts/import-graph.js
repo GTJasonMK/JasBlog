@@ -1,79 +1,84 @@
-/**
- * GraphAndTable 图谱导入脚本
+﻿/**
+ * Import a graph JSON export into content/graphs as markdown.
  *
- * 用法：
- * 1. 将 GraphAndTable 导出的 JSON 文件放到 content/graphs/ 目录
- * 2. 运行 node scripts/import-graph.js <文件名> <图谱名称> <描述>
+ * Usage:
+ *   node scripts/import-graph.js <input-file> <graph-name> <description> [date]
  *
- * 示例：
- * node scripts/import-graph.js graph_1234567890.json "React学习路径" "React 核心概念知识图谱"
+ * Example:
+ *   node scripts/import-graph.js graph_export.json "React Learning" "Core React concepts" 2026-02-18
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const args = process.argv.slice(2);
 
 if (args.length < 3) {
-  console.log('用法: node scripts/import-graph.js <文件名> <图谱名称> <描述>');
-  console.log('示例: node scripts/import-graph.js graph_1234567890.json "React学习路径" "React 核心概念知识图谱"');
+  console.error("Usage: node scripts/import-graph.js <input-file> <graph-name> <description> [date]");
   process.exit(1);
 }
 
-const [filename, name, description] = args;
-const graphsDir = path.join(__dirname, '..', 'content', 'graphs');
-const inputPath = path.join(graphsDir, filename);
+const [inputFileArg, name, description, dateArg] = args;
+const graphsDir = path.join(__dirname, "..", "content", "graphs");
+const inputPath = path.isAbsolute(inputFileArg)
+  ? inputFileArg
+  : path.resolve(graphsDir, inputFileArg);
 
-// 检查文件是否存在
 if (!fs.existsSync(inputPath)) {
-  console.error(`错误: 文件不存在 - ${inputPath}`);
-  console.log(`请将 GraphAndTable 导出的 JSON 文件复制到 content/graphs/ 目录`);
+  console.error(`ERROR: Input file not found: ${inputPath}`);
   process.exit(1);
 }
 
-// 读取并解析 JSON
-let graphData;
+let parsed;
 try {
-  const content = fs.readFileSync(inputPath, 'utf-8');
-  graphData = JSON.parse(content);
-} catch (e) {
-  console.error(`错误: JSON 解析失败 - ${e.message}`);
+  const jsonText = fs.readFileSync(inputPath, "utf8").replace(/^\uFEFF/, "");
+  parsed = JSON.parse(jsonText);
+} catch (error) {
+  console.error(`ERROR: Failed to parse JSON: ${error.message}`);
   process.exit(1);
 }
 
-// 验证格式
-if (!graphData.nodes || !graphData.edges) {
-  console.error('错误: 无效的图谱格式，缺少 nodes 或 edges 字段');
+if (!parsed || !Array.isArray(parsed.nodes) || !Array.isArray(parsed.edges)) {
+  console.error("ERROR: Invalid graph JSON. Expected top-level 'nodes' and 'edges' arrays.");
   process.exit(1);
 }
 
-// 添加元数据
-const newGraphData = {
-  name,
-  description,
-  nodes: graphData.nodes,
-  edges: graphData.edges,
+const graphData = {
+  nodes: parsed.nodes,
+  edges: parsed.edges,
 };
 
-// 生成新文件名 (slug 格式)
-const slug = name
+const slugFromName = name
   .toLowerCase()
-  .replace(/[^\w\u4e00-\u9fa5]+/g, '-')
-  .replace(/^-|-$/g, '');
-const outputPath = path.join(graphsDir, `${slug}.json`);
+  .replace(/[^\w\u4e00-\u9fa5]+/g, "-")
+  .replace(/^-+|-+$/g, "");
+const slug = slugFromName || `graph-${Date.now()}`;
+const outputPath = path.join(graphsDir, `${slug}.md`);
+const date = dateArg || new Date().toISOString().slice(0, 10);
 
-// 写入文件
-fs.writeFileSync(outputPath, JSON.stringify(newGraphData, null, 2), 'utf-8');
+const markdown = [
+  "---",
+  `name: ${JSON.stringify(name)}`,
+  `description: ${JSON.stringify(description)}`,
+  `date: ${date}`,
+  "---",
+  "",
+  "```graph",
+  JSON.stringify(graphData, null, 2),
+  "```",
+  "",
+].join("\n");
 
-console.log(`成功导入图谱!`);
-console.log(`- 文件: ${outputPath}`);
-console.log(`- 名称: ${name}`);
-console.log(`- 描述: ${description}`);
-console.log(`- 节点数: ${graphData.nodes.length}`);
-console.log(`- 连线数: ${graphData.edges.length}`);
-console.log(`\n访问: /graphs/${slug}`);
+fs.writeFileSync(outputPath, markdown, "utf8");
 
-// 如果输入文件和输出文件不同，提示删除原文件
-if (inputPath !== outputPath) {
-  console.log(`\n提示: 可以删除原文件 ${filename}`);
+console.log("Graph import completed.");
+console.log(`- Input: ${inputPath}`);
+console.log(`- Output: ${outputPath}`);
+console.log(`- Slug: ${slug}`);
+console.log(`- Nodes: ${graphData.nodes.length}`);
+console.log(`- Edges: ${graphData.edges.length}`);
+console.log(`- URL: /graphs/${slug}`);
+
+if (path.resolve(inputPath) !== path.resolve(outputPath)) {
+  console.log(`Tip: You can remove the original file if it is no longer needed: ${inputPath}`);
 }

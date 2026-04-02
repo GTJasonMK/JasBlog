@@ -1,12 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-
-interface TocItem {
-  id: string;
-  text: string;
-  level: number;
-}
+import { extractHeadingsFromContent, type HeadingItem } from "@/lib/heading-content";
 
 interface TableOfContentsProps {
   content: string;
@@ -14,35 +9,18 @@ interface TableOfContentsProps {
 
 export default function TableOfContents({ content }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
-  const [items, setItems] = useState<TocItem[]>([]);
+  const [items, setItems] = useState<HeadingItem[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const activeItemRef = useRef<HTMLAnchorElement>(null);
 
-  // 从 Markdown 内容中提取标题
   useEffect(() => {
-    const headingRegex = /^(#{2,4})\s+(.+)$/gm;
-    const headings: TocItem[] = [];
-    let match;
+    setItems(extractHeadingsFromContent(content));
 
-    while ((match = headingRegex.exec(content)) !== null) {
-      const level = match[1].length;
-      const text = match[2];
-      const id = text
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w\u4e00-\u9fa5-]/g, "");
-      headings.push({ id, text, level });
-    }
-
-    setItems(headings);
-
-    // 延迟显示，添加入场动画
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, [content]);
 
-  // 当 activeId 改变时，滚动目录使当前项可见
   useEffect(() => {
     if (activeId && activeItemRef.current && navRef.current) {
       const nav = navRef.current;
@@ -51,21 +29,17 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       const navRect = nav.getBoundingClientRect();
       const itemRect = activeItem.getBoundingClientRect();
 
-      // 计算相对位置
       const itemTop = itemRect.top - navRect.top + nav.scrollTop;
       const itemBottom = itemTop + itemRect.height;
       const navVisibleTop = nav.scrollTop;
       const navVisibleBottom = navVisibleTop + nav.clientHeight;
 
-      // 如果当前项不在可视区域内，滚动到合适位置
       if (itemTop < navVisibleTop + 40) {
-        // 项目在上方，滚动使其显示在顶部附近
         nav.scrollTo({
           top: Math.max(0, itemTop - 60),
           behavior: "smooth",
         });
       } else if (itemBottom > navVisibleBottom - 40) {
-        // 项目在下方，滚动使其显示在底部附近
         nav.scrollTo({
           top: itemBottom - nav.clientHeight + 60,
           behavior: "smooth",
@@ -74,7 +48,6 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
     }
   }, [activeId]);
 
-  // 监听滚动，高亮当前标题
   useEffect(() => {
     if (items.length === 0) return;
 
@@ -86,9 +59,8 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         }))
         .filter((item) => item.element !== null);
 
-      // 找到当前可视区域内最靠近顶部的标题
       const scrollTop = window.scrollY;
-      const offset = 100; // 偏移量，提前切换
+      const offset = 100;
 
       let currentId = "";
       for (const { id, element } of headingElements) {
@@ -97,7 +69,6 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         }
       }
 
-      // 如果滚动到顶部，显示第一个标题
       if (scrollTop < 100 && headingElements.length > 0) {
         currentId = headingElements[0].id;
       }
@@ -107,17 +78,15 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       }
     };
 
-    // 初始化时执行一次
     handleScroll();
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [items, activeId]);
 
-  // 点击跳转
   const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-      e.preventDefault();
+    (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+      event.preventDefault();
       const element = document.getElementById(id);
       if (element) {
         const offsetTop = element.offsetTop - 80;
@@ -134,7 +103,8 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   if (items.length === 0) return null;
 
   const activeIndex = items.findIndex((item) => item.id === activeId);
-  const progress = items.length > 1 ? (activeIndex / (items.length - 1)) * 100 : 0;
+  const progressIndex = activeIndex >= 0 ? activeIndex : 0;
+  const progress = items.length > 1 ? (progressIndex / (items.length - 1)) * 100 : 0;
 
   return (
     <nav
@@ -147,15 +117,13 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         scrollbarColor: "var(--color-paper-darker) transparent",
       }}
     >
-      {/* 标题和进度 */}
       <div className="flex items-center justify-between mb-4">
-        <h4 className="text-sm font-medium text-[var(--color-ink)]">目录</h4>
+        <h4 className="text-sm font-medium text-[var(--color-ink)]">Table of contents</h4>
         <span className="text-xs text-[var(--color-gray)]">
-          {activeIndex + 1}/{items.length}
+          {activeIndex >= 0 ? activeIndex + 1 : 0}/{items.length}
         </span>
       </div>
 
-      {/* 进度条 */}
       <div className="h-0.5 bg-[var(--color-paper-darker)] rounded-full mb-4 overflow-hidden">
         <div
           className="h-full bg-[var(--color-vermilion)] transition-all duration-300 ease-out"
@@ -163,10 +131,11 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         />
       </div>
 
-      {/* 目录列表 */}
       <ul className="space-y-1 text-sm relative">
-        {/* 左侧进度线 */}
-        <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--color-paper-darker)] rounded-full" />
+        <li
+          aria-hidden="true"
+          className="absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--color-paper-darker)] rounded-full"
+        />
 
         {items.map((item, index) => {
           const isActive = activeId === item.id;
@@ -178,7 +147,6 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
               className="relative"
               style={{ paddingLeft: `${(item.level - 2) * 12}px` }}
             >
-              {/* 进度指示点 */}
               <div
                 className={`absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-all duration-300 ${
                   isActive
@@ -200,7 +168,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
                     ? "text-[var(--color-ink-light)]"
                     : "text-[var(--color-gray)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-dark)]"
                 }`}
-                onClick={(e) => handleClick(e, item.id)}
+                onClick={(event) => handleClick(event, item.id)}
               >
                 <span
                   className={`block truncate transition-transform duration-200 ${
@@ -215,14 +183,13 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         })}
       </ul>
 
-      {/* 快速跳转按钮 */}
       <div className="flex gap-2 mt-4 pt-4 border-t border-[var(--color-paper-darker)]">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="flex-1 text-xs py-1.5 text-[var(--color-gray)] hover:text-[var(--color-vermilion)] hover:bg-[var(--color-paper-dark)] rounded transition-colors"
-          title="回到顶部"
+          title="Scroll to top"
         >
-          顶部
+          Top
         </button>
         <button
           onClick={() =>
@@ -232,9 +199,9 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
             })
           }
           className="flex-1 text-xs py-1.5 text-[var(--color-gray)] hover:text-[var(--color-vermilion)] hover:bg-[var(--color-paper-dark)] rounded transition-colors"
-          title="跳到底部"
+          title="Scroll to bottom"
         >
-          底部
+          Bottom
         </button>
       </div>
     </nav>

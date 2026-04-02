@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback, type ReactNode } from "react";
+import Image from "next/image";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -8,16 +9,9 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import MermaidDiagram from "./MermaidDiagram";
+import { createHeadingIdResolver } from "@/lib/heading-content";
 
-// 为标题生成 ID
-function generateId(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^\w\u4e00-\u9fa5-]/g, "");
-}
-
-// 从 children 中提取纯文本
+// 浠?children 涓彁鍙栫函鏂囨湰
 function extractText(children: ReactNode): string {
   if (typeof children === "string") return children;
   if (typeof children === "number") return String(children);
@@ -29,7 +23,7 @@ function extractText(children: ReactNode): string {
   return "";
 }
 
-// 代码块复制按钮组件
+// 浠ｇ爜鍧楀鍒舵寜閽粍浠?
 function CopyButton({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -55,18 +49,49 @@ function CopyButton({ code }: { code: string }) {
   );
 }
 
-// 图片缩放组件
-function ImageZoom({ src, alt }: { src?: string | undefined; alt?: string }) {
+// 鍥剧墖缂╂斁缁勪欢
+function parseDimension(value?: string | number): number | undefined {
+  if (typeof value === "number" && Number.isFinite(value) && value > 0) {
+    return Math.floor(value);
+  }
+
+  if (typeof value === "string") {
+    const parsed = Number.parseInt(value, 10);
+    if (Number.isFinite(parsed) && parsed > 0) {
+      return parsed;
+    }
+  }
+
+  return undefined;
+}
+
+// 鍥剧墖缂╂斁缁勪欢
+function ImageZoom({
+  src,
+  alt,
+  width,
+  height,
+}: {
+  src?: string | undefined;
+  alt?: string;
+  width?: string | number;
+  height?: string | number;
+}) {
   const [zoomed, setZoomed] = useState(false);
+  const resolvedWidth = parseDimension(width) ?? 1200;
+  const resolvedHeight = parseDimension(height) ?? 675;
 
   if (!src || typeof src !== "string") return null;
 
   return (
     <>
       <span className="block my-6">
-        <img
+        <Image
           src={src}
           alt={alt || ""}
+          width={resolvedWidth}
+          height={resolvedHeight}
+          unoptimized
           className="rounded-lg max-w-full h-auto mx-auto cursor-zoom-in"
           loading="lazy"
           onClick={() => setZoomed(true)}
@@ -77,24 +102,29 @@ function ImageZoom({ src, alt }: { src?: string | undefined; alt?: string }) {
           </span>
         )}
       </span>
-      {/* 图片缩放蒙层 */}
+      {/* 鍥剧墖缂╂斁钂欏眰 */}
       {zoomed && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 cursor-zoom-out"
           onClick={() => setZoomed(false)}
         >
-          <img
-            src={src}
-            alt={alt || ""}
-            className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
-          />
+          <div className="relative w-[90vw] h-[90vh]">
+            <Image
+              src={src}
+              alt={alt || ""}
+              fill
+              unoptimized
+              className="object-contain rounded-lg"
+              sizes="90vw"
+            />
+          </div>
         </div>
       )}
     </>
   );
 }
 
-// 解析 blockquote 中的 Alert 标记
+// 瑙ｆ瀽 blockquote 涓殑 Alert 鏍囪
 function parseAlertFromChildren(children: ReactNode): {
   type: string;
   content: ReactNode;
@@ -103,22 +133,22 @@ function parseAlertFromChildren(children: ReactNode): {
 
   const childArray = Array.isArray(children) ? children : [children];
 
-  // 遍历所有子元素，查找 Alert 标记
+  // 閬嶅巻鎵€鏈夊瓙鍏冪礌锛屾煡鎵?Alert 鏍囪
   for (let i = 0; i < childArray.length; i++) {
     const child = childArray[i];
     if (!child) continue;
 
-    // 提取文本内容
+    // 鎻愬彇鏂囨湰鍐呭
     const text = extractText(child);
 
-    // 检查是否包含 ALERTBOX_TYPE_ALERTBOX 标记
+    // 妫€鏌ユ槸鍚﹀寘鍚?ALERTBOX_TYPE_ALERTBOX 鏍囪
     const alertMatch = text.match(/^ALERTBOX(NOTE|TIP|IMPORTANT|WARNING|CAUTION)ALERTBOX\s*/i);
     if (alertMatch) {
       const alertType = alertMatch[1].toLowerCase();
 
-      // 获取标记之后的内容（如果有的话）
+      // 鑾峰彇鏍囪涔嬪悗鐨勫唴瀹癸紙濡傛灉鏈夌殑璇濓級
       const restText = text.slice(alertMatch[0].length).trim();
-      // 获取剩余的子元素
+      // 鑾峰彇鍓╀綑鐨勫瓙鍏冪礌
       const restChildren = childArray.slice(i + 1);
 
       return {
@@ -136,7 +166,7 @@ function parseAlertFromChildren(children: ReactNode): {
   return null;
 }
 
-// GitHub 风格 alert 类型配置
+// GitHub 椋庢牸 alert 绫诲瀷閰嶇疆
 const ALERT_CONFIG: Record<
   string,
   { label: string; className: string; icon: string }
@@ -168,31 +198,37 @@ const ALERT_CONFIG: Record<
   },
 };
 
-// 标题组件（带锚点链接）
+// 鏍囬缁勪欢锛堝甫閿氱偣閾炬帴锛?
 function Heading({
+  headingId,
   level,
   children,
   ...props
 }: {
+  headingId: string;
   level: 1 | 2 | 3 | 4;
   children?: ReactNode;
   [key: string]: unknown;
 }) {
   const text = extractText(children);
-  const id = generateId(text);
   const Tag = `h${level}` as const;
 
   return (
-    <Tag id={id} className="group/heading relative" {...props}>
+    <Tag id={headingId} className="group/heading relative" {...props}>
       {children}
       <a
-        href={`#${id}`}
+        href={`#${headingId}`}
         className="heading-anchor"
         aria-label={`Link to ${text}`}
         onClick={(e) => {
           e.preventDefault();
-          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-          history.replaceState(null, "", `#${id}`);
+          const currentHeading = e.currentTarget.parentElement;
+          if (currentHeading instanceof HTMLElement) {
+            currentHeading.scrollIntoView({ behavior: "smooth" });
+          } else {
+            document.getElementById(headingId)?.scrollIntoView({ behavior: "smooth" });
+          }
+          history.replaceState(null, "", `#${headingId}`);
         }}
       >
         #
@@ -201,9 +237,9 @@ function Heading({
   );
 }
 
-// 代码块组件（支持 Mermaid）
+// 浠ｇ爜鍧楃粍浠讹紙鏀寔 Mermaid锛?
 function CodeBlock({ children }: { children?: ReactNode }) {
-  // 从 children 中提取代码和语言
+  // 浠?children 涓彁鍙栦唬鐮佸拰璇█
   let code = "";
   let language = "";
   if (children && typeof children === "object" && "props" in children) {
@@ -216,7 +252,7 @@ function CodeBlock({ children }: { children?: ReactNode }) {
     language = langMatch ? langMatch[1] : "";
   }
 
-  // Mermaid 图表
+  // Mermaid 鍥捐〃
   if (language === "mermaid") {
     return (
       <div className="my-6">
@@ -225,7 +261,7 @@ function CodeBlock({ children }: { children?: ReactNode }) {
     );
   }
 
-  // 普通代码块
+  // 鏅€氫唬鐮佸潡
   return (
     <div className="code-block-wrapper">
       {language && <span className="code-block-lang">{language}</span>}
@@ -240,33 +276,35 @@ interface MarkdownRendererProps {
 }
 
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
+  const resolveHeadingId = createHeadingIdResolver();
+
   return (
     <Markdown
       remarkPlugins={[remarkGfm, remarkMath]}
       rehypePlugins={[rehypeHighlight, rehypeKatex]}
       components={{
-        // 标题
+        // 鏍囬
         h1: ({ children, ...props }) => (
-          <Heading level={1} {...props}>
+          <Heading headingId={resolveHeadingId(extractText(children))} level={1} {...props}>
             {children}
           </Heading>
         ),
         h2: ({ children, ...props }) => (
-          <Heading level={2} {...props}>
+          <Heading headingId={resolveHeadingId(extractText(children))} level={2} {...props}>
             {children}
           </Heading>
         ),
         h3: ({ children, ...props }) => (
-          <Heading level={3} {...props}>
+          <Heading headingId={resolveHeadingId(extractText(children))} level={3} {...props}>
             {children}
           </Heading>
         ),
         h4: ({ children, ...props }) => (
-          <Heading level={4} {...props}>
+          <Heading headingId={resolveHeadingId(extractText(children))} level={4} {...props}>
             {children}
           </Heading>
         ),
-        // 链接
+        // 閾炬帴
         a: ({ href, children, ...props }) => {
           const isExternal = href?.startsWith("http");
           return (
@@ -280,16 +318,16 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             </a>
           );
         },
-        // 图片（可缩放）
-        img: ({ src, alt }) => {
+        // 鍥剧墖锛堝彲缂╂斁锛?
+        img: ({ src, alt, width, height }) => {
           const imgSrc = typeof src === "string" ? src : undefined;
-          return <ImageZoom src={imgSrc} alt={alt} />;
+          return <ImageZoom src={imgSrc} alt={alt} width={width} height={height} />;
         },
-        // 代码块（带复制按钮、语言标签、Mermaid 支持）
+        // 浠ｇ爜鍧楋紙甯﹀鍒舵寜閽€佽瑷€鏍囩銆丮ermaid 鏀寔锛?
         pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
-        // 引用块（支持 GitHub alert）
+        // 寮曠敤鍧楋紙鏀寔 GitHub alert锛?
         blockquote: ({ children, ...props }) => {
-          // 解析预处理后的 Alert 标记
+          // 瑙ｆ瀽棰勫鐞嗗悗鐨?Alert 鏍囪
           const alert = parseAlertFromChildren(children);
           if (alert && ALERT_CONFIG[alert.type]) {
             const { label, className, icon } = ALERT_CONFIG[alert.type];
@@ -312,7 +350,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           }
           return <blockquote {...props}>{children}</blockquote>;
         },
-        // 表格
+        // 琛ㄦ牸
         table: ({ children, ...props }) => (
           <div className="overflow-x-auto my-6">
             <table {...props}>{children}</table>
@@ -324,3 +362,4 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
     </Markdown>
   );
 }
+

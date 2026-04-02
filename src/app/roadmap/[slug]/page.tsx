@@ -1,7 +1,13 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getRoadmapBySlug, getAllRoadmapSlugs, type RoadmapItem, type RoadmapStatus } from "@/lib/roadmap";
+import {
+  getRoadmapBySlug,
+  getAllRoadmapSlugs,
+  type RoadmapItem,
+  type RoadmapStatus,
+} from "@/lib/roadmap";
+import { preprocessAlerts } from "@/lib/preprocess-alerts";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 interface RoadmapPageProps {
@@ -10,7 +16,6 @@ interface RoadmapPageProps {
 
 const EMPTY_STATIC_PARAM = "__empty_static_params__";
 
-// 禁止动态路由，只生成 generateStaticParams 返回的页面
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -30,13 +35,13 @@ export async function generateMetadata({ params }: RoadmapPageProps): Promise<Me
   if (!roadmap) {
     return { title: "规划未找到" };
   }
+
   return {
     title: roadmap.name,
     description: roadmap.description,
   };
 }
 
-// 状态配置
 const statusConfig = {
   todo: {
     label: "待开始",
@@ -67,7 +72,6 @@ const roadmapStatusConfig: Record<RoadmapStatus, { label: string; className: str
   },
 };
 
-// 优先级配置
 const priorityConfig = {
   high: { className: "bg-[var(--color-vermilion)]", label: "高" },
   medium: { className: "bg-[var(--color-gold)]", label: "中" },
@@ -76,13 +80,19 @@ const priorityConfig = {
 
 function StatusBadge({ status }: { status: RoadmapItem["status"] }) {
   const { label, className } = statusConfig[status];
-  return (
-    <span className={`text-xs px-2 py-1 rounded ${className}`}>{label}</span>
-  );
+  return <span className={`text-xs px-2 py-1 rounded ${className}`}>{label}</span>;
 }
 
 function PriorityIndicator({ priority }: { priority: RoadmapItem["priority"] }) {
-  return <span className={`w-2 h-2 rounded-full ${priorityConfig[priority].className}`} />;
+  const priorityInfo = priorityConfig[priority];
+
+  return (
+    <span
+      className={`w-2 h-2 rounded-full ${priorityInfo.className}`}
+      title={`优先级：${priorityInfo.label}`}
+      aria-label={`优先级：${priorityInfo.label}`}
+    />
+  );
 }
 
 function ItemCard({ item }: { item: RoadmapItem }) {
@@ -106,9 +116,7 @@ function ItemCard({ item }: { item: RoadmapItem }) {
       {hasDetailContent && (
         <div className="px-5 pb-5 pt-0 ml-5">
           {item.description && (
-            <p className="text-sm text-[var(--color-gray)]">
-              {item.description}
-            </p>
+            <p className="text-sm text-[var(--color-gray)]">{item.description}</p>
           )}
           {item.details && (
             <div className="text-sm text-[var(--color-ink)] whitespace-pre-line mt-2">
@@ -117,9 +125,7 @@ function ItemCard({ item }: { item: RoadmapItem }) {
           )}
           {(item.deadline || item.completedAt) && (
             <div className="flex flex-wrap gap-4 text-xs text-[var(--color-gray)] mt-2">
-              {item.deadline && (
-                <span>截止: {item.deadline}</span>
-              )}
+              {item.deadline && <span>截止: {item.deadline}</span>}
               {item.completedAt && (
                 <span className="text-green-600">完成: {item.completedAt}</span>
               )}
@@ -148,14 +154,12 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
   const todo = roadmap.items.filter((item) => item.status === "todo");
   const done = roadmap.items.filter((item) => item.status === "done");
 
-  // 计算进度
   const total = roadmap.items.length;
   const doneCount = done.length;
   const progressPercent = total > 0 ? Math.round((doneCount / total) * 100) : 0;
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
-      {/* 返回链接 */}
       <Link
         href="/roadmap"
         className="inline-flex items-center gap-1 text-[var(--color-gray)] hover:text-[var(--color-vermilion)] mb-6 transition-colors"
@@ -172,7 +176,6 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
         返回规划列表
       </Link>
 
-      {/* 标题区域 */}
       <header className="mb-8">
         <div className="flex items-center gap-3 mb-2">
           <h1 className="text-2xl font-bold">{roadmap.name}</h1>
@@ -182,7 +185,6 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
         </div>
         <p className="text-[var(--color-gray)] mb-4">{roadmap.description}</p>
 
-        {/* 进度条 */}
         {total > 0 && (
           <div className="bg-[var(--color-paper-dark)] rounded-lg p-4">
             <div className="flex justify-between text-sm mb-2">
@@ -199,10 +201,9 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
         )}
       </header>
 
-      {/* 正文内容 */}
       {roadmap.content.trim() && (
         <div className="prose-chinese mb-8">
-          <MarkdownRenderer content={roadmap.content} />
+          <MarkdownRenderer content={preprocessAlerts(roadmap.content)} />
         </div>
       )}
 
@@ -210,7 +211,6 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
         <div className="divider-cloud my-8" />
       )}
 
-      {/* 任务列表 */}
       {roadmap.items.length > 0 && (
         <section>
           <h2 className="text-xl font-semibold mb-8 flex items-center gap-2">
@@ -218,7 +218,6 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
             任务列表 ({roadmap.items.length})
           </h2>
 
-          {/* 进行中 */}
           {inProgress.length > 0 && (
             <section className="mb-10">
               <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
@@ -233,7 +232,6 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
             </section>
           )}
 
-          {/* 待开始 */}
           {todo.length > 0 && (
             <section className="mb-10">
               <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
@@ -248,7 +246,6 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
             </section>
           )}
 
-          {/* 已完成 */}
           {done.length > 0 && (
             <section>
               <h3 className="text-lg font-medium mb-4 flex items-center gap-2">

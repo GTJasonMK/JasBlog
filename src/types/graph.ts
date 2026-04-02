@@ -13,6 +13,17 @@ export const nodeColorConfig: Record<NodeColor, { bg: string; border: string; te
   pink: { bg: "#FDF2F8", border: "#F9A8D4", text: "#9D174D" },
 };
 
+const nodeColorSet = new Set<NodeColor>(
+  Object.keys(nodeColorConfig) as NodeColor[]
+);
+
+export function getNodeColor(color: unknown): NodeColor {
+  if (typeof color === "string" && nodeColorSet.has(color as NodeColor)) {
+    return color as NodeColor;
+  }
+  return "default";
+}
+
 // 连线重要程度等级（与 GraphAndTable 一致）
 export const EDGE_IMPORTANCE_RANKS = [
   "p0", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9",
@@ -107,6 +118,7 @@ export interface GraphMeta {
   date: string;
   nodeCount: number;
   edgeCount: number;
+  error?: string;
 }
 
 // 完整的图谱（包含内容）
@@ -117,4 +129,5 @@ export interface Graph {
   date: string;
   content: string; // 正文内容（不含 graph 代码块）
   graphData: GraphData; // 图谱数据
+  error?: string;
 }

@@ -2,9 +2,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+import { parseGraphDocument } from "./graph-document";
 import {
   type Graph,
-  type GraphData,
   type GraphMeta,
 } from "@/types/graph";
 
@@ -20,60 +20,6 @@ function formatDate(date: unknown): string {
     return date.toISOString().split("T")[0];
   }
   return String(date);
-}
-
-// 验证图数据格式
-function isValidGraphData(data: unknown): data is GraphData {
-  if (!data || typeof data !== "object") return false;
-  const obj = data as Record<string, unknown>;
-  return (
-    Array.isArray(obj.nodes) &&
-    Array.isArray(obj.edges) &&
-    obj.nodes.every(
-      (node: unknown) =>
-        typeof node === "object" &&
-        node !== null &&
-        "id" in node &&
-        "position" in node &&
-        "data" in node
-    )
-  );
-}
-
-/**
- * 从 Markdown 内容中提取 graph 代码块
- * 返回 { graphData, remainingContent }
- * 如果没有找到 graph 代码块，抛出错误
- */
-function extractGraphFromContent(content: string, slug: string): {
-  graphData: GraphData;
-  remainingContent: string;
-} {
-  // 匹配 ```graph ... ``` 代码块
-  const graphBlockRegex = /```graph\s*\n([\s\S]*?)\n```/;
-  const match = content.match(graphBlockRegex);
-
-  if (!match) {
-    throw new Error(`图谱 "${slug}" 缺少 \`\`\`graph 代码块，知识图谱必须包含图谱数据`);
-  }
-
-  const jsonStr = match[1].trim();
-  let graphData: GraphData;
-
-  try {
-    graphData = JSON.parse(jsonStr);
-  } catch (e) {
-    throw new Error(`图谱 "${slug}" 的 graph 代码块 JSON 格式错误: ${e}`);
-  }
-
-  if (!isValidGraphData(graphData)) {
-    throw new Error(`图谱 "${slug}" 的 graph 数据格式无效，需要包含 nodes 和 edges 数组`);
-  }
-
-  // 移除 graph 代码块，保留其他内容
-  const remainingContent = content.replace(graphBlockRegex, "").trim();
-
-  return { graphData, remainingContent };
 }
 
 // 获取所有图谱列表
@@ -92,22 +38,30 @@ export function getAllGraphs(): GraphMeta[] {
 
       try {
         const { data, content } = matter(fileContents);
-        const { graphData } = extractGraphFromContent(content, slug);
+        const parsed = parseGraphDocument(slug, content);
 
         return {
           slug,
           name: data.name || data.title || slug,
           description: data.description || "",
           date: formatDate(data.date),
-          nodeCount: graphData.nodes.length,
-          edgeCount: graphData.edges.length,
+          nodeCount: parsed.graphData.nodes.length,
+          edgeCount: parsed.graphData.edges.length,
+          error: parsed.error || undefined,
         };
       } catch (e) {
         console.error(`解析图谱 ${slug} 失败:`, e);
-        return null;
+        return {
+          slug,
+          name: slug,
+          description: "",
+          date: "",
+          nodeCount: 0,
+          edgeCount: 0,
+          error: `图谱文档解析失败：${String(e)}`,
+        };
       }
     })
-    .filter((graph): graph is GraphMeta => graph !== null);
 
   return graphs.sort((a, b) => (a.date > b.date ? -1 : 1));
 }
@@ -120,22 +74,32 @@ export function getGraphBySlug(slug: string): Graph | null {
     return null;
   }
 
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+
   try {
-    const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
-    const { graphData, remainingContent } = extractGraphFromContent(content, slug);
+    const parsed = parseGraphDocument(slug, content);
 
     return {
       slug,
       name: data.name || data.title || slug,
       description: data.description || "",
       date: formatDate(data.date),
-      content: remainingContent,
-      graphData,
+      content: parsed.remainingContent,
+      graphData: parsed.graphData,
+      error: parsed.error || undefined,
     };
   } catch (e) {
     console.error(`获取图谱 ${slug} 失败:`, e);
-    return null;
+    return {
+      slug,
+      name: slug,
+      description: "",
+      date: "",
+      content: fileContents.trim(),
+      graphData: { nodes: [], edges: [] },
+      error: `图谱文档解析失败：${String(e)}`,
+    };
   }
 }
 

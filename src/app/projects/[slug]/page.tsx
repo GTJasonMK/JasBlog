@@ -1,25 +1,19 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getAllProjectSlugs } from "@/lib/projects";
+import { preprocessAlerts } from "@/lib/preprocess-alerts";
 import TechStack from "@/components/TechStack";
 import ProjectContent from "@/components/ProjectContent";
 
-// 预处理 Alert 语法
-function preprocessAlerts(content: string): string {
-  return content.replace(
-    /^(>\s*)\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\r?\n?/gm,
-    "$1ALERTBOX$2ALERTBOX\n"
-  );
-}
-
+// 棰勫鐞?Alert 璇硶
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
 
 const EMPTY_STATIC_PARAM = "__empty_static_params__";
 
-// 禁止动态路由，只生成 generateStaticParams 返回的页面
+// 绂佹鍔ㄦ€佽矾鐢憋紝鍙敓鎴?generateStaticParams 杩斿洖鐨勯〉闈?
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -31,11 +25,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
   if (slug === EMPTY_STATIC_PARAM) {
-    return { title: "项目未找到" };
+    return { title: "Project not found" };
   }
   const project = getProjectBySlug(slug);
   if (!project) {
-    return { title: "项目未找到" };
+    return { title: "Project not found" };
   }
   return {
     title: project.name,
@@ -58,7 +52,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
-      {/* 返回链接 */}
+      {/* 杩斿洖閾炬帴 */}
       <Link
         href="/projects"
         className="inline-flex items-center gap-1 text-[var(--color-gray)] hover:text-[var(--color-vermilion)] mb-6 transition-colors"
@@ -72,15 +66,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             strokeLinejoin="round"
           />
         </svg>
-        返回项目列表
+        杩斿洖椤圭洰鍒楄〃
       </Link>
 
-      {/* 项目头部 */}
+      {/* 椤圭洰澶撮儴 */}
       <header className="mb-8">
         <h1 className="text-3xl font-bold mb-4">{project.name}</h1>
         <p className="text-lg text-[var(--color-gray)] mb-4">{project.description}</p>
 
-        {/* 链接按钮 */}
+        {/* 閾炬帴鎸夐挳 */}
         <div className="flex flex-wrap gap-3 mb-6">
           <a
             href={project.github}
@@ -105,27 +99,30 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <polyline points="15 3 21 3 21 9" />
                 <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
-              在线演示
+              鍦ㄧ嚎婕旂ず
             </a>
           )}
         </div>
 
-        {/* 标签 */}
+        {/* 鏍囩 */}
         <div className="flex flex-wrap gap-2 mb-6">
           {project.tags.map((tag) => (
             <span key={tag} className="tag">{tag}</span>
           ))}
         </div>
 
-        {/* 技术栈 */}
+        {/* 鎶€鏈爤 */}
         <TechStack items={project.techStack} />
       </header>
 
-      {/* 分割线 */}
+      {/* 鍒嗗壊绾?*/}
       <div className="divider-cloud my-8" />
 
-      {/* 项目内容 */}
+      {/* 椤圭洰鍐呭 */}
       <ProjectContent content={preprocessAlerts(project.content)} />
     </div>
   );
 }
+
+
+

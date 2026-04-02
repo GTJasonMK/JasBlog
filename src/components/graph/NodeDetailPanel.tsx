@@ -1,7 +1,14 @@
-"use client";
+﻿"use client";
 
+import { useMemo } from "react";
 import { type Node } from "@xyflow/react";
-import { type KnowledgeNodeData, nodeColorConfig, edgeColorConfig } from "@/types/graph";
+import { sanitizeHtml } from "@/lib/sanitize-html";
+import {
+  type KnowledgeNodeData,
+  nodeColorConfig,
+  edgeColorConfig,
+  getNodeColor,
+} from "@/types/graph";
 
 interface NodeDetailPanelProps {
   node: Node;
@@ -10,28 +17,26 @@ interface NodeDetailPanelProps {
 
 export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps) {
   const data = node.data as KnowledgeNodeData;
-  const color = data.color || "default";
+  const color = getNodeColor(data.color);
   const colorConfig = nodeColorConfig[color];
   const edgeColor = data.edgeColor;
   const edgeColorInfo = edgeColor ? edgeColorConfig[edgeColor] : null;
+  const rawContent = typeof data.content === "string" ? data.content : "";
+  const sanitizedContent = useMemo(() => sanitizeHtml(rawContent), [rawContent]);
 
   return (
     <div className="h-full flex flex-col bg-white border-l border-[var(--color-border)]">
-      {/* 标题栏 */}
       <div
         className="px-4 py-4 flex items-center justify-between shrink-0"
         style={{ backgroundColor: colorConfig.bg }}
       >
-        <h3
-          className="font-semibold text-lg"
-          style={{ color: colorConfig.text }}
-        >
+        <h3 className="font-semibold text-lg" style={{ color: colorConfig.text }}>
           {data.label}
         </h3>
         <button
           onClick={onClose}
           className="p-1.5 rounded-lg hover:bg-black/10 transition-colors"
-          title="关闭"
+          title="Close"
         >
           <svg
             width="18"
@@ -46,13 +51,11 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
         </button>
       </div>
 
-      {/* 内容区域 */}
       <div className="flex-1 overflow-y-auto p-4 space-y-5">
-        {/* 重要程度 */}
         {edgeColorInfo && (
           <div>
             <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
-              重要程度
+              Priority
             </h4>
             <div className="flex items-center gap-2">
               <span
@@ -67,11 +70,10 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
           </div>
         )}
 
-        {/* 标签 */}
         {data.tags && data.tags.length > 0 && (
           <div>
             <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
-              标签
+              Tags
             </h4>
             <div className="flex flex-wrap gap-2">
               {data.tags.map((tag, index) => (
@@ -90,34 +92,32 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
           </div>
         )}
 
-        {/* 内容 - TipTap HTML 渲染 */}
-        {data.content && (
+        {sanitizedContent && (
           <div>
             <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
-              内容
+              Content
             </h4>
             <div
               className="tiptap-content text-sm text-[var(--color-ink)] leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: data.content }}
+              dangerouslySetInnerHTML={{ __html: sanitizedContent }}
             />
           </div>
         )}
 
-        {/* 时间信息 */}
         {(data.createdAt || data.updatedAt) && (
           <div className="pt-4 border-t border-[var(--color-border)]">
             <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
-              时间
+              Time
             </h4>
             <div className="text-sm text-[var(--color-gray)] space-y-1">
               {data.createdAt && (
                 <p>
-                  创建：{new Date(data.createdAt).toLocaleDateString("zh-CN")}
+                  Created: {new Date(data.createdAt).toLocaleDateString("zh-CN")}
                 </p>
               )}
               {data.updatedAt && (
                 <p>
-                  更新：{new Date(data.updatedAt).toLocaleDateString("zh-CN")}
+                  Updated: {new Date(data.updatedAt).toLocaleDateString("zh-CN")}
                 </p>
               )}
             </div>

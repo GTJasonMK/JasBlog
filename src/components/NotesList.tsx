@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ArticleCard from "./ArticleCard";
 
 interface Post {
@@ -18,9 +18,34 @@ interface NotesListProps {
 }
 
 export default function NotesList({ posts, allTags }: NotesListProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const initialTag = searchParams.get("tag") || "";
-  const [selectedTag, setSelectedTag] = useState(initialTag);
+  const [selectedTag, setSelectedTag] = useState(searchParams.get("tag") || "");
+
+  useEffect(() => {
+    const tagFromQuery = searchParams.get("tag") || "";
+    const normalizedTag = tagFromQuery && allTags.includes(tagFromQuery) ? tagFromQuery : "";
+    setSelectedTag((prev) => (prev === normalizedTag ? prev : normalizedTag));
+  }, [searchParams, allTags]);
+
+  const applyTagFilter = (tag: string) => {
+    const normalizedTag = tag && allTags.includes(tag) ? tag : "";
+    setSelectedTag(normalizedTag);
+
+    const currentTag = searchParams.get("tag") || "";
+    if (currentTag === normalizedTag) return;
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (normalizedTag) {
+      params.set("tag", normalizedTag);
+    } else {
+      params.delete("tag");
+    }
+
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
 
   const filteredPosts = selectedTag
     ? posts.filter((post) => post.tags.includes(selectedTag))
@@ -28,24 +53,23 @@ export default function NotesList({ posts, allTags }: NotesListProps) {
 
   return (
     <>
-      {/* 标签筛选 */}
       {allTags.length > 0 && (
         <div className="mb-8">
           <div className="flex flex-wrap gap-2">
             <button
-              onClick={() => setSelectedTag("")}
+              onClick={() => applyTagFilter("")}
               className={`tag ${
                 !selectedTag
                   ? "bg-[var(--color-vermilion)] text-white"
                   : "hover:bg-[var(--color-vermilion)] hover:text-white"
               }`}
             >
-              全部
+              All
             </button>
             {allTags.map((tag) => (
               <button
                 key={tag}
-                onClick={() => setSelectedTag(tag)}
+                onClick={() => applyTagFilter(tag)}
                 className={`tag ${
                   selectedTag === tag
                     ? "bg-[var(--color-vermilion)] text-white"
@@ -59,7 +83,6 @@ export default function NotesList({ posts, allTags }: NotesListProps) {
         </div>
       )}
 
-      {/* 文章列表 */}
       {filteredPosts.length > 0 ? (
         <div className="grid gap-6">
           {filteredPosts.map((post) => (
@@ -75,7 +98,7 @@ export default function NotesList({ posts, allTags }: NotesListProps) {
         </div>
       ) : (
         <p className="text-[var(--color-gray)] text-center py-16">
-          {selectedTag ? `没有标签为「${selectedTag}」的文章` : "暂无文章，敬请期待..."}
+          {selectedTag ? `未找到标签 "${selectedTag}" 的文章。` : "暂无笔记。"}
         </p>
       )}
     </>

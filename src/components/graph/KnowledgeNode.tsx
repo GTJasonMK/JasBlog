@@ -2,7 +2,7 @@
 
 import { memo, useState } from "react";
 import { Handle, Position } from "@xyflow/react";
-import { type NodeColor, nodeColorConfig, type KnowledgeNodeData } from "@/types/graph";
+import { getNodeColor, nodeColorConfig, type KnowledgeNodeData } from "@/types/graph";
 
 interface KnowledgeNodeProps {
   data: KnowledgeNodeData;
@@ -11,7 +11,7 @@ interface KnowledgeNodeProps {
 
 function KnowledgeNode({ data, selected }: KnowledgeNodeProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const color = data.color || "default";
+  const color = getNodeColor(data.color);
   const colorConfig = nodeColorConfig[color];
 
   // 计算边框样式

@@ -4,64 +4,15 @@ import TableOfContents from "./TableOfContents";
 import BackToTop from "./BackToTop";
 import GraphViewer from "./graph/GraphViewer";
 import MarkdownRenderer from "./MarkdownRenderer";
+import { parseArticleContentSegments } from "@/lib/graph-content";
 import { type GraphData } from "@/types/graph";
 
 interface ArticleContentProps {
   content: string;
 }
 
-// 内容段落类型
-type ContentSegment =
-  | { type: "markdown"; content: string }
-  | { type: "graph"; data: GraphData };
-
-// 解析内容，分离 markdown 和 graph 代码块
-function parseContent(content: string): ContentSegment[] {
-  const segments: ContentSegment[] = [];
-  const graphBlockRegex = /```graph\n([\s\S]*?)```/g;
-
-  let lastIndex = 0;
-  let match;
-
-  while ((match = graphBlockRegex.exec(content)) !== null) {
-    // 添加 graph 块之前的 markdown 内容
-    if (match.index > lastIndex) {
-      const markdownContent = content.slice(lastIndex, match.index).trim();
-      if (markdownContent) {
-        segments.push({ type: "markdown", content: markdownContent });
-      }
-    }
-
-    // 解析 graph 数据
-    try {
-      const graphJson = match[1].trim();
-      const graphData = JSON.parse(graphJson) as GraphData;
-      segments.push({ type: "graph", data: graphData });
-    } catch (e) {
-      // JSON 解析失败，作为普通代码块显示
-      console.error("Failed to parse graph data:", e);
-      segments.push({
-        type: "markdown",
-        content: "```json\n" + match[1] + "```",
-      });
-    }
-
-    lastIndex = match.index + match[0].length;
-  }
-
-  // 添加剩余的 markdown 内容
-  if (lastIndex < content.length) {
-    const remainingContent = content.slice(lastIndex).trim();
-    if (remainingContent) {
-      segments.push({ type: "markdown", content: remainingContent });
-    }
-  }
-
-  return segments;
-}
-
 export default function ArticleContent({ content }: ArticleContentProps) {
-  const segments = parseContent(content);
+  const segments = parseArticleContentSegments(content);
 
   return (
     <>
@@ -73,7 +24,7 @@ export default function ArticleContent({ content }: ArticleContentProps) {
           } else {
             return (
               <div key={index} className="my-8 not-prose">
-                <GraphViewer data={segment.data} />
+                <GraphViewer data={segment.data as GraphData} />
               </div>
             );
           }

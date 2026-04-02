@@ -1,17 +1,10 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
+import { preprocessAlerts } from "@/lib/preprocess-alerts";
 import ArticleContent from "@/components/ArticleContent";
 import Comments from "@/components/Comments";
-
-// 预处理 Alert 语法
-function preprocessAlerts(content: string): string {
-  return content.replace(
-    /^(>\s*)\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\r?\n?/gm,
-    "$1ALERTBOX$2ALERTBOX\n"
-  );
-}
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -19,7 +12,6 @@ interface Props {
 
 const EMPTY_STATIC_PARAM = "__empty_static_params__";
 
-// 禁止动态路由，只生成 generateStaticParams 返回的页面
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -32,13 +24,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
   if (slug === EMPTY_STATIC_PARAM) {
-    return { title: "文章未找到" };
+    return { title: "Post not found" };
   }
 
   const post = getPostBySlug(slug);
-
   if (!post) {
-    return { title: "文章未找到" };
+    return { title: "Post not found" };
   }
 
   return {
@@ -55,14 +46,12 @@ export default async function NotePage({ params }: Props) {
   }
 
   const post = getPostBySlug(slug);
-
   if (!post) {
     notFound();
   }
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-12">
-      {/* 返回链接 */}
       <Link
         href="/notes"
         className="text-sm text-[var(--color-gray)] hover:text-[var(--color-vermilion)] mb-8 inline-block"
@@ -70,7 +59,6 @@ export default async function NotePage({ params }: Props) {
         &larr; 返回笔记列表
       </Link>
 
-      {/* 文章头部 */}
       <header className="mb-8">
         <time className="text-sm text-[var(--color-gray)]">{post.date}</time>
         <h1 className="text-3xl font-bold mt-2 mb-4">{post.title}</h1>
@@ -91,13 +79,12 @@ export default async function NotePage({ params }: Props) {
 
       <div className="divider-cloud mb-8" />
 
-      {/* 文章内容 */}
       <ArticleContent content={preprocessAlerts(post.content)} />
 
       <div className="divider-cloud my-12" />
 
       <section>
-        <h2 className="text-xl font-semibold mb-6">评论与讨论</h2>
+        <h2 className="text-xl font-semibold mb-6">Comments and discussion</h2>
         <Comments />
       </section>
     </div>

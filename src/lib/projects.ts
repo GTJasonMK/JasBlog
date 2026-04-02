@@ -13,6 +13,23 @@ function formatDate(date: unknown): string {
   return String(date);
 }
 
+function parseStringArray(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => String(item).trim())
+      .filter(Boolean);
+  }
+
+  if (typeof value === "string") {
+    return value
+      .split(/[,\uFF0C\u3001]/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
 export interface Project {
   slug: string;
   name: string;
@@ -44,17 +61,27 @@ export interface ProjectMeta {
 
 // 解析技术栈配置
 function parseTechStack(techStack: unknown): TechItem[] {
-  if (!techStack || !Array.isArray(techStack)) return [];
+  if (!techStack) return [];
+  if (typeof techStack === "string") {
+    return parseStringArray(techStack).map((name) => ({ name }));
+  }
+  if (!Array.isArray(techStack)) return [];
+
   return techStack.map((item) => {
     if (typeof item === "string") {
       return { name: item };
     }
+    if (!item || typeof item !== "object") {
+      return { name: "" };
+    }
+
+    const normalizedItem = item as { name?: unknown; icon?: unknown; color?: unknown };
     return {
-      name: item.name || "",
-      icon: item.icon,
-      color: item.color,
+      name: String(normalizedItem.name || "").trim(),
+      icon: typeof normalizedItem.icon === "string" ? normalizedItem.icon : undefined,
+      color: typeof normalizedItem.color === "string" ? normalizedItem.color : undefined,
     };
-  });
+  }).filter((item) => Boolean(item.name));
 }
 
 // 获取所有项目的元数据（按日期排序）
@@ -79,7 +106,7 @@ export function getAllProjects(): ProjectMeta[] {
         github: data.github || "",
         demo: data.demo,
         date: formatDate(data.date),
-        tags: data.tags || [],
+        tags: parseStringArray(data.tags),
         techStack: parseTechStack(data.techStack),
       };
     });
@@ -105,7 +132,7 @@ export function getProjectBySlug(slug: string): Project | null {
     github: data.github || "",
     demo: data.demo,
     date: formatDate(data.date),
-    tags: data.tags || [],
+    tags: parseStringArray(data.tags),
     techStack: parseTechStack(data.techStack),
     content,
   };

@@ -50,6 +50,12 @@ export default function GraphsPage() {
                 {graph.description}
               </p>
 
+              {graph.error && (
+                <p className="text-xs text-[var(--color-danger)] mb-3 line-clamp-2">
+                  {graph.error}
+                </p>
+              )}
+
               {/* 统计信息 */}
               <div className="flex flex-wrap gap-4 text-xs text-[var(--color-gray)]">
                 {graph.date && <span>{graph.date}</span>}

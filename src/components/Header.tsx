@@ -32,36 +32,51 @@ async function loadPagefind(): Promise<Pagefind> {
     pagefindLoadPromise = new Promise<Pagefind>((resolve, reject) => {
       const basePath = getBasePathFromMeta();
       const script = document.createElement("script");
+
       script.src = `${basePath}/pagefind/pagefind.js`;
       script.async = true;
       script.onload = () => {
         const loaded = (globalThis as unknown as { pagefind?: Pagefind }).pagefind;
         if (!loaded) {
-          reject(new Error("Pagefind 脚本加载成功但未找到 pagefind 对象"));
+          pagefindLoadPromise = null;
+          reject(new Error("Pagefind loaded but pagefind object was not found."));
           return;
         }
         resolve(loaded);
       };
       script.onerror = () => {
-        reject(new Error("Pagefind 脚本加载失败，请先运行 npm run build 生成索引"));
+        pagefindLoadPromise = null;
+        reject(new Error("Failed to load Pagefind index. Run npm run build first."));
       };
+
       document.head.appendChild(script);
     });
   }
 
-  return pagefindLoadPromise;
+  try {
+    return await pagefindLoadPromise;
+  } catch (error) {
+    pagefindLoadPromise = null;
+    throw error;
+  }
 }
 
 function isEditableTarget(target: EventTarget | null): boolean {
   if (!target || !(target instanceof HTMLElement)) return false;
   const tagName = target.tagName.toLowerCase();
-  return target.isContentEditable || tagName === "input" || tagName === "textarea" || tagName === "select";
+  return (
+    target.isContentEditable ||
+    tagName === "input" ||
+    tagName === "textarea" ||
+    tagName === "select"
+  );
 }
 
 const navItems = [
   { href: "/", label: "首页" },
   { href: "/projects", label: "开源项目" },
   { href: "/notes", label: "学习笔记" },
+  { href: "/diary", label: "考研日志" },
   { href: "/graphs", label: "知识图谱" },
   { href: "/roadmap", label: "我的规划" },
 ];
@@ -74,16 +89,20 @@ export default function Header() {
   const [searchItems, setSearchItems] = useState<SearchItem[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
+
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const searchRequestIdRef = useRef(0);
 
   const isActivePath = useMemo(() => {
     return (href: string) => pathname === href || (href !== "/" && pathname.startsWith(href));
   }, [pathname]);
 
   const closeSearch = useCallback(() => {
+    searchRequestIdRef.current += 1;
     setIsSearchOpen(false);
     setSearchQuery("");
     setSearchItems([]);
+    setIsSearching(false);
     setSearchError(null);
   }, []);
 
@@ -124,10 +143,14 @@ export default function Header() {
 
     const query = searchQuery.trim();
     if (!query) {
+      searchRequestIdRef.current += 1;
       setSearchItems([]);
+      setIsSearching(false);
       setSearchError(null);
       return;
     }
+
+    const requestId = ++searchRequestIdRef.current;
 
     const timer = window.setTimeout(async () => {
       setIsSearching(true);
@@ -156,13 +179,23 @@ export default function Header() {
           })
           .filter((item): item is SearchItem => Boolean(item));
 
+        if (requestId !== searchRequestIdRef.current) {
+          return;
+        }
+
         setSearchItems(mapped);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "搜索失败";
+        if (requestId !== searchRequestIdRef.current) {
+          return;
+        }
+
+        const message = err instanceof Error ? err.message : "Search failed.";
         setSearchItems([]);
         setSearchError(message);
       } finally {
-        setIsSearching(false);
+        if (requestId === searchRequestIdRef.current) {
+          setIsSearching(false);
+        }
       }
     }, 200);
 
@@ -174,7 +207,7 @@ export default function Header() {
       {isSearchOpen && (
         <button
           type="button"
-          aria-label="关闭搜索"
+          aria-label="Close search"
           className="fixed inset-0 z-40 cursor-default bg-black/10"
           onClick={closeSearch}
         />
@@ -185,6 +218,7 @@ export default function Header() {
           <Link href="/" className="seal text-sm">
             JasBlog
           </Link>
+
           <div className="flex items-center gap-4">
             <ul className="flex items-center gap-6">
               {navItems.map((item) => {
@@ -210,15 +244,14 @@ export default function Header() {
               type="button"
               onClick={() => setIsSearchOpen((open) => !open)}
               className="text-sm text-[var(--color-gray)] hover:text-[var(--color-ink)] px-2 py-1 rounded-md border border-transparent hover:border-[var(--color-paper-darker)] transition-colors"
-              aria-label="打开搜索（快捷键 /）"
+              aria-label="Open search (shortcut: /)"
             >
-              <span className="hidden sm:inline">搜索</span>
+              <span className="hidden sm:inline">Search</span>
               <span className="sm:hidden">/</span>
             </button>
           </div>
         </nav>
 
-        {/* Header 搜索弹窗：在固定区域自动展开/收起 */}
         <div
           className={`absolute left-0 right-0 top-14 z-50 transition-all duration-200 ease-out ${
             isSearchOpen
@@ -231,8 +264,8 @@ export default function Header() {
               <input
                 ref={searchInputRef}
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="搜索笔记 / 项目 / 图谱 / 规划（快捷键 /）"
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search notes / diary / projects / graphs / roadmap"
                 className="flex-1 bg-white border border-[var(--color-paper-darker)] rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-vermilion)]"
               />
               <button
@@ -246,18 +279,19 @@ export default function Header() {
 
             <div className="mt-3">
               {searchError && (
-                <p className="text-sm text-[var(--color-gray)]">
-                  {searchError}
-                </p>
+                <p className="text-sm text-[var(--color-gray)]">{searchError}</p>
               )}
 
               {!searchError && isSearching && (
-                <p className="text-sm text-[var(--color-gray)]">搜索中...</p>
+                <p className="text-sm text-[var(--color-gray)]">Searching...</p>
               )}
 
-              {!searchError && !isSearching && searchQuery.trim() && searchItems.length === 0 && (
-                <p className="text-sm text-[var(--color-gray)]">未找到相关内容</p>
-              )}
+              {!searchError &&
+                !isSearching &&
+                searchQuery.trim() &&
+                searchItems.length === 0 && (
+                  <p className="text-sm text-[var(--color-gray)]">No results.</p>
+                )}
 
               {searchItems.length > 0 && (
                 <ul className="mt-2 max-h-[60vh] overflow-auto divide-y divide-[var(--color-paper-darker)]">
@@ -283,7 +317,8 @@ export default function Header() {
             </div>
 
             <div className="mt-3 text-xs text-[var(--color-gray)]">
-              提示：按 <span className="font-mono">/</span> 打开搜索，按 <span className="font-mono">ESC</span> 关闭
+              Tip: press <span className="font-mono">/</span> to open search and{" "}
+              <span className="font-mono">ESC</span> to close.
             </div>
           </div>
         </div>

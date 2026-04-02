@@ -74,7 +74,7 @@ function stripTaskListHeading(content: string): string {
 }
 
 function parseItemsFromContent(content: string): { items: RoadmapItem[]; remainingContent: string } {
-  const lines = content.split("\n");
+  const lines = content.split(/\r?\n/);
   const items: RoadmapItem[] = [];
   const nonTaskLines: string[] = [];
 
@@ -82,10 +82,12 @@ function parseItemsFromContent(content: string): { items: RoadmapItem[]; remaini
   let currentDescription: string[] = [];
   let currentDetails: string[] = [];
   let isCollectingDetails = false;
+  let inFence = false;
+  let fenceChar = "";
   let itemId = 1;
 
   // 任务行正则：- [ ] 或 - [-] 或 - [x] 开头，后面是标题，可选 `priority`
-  const taskRegex = /^-\s*\[([ x-])\]\s+(.+?)(?:\s+`(high|medium|low)`)?\s*$/;
+  const taskRegex = /^[-*+]\s*\[([ xX-])\]\s+(.+?)(?:\s+`(high|medium|low)`)?\s*$/;
   // 缩进行正则（至少2个空格）
   const indentRegex = /^(\s{2,})(.+)$/;
   // 截止日期正则
@@ -112,7 +114,36 @@ function parseItemsFromContent(content: string): { items: RoadmapItem[]; remaini
     }
   };
 
+  const appendNonTaskLine = (line: string) => {
+    if (currentItem) {
+      saveCurrentItem();
+    }
+    nonTaskLines.push(line);
+  };
+
   for (const line of lines) {
+    const trimmedLine = line.trimStart();
+    const fenceMatch = trimmedLine.match(/^(`{3,}|~{3,})/);
+
+    if (fenceMatch) {
+      const currentFenceChar = fenceMatch[1][0];
+      if (!inFence) {
+        inFence = true;
+        fenceChar = currentFenceChar;
+      } else if (currentFenceChar === fenceChar) {
+        inFence = false;
+        fenceChar = "";
+      }
+
+      appendNonTaskLine(line);
+      continue;
+    }
+
+    if (inFence) {
+      appendNonTaskLine(line);
+      continue;
+    }
+
     const taskMatch = line.match(taskRegex);
 
     if (taskMatch) {
@@ -122,7 +153,7 @@ function parseItemsFromContent(content: string): { items: RoadmapItem[]; remaini
       // 解析新任务
       const [, checkbox, title, priority] = taskMatch;
       let status: RoadmapItem["status"] = "todo";
-      if (checkbox === "x") status = "done";
+      if (checkbox.toLowerCase() === "x") status = "done";
       else if (checkbox === "-") status = "in_progress";
 
       currentItem = {

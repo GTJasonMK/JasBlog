@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: GraphPageProps): Promise<Meta
   }
   return {
     title: graph.name,
-    description: graph.description || `包含 ${graph.graphData.nodes.length} 个知识节点的知识图谱`,
+    description: graph.description || graph.error || `包含 ${graph.graphData.nodes.length} 个知识节点的知识图谱`,
   };
 }
 

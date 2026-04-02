@@ -1,141 +1,144 @@
 #!/usr/bin/env node
 
 /**
- * 自动检测 content 目录变更并提交推送
- * 用法: node scripts/auto-commit-content.js
+ * Detects content changes, creates a commit message, commits, and pushes.
+ * Usage: node scripts/auto-commit-content.js
  */
 
-const { execSync } = require("child_process");
+const { spawnSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
-// 内容类型映射
-const CONTENT_TYPES = {
-  notes: "笔记",
-  projects: "项目",
-  roadmaps: "规划",
-  graphs: "图表",
+const CONTENT_TYPE_LABELS = {
+  notes: "notes",
+  diary: "diary",
+  projects: "projects",
+  roadmaps: "roadmaps",
+  graphs: "graphs",
 };
 
-// 操作类型映射
-const ACTION_TYPES = {
-  A: "添加",
-  M: "更新",
-  D: "删除",
-  R: "重命名",
+const ACTION_LABELS = {
+  A: "add",
+  M: "update",
+  D: "delete",
+  R: "rename",
 };
 
-/**
- * 执行 git 命令
- */
-function git(command) {
-  try {
-    return execSync(`git ${command}`, { encoding: "utf-8" }).trim();
-  } catch (error) {
-    console.error(`Git 命令执行失败: git ${command}`);
-    console.error(error.message);
-    process.exit(1);
+function runGit(args, options = {}) {
+  const result = spawnSync("git", args, {
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+
+  if (result.status !== 0 && !options.allowFailure) {
+    const stderr = (result.stderr || "").trim();
+    const command = `git ${args.join(" ")}`;
+    throw new Error(`Command failed: ${command}\n${stderr}`);
   }
+
+  return {
+    status: result.status || 0,
+    stdout: result.stdout || "",
+    stderr: result.stderr || "",
+  };
 }
 
-/**
- * 从 Markdown 文件中提取标题
- */
+function normalizeAction(code) {
+  if (code === "??") return "A";
+  if (code.startsWith("R")) return "R";
+
+  const staged = code.charAt(0);
+  const unstaged = code.charAt(1);
+  const action = staged !== " " ? staged : unstaged;
+
+  if (action === "A" || action === "M" || action === "D" || action === "R") {
+    return action;
+  }
+
+  return "M";
+}
+
+function parseContentType(filePath) {
+  const normalized = filePath.replace(/\\/g, "/");
+  const match = normalized.match(/^content\/([^/]+)\//);
+  if (!match) return null;
+  return match[1];
+}
+
 function extractTitle(filePath) {
   const fullPath = path.resolve(filePath);
 
   if (!fs.existsSync(fullPath)) {
-    // 文件已删除，从文件名提取
     return path.basename(filePath, path.extname(filePath));
   }
 
-  const content = fs.readFileSync(fullPath, "utf-8");
+  const stat = fs.statSync(fullPath);
+  if (stat.isDirectory()) {
+    return path.basename(filePath.replace(/[\\/]+$/, ""));
+  }
+
   const ext = path.extname(filePath).toLowerCase();
+  const content = fs.readFileSync(fullPath, "utf8");
 
   if (ext === ".md") {
-    // 尝试从 frontmatter 提取 title 或 name
-    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+    const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (frontmatterMatch) {
-      const frontmatter = frontmatterMatch[1];
-      const titleMatch = frontmatter.match(/^(?:title|name):\s*(.+)$/m);
+      const titleMatch = frontmatterMatch[1].match(/^(?:title|name):\s*(.+)$/im);
       if (titleMatch) {
         return titleMatch[1].trim().replace(/^["']|["']$/g, "");
       }
     }
-    // 尝试从第一个标题提取
-    const headingMatch = content.match(/^#\s+(.+)$/m);
+
+    const headingMatch = content.match(/(?:^|\r?\n)#\s+(.+)/);
     if (headingMatch) {
       return headingMatch[1].trim();
     }
-  } else if (ext === ".json") {
-    // JSON 文件使用文件名
-    return path.basename(filePath, ".json");
   }
 
-  // 默认使用文件名
-  return path.basename(filePath, path.extname(filePath));
+  return path.basename(filePath, ext);
 }
 
-/**
- * 解析文件路径，获取内容类型
- */
-function parseContentPath(filePath) {
-  const normalized = filePath.replace(/\\/g, "/");
-  const match = normalized.match(/content\/(\w+)\//);
-  if (match) {
-    return match[1];
-  }
-  return null;
-}
-
-/**
- * 获取 content 目录的变更
- */
 function getContentChanges() {
-  // 获取暂存区和工作区的变更
-  const stagedOutput = git("diff --cached --name-status");
-  const unstagedOutput = git("diff --name-status");
-  const untrackedOutput = git("ls-files --others --exclude-standard");
+  const output = runGit([
+    "status",
+    "--porcelain=1",
+    "--untracked-files=normal",
+    "--",
+    "content/",
+  ]).stdout;
 
-  const changes = new Map();
+  const changes = [];
+  const lines = output
+    .split(/\r?\n/)
+    .map((line) => line.trimEnd())
+    .filter(Boolean);
 
-  // 解析已暂存的变更
-  if (stagedOutput) {
-    stagedOutput.split("\n").forEach((line) => {
-      const [status, ...fileParts] = line.split("\t");
-      const filePath = fileParts.join("\t");
-      if (filePath.startsWith("content/")) {
-        changes.set(filePath, status.charAt(0));
-      }
-    });
-  }
+  for (const line of lines) {
+    if (line.length < 4) continue;
 
-  // 解析未暂存的变更
-  if (unstagedOutput) {
-    unstagedOutput.split("\n").forEach((line) => {
-      const [status, ...fileParts] = line.split("\t");
-      const filePath = fileParts.join("\t");
-      if (filePath.startsWith("content/") && !changes.has(filePath)) {
-        changes.set(filePath, status.charAt(0));
-      }
-    });
-  }
+    const code = line.slice(0, 2);
+    let filePath = line.slice(3).trim();
 
-  // 解析未跟踪的文件
-  if (untrackedOutput) {
-    untrackedOutput.split("\n").forEach((filePath) => {
-      if (filePath.startsWith("content/") && !changes.has(filePath)) {
-        changes.set(filePath, "A");
-      }
+    if (code.startsWith("R") && filePath.includes(" -> ")) {
+      filePath = filePath.split(" -> ").pop().trim();
+    }
+
+    if (!filePath.startsWith("content/")) {
+      continue;
+    }
+    if (filePath.endsWith("/")) {
+      continue;
+    }
+
+    changes.push({
+      action: normalizeAction(code),
+      filePath,
     });
   }
 
   return changes;
 }
 
-/**
- * 生成提交信息
- */
 function generateCommitMessage(changes) {
   const grouped = {
     A: [],
@@ -144,88 +147,68 @@ function generateCommitMessage(changes) {
     R: [],
   };
 
-  changes.forEach((status, filePath) => {
-    // 跳过 .gitkeep 文件
-    if (filePath.endsWith(".gitkeep")) return;
+  for (const change of changes) {
+    if (change.filePath.endsWith(".gitkeep")) continue;
 
-    const contentType = parseContentPath(filePath);
-    if (!contentType) return;
+    const contentType = parseContentType(change.filePath);
+    if (!contentType) continue;
 
-    const title = extractTitle(filePath);
-    const typeName = CONTENT_TYPES[contentType] || contentType;
-
-    if (!grouped[status]) {
-      grouped[status] = [];
-    }
-    grouped[status].push(`${typeName}「${title}」`);
-  });
-
-  const parts = [];
-
-  if (grouped.A.length > 0) {
-    parts.push(`添加 ${grouped.A.join("、")}`);
-  }
-  if (grouped.M.length > 0) {
-    parts.push(`更新 ${grouped.M.join("、")}`);
-  }
-  if (grouped.D.length > 0) {
-    parts.push(`删除 ${grouped.D.join("、")}`);
-  }
-  if (grouped.R.length > 0) {
-    parts.push(`重命名 ${grouped.R.join("、")}`);
+    const typeLabel = CONTENT_TYPE_LABELS[contentType] || contentType;
+    const title = extractTitle(change.filePath);
+    grouped[change.action].push(`${typeLabel}: ${title}`);
   }
 
-  if (parts.length === 0) {
-    return null;
+  const segments = [];
+  for (const action of ["A", "M", "D", "R"]) {
+    const entries = grouped[action];
+    if (!entries.length) continue;
+    segments.push(`${ACTION_LABELS[action]} ${entries.join(", ")}`);
   }
 
-  return `content: ${parts.join("，")}`;
+  if (!segments.length) return null;
+  return `content: ${segments.join("; ")}`;
 }
 
-/**
- * 主函数
- */
 function main() {
-  console.log("检查 content 目录变更...\n");
+  console.log("Checking content changes...\n");
 
-  const changes = getContentChanges();
-
-  if (changes.size === 0) {
-    console.log("content 目录没有变更。");
-    return;
+  let changes;
+  try {
+    changes = getContentChanges();
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exit(1);
   }
 
-  console.log("检测到以下变更:");
-  changes.forEach((status, filePath) => {
-    if (!filePath.endsWith(".gitkeep")) {
-      const action = ACTION_TYPES[status] || status;
-      console.log(`  [${action}] ${filePath}`);
-    }
-  });
-  console.log("");
+  if (!changes.length) {
+    console.log("No content changes found.");
+    return;
+  }
 
   const commitMessage = generateCommitMessage(changes);
-
   if (!commitMessage) {
-    console.log("没有需要提交的内容变更。");
+    console.log("No committable content changes (only .gitkeep or unsupported files).");
     return;
   }
 
-  console.log(`提交信息: ${commitMessage}\n`);
+  console.log("Detected changes:");
+  for (const change of changes) {
+    if (!change.filePath.endsWith(".gitkeep")) {
+      console.log(`  [${change.action}] ${change.filePath}`);
+    }
+  }
+  console.log(`\nCommit message: ${commitMessage}\n`);
 
-  // 暂存 content 目录的所有变更
-  console.log("暂存变更...");
-  git("add content/");
+  try {
+    runGit(["add", "content/"]);
+    runGit(["commit", "-m", commitMessage]);
+    runGit(["push"]);
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exit(1);
+  }
 
-  // 提交
-  console.log("创建提交...");
-  git(`commit -m "${commitMessage}"`);
-
-  // 推送
-  console.log("推送到远程...");
-  git("push");
-
-  console.log("\n完成！");
+  console.log("Done.");
 }
 
 main();

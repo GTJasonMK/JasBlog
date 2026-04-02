@@ -13,6 +13,23 @@ function formatDate(date: unknown): string {
   return String(date);
 }
 
+function parseStringArray(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => String(item).trim())
+      .filter(Boolean);
+  }
+
+  if (typeof value === "string") {
+    return value
+      .split(/[,\uFF0C\u3001]/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
 export interface Post {
   slug: string;
   title: string;
@@ -50,7 +67,7 @@ export function getAllPosts(): PostMeta[] {
         title: data.title || slug,
         date: formatDate(data.date),
         excerpt: data.excerpt || "",
-        tags: data.tags || [],
+        tags: parseStringArray(data.tags),
       };
     });
 
@@ -73,7 +90,7 @@ export function getPostBySlug(slug: string): Post | null {
     title: data.title || slug,
     date: formatDate(data.date),
     excerpt: data.excerpt || "",
-    tags: data.tags || [],
+    tags: parseStringArray(data.tags),
     content,
   };
 }
