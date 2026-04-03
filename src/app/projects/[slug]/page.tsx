@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getAllProjectSlugs } from "@/lib/projects";
 import { preprocessAlerts } from "@/lib/preprocess-alerts";
+import { decodeRouteSlug } from "@/lib/route-slug";
 import TechStack from "@/components/TechStack";
 import ProjectContent from "@/components/ProjectContent";
 
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   if (slug === EMPTY_STATIC_PARAM) {
     return { title: "Project not found" };
   }
-  const project = getProjectBySlug(slug);
+  const project = getProjectBySlug(decodeRouteSlug(slug));
   if (!project) {
     return { title: "Project not found" };
   }
@@ -44,7 +45,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const project = getProjectBySlug(slug);
+  const project = getProjectBySlug(decodeRouteSlug(slug));
 
   if (!project) {
     notFound();

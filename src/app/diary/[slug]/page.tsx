@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllDiaryDaySlugs, getDiaryDayBySlug } from "@/lib/diary";
 import { preprocessAlerts } from "@/lib/preprocess-alerts";
+import { decodeRouteSlug } from "@/lib/route-slug";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 interface DiaryDetailPageProps {
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: DiaryDetailPageProps): Promis
     return { title: "考研日志未找到" };
   }
 
-  const day = getDiaryDayBySlug(slug);
+  const day = getDiaryDayBySlug(decodeRouteSlug(slug));
   if (!day) {
     return { title: "考研日志未找到" };
   }
@@ -44,7 +45,7 @@ export default async function DiaryDetailPage({ params }: DiaryDetailPageProps) 
     notFound();
   }
 
-  const day = getDiaryDayBySlug(slug);
+  const day = getDiaryDayBySlug(decodeRouteSlug(slug));
   if (!day) {
     notFound();
   }

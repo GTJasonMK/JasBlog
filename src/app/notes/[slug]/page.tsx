@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
 import { preprocessAlerts } from "@/lib/preprocess-alerts";
+import { decodeRouteSlug } from "@/lib/route-slug";
 import ArticleContent from "@/components/ArticleContent";
 import Comments from "@/components/Comments";
 
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Post not found" };
   }
 
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(decodeRouteSlug(slug));
   if (!post) {
     return { title: "Post not found" };
   }
@@ -45,7 +46,7 @@ export default async function NotePage({ params }: Props) {
     notFound();
   }
 
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(decodeRouteSlug(slug));
   if (!post) {
     notFound();
   }

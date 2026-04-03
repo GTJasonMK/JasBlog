@@ -54,3 +54,18 @@ test("diary 多条聚合标题使用中文文案，与编辑器一致", () => {
 
   assert.match(source, /\$\{date\} 考研日志/);
 });
+
+test("动态详情页会先解码路由 slug，再读取内容", () => {
+  const pagePaths = [
+    "src/app/notes/[slug]/page.tsx",
+    "src/app/projects/[slug]/page.tsx",
+    "src/app/graphs/[slug]/page.tsx",
+    "src/app/roadmap/[slug]/page.tsx",
+  ];
+
+  for (const pagePath of pagePaths) {
+    const source = readRepoFile(pagePath);
+
+    assert.match(source, /decodeRouteSlug/);
+  }
+});

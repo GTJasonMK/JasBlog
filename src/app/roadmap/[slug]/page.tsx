@@ -8,6 +8,7 @@ import {
   type RoadmapStatus,
 } from "@/lib/roadmap";
 import { preprocessAlerts } from "@/lib/preprocess-alerts";
+import { decodeRouteSlug } from "@/lib/route-slug";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 interface RoadmapPageProps {
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: RoadmapPageProps): Promise<Me
     return { title: "规划未找到" };
   }
 
-  const roadmap = getRoadmapBySlug(slug);
+  const roadmap = getRoadmapBySlug(decodeRouteSlug(slug));
   if (!roadmap) {
     return { title: "规划未找到" };
   }
@@ -144,7 +145,7 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
     notFound();
   }
 
-  const roadmap = getRoadmapBySlug(slug);
+  const roadmap = getRoadmapBySlug(decodeRouteSlug(slug));
 
   if (!roadmap) {
     notFound();
