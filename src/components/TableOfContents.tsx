@@ -118,7 +118,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       }}
     >
       <div className="flex items-center justify-between mb-4">
-        <h4 className="text-sm font-medium text-[var(--color-ink)]">Table of contents</h4>
+        <h4 className="text-sm font-medium text-[var(--color-ink)]">目录</h4>
         <span className="text-xs text-[var(--color-gray)]">
           {activeIndex >= 0 ? activeIndex + 1 : 0}/{items.length}
         </span>

@@ -53,6 +53,7 @@ const techColors: Record<string, string> = {
   "GitHub": "#181717",
   "Webpack": "#8DD6F9",
   "Vite": "#646CFF",
+  "Tauri": "#FFC131",
 };
 
 export default function TechStack({ items, title = "技术栈" }: TechStackProps) {

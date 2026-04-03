@@ -4,6 +4,10 @@ import {
   parseFrontmatter,
   readFrontmatterString,
 } from "./frontmatter";
+import {
+  isMarkdownFileName,
+  stripMarkdownExtension,
+} from "./markdown-file";
 
 const diaryDirectory = path.join(process.cwd(), "content/diary");
 const dateSlugPattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -92,7 +96,7 @@ function readMarkdownFiles(directory: string): string[] {
       return;
     }
 
-    if (entry.isFile() && entry.name.endsWith(".md")) {
+    if (entry.isFile() && isMarkdownFileName(entry.name)) {
       files.push(fullPath);
     }
   });
@@ -147,8 +151,8 @@ function readDiaryEntries(): DiaryEntry[] {
     const relativePath = path
       .relative(diaryDirectory, filePath)
       .replace(/\\/g, "/");
-    const id = relativePath.replace(/\.md$/, "");
-    const baseName = path.basename(filePath, ".md");
+    const id = stripMarkdownExtension(relativePath);
+    const baseName = stripMarkdownExtension(path.basename(filePath));
     const parsedFromName = parseFromFileName(baseName);
 
     const fileContents = fs.readFileSync(filePath, "utf8");

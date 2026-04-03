@@ -4,6 +4,11 @@ import {
   parseFrontmatter,
   readFrontmatterString,
 } from "./frontmatter";
+import {
+  isMarkdownFileName,
+  resolveMarkdownFilePath,
+  stripMarkdownExtension,
+} from "./markdown-file";
 
 const notesDirectory = path.join(process.cwd(), "content/notes");
 
@@ -60,9 +65,9 @@ export function getAllPosts(): PostMeta[] {
 
   const fileNames = fs.readdirSync(notesDirectory);
   const allPosts = fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
+    .filter(isMarkdownFileName)
     .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, "");
+      const slug = stripMarkdownExtension(fileName);
       const fullPath = path.join(notesDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const parsed = parseFrontmatter(fileContents, "note");
@@ -83,9 +88,9 @@ export function getAllPosts(): PostMeta[] {
 
 // 获取单篇文章的完整内容
 export function getPostBySlug(slug: string): Post | null {
-  const fullPath = path.join(notesDirectory, `${slug}.md`);
+  const fullPath = resolveMarkdownFilePath(notesDirectory, slug);
 
-  if (!fs.existsSync(fullPath)) {
+  if (!fullPath || !fs.existsSync(fullPath)) {
     return null;
   }
 
@@ -112,8 +117,8 @@ export function getAllPostSlugs(): string[] {
 
   const fileNames = fs.readdirSync(notesDirectory);
   return fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
-    .map((fileName) => fileName.replace(/\.md$/, ""));
+    .filter(isMarkdownFileName)
+    .map(stripMarkdownExtension);
 }
 
 // 获取所有标签

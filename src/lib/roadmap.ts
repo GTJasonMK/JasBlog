@@ -8,6 +8,11 @@ import {
   normalizeRoadmapStatus,
   type RoadmapStatus,
 } from "./roadmap-status";
+import {
+  isMarkdownFileName,
+  resolveMarkdownFilePath,
+  stripMarkdownExtension,
+} from "./markdown-file";
 
 const roadmapsDirectory = path.join(process.cwd(), "content/roadmaps");
 
@@ -254,9 +259,9 @@ export function getAllRoadmaps(): RoadmapMeta[] {
 
   const fileNames = fs.readdirSync(roadmapsDirectory);
   const allRoadmaps = fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
+    .filter(isMarkdownFileName)
     .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, "");
+      const slug = stripMarkdownExtension(fileName);
       const fullPath = path.join(roadmapsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const parsed = parseFrontmatter(fileContents, "roadmap");
@@ -283,9 +288,9 @@ export function getAllRoadmaps(): RoadmapMeta[] {
 
 // 根据 slug 获取单个规划
 export function getRoadmapBySlug(slug: string): Roadmap | null {
-  const fullPath = path.join(roadmapsDirectory, `${slug}.md`);
+  const fullPath = resolveMarkdownFilePath(roadmapsDirectory, slug);
 
-  if (!fs.existsSync(fullPath)) {
+  if (!fullPath || !fs.existsSync(fullPath)) {
     return null;
   }
 
@@ -318,6 +323,6 @@ export function getAllRoadmapSlugs(): string[] {
 
   const fileNames = fs.readdirSync(roadmapsDirectory);
   return fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
-    .map((fileName) => fileName.replace(/\.md$/, ""));
+    .filter(isMarkdownFileName)
+    .map(stripMarkdownExtension);
 }

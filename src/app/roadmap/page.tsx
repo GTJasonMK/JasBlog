@@ -76,9 +76,11 @@ function RoadmapCard({ roadmap }: { roadmap: RoadmapMeta }) {
       <p className="text-sm text-[var(--color-gray)] mb-2">
         {roadmap.description}
       </p>
-      <p className="text-xs text-[var(--color-gray)]">
-        创建于 {roadmap.date}
-      </p>
+      {roadmap.date && (
+        <p className="text-xs text-[var(--color-gray)]">
+          创建于 {roadmap.date}
+        </p>
+      )}
       <ProgressBar progress={roadmap.progress} />
     </Link>
   );

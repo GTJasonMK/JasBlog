@@ -4,6 +4,11 @@ import {
   parseFrontmatter,
   readFrontmatterString,
 } from "./frontmatter";
+import {
+  isMarkdownFileName,
+  resolveMarkdownFilePath,
+  stripMarkdownExtension,
+} from "./markdown-file";
 
 const projectsDirectory = path.join(process.cwd(), "content/projects");
 
@@ -97,9 +102,9 @@ export function getAllProjects(): ProjectMeta[] {
 
   const fileNames = fs.readdirSync(projectsDirectory);
   const allProjects = fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
+    .filter(isMarkdownFileName)
     .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, "");
+      const slug = stripMarkdownExtension(fileName);
       const fullPath = path.join(projectsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const parsed = parseFrontmatter(fileContents, "project");
@@ -123,9 +128,9 @@ export function getAllProjects(): ProjectMeta[] {
 
 // 获取单个项目的完整内容
 export function getProjectBySlug(slug: string): Project | null {
-  const fullPath = path.join(projectsDirectory, `${slug}.md`);
+  const fullPath = resolveMarkdownFilePath(projectsDirectory, slug);
 
-  if (!fs.existsSync(fullPath)) {
+  if (!fullPath || !fs.existsSync(fullPath)) {
     return null;
   }
 
@@ -155,8 +160,8 @@ export function getAllProjectSlugs(): string[] {
 
   const fileNames = fs.readdirSync(projectsDirectory);
   return fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
-    .map((fileName) => fileName.replace(/\.md$/, ""));
+    .filter(isMarkdownFileName)
+    .map(stripMarkdownExtension);
 }
 
 // 获取所有项目标签

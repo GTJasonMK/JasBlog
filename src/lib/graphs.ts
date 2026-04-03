@@ -7,6 +7,11 @@ import {
 } from "./frontmatter";
 import { parseGraphDocument } from "./graph-document";
 import {
+  isMarkdownFileName,
+  resolveMarkdownFilePath,
+  stripMarkdownExtension,
+} from "./markdown-file";
+import {
   type Graph,
   type GraphMeta,
 } from "@/types/graph";
@@ -33,9 +38,9 @@ export function getAllGraphs(): GraphMeta[] {
 
   const fileNames = fs.readdirSync(graphsDirectory);
   const graphs = fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
+    .filter(isMarkdownFileName)
     .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, "");
+      const slug = stripMarkdownExtension(fileName);
       const fullPath = path.join(graphsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
 
@@ -73,9 +78,9 @@ export function getAllGraphs(): GraphMeta[] {
 
 // 根据 slug 获取单个图谱
 export function getGraphBySlug(slug: string): Graph | null {
-  const fullPath = path.join(graphsDirectory, `${slug}.md`);
+  const fullPath = resolveMarkdownFilePath(graphsDirectory, slug);
 
-  if (!fs.existsSync(fullPath)) {
+  if (!fullPath || !fs.existsSync(fullPath)) {
     return null;
   }
 
@@ -118,6 +123,6 @@ export function getAllGraphSlugs(): string[] {
 
   const fileNames = fs.readdirSync(graphsDirectory);
   return fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
-    .map((fileName) => fileName.replace(/\.md$/, ""));
+    .filter(isMarkdownFileName)
+    .map(stripMarkdownExtension);
 }
