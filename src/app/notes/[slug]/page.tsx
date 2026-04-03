@@ -62,6 +62,12 @@ export default async function NotePage({ params }: Props) {
       <header className="mb-8">
         <time className="text-sm text-[var(--color-gray)]">{post.date}</time>
         <h1 className="text-3xl font-bold mt-2 mb-4">{post.title}</h1>
+        {post.error && (
+          <div className="mb-4 rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-4 text-sm text-[var(--color-gray)]">
+            <p className="mb-1 font-medium text-[var(--color-danger)]">frontmatter 错误</p>
+            <p>{post.error}</p>
+          </div>
+        )}
         {post.tags.length > 0 && (
           <div className="flex gap-2">
             {post.tags.map((tag) => (

@@ -185,6 +185,13 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
         </div>
         <p className="text-[var(--color-gray)] mb-4">{roadmap.description}</p>
 
+        {roadmap.error && (
+          <div className="mb-4 rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-4 text-sm text-[var(--color-gray)]">
+            <p className="mb-1 font-medium text-[var(--color-danger)]">frontmatter 错误</p>
+            <p>{roadmap.error}</p>
+          </div>
+        )}
+
         {total > 0 && (
           <div className="bg-[var(--color-paper-dark)] rounded-lg p-4">
             <div className="flex justify-between text-sm mb-2">

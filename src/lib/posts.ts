@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import {
+  parseFrontmatter,
+  readFrontmatterString,
+} from "./frontmatter";
 
 const notesDirectory = path.join(process.cwd(), "content/notes");
 
@@ -37,6 +40,7 @@ export interface Post {
   excerpt: string;
   tags: string[];
   content: string;
+  error?: string;
 }
 
 export interface PostMeta {
@@ -45,6 +49,7 @@ export interface PostMeta {
   date: string;
   excerpt: string;
   tags: string[];
+  error?: string;
 }
 
 // 获取所有文章的元数据（按日期排序）
@@ -60,14 +65,16 @@ export function getAllPosts(): PostMeta[] {
       const slug = fileName.replace(/\.md$/, "");
       const fullPath = path.join(notesDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data } = matter(fileContents);
+      const parsed = parseFrontmatter(fileContents, "note");
+      const { data, error } = parsed;
 
       return {
         slug,
-        title: data.title || slug,
+        title: readFrontmatterString(data.title, slug) ?? slug,
         date: formatDate(data.date),
-        excerpt: data.excerpt || "",
+        excerpt: readFrontmatterString(data.excerpt) ?? "",
         tags: parseStringArray(data.tags),
+        error,
       };
     });
 
@@ -83,15 +90,17 @@ export function getPostBySlug(slug: string): Post | null {
   }
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+  const parsed = parseFrontmatter(fileContents, "note");
+  const { data, content, error } = parsed;
 
   return {
     slug,
-    title: data.title || slug,
+    title: readFrontmatterString(data.title, slug) ?? slug,
     date: formatDate(data.date),
-    excerpt: data.excerpt || "",
+    excerpt: readFrontmatterString(data.excerpt) ?? "",
     tags: parseStringArray(data.tags),
     content,
+    error,
   };
 }
 

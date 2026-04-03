@@ -83,6 +83,13 @@ export default async function DiaryDetailPage({ params }: DiaryDetailPageProps) 
         )}
       </header>
 
+      {day.error && (
+        <div className="mb-6 rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-4 text-sm text-[var(--color-gray)]">
+          <p className="mb-1 font-medium text-[var(--color-danger)]">frontmatter 错误</p>
+          <p>{day.error}</p>
+        </div>
+      )}
+
       {day.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-8">
           {day.tags.map((tag) => (
@@ -111,6 +118,13 @@ export default async function DiaryDetailPage({ params }: DiaryDetailPageProps) 
                 ))}
               </div>
             </header>
+
+            {entry.error && (
+              <div className="mb-4 rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-4 text-sm text-[var(--color-gray)]">
+                <p className="mb-1 font-medium text-[var(--color-danger)]">frontmatter 错误</p>
+                <p>{entry.error}</p>
+              </div>
+            )}
 
             {entry.excerpt && (
               <p className="text-sm text-[var(--color-gray)] mb-4">

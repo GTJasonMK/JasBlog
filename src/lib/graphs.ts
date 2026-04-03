@@ -1,7 +1,10 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
 
+import {
+  parseFrontmatter,
+  readFrontmatterString,
+} from "./frontmatter";
 import { parseGraphDocument } from "./graph-document";
 import {
   type Graph,
@@ -37,17 +40,19 @@ export function getAllGraphs(): GraphMeta[] {
       const fileContents = fs.readFileSync(fullPath, "utf8");
 
       try {
-        const { data, content } = matter(fileContents);
+        const frontmatter = parseFrontmatter(fileContents, "graph");
+        const { data, content, error: frontmatterError } = frontmatter;
         const parsed = parseGraphDocument(slug, content);
+        const error = [frontmatterError, parsed.error].filter(Boolean).join("\n") || undefined;
 
         return {
           slug,
-          name: data.name || data.title || slug,
-          description: data.description || "",
+          name: readFrontmatterString(data.name, data.title, slug) ?? slug,
+          description: readFrontmatterString(data.description) ?? "",
           date: formatDate(data.date),
           nodeCount: parsed.graphData.nodes.length,
           edgeCount: parsed.graphData.edges.length,
-          error: parsed.error || undefined,
+          error,
         };
       } catch (e) {
         console.error(`解析图谱 ${slug} 失败:`, e);
@@ -77,17 +82,19 @@ export function getGraphBySlug(slug: string): Graph | null {
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   try {
-    const { data, content } = matter(fileContents);
+    const frontmatter = parseFrontmatter(fileContents, "graph");
+    const { data, content, error: frontmatterError } = frontmatter;
     const parsed = parseGraphDocument(slug, content);
+    const error = [frontmatterError, parsed.error].filter(Boolean).join("\n") || undefined;
 
     return {
       slug,
-      name: data.name || data.title || slug,
-      description: data.description || "",
+      name: readFrontmatterString(data.name, data.title, slug) ?? slug,
+      description: readFrontmatterString(data.description) ?? "",
       date: formatDate(data.date),
       content: parsed.remainingContent,
       graphData: parsed.graphData,
-      error: parsed.error || undefined,
+      error,
     };
   } catch (e) {
     console.error(`获取图谱 ${slug} 失败:`, e);

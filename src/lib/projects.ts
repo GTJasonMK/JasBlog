@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import {
+  parseFrontmatter,
+  readFrontmatterString,
+} from "./frontmatter";
 
 const projectsDirectory = path.join(process.cwd(), "content/projects");
 
@@ -40,6 +43,7 @@ export interface Project {
   tags: string[];
   techStack: TechItem[];
   content: string;
+  error?: string;
 }
 
 export interface TechItem {
@@ -57,6 +61,7 @@ export interface ProjectMeta {
   date: string;
   tags: string[];
   techStack: TechItem[];
+  error?: string;
 }
 
 // 解析技术栈配置
@@ -97,17 +102,19 @@ export function getAllProjects(): ProjectMeta[] {
       const slug = fileName.replace(/\.md$/, "");
       const fullPath = path.join(projectsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data } = matter(fileContents);
+      const parsed = parseFrontmatter(fileContents, "project");
+      const { data, error } = parsed;
 
       return {
         slug,
-        name: data.name || data.title || slug,
-        description: data.description || "",
-        github: data.github || "",
-        demo: data.demo,
+        name: readFrontmatterString(data.name, data.title, slug) ?? slug,
+        description: readFrontmatterString(data.description) ?? "",
+        github: readFrontmatterString(data.github) ?? "",
+        demo: readFrontmatterString(data.demo),
         date: formatDate(data.date),
         tags: parseStringArray(data.tags),
         techStack: parseTechStack(data.techStack),
+        error,
       };
     });
 
@@ -123,18 +130,20 @@ export function getProjectBySlug(slug: string): Project | null {
   }
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+  const parsed = parseFrontmatter(fileContents, "project");
+  const { data, content, error } = parsed;
 
   return {
     slug,
-    name: data.name || data.title || slug,
-    description: data.description || "",
-    github: data.github || "",
-    demo: data.demo,
+    name: readFrontmatterString(data.name, data.title, slug) ?? slug,
+    description: readFrontmatterString(data.description) ?? "",
+    github: readFrontmatterString(data.github) ?? "",
+    demo: readFrontmatterString(data.demo),
     date: formatDate(data.date),
     tags: parseStringArray(data.tags),
     techStack: parseTechStack(data.techStack),
     content,
+    error,
   };
 }
 

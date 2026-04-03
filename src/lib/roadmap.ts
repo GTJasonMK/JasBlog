@@ -1,6 +1,13 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import {
+  parseFrontmatter,
+  readFrontmatterString,
+} from "./frontmatter";
+import {
+  normalizeRoadmapStatus,
+  type RoadmapStatus,
+} from "./roadmap-status";
 
 const roadmapsDirectory = path.join(process.cwd(), "content/roadmaps");
 
@@ -26,7 +33,7 @@ export interface RoadmapItem {
 }
 
 // 规划的状态
-export type RoadmapStatus = "active" | "completed" | "paused";
+export type { RoadmapStatus } from "./roadmap-status";
 
 // 完整的规划（包含内容）
 export interface Roadmap {
@@ -37,6 +44,7 @@ export interface Roadmap {
   status: RoadmapStatus;
   items: RoadmapItem[];
   content: string; // 非任务的正文内容
+  error?: string;
 }
 
 // 规划元数据（列表用）
@@ -52,6 +60,7 @@ export interface RoadmapMeta {
     inProgress: number;
     todo: number;
   };
+  error?: string;
 }
 
 /**
@@ -250,18 +259,22 @@ export function getAllRoadmaps(): RoadmapMeta[] {
       const slug = fileName.replace(/\.md$/, "");
       const fullPath = path.join(roadmapsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data, content } = matter(fileContents);
+      const parsed = parseFrontmatter(fileContents, "roadmap");
+      const { data, content, error: frontmatterError } = parsed;
 
       // 从正文解析任务
       const { items } = parseItemsFromContent(content);
+      const status = normalizeRoadmapStatus(data.status);
+      const error = [frontmatterError, status.error].filter(Boolean).join("\n") || undefined;
 
       return {
         slug,
-        name: data.name || data.title || slug,
-        description: data.description || "",
+        name: readFrontmatterString(data.name, data.title, slug) ?? slug,
+        description: readFrontmatterString(data.description) ?? "",
         date: formatDate(data.date),
-        status: (data.status as RoadmapStatus) || "active",
+        status: status.status,
         progress: calculateProgress(items),
+        error,
       };
     });
 
@@ -277,19 +290,23 @@ export function getRoadmapBySlug(slug: string): Roadmap | null {
   }
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+  const parsed = parseFrontmatter(fileContents, "roadmap");
+  const { data, content, error: frontmatterError } = parsed;
 
   // 从正文解析任务和剩余内容
   const { items, remainingContent } = parseItemsFromContent(content);
+  const status = normalizeRoadmapStatus(data.status);
+  const error = [frontmatterError, status.error].filter(Boolean).join("\n") || undefined;
 
   return {
     slug,
-    name: data.name || data.title || slug,
-    description: data.description || "",
+    name: readFrontmatterString(data.name, data.title, slug) ?? slug,
+    description: readFrontmatterString(data.description) ?? "",
     date: formatDate(data.date),
-    status: (data.status as RoadmapStatus) || "active",
+    status: status.status,
     items,
     content: remainingContent,
+    error,
   };
 }
 

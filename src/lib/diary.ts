@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import {
+  parseFrontmatter,
+  readFrontmatterString,
+} from "./frontmatter";
 
 const diaryDirectory = path.join(process.cwd(), "content/diary");
 const dateSlugPattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -116,6 +119,7 @@ export interface DiaryEntry {
   location?: string;
   companions: string[];
   content: string;
+  error?: string;
 }
 
 export interface DiaryDayMeta {
@@ -128,6 +132,7 @@ export interface DiaryDayMeta {
   mood?: string;
   weather?: string;
   location?: string;
+  error?: string;
 }
 
 export interface DiaryDay extends DiaryDayMeta {
@@ -147,7 +152,8 @@ function readDiaryEntries(): DiaryEntry[] {
     const parsedFromName = parseFromFileName(baseName);
 
     const fileContents = fs.readFileSync(filePath, "utf8");
-    const { data, content } = matter(fileContents);
+    const parsed = parseFrontmatter(fileContents, "diary");
+    const { data, content, error } = parsed;
 
     const date = formatDate(data.date) || parsedFromName.date;
     if (!dateSlugPattern.test(date)) {
@@ -155,20 +161,23 @@ function readDiaryEntries(): DiaryEntry[] {
     }
 
     const time = normalizeTime(data.time) || normalizeTime(parsedFromName.time) || "00:00";
-    const title = String(data.title || parsedFromName.title || baseName);
+    const title =
+      readFrontmatterString(data.title, parsedFromName.title, baseName) ||
+      baseName;
 
     entries.push({
       id,
       title,
       date,
       time,
-      excerpt: String(data.excerpt || ""),
+      excerpt: readFrontmatterString(data.excerpt) ?? "",
       tags: parseStringArray(data.tags),
-      mood: data.mood ? String(data.mood) : undefined,
-      weather: data.weather ? String(data.weather) : undefined,
-      location: data.location ? String(data.location) : undefined,
+      mood: readFrontmatterString(data.mood),
+      weather: readFrontmatterString(data.weather),
+      location: readFrontmatterString(data.location),
       companions: parseStringArray(data.companions),
       content,
+      error,
     });
   });
 
@@ -197,9 +206,10 @@ function buildDiaryDay(date: string, entries: DiaryEntry[]): DiaryDay {
     latestEntry.excerpt ||
     sortedEntries.map((entry) => entry.excerpt).find(Boolean) ||
     "";
+  const error = sortedEntries.map((entry) => entry.error).find(Boolean);
 
   const title =
-    sortedEntries.length === 1 ? sortedEntries[0].title : `${date} diary`;
+    sortedEntries.length === 1 ? sortedEntries[0].title : `${date} 考研日志`;
 
   return {
     slug: date,
@@ -211,6 +221,7 @@ function buildDiaryDay(date: string, entries: DiaryEntry[]): DiaryDay {
     mood,
     weather,
     location,
+    error,
     entries: sortedEntries,
   };
 }
@@ -241,6 +252,7 @@ export function getAllDiaryDays(): DiaryDayMeta[] {
     mood: day.mood,
     weather: day.weather,
     location: day.location,
+    error: day.error,
   }));
 }
 
