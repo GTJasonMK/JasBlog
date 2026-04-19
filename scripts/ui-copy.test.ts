@@ -22,7 +22,7 @@ test("站点顶部导航与内容模块文案保持中文一致", () => {
 test("diary 页面与详情页文案改为中文，和编辑器预览一致", () => {
   const pageSource = readRepoFile("src/app/diary/page.tsx");
   const timelineSource = readRepoFile("src/components/DiaryTimeline.tsx");
-  const detailSource = readRepoFile("src/app/diary/[slug]/page.tsx");
+  const detailSource = readRepoFile("src/components/diary/DiaryDayView.tsx");
 
   assert.match(pageSource, /title: "考研日志"/);
   assert.match(pageSource, />考研日志</);
@@ -34,7 +34,7 @@ test("diary 页面与详情页文案改为中文，和编辑器预览一致", ()
   assert.match(timelineSource, /条记录/);
   assert.match(timelineSource, /当前筛选条件下没有考研日志条目/);
   assert.match(detailSource, /返回考研日志时间线/);
-  assert.match(detailSource, /条记录/);
+  assert.match(detailSource, /考研日志/);
 });
 
 test("notes、graphs、roadmap 详情页返回文案与空状态使用中文", () => {

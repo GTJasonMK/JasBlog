@@ -1,0 +1,375 @@
+<h2>考研日志应该更像哪一种日志？</h2>
+<p class="subtitle">我保留了当前站点的中国风底色，但把结构往“日志 / 手账 / 日程记录”方向拉。点选你更接近的方向。</p>
+
+<style>
+  .diary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .diary-card {
+    border: 1px solid #e6dcc9;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fffdf8;
+    box-shadow: 0 10px 28px rgba(54, 35, 14, 0.08);
+    cursor: pointer;
+  }
+
+  .diary-card .head {
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(158, 103, 47, 0.12);
+    background: linear-gradient(180deg, rgba(245, 235, 220, 0.95), rgba(255, 253, 248, 0.92));
+  }
+
+  .diary-card .kicker {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a46b46;
+    margin-bottom: 8px;
+  }
+
+  .diary-card .title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2c251f;
+    margin: 0;
+  }
+
+  .diary-card .mockup {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .diary-preview {
+    min-height: 360px;
+    padding: 18px;
+  }
+
+  .notebook {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.9)),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 31px,
+        rgba(116, 141, 173, 0.18) 31px,
+        rgba(116, 141, 173, 0.18) 32px
+      ),
+      #fffefb;
+    border-left: 4px solid rgba(201, 64, 67, 0.25);
+  }
+
+  .notebook .date-band {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    color: #7b5d46;
+    font-size: 12px;
+  }
+
+  .notebook .entry {
+    margin-top: 18px;
+  }
+
+  .notebook .time {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: #b85d35;
+    margin-bottom: 6px;
+  }
+
+  .notebook .entry-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #2f241c;
+    margin-bottom: 7px;
+  }
+
+  .notebook .entry-text {
+    color: #5d534c;
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+  .ledger {
+    background:
+      radial-gradient(circle at top right, rgba(201,64,67,0.10), transparent 34%),
+      linear-gradient(180deg, #fffdfa, #f8f2e8);
+  }
+
+  .ledger .top {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .ledger .date-box {
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid rgba(201, 64, 67, 0.2);
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .ledger .day {
+    font-size: 28px;
+    font-weight: 800;
+    color: #c94043;
+    line-height: 1;
+  }
+
+  .ledger .ym {
+    margin-top: 7px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #8b6b55;
+  }
+
+  .ledger .summary {
+    border-radius: 18px;
+    padding: 14px 15px;
+    background: rgba(255,255,255,0.88);
+    border: 1px solid rgba(140, 106, 68, 0.12);
+  }
+
+  .ledger .summary h4 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #2b231c;
+  }
+
+  .ledger .summary p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.75;
+    color: #62574f;
+  }
+
+  .ledger .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 14px 0 16px;
+  }
+
+  .ledger .stat {
+    border-radius: 16px;
+    background: rgba(255,255,255,0.85);
+    border: 1px solid rgba(140, 106, 68, 0.12);
+    padding: 12px;
+  }
+
+  .ledger .stat strong {
+    display: block;
+    font-size: 18px;
+    color: #2b231c;
+    margin-bottom: 4px;
+  }
+
+  .ledger .stat span {
+    font-size: 12px;
+    color: #8a7361;
+  }
+
+  .ledger .record {
+    border-top: 1px dashed rgba(140, 106, 68, 0.28);
+    padding-top: 12px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #5f554d;
+  }
+
+  .timeline {
+    background:
+      linear-gradient(180deg, rgba(253, 251, 247, 0.96), rgba(247, 242, 233, 0.96));
+    position: relative;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 29px;
+    top: 22px;
+    bottom: 22px;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(201,64,67,0.28), rgba(184,134,11,0.22));
+  }
+
+  .timeline .node {
+    position: relative;
+    margin-left: 54px;
+    padding: 0 0 16px;
+  }
+
+  .timeline .node::before {
+    content: "";
+    position: absolute;
+    left: -35px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: #c94043;
+    box-shadow: 0 0 0 5px rgba(201,64,67,0.12);
+  }
+
+  .timeline .time {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: #9a7351;
+    margin-bottom: 6px;
+  }
+
+  .timeline .node-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2d251f;
+    margin-bottom: 6px;
+  }
+
+  .timeline .node-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #5d544d;
+  }
+
+  .tail {
+    padding: 16px 18px 18px;
+    border-top: 1px solid rgba(158, 103, 47, 0.12);
+    background: #fffaf2;
+  }
+
+  .tail p {
+    margin: 0 0 10px;
+    color: #675c54;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(201,64,67,0.08);
+    color: #8e514f;
+    font-size: 12px;
+  }
+</style>
+
+<div class="diary-cards">
+  <div class="diary-card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="head">
+      <div class="kicker">Option A</div>
+      <h3 class="title">手写日记本</h3>
+    </div>
+    <div class="diary-preview notebook">
+      <div class="date-band">
+        <span>2026-04-03 Friday</span>
+        <span>图书馆 · 多云</span>
+      </div>
+      <div class="entry">
+        <div class="time">07:20</div>
+        <div class="entry-title">今天的开场</div>
+        <div class="entry-text">先用一段较长正文进入状态，读起来像真实日记，而不是资讯卡片。</div>
+      </div>
+      <div class="entry">
+        <div class="time">14:10</div>
+        <div class="entry-title">下午复盘</div>
+        <div class="entry-text">保留时间、情绪和过程感，强调“我今天做了什么、遇到了什么、怎么想的”。</div>
+      </div>
+      <div class="entry">
+        <div class="time">22:05</div>
+        <div class="entry-title">结尾总结</div>
+        <div class="entry-text">视觉上最像手账或日志本，情绪感和日常感最强。</div>
+      </div>
+    </div>
+    <div class="tail">
+      <p>适合你想要“像真的日记页”，正文感强，卡片感弱。</p>
+      <div class="chips">
+        <span class="chip">更私密</span>
+        <span class="chip">更像手账</span>
+        <span class="chip">长文友好</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="diary-card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="head">
+      <div class="kicker">Option B</div>
+      <h3 class="title">日程账本</h3>
+    </div>
+    <div class="diary-preview ledger">
+      <div class="top">
+        <div class="date-box">
+          <div class="day">03</div>
+          <div class="ym">APR 2026</div>
+        </div>
+        <div class="summary">
+          <h4>这一天的总览</h4>
+          <p>把当天目标、完成情况、状态波动先做成一眼能扫完的总览区。</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>7.5h</strong><span>有效学习</span></div>
+        <div class="stat"><strong>2</strong><span>完成主题</span></div>
+        <div class="stat"><strong>稳</strong><span>情绪状态</span></div>
+      </div>
+      <div class="record">下面再接详细记录。整体更像“每日总结页”，兼顾复盘和可读性。</div>
+    </div>
+    <div class="tail">
+      <p>适合把日志写成“复盘日报”，先总览，再展开。</p>
+      <div class="chips">
+        <span class="chip">更理性</span>
+        <span class="chip">复盘导向</span>
+        <span class="chip">信息密度高</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="diary-card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="head">
+      <div class="kicker">Option C</div>
+      <h3 class="title">时刻时间轴</h3>
+    </div>
+    <div class="diary-preview timeline">
+      <div class="node">
+        <div class="time">06:50</div>
+        <div class="node-title">晨读起步</div>
+        <div class="node-text">强调一天的推进节奏，读者沿着时间往下看，会更像“今天发生了什么”。</div>
+      </div>
+      <div class="node">
+        <div class="time">13:30</div>
+        <div class="node-title">下午低谷</div>
+        <div class="node-text">把情绪变化、转折点和事件节点串起来，比现在的普通卡片更有日志气质。</div>
+      </div>
+      <div class="node">
+        <div class="time">21:40</div>
+        <div class="node-title">夜间收束</div>
+        <div class="node-text">适合一天多条记录的场景，路径感最强，像时间线日志。</div>
+      </div>
+    </div>
+    <div class="tail">
+      <p>适合保留多条 entry 的结构，让页面像“日内轨迹”。</p>
+      <div class="chips">
+        <span class="chip">节奏感强</span>
+        <span class="chip">多条记录友好</span>
+        <span class="chip">最像 timeline 日志</span>
+      </div>
+    </div>
+  </div>
+</div>

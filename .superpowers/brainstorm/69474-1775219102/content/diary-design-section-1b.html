@@ -1,0 +1,358 @@
+<h2>Section 1 Revised: 纯文字日志 + 点击引用后浮窗预览</h2>
+<p class="subtitle">这版去掉正文中的实时嵌入预览，日志正文只保留连续文字阅读体验；引用内容只在点击后通过悬浮窗出现。</p>
+
+<style>
+  .layout {
+    display: grid;
+    gap: 20px;
+  }
+
+  .journal-shell {
+    border-radius: 28px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at top right, rgba(201, 64, 67, 0.08), transparent 30%),
+      linear-gradient(180deg, #f9f2e6 0%, #fffdf9 20%, #fffdf9 100%);
+    border: 1px solid #e6d9c5;
+    box-shadow: 0 22px 44px rgba(56, 33, 12, 0.10);
+  }
+
+  .journal-header {
+    padding: 22px 22px 18px;
+    border-bottom: 1px solid rgba(164, 107, 70, 0.14);
+    background: linear-gradient(180deg, rgba(248, 238, 221, 0.9), rgba(255, 253, 249, 0.65));
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #8a6a51;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: #907259;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(201, 64, 67, 0.08);
+    color: #8b514d;
+    border: 1px solid rgba(201, 64, 67, 0.10);
+  }
+
+  .title {
+    font-size: 30px;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    color: #2b221c;
+  }
+
+  .lead {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #5e554d;
+    margin: 0;
+  }
+
+  .paper {
+    position: relative;
+    padding: 24px 22px 28px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.92)),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 34px,
+        rgba(112, 145, 185, 0.14) 34px,
+        rgba(112, 145, 185, 0.14) 35px
+      ),
+      #fffefb;
+  }
+
+  .paper::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(201, 64, 67, 0.18);
+  }
+
+  .entry {
+    padding-left: 24px;
+    margin-bottom: 28px;
+  }
+
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry-time {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: #b6653e;
+    margin-bottom: 8px;
+  }
+
+  .entry-title {
+    font-size: 20px;
+    line-height: 1.35;
+    color: #2d241d;
+    margin: 0 0 10px;
+  }
+
+  .entry-copy {
+    font-size: 15px;
+    line-height: 1.95;
+    color: #5f554d;
+  }
+
+  .entry-copy p {
+    margin: 0 0 10px;
+  }
+
+  .entry-copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  .reference {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    color: #b13d43;
+    background: rgba(201, 64, 67, 0.08);
+    border: 1px solid rgba(201, 64, 67, 0.12);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .reference::before {
+    content: "↗";
+    font-size: 11px;
+    opacity: 0.9;
+  }
+
+  .floating {
+    margin-top: 18px;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(84, 58, 34, 0.14);
+    background: rgba(250, 245, 236, 0.98);
+    box-shadow: 0 22px 44px rgba(36, 22, 9, 0.16);
+  }
+
+  .floating-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(84, 58, 34, 0.10);
+    background: rgba(255,255,255,0.58);
+  }
+
+  .floating-head strong {
+    display: block;
+    font-size: 17px;
+    color: #2f251f;
+    margin-bottom: 4px;
+  }
+
+  .floating-head span {
+    font-size: 12px;
+    color: #8c7060;
+  }
+
+  .close {
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #7a6153;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(84, 58, 34, 0.10);
+  }
+
+  .floating-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .panel.note {
+    border-right: 1px solid rgba(84, 58, 34, 0.10);
+    background: rgba(255,255,255,0.40);
+  }
+
+  .panel h4 {
+    font-size: 15px;
+    color: #2c241f;
+    margin: 0 0 10px;
+  }
+
+  .panel p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #60554d;
+    margin: 0 0 10px;
+  }
+
+  .mini-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .mini-tag {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(201,64,67,0.08);
+    color: #8f5751;
+  }
+
+  .graph-box {
+    min-height: 170px;
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(201,64,67,0.16), transparent 18%),
+      radial-gradient(circle at 75% 32%, rgba(184,134,11,0.18), transparent 16%),
+      linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.9));
+    border: 1px solid rgba(91, 64, 40, 0.10);
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .graph-node {
+    position: absolute;
+    width: 74px;
+    height: 34px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid rgba(201,64,67,0.16);
+    box-shadow: 0 8px 16px rgba(36, 22, 9, 0.08);
+    font-size: 12px;
+    color: #5f4f43;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .graph-line {
+    position: absolute;
+    height: 2px;
+    background: rgba(143, 98, 62, 0.32);
+    transform-origin: left center;
+  }
+
+  .feedback {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid #e6dcc9;
+    color: #5e544d;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+</style>
+
+<div class="layout">
+  <div class="mockup">
+    <div class="mockup-header">Diary Detail Mockup</div>
+    <div class="mockup-body">
+      <div class="journal-shell">
+        <div class="journal-header">
+          <div class="back-link">← 返回考研日志时间线</div>
+          <div class="meta-row">
+            <span>2026-04-03 Friday</span>
+            <span class="pill">3 条记录</span>
+            <span class="pill">steady</span>
+            <span class="pill">cloudy</span>
+            <span class="pill">library</span>
+          </div>
+          <h3 class="title">4 月冲刺阶段复盘</h3>
+          <p class="lead">头部像这一天的封面，下面是连续纸页式正文。页面重点是“像日志本一样读文字”，不是在正文里插复杂组件。</p>
+        </div>
+
+        <div class="paper">
+          <div class="entry">
+            <div class="entry-time">07:20</div>
+            <h4 class="entry-title">晨读先把状态找回来</h4>
+            <div class="entry-copy">
+              <p>今天一开始状态有点飘，先把英语阅读做了两篇，第二篇还是有几个定位句看得太慢。后来我对照了 <span class="reference">React 状态同步排查笔记</span> 里那种“先找状态源头再拆问题”的思路，感觉复盘学习问题也可以这么做。</p>
+              <p>正文这里完全是普通文字段落，引用看起来只是被标识出来，不会在行文中突然塞进一个图谱或大卡片，阅读节奏会更完整。</p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-time">14:10</div>
+            <h4 class="entry-title">下午复盘开始串知识点</h4>
+            <div class="entry-copy">
+              <p>下午做政治错题时，我又翻了 <span class="reference">知识图谱：状态流转</span>，主要是想看自己之前整理的概念关系。这里仍然只显示一段正常文字，真正的引用内容在点击后才会浮起来。</p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-time">22:05</div>
+            <h4 class="entry-title">点引用后才出现预览</h4>
+            <div class="entry-copy">
+              <p>当我点击上面的引用时，页面上层才出现一个悬浮窗。关闭后又回到纯文字日志，不会让每一条 diary 看起来像一个复杂仪表盘。</p>
+            </div>
+
+            <div class="floating">
+              <div class="floating-head">
+                <div>
+                  <strong>React 状态同步排查笔记</strong>
+                  <span>note 预览 · 点击日志内引用后出现</span>
+                </div>
+                <div class="close">关闭</div>
+              </div>
+              <div class="floating-body">
+                <div class="panel note">
+                  <h4>笔记摘要</h4>
+                  <p>先确认状态源头，避免多个组件各自维护同名状态；把派生状态留在渲染层，不要重复写入 store。</p>
+                  <div class="mini-tags">
+                    <span class="mini-tag">react</span>
+                    <span class="mini-tag">调试</span>
+                    <span class="mini-tag">前端</span>
+                  </div>
+                </div>
+                <div class="panel">
+                  <h4>图谱也同样走弹窗</h4>
+                  <div class="graph-box">
+                    <div class="graph-node" style="left: 18px; top: 22px;">store</div>
+                    <div class="graph-node" style="left: 128px; top: 96px;">toolbar</div>
+                    <div class="graph-node" style="left: 224px; top: 28px;">preview</div>
+                    <div class="graph-line" style="left: 79px; top: 48px; width: 83px; transform: rotate(28deg);"></div>
+                    <div class="graph-line" style="left: 202px; top: 52px; width: 50px; transform: rotate(-18deg);"></div>
+                  </div>
+                  <p>graph 也是点击日志中的引用后再显示，不会常驻在 diary 正文里。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feedback">
+        修订后的核心规则：日志正文始终是纯文字阅读；引用内容只通过“被标识的文字”提示存在，用户点击后才打开站内浮层预览 note / graph。
+      </div>
+    </div>
+  </div>
+</div>

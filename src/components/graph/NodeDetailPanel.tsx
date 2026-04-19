@@ -36,7 +36,7 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
         <button
           onClick={onClose}
           className="p-1.5 rounded-lg hover:bg-black/10 transition-colors"
-          title="Close"
+          title="关闭"
         >
           <svg
             width="18"
@@ -55,7 +55,7 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
         {edgeColorInfo && (
           <div>
             <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
-              Priority
+              重要程度
             </h4>
             <div className="flex items-center gap-2">
               <span
@@ -73,7 +73,7 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
         {data.tags && data.tags.length > 0 && (
           <div>
             <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
-              Tags
+              标签
             </h4>
             <div className="flex flex-wrap gap-2">
               {data.tags.map((tag, index) => (
@@ -95,7 +95,7 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
         {sanitizedContent && (
           <div>
             <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
-              Content
+              内容
             </h4>
             <div
               className="tiptap-content text-sm text-[var(--color-ink)] leading-relaxed"
@@ -107,17 +107,17 @@ export default function NodeDetailPanel({ node, onClose }: NodeDetailPanelProps)
         {(data.createdAt || data.updatedAt) && (
           <div className="pt-4 border-t border-[var(--color-border)]">
             <h4 className="text-xs font-medium text-[var(--color-gray)] mb-2 uppercase tracking-wide">
-              Time
+              时间
             </h4>
             <div className="text-sm text-[var(--color-gray)] space-y-1">
               {data.createdAt && (
                 <p>
-                  Created: {new Date(data.createdAt).toLocaleDateString("zh-CN")}
+                  创建：{new Date(data.createdAt).toLocaleDateString("zh-CN")}
                 </p>
               )}
               {data.updatedAt && (
                 <p>
-                  Updated: {new Date(data.updatedAt).toLocaleDateString("zh-CN")}
+                  更新：{new Date(data.updatedAt).toLocaleDateString("zh-CN")}
                 </p>
               )}
             </div>

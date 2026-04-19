@@ -187,9 +187,9 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="flex-1 text-xs py-1.5 text-[var(--color-gray)] hover:text-[var(--color-vermilion)] hover:bg-[var(--color-paper-dark)] rounded transition-colors"
-          title="Scroll to top"
+          title="滚动到顶部"
         >
-          Top
+          顶部
         </button>
         <button
           onClick={() =>
@@ -199,9 +199,9 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
             })
           }
           className="flex-1 text-xs py-1.5 text-[var(--color-gray)] hover:text-[var(--color-vermilion)] hover:bg-[var(--color-paper-dark)] rounded transition-colors"
-          title="Scroll to bottom"
+          title="滚动到底部"
         >
-          Bottom
+          底部
         </button>
       </div>
     </nav>

@@ -29,17 +29,26 @@ export default function GraphPageClient({ graph }: GraphPageClientProps) {
         返回图谱列表
       </Link>
 
-      <header className="mb-8">
+      {/* 图谱卡片 — 虚线边框暗示节点连接 */}
+      <header className="rounded-2xl bg-[var(--color-paper)] border-2 border-dashed border-[var(--color-gold)]/30 p-8 mb-8">
+        <p className="text-xs tracking-[0.16em] uppercase text-[var(--color-gold)] mb-2">知识图谱</p>
         <h1 className="text-2xl font-bold mb-2">{graph.name}</h1>
         {graph.description && (
-          <p className="text-[var(--color-gray)] mb-2">{graph.description}</p>
+          <p className="text-[var(--color-gray)] mb-4">{graph.description}</p>
         )}
-        <p className="text-sm text-[var(--color-gray)]">
-          {graph.date && <span className="mr-4">{graph.date}</span>}
-          <span>{graph.graphData.nodes.length} 个节点</span>
-          <span className="mx-2">·</span>
-          <span>{graph.graphData.edges.length} 条连接</span>
-        </p>
+        {graph.date && (
+          <p className="text-sm text-[var(--color-gray)] mb-4">{graph.date}</p>
+        )}
+        <div className="flex gap-3">
+          <div className="flex items-center gap-2 px-4 py-2 bg-[var(--color-paper-dark)] rounded-lg border-l-3 border-[var(--color-gold)]">
+            <span className="text-2xl font-bold text-[var(--color-ink)]">{graph.graphData.nodes.length}</span>
+            <span className="text-sm text-[var(--color-gray)]">个节点</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-2 bg-[var(--color-paper-dark)] rounded-lg border-l-3 border-[var(--color-vermilion)]">
+            <span className="text-2xl font-bold text-[var(--color-ink)]">{graph.graphData.edges.length}</span>
+            <span className="text-sm text-[var(--color-gray)]">条连接</span>
+          </div>
+        </div>
       </header>
 
       <div className="mb-6 p-4 bg-[var(--color-paper-dark)] rounded-lg text-sm">

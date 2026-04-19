@@ -189,7 +189,7 @@ export default function Header() {
           return;
         }
 
-        const message = err instanceof Error ? err.message : "Search failed.";
+        const message = err instanceof Error ? err.message : "搜索失败。";
         setSearchItems([]);
         setSearchError(message);
       } finally {
@@ -207,7 +207,7 @@ export default function Header() {
       {isSearchOpen && (
         <button
           type="button"
-          aria-label="Close search"
+          aria-label="关闭搜索"
           className="fixed inset-0 z-40 cursor-default bg-black/10"
           onClick={closeSearch}
         />
@@ -244,9 +244,9 @@ export default function Header() {
               type="button"
               onClick={() => setIsSearchOpen((open) => !open)}
               className="text-sm text-[var(--color-gray)] hover:text-[var(--color-ink)] px-2 py-1 rounded-md border border-transparent hover:border-[var(--color-paper-darker)] transition-colors"
-              aria-label="Open search (shortcut: /)"
+              aria-label="打开搜索（快捷键：/）"
             >
-              <span className="hidden sm:inline">Search</span>
+              <span className="hidden sm:inline">搜索</span>
               <span className="sm:hidden">/</span>
             </button>
           </div>
@@ -265,7 +265,7 @@ export default function Header() {
                 ref={searchInputRef}
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search notes / diary / projects / graphs / roadmap"
+                placeholder="搜索笔记 / 日志 / 项目 / 图谱 / 规划"
                 className="flex-1 bg-white border border-[var(--color-paper-darker)] rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-vermilion)]"
               />
               <button
@@ -283,14 +283,14 @@ export default function Header() {
               )}
 
               {!searchError && isSearching && (
-                <p className="text-sm text-[var(--color-gray)]">Searching...</p>
+                <p className="text-sm text-[var(--color-gray)]">搜索中...</p>
               )}
 
               {!searchError &&
                 !isSearching &&
                 searchQuery.trim() &&
                 searchItems.length === 0 && (
-                  <p className="text-sm text-[var(--color-gray)]">No results.</p>
+                  <p className="text-sm text-[var(--color-gray)]">没有找到结果。</p>
                 )}
 
               {searchItems.length > 0 && (
@@ -317,8 +317,8 @@ export default function Header() {
             </div>
 
             <div className="mt-3 text-xs text-[var(--color-gray)]">
-              Tip: press <span className="font-mono">/</span> to open search and{" "}
-              <span className="font-mono">ESC</span> to close.
+              提示：按 <span className="font-mono">/</span> 打开搜索，按{" "}
+              <span className="font-mono">ESC</span> 关闭。
             </div>
           </div>
         </div>

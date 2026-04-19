@@ -177,36 +177,63 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
         返回规划列表
       </Link>
 
-      <header className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-2xl font-bold">{roadmap.name}</h1>
-          <span className={`text-xs px-2 py-1 rounded ${roadmapStatusConfig[roadmap.status].className}`}>
-            {roadmapStatusConfig[roadmap.status].label}
-          </span>
+      {/* 仪表盘卡片 */}
+      <header className="rounded-2xl border border-[var(--color-paper-darker)] overflow-hidden mb-8">
+        <div className="h-1 bg-gradient-to-r from-[var(--color-vermilion)] to-[var(--color-gold)]" />
+        <div className="bg-[var(--color-paper-dark)]/40 p-8">
+          <p className="text-xs tracking-[0.16em] uppercase text-[var(--color-gold)] mb-2">我的规划</p>
+          <div className="flex items-center gap-3 mb-2">
+            {roadmap.status === "active" ? (
+              <span className="relative flex h-3 w-3 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-vermilion)] opacity-75" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[var(--color-vermilion)]" />
+              </span>
+            ) : (
+              <span className={`h-3 w-3 rounded-full shrink-0 ${roadmap.status === "completed" ? "bg-green-500" : "bg-gray-400"}`} />
+            )}
+            <h1 className="text-2xl font-bold">{roadmap.name}</h1>
+            <span className={`text-xs px-2 py-1 rounded ${roadmapStatusConfig[roadmap.status].className}`}>
+              {roadmapStatusConfig[roadmap.status].label}
+            </span>
+          </div>
+          <p className="text-[var(--color-gray)] mb-4">{roadmap.description}</p>
+
+          {roadmap.error && (
+            <div className="mb-4 rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-4 text-sm text-[var(--color-gray)]">
+              <p className="mb-1 font-medium text-[var(--color-danger)]">frontmatter 错误</p>
+              <p>{roadmap.error}</p>
+            </div>
+          )}
+
+          {total > 0 && (
+            <div className="bg-[var(--color-bg,#fff)]/60 rounded-lg p-4">
+              <div className="flex justify-between text-sm mb-2">
+                <span className="text-[var(--color-gray)]">完成进度</span>
+                <span className="font-medium">{doneCount}/{total} ({progressPercent}%)</span>
+              </div>
+              <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-green-500 transition-all duration-500"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <div className="flex gap-4 mt-2 text-xs text-[var(--color-gray)]">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                  已完成 {doneCount}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-vermilion)]" />
+                  进行中 {inProgress.length}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-gray-300" />
+                  待开始 {todo.length}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
-        <p className="text-[var(--color-gray)] mb-4">{roadmap.description}</p>
-
-        {roadmap.error && (
-          <div className="mb-4 rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-4 text-sm text-[var(--color-gray)]">
-            <p className="mb-1 font-medium text-[var(--color-danger)]">frontmatter 错误</p>
-            <p>{roadmap.error}</p>
-          </div>
-        )}
-
-        {total > 0 && (
-          <div className="bg-[var(--color-paper-dark)] rounded-lg p-4">
-            <div className="flex justify-between text-sm mb-2">
-              <span className="text-[var(--color-gray)]">完成进度</span>
-              <span className="font-medium">{doneCount}/{total} ({progressPercent}%)</span>
-            </div>
-            <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-green-500 transition-all duration-500"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
-          </div>
-        )}
       </header>
 
       {roadmap.content.trim() && (
