@@ -6,6 +6,7 @@ import {
   parseFrontmatter,
   readFrontmatterString,
 } from "../src/lib/frontmatter.ts";
+import { compareDateDescThenSlug } from "../src/lib/date-sort.ts";
 import { normalizeRoadmapStatus } from "../src/lib/roadmap-status.ts";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
@@ -50,9 +51,22 @@ test("project 详情页只在存在 GitHub 地址时渲染 GitHub 按钮", () =>
 });
 
 test("diary 多条聚合标题使用中文文案，与编辑器一致", () => {
-  const source = readRepoFile("src/lib/diary.ts");
-
+  const source = `${readRepoFile("src/lib/diary.ts")}\n${readRepoFile("src/lib/diary-contract.ts")}`;
   assert.match(source, /\$\{date\} 考研日志/);
+});
+
+test("按日期倒序的列表排序在相同日期时使用 slug 稳定打破平局", () => {
+  const items = [
+    { slug: "zeta", date: "2026-04-03" },
+    { slug: "alpha", date: "2026-04-03" },
+    { slug: "middle", date: "2026-04-02" },
+  ];
+
+  assert.deepEqual(items.sort(compareDateDescThenSlug).map((item) => item.slug), [
+    "alpha",
+    "zeta",
+    "middle",
+  ]);
 });
 
 test("动态详情页会先解码路由 slug，再读取内容", () => {

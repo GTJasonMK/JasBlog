@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getAllRoadmaps, type RoadmapMeta, type RoadmapStatus } from "@/lib/roadmap";
+import { ROADMAP_STATUS_BADGE_CONFIG } from "@/lib/roadmap-ui";
 import SectionTitle from "@/components/SectionTitle";
 
 export const metadata: Metadata = {
@@ -8,24 +9,8 @@ export const metadata: Metadata = {
   description: "当前正在做的事情和安排",
 };
 
-// 规划状态配置
-const statusConfig: Record<RoadmapStatus, { label: string; className: string }> = {
-  active: {
-    label: "进行中",
-    className: "bg-[var(--color-vermilion)] text-white",
-  },
-  completed: {
-    label: "已完成",
-    className: "bg-green-100 text-green-700",
-  },
-  paused: {
-    label: "已暂停",
-    className: "bg-gray-100 text-gray-600",
-  },
-};
-
 function StatusBadge({ status }: { status: RoadmapStatus }) {
-  const { label, className } = statusConfig[status];
+  const { label, className } = ROADMAP_STATUS_BADGE_CONFIG[status];
   return (
     <span className={`text-xs px-2 py-1 rounded ${className}`}>{label}</span>
   );
@@ -100,7 +85,7 @@ export default function RoadmapPage() {
       {activeRoadmaps.length > 0 && (
         <section className="mb-12">
           <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-[var(--color-vermilion)]" />
+            <span className={`w-3 h-3 rounded-full ${ROADMAP_STATUS_BADGE_CONFIG.active.dotClassName}`} />
             进行中
           </h3>
           <div className="grid gap-4">
@@ -115,7 +100,7 @@ export default function RoadmapPage() {
       {pausedRoadmaps.length > 0 && (
         <section className="mb-12">
           <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-gray-400" />
+            <span className={`w-3 h-3 rounded-full ${ROADMAP_STATUS_BADGE_CONFIG.paused.dotClassName}`} />
             已暂停
           </h3>
           <div className="grid gap-4">
@@ -130,7 +115,7 @@ export default function RoadmapPage() {
       {completedRoadmaps.length > 0 && (
         <section>
           <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-green-500" />
+            <span className={`w-3 h-3 rounded-full ${ROADMAP_STATUS_BADGE_CONFIG.completed.dotClassName}`} />
             已完成
           </h3>
           <div className="grid gap-4">

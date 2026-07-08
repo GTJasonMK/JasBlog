@@ -5,9 +5,14 @@ import {
   getRoadmapBySlug,
   getAllRoadmapSlugs,
   type RoadmapItem,
-  type RoadmapStatus,
 } from "@/lib/roadmap";
+import { calculateRoadmapProgress } from "@/lib/roadmap-content";
 import { preprocessAlerts } from "@/lib/preprocess-alerts";
+import {
+  ROADMAP_ITEM_STATUS_BADGE_CONFIG,
+  ROADMAP_PRIORITY_CONFIG,
+  ROADMAP_STATUS_BADGE_CONFIG,
+} from "@/lib/roadmap-ui";
 import { decodeRouteSlug } from "@/lib/route-slug";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 
@@ -43,49 +48,13 @@ export async function generateMetadata({ params }: RoadmapPageProps): Promise<Me
   };
 }
 
-const statusConfig = {
-  todo: {
-    label: "待开始",
-    className: "bg-gray-100 text-gray-600",
-  },
-  in_progress: {
-    label: "进行中",
-    className: "bg-[var(--color-vermilion)] text-white",
-  },
-  done: {
-    label: "已完成",
-    className: "bg-green-100 text-green-700",
-  },
-};
-
-const roadmapStatusConfig: Record<RoadmapStatus, { label: string; className: string }> = {
-  active: {
-    label: "进行中",
-    className: "bg-[var(--color-vermilion)] text-white",
-  },
-  completed: {
-    label: "已完成",
-    className: "bg-green-100 text-green-700",
-  },
-  paused: {
-    label: "已暂停",
-    className: "bg-gray-100 text-gray-600",
-  },
-};
-
-const priorityConfig = {
-  high: { className: "bg-[var(--color-vermilion)]", label: "高" },
-  medium: { className: "bg-[var(--color-gold)]", label: "中" },
-  low: { className: "bg-gray-300", label: "低" },
-};
-
 function StatusBadge({ status }: { status: RoadmapItem["status"] }) {
-  const { label, className } = statusConfig[status];
+  const { label, className } = ROADMAP_ITEM_STATUS_BADGE_CONFIG[status];
   return <span className={`text-xs px-2 py-1 rounded ${className}`}>{label}</span>;
 }
 
 function PriorityIndicator({ priority }: { priority: RoadmapItem["priority"] }) {
-  const priorityInfo = priorityConfig[priority];
+  const priorityInfo = ROADMAP_PRIORITY_CONFIG[priority];
 
   return (
     <span
@@ -155,8 +124,9 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
   const todo = roadmap.items.filter((item) => item.status === "todo");
   const done = roadmap.items.filter((item) => item.status === "done");
 
-  const total = roadmap.items.length;
-  const doneCount = done.length;
+  const progress = calculateRoadmapProgress(roadmap.items);
+  const total = progress.total;
+  const doneCount = progress.done;
   const progressPercent = total > 0 ? Math.round((doneCount / total) * 100) : 0;
 
   return (
@@ -192,8 +162,8 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
               <span className={`h-3 w-3 rounded-full shrink-0 ${roadmap.status === "completed" ? "bg-green-500" : "bg-gray-400"}`} />
             )}
             <h1 className="text-2xl font-bold">{roadmap.name}</h1>
-            <span className={`text-xs px-2 py-1 rounded ${roadmapStatusConfig[roadmap.status].className}`}>
-              {roadmapStatusConfig[roadmap.status].label}
+            <span className={`text-xs px-2 py-1 rounded ${ROADMAP_STATUS_BADGE_CONFIG[roadmap.status].className}`}>
+              {ROADMAP_STATUS_BADGE_CONFIG[roadmap.status].label}
             </span>
           </div>
           <p className="text-[var(--color-gray)] mb-4">{roadmap.description}</p>
@@ -249,14 +219,14 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
       {roadmap.items.length > 0 && (
         <section>
           <h2 className="text-xl font-semibold mb-8 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-[var(--color-vermilion)]" />
+            <span className={`w-3 h-3 rounded-full ${ROADMAP_STATUS_BADGE_CONFIG.active.dotClassName}`} />
             任务列表 ({roadmap.items.length})
           </h2>
 
           {inProgress.length > 0 && (
             <section className="mb-10">
               <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[var(--color-vermilion)]" />
+                <span className={`w-3 h-3 rounded-full ${ROADMAP_ITEM_STATUS_BADGE_CONFIG.in_progress.dotClassName}`} />
                 正在进行 ({inProgress.length})
               </h3>
               <div className="grid gap-3">
@@ -270,7 +240,7 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
           {todo.length > 0 && (
             <section className="mb-10">
               <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-gray-300" />
+                <span className={`w-3 h-3 rounded-full ${ROADMAP_ITEM_STATUS_BADGE_CONFIG.todo.dotClassName}`} />
                 计划中 ({todo.length})
               </h3>
               <div className="grid gap-3">
@@ -284,7 +254,7 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
           {done.length > 0 && (
             <section>
               <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-green-500" />
+                <span className={`w-3 h-3 rounded-full ${ROADMAP_ITEM_STATUS_BADGE_CONFIG.done.dotClassName}`} />
                 已完成 ({done.length})
               </h3>
               <div className="grid gap-3">

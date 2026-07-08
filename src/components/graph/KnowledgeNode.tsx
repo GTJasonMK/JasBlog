@@ -2,7 +2,7 @@
 
 import { memo, useState } from "react";
 import { Handle, Position } from "@xyflow/react";
-import { getNodeColor, nodeColorConfig, type KnowledgeNodeData } from "@/types/graph";
+import { getNodeColor, nodeColorConfig, type KnowledgeNodeData } from "../../types/graph";
 
 interface KnowledgeNodeProps {
   data: KnowledgeNodeData;

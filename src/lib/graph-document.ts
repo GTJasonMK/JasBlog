@@ -6,7 +6,7 @@ function createEmptyGraphData(): GraphData {
   return { nodes: [], edges: [] };
 }
 
-function isValidGraphData(value: unknown): value is GraphData {
+export function isValidGraphData(value: unknown): value is GraphData {
   if (!value || typeof value !== "object") return false;
   const obj = value as Record<string, unknown>;
 
@@ -27,6 +27,7 @@ export interface ParsedGraphDocument {
 }
 
 export function parseGraphDocument(slug: string, content: string): ParsedGraphDocument {
+  void slug;
   const match = content.match(GRAPH_BLOCK_REGEX);
 
   if (!match) {

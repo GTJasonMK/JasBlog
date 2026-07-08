@@ -1,7 +1,5 @@
-import fs from "fs";
 import path from "path";
 import {
-  parseFrontmatter,
   readFrontmatterString,
 } from "./frontmatter";
 import {
@@ -9,38 +7,28 @@ import {
   type RoadmapStatus,
 } from "./roadmap-status";
 import {
-  isMarkdownFileName,
-  resolveMarkdownFilePath,
+  calculateRoadmapProgress,
+  parseRoadmapItemsFromContent,
+  type RoadmapContentItem,
+  type RoadmapProgress,
+} from "./roadmap-content";
+import {
+  listMarkdownFiles,
+  readParsedContentBySlug,
+  readParsedContentFiles,
+  sortByDateDescThenSlug,
+} from "./content-repository";
+import { formatDate } from "./content-common";
+import {
   stripMarkdownExtension,
 } from "./markdown-file";
 
 const roadmapsDirectory = path.join(process.cwd(), "content/roadmaps");
 
-// 将日期转换为字符串格式
-function formatDate(date: unknown): string {
-  if (!date) return "";
-  if (date instanceof Date) {
-    return date.toISOString().split("T")[0];
-  }
-  return String(date);
-}
+export type RoadmapItem = RoadmapContentItem;
 
-// 单个任务项
-export interface RoadmapItem {
-  id: string;
-  title: string;
-  description?: string;
-  details?: string;
-  status: "todo" | "in_progress" | "done";
-  priority: "high" | "medium" | "low";
-  deadline?: string;
-  completedAt?: string; // 实际完成日期
-}
-
-// 规划的状态
 export type { RoadmapStatus } from "./roadmap-status";
 
-// 完整的规划（包含内容）
 export interface Roadmap {
   slug: string;
   name: string;
@@ -48,227 +36,25 @@ export interface Roadmap {
   date: string;
   status: RoadmapStatus;
   items: RoadmapItem[];
-  content: string; // 非任务的正文内容
+  content: string;
   error?: string;
 }
 
-// 规划元数据（列表用）
 export interface RoadmapMeta {
   slug: string;
   name: string;
   description: string;
   date: string;
   status: RoadmapStatus;
-  progress: {
-    total: number;
-    done: number;
-    inProgress: number;
-    todo: number;
-  };
+  progress: RoadmapProgress;
   error?: string;
 }
 
-/**
- * 从 Markdown 正文解析任务列表
- *
- * 支持的格式：
- * - [ ] 任务标题 `priority`
- *   描述文本
- *   截止: 2026-06-01
- *
- * - [-] 进行中的任务 `high`
- * - [x] 已完成的任务
- */
-function stripTaskListHeading(content: string): string {
-  const filteredLines = content
-    .split("\n")
-    .filter((line) => !/^(#{1,6}\s*)?任务列表[:：]?\s*$/.test(line.trim()));
-
-  return filteredLines.join("\n").replace(/\n{3,}/g, "\n\n").trim();
-}
-
-function parseItemsFromContent(content: string): { items: RoadmapItem[]; remainingContent: string } {
-  const lines = content.split(/\r?\n/);
-  const items: RoadmapItem[] = [];
-  const nonTaskLines: string[] = [];
-
-  let currentItem: RoadmapItem | null = null;
-  let currentDescription: string[] = [];
-  let currentDetails: string[] = [];
-  let isCollectingDetails = false;
-  let inFence = false;
-  let fenceChar = "";
-  let itemId = 1;
-
-  // 任务行正则：- [ ] 或 - [-] 或 - [x] 开头，后面是标题，可选 `priority`
-  const taskRegex = /^[-*+]\s*\[([ xX-])\]\s+(.+?)(?:\s+`(high|medium|low)`)?\s*$/;
-  // 缩进行正则（至少2个空格）
-  const indentRegex = /^(\s{2,})(.+)$/;
-  // 截止日期正则
-  const deadlineRegex = /^截止[:：]\s*(.+)$/;
-  // 完成日期正则
-  const completedAtRegex = /^完成[:：]\s*(.+)$/;
-  // 描述和详情正则
-  const descriptionLabelRegex = /^描述[:：]\s*(.*)$/;
-  const detailsLabelRegex = /^详情[:：]\s*(.*)$/;
-
-  const saveCurrentItem = () => {
-    if (currentItem) {
-      if (currentDescription.length > 0) {
-        currentItem.description = currentDescription.join("\n").trim();
-      }
-      if (currentDetails.length > 0) {
-        currentItem.details = currentDetails.join("\n").trim();
-      }
-      items.push(currentItem);
-      currentItem = null;
-      currentDescription = [];
-      currentDetails = [];
-      isCollectingDetails = false;
-    }
-  };
-
-  const appendNonTaskLine = (line: string) => {
-    if (currentItem) {
-      saveCurrentItem();
-    }
-    nonTaskLines.push(line);
-  };
-
-  for (const line of lines) {
-    const trimmedLine = line.trimStart();
-    const fenceMatch = trimmedLine.match(/^(`{3,}|~{3,})/);
-
-    if (fenceMatch) {
-      const currentFenceChar = fenceMatch[1][0];
-      if (!inFence) {
-        inFence = true;
-        fenceChar = currentFenceChar;
-      } else if (currentFenceChar === fenceChar) {
-        inFence = false;
-        fenceChar = "";
-      }
-
-      appendNonTaskLine(line);
-      continue;
-    }
-
-    if (inFence) {
-      appendNonTaskLine(line);
-      continue;
-    }
-
-    const taskMatch = line.match(taskRegex);
-
-    if (taskMatch) {
-      // 保存之前的任务
-      saveCurrentItem();
-
-      // 解析新任务
-      const [, checkbox, title, priority] = taskMatch;
-      let status: RoadmapItem["status"] = "todo";
-      if (checkbox.toLowerCase() === "x") status = "done";
-      else if (checkbox === "-") status = "in_progress";
-
-      currentItem = {
-        id: String(itemId++),
-        title: title.trim(),
-        status,
-        priority: (priority as RoadmapItem["priority"]) || "medium",
-      };
-    } else if (currentItem) {
-      // 当前有任务，检查是否是缩进的描述行
-      const indentMatch = line.match(indentRegex);
-      if (indentMatch) {
-        const text = indentMatch[2];
-        const deadlineMatch = text.match(deadlineRegex);
-        const completedAtMatch = text.match(completedAtRegex);
-        if (deadlineMatch) {
-          currentItem.deadline = deadlineMatch[1].trim();
-          isCollectingDetails = false;
-        } else if (completedAtMatch) {
-          currentItem.completedAt = completedAtMatch[1].trim();
-          isCollectingDetails = false;
-        } else {
-          const descriptionLabelMatch = text.match(descriptionLabelRegex);
-          const detailsLabelMatch = text.match(detailsLabelRegex);
-
-          if (descriptionLabelMatch) {
-            const descriptionLine = descriptionLabelMatch[1].trim();
-            if (descriptionLine) {
-              currentDescription.push(descriptionLine);
-            }
-            isCollectingDetails = false;
-          } else if (detailsLabelMatch) {
-            const detailLine = detailsLabelMatch[1].trim();
-            if (detailLine) {
-              currentDetails.push(detailLine);
-            }
-            isCollectingDetails = true;
-          } else if (isCollectingDetails) {
-            currentDetails.push(text);
-          } else {
-            currentDescription.push(text);
-          }
-        }
-      } else if (line.trim() === "") {
-        // 空行，可能是任务之间的分隔
-        // 继续保持当前任务状态，允许多段描述
-        if (isCollectingDetails && currentDetails.length > 0) {
-          currentDetails.push("");
-        } else if (currentDescription.length > 0) {
-          currentDescription.push("");
-        }
-      } else {
-        // 非缩进的非空行，任务结束
-        saveCurrentItem();
-        nonTaskLines.push(line);
-      }
-    } else {
-      // 没有当前任务，这是普通内容
-      nonTaskLines.push(line);
-    }
-  }
-
-  // 保存最后一个任务
-  saveCurrentItem();
-
-  const rawRemainingContent = nonTaskLines.join("\n").trim();
-
-  return {
-    items,
-    remainingContent: items.length > 0 ? stripTaskListHeading(rawRemainingContent) : rawRemainingContent,
-  };
-}
-
-// 计算进度
-function calculateProgress(items: RoadmapItem[]) {
-  return {
-    total: items.length,
-    done: items.filter((i) => i.status === "done").length,
-    inProgress: items.filter((i) => i.status === "in_progress").length,
-    todo: items.filter((i) => i.status === "todo").length,
-  };
-}
-
-// 获取所有规划的元数据（按日期排序）
 export function getAllRoadmaps(): RoadmapMeta[] {
-  if (!fs.existsSync(roadmapsDirectory)) {
-    return [];
-  }
-
-  const fileNames = fs.readdirSync(roadmapsDirectory);
-  const allRoadmaps = fileNames
-    .filter(isMarkdownFileName)
-    .map((fileName) => {
-      const slug = stripMarkdownExtension(fileName);
-      const fullPath = path.join(roadmapsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-      const parsed = parseFrontmatter(fileContents, "roadmap");
+  const allRoadmaps = readParsedContentFiles(roadmapsDirectory, "roadmap")
+    .map(({ slug, parsed }) => {
       const { data, content, error: frontmatterError } = parsed;
-
-      // 从正文解析任务
-      const { items } = parseItemsFromContent(content);
+      const { items } = parseRoadmapItemsFromContent(content);
       const status = normalizeRoadmapStatus(data.status);
       const error = [frontmatterError, status.error].filter(Boolean).join("\n") || undefined;
 
@@ -278,28 +64,23 @@ export function getAllRoadmaps(): RoadmapMeta[] {
         description: readFrontmatterString(data.description) ?? "",
         date: formatDate(data.date),
         status: status.status,
-        progress: calculateProgress(items),
+        progress: calculateRoadmapProgress(items),
         error,
       };
     });
 
-  return allRoadmaps.sort((a, b) => (a.date > b.date ? -1 : 1));
+  return sortByDateDescThenSlug(allRoadmaps);
 }
 
-// 根据 slug 获取单个规划
 export function getRoadmapBySlug(slug: string): Roadmap | null {
-  const fullPath = resolveMarkdownFilePath(roadmapsDirectory, slug);
+  const parsedFile = readParsedContentBySlug(roadmapsDirectory, slug, "roadmap");
 
-  if (!fullPath || !fs.existsSync(fullPath)) {
+  if (!parsedFile) {
     return null;
   }
 
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const parsed = parseFrontmatter(fileContents, "roadmap");
-  const { data, content, error: frontmatterError } = parsed;
-
-  // 从正文解析任务和剩余内容
-  const { items, remainingContent } = parseItemsFromContent(content);
+  const { data, content, error: frontmatterError } = parsedFile.parsed;
+  const { items, remainingContent } = parseRoadmapItemsFromContent(content);
   const status = normalizeRoadmapStatus(data.status);
   const error = [frontmatterError, status.error].filter(Boolean).join("\n") || undefined;
 
@@ -315,14 +96,7 @@ export function getRoadmapBySlug(slug: string): Roadmap | null {
   };
 }
 
-// 获取所有规划的 slug
 export function getAllRoadmapSlugs(): string[] {
-  if (!fs.existsSync(roadmapsDirectory)) {
-    return [];
-  }
-
-  const fileNames = fs.readdirSync(roadmapsDirectory);
-  return fileNames
-    .filter(isMarkdownFileName)
+  return listMarkdownFiles(roadmapsDirectory)
     .map(stripMarkdownExtension);
 }

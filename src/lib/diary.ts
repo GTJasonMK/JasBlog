@@ -8,17 +8,20 @@ import {
   isMarkdownFileName,
   stripMarkdownExtension,
 } from "./markdown-file";
+import { compareDateDescThenSlug } from "./date-sort";
+import {
+  buildDiaryDaySummary,
+  DIARY_DATE_PATTERN,
+  inferDiaryFromFileName,
+  sortDiaryEntriesByTimeAsc,
+  titleFromSlug,
+} from "./diary-contract";
+import {
+  formatDate,
+  parseStringArray,
+} from "./content-common";
 
 const diaryDirectory = path.join(process.cwd(), "content/diary");
-const dateSlugPattern = /^\d{4}-\d{2}-\d{2}$/;
-// Supported file names: YYYY-MM-DD-HH-mm-title.md, YYYY-MM-DD-HH-mm.md, YYYY-MM-DD.md
-const fileNamePattern = /^(\d{4}-\d{2}-\d{2})(?:-(\d{2})-(\d{2}))?(?:-(.+))?$/;
-
-function formatDate(value: unknown): string {
-  if (!value) return "";
-  if (value instanceof Date) return value.toISOString().split("T")[0];
-  return String(value);
-}
 
 function normalizeTime(value: unknown): string {
   if (!value) return "";
@@ -45,42 +48,14 @@ function normalizeTime(value: unknown): string {
   return "";
 }
 
-function parseStringArray(value: unknown): string[] {
-  if (Array.isArray(value)) {
-    return value
-      .map((item) => String(item).trim())
-      .filter(Boolean);
-  }
-
-  if (typeof value === "string") {
-    return value
-      .split(/[,\uFF0C\u3001]/)
-      .map((item) => item.trim())
-      .filter(Boolean);
-  }
-
-  return [];
-}
-
-function titleFromSlug(value: string): string {
-  return value.replace(/[-_]+/g, " ").trim();
-}
-
 function parseFromFileName(fileName: string): {
   date: string;
   time: string;
   title: string;
 } {
-  const match = fileName.match(fileNamePattern);
-  if (!match) {
-    return { date: "", time: "", title: titleFromSlug(fileName) };
-  }
-
-  const [, date, hour, minute, titleSlug] = match;
-  const time = hour && minute ? `${hour}:${minute}` : "";
-  const title = titleSlug ? titleFromSlug(titleSlug) : date;
-
-  return { date, time, title };
+  const inferred = inferDiaryFromFileName(fileName);
+  if (!inferred) return { date: "", time: "", title: titleFromSlug(fileName) };
+  return inferred;
 }
 
 function readMarkdownFiles(directory: string): string[] {
@@ -102,13 +77,6 @@ function readMarkdownFiles(directory: string): string[] {
   });
 
   return files;
-}
-
-function sortByTimeAsc(a: DiaryEntry, b: DiaryEntry): number {
-  if (a.time === b.time) {
-    return a.id.localeCompare(b.id);
-  }
-  return a.time.localeCompare(b.time);
 }
 
 export interface DiaryEntry {
@@ -160,7 +128,7 @@ function readDiaryEntries(): DiaryEntry[] {
     const { data, content, error } = parsed;
 
     const date = formatDate(data.date) || parsedFromName.date;
-    if (!dateSlugPattern.test(date)) {
+    if (!DIARY_DATE_PATTERN.test(date)) {
       return;
     }
 
@@ -189,42 +157,12 @@ function readDiaryEntries(): DiaryEntry[] {
 }
 
 function buildDiaryDay(date: string, entries: DiaryEntry[]): DiaryDay {
-  const sortedEntries = [...entries].sort(sortByTimeAsc);
-  const latestEntry = sortedEntries[sortedEntries.length - 1];
-
-  const mood =
-    latestEntry.mood ||
-    [...sortedEntries].reverse().map((entry) => entry.mood).find(Boolean);
-  const weather =
-    latestEntry.weather ||
-    [...sortedEntries].reverse().map((entry) => entry.weather).find(Boolean);
-  const location =
-    latestEntry.location ||
-    [...sortedEntries].reverse().map((entry) => entry.location).find(Boolean);
-
-  const tags = Array.from(
-    new Set(sortedEntries.flatMap((entry) => entry.tags))
-  ).sort();
-
-  const excerpt =
-    latestEntry.excerpt ||
-    sortedEntries.map((entry) => entry.excerpt).find(Boolean) ||
-    "";
+  const sortedEntries = [...entries].sort(sortDiaryEntriesByTimeAsc);
+  const summary = buildDiaryDaySummary(date, sortedEntries);
   const error = sortedEntries.map((entry) => entry.error).find(Boolean);
 
-  const title =
-    sortedEntries.length === 1 ? sortedEntries[0].title : `${date} 考研日志`;
-
   return {
-    slug: date,
-    title,
-    date,
-    excerpt,
-    tags,
-    entryCount: sortedEntries.length,
-    mood,
-    weather,
-    location,
+    ...summary,
     error,
     entries: sortedEntries,
   };
@@ -242,7 +180,7 @@ function buildDiaryDays(): DiaryDay[] {
 
   return Array.from(grouped.entries())
     .map(([date, dayEntries]) => buildDiaryDay(date, dayEntries))
-    .sort((a, b) => (a.date > b.date ? -1 : 1));
+    .sort(compareDateDescThenSlug);
 }
 
 export function getAllDiaryDays(): DiaryDayMeta[] {
@@ -261,7 +199,7 @@ export function getAllDiaryDays(): DiaryDayMeta[] {
 }
 
 export function getDiaryDayBySlug(slug: string): DiaryDay | null {
-  if (!dateSlugPattern.test(slug)) {
+  if (!DIARY_DATE_PATTERN.test(slug)) {
     return null;
   }
 

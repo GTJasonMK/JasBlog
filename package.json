@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/start-dev.mjs",
+    "dev:raw": "next dev",
     "build": "next build",
     "postbuild": "pagefind --site out",
     "start": "npx serve@latest out",
-    "test": "node --test --experimental-strip-types scripts/graph-content.test.ts scripts/graph-document.test.ts scripts/heading-content.test.ts scripts/ui-copy.test.ts scripts/content-contract.test.ts",
+    "test": "node --loader ../scripts/ts-loader.mjs --test scripts/graph-content.test.ts scripts/graph-document.test.ts scripts/heading-content.test.ts scripts/ui-copy.test.ts scripts/content-contract.test.ts",
     "lint": "eslint src scripts next.config.ts postcss.config.mjs --ext .js,.jsx,.ts,.tsx,.mjs",
     "commit:content": "node scripts/auto-commit-content.js"
   },

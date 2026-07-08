@@ -1,10 +1,10 @@
 "use client";
 
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { type Node } from "@xyflow/react";
 import GraphCanvas from "./GraphCanvas";
 import NodeDetailPanel from "./NodeDetailPanel";
-import { type GraphData } from "@/types/graph";
+import { type GraphData } from "../../types/graph";
 
 interface GraphViewerProps {
   data: GraphData;
@@ -59,6 +59,15 @@ export default function GraphViewer({
 }: GraphViewerProps) {
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [showMinimap, setShowMinimap] = useState(true);
+
+  useEffect(() => {
+    setSelectedNode((current) => {
+      if (!current) return null;
+      const nextSelected = data.nodes.find((node) => node.id === current.id);
+      return nextSelected ? (nextSelected as Node) : null;
+    });
+  }, [data.nodes]);
+
   const panelClassName = `w-full xl:w-[320px] flex-shrink-0 rounded-lg overflow-hidden border border-[var(--color-border)] ${panelWidthClassName}`.replace(
     "xl:w-[320px] xl:w-[320px]",
     "xl:w-[320px]"

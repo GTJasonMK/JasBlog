@@ -1,17 +1,9 @@
-type GraphData = {
-  nodes: unknown[];
-  edges: unknown[];
-};
+import { type GraphData } from "../types/graph";
+import { isValidGraphData } from "./graph-document";
 
 export type ArticleContentSegment =
   | { type: 'markdown'; content: string }
   | { type: 'graph'; data: GraphData };
-
-function isValidGraphData(value: unknown): value is GraphData {
-  if (!value || typeof value !== 'object') return false;
-  const obj = value as Record<string, unknown>;
-  return Array.isArray(obj.nodes) && Array.isArray(obj.edges);
-}
 
 export function parseArticleContentSegments(content: string): ArticleContentSegment[] {
   const segments: ArticleContentSegment[] = [];

@@ -2,13 +2,13 @@
 
 import { useMemo } from "react";
 import { type Node } from "@xyflow/react";
-import { sanitizeHtml } from "@/lib/sanitize-html";
+import { sanitizeHtml } from "../../lib/sanitize-html";
 import {
   type KnowledgeNodeData,
   nodeColorConfig,
   edgeColorConfig,
   getNodeColor,
-} from "@/types/graph";
+} from "../../types/graph";
 
 interface NodeDetailPanelProps {
   node: Node;

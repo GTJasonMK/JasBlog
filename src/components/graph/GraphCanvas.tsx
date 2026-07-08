@@ -27,7 +27,7 @@ import {
   nodeColorConfig,
   getEdgeStroke,
   getNodeColor,
-} from "@/types/graph";
+} from "../../types/graph";
 
 // 自定义节点类型 - 使用类型断言绕过严格检查
 const nodeTypes: NodeTypes = {
@@ -47,9 +47,9 @@ interface GraphCanvasProps {
 }
 
 function GraphCanvasInner({ data, selectedNode, onNodeSelect, showMinimap = true }: GraphCanvasProps) {
-  const [nodes, , onNodesChange] = useNodesState(data.nodes as Node[]);
-  const [edges, , onEdgesChange] = useEdgesState(data.edges as Edge[]);
-  const { fitView, getViewport, setViewport } = useReactFlow();
+  const [nodes, setNodes, onNodesChange] = useNodesState(data.nodes as Node[]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(data.edges as Edge[]);
+  const { getViewport, setViewport } = useReactFlow();
 
   // 记录状态
   const containerRef = useRef<HTMLDivElement>(null);
@@ -61,6 +61,17 @@ function GraphCanvasInner({ data, selectedNode, onNodeSelect, showMinimap = true
 
   // 面板宽度 + 间距
   const PANEL_WIDTH = 320 + 16;
+
+  useEffect(() => {
+    const selectedNodeId = selectedNode?.id ?? null;
+    setNodes(
+      data.nodes.map((node) => ({
+        ...(node as Node),
+        selected: node.id === selectedNodeId,
+      }))
+    );
+    setEdges(data.edges as Edge[]);
+  }, [data.edges, data.nodes, selectedNode?.id, setEdges, setNodes]);
 
   // 处理节点点击 - 在状态变化前记录当前视口和宽度
   const onNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
