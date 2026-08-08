@@ -1,9 +1,6 @@
-﻿"use client";
-
 import Link from "next/link";
 import GraphViewer from "@/components/graph/GraphViewer";
-import MarkdownRenderer from "@/components/MarkdownRenderer";
-import { preprocessAlerts } from "@/lib/preprocess-alerts";
+import { MarkdownContent } from "@/components/markdown/MarkdownContent";
 import type { Graph } from "@/types/graph";
 
 interface GraphPageClientProps {
@@ -72,7 +69,7 @@ export default function GraphPageClient({ graph }: GraphPageClientProps) {
 
       {graph.content.trim() && (
         <div className="prose-chinese mt-8">
-          <MarkdownRenderer content={preprocessAlerts(graph.content)} />
+          <MarkdownContent content={graph.content} />
         </div>
       )}
     </div>

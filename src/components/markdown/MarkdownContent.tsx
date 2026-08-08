@@ -7,32 +7,23 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import { createHeadingIdResolver } from "@/lib/heading-content";
-import {
-  createMarkdownComponents,
-  type MarkdownLinkRenderer,
-} from "./createMarkdownComponents";
+import { preprocessAlerts } from "@/lib/preprocess-alerts";
+import { createMarkdownComponents } from "./createMarkdownComponents";
 
 interface MarkdownContentProps {
   content: string;
-  renderLink?: MarkdownLinkRenderer;
 }
 
-export function MarkdownContent({
-  content,
-  renderLink,
-}: MarkdownContentProps) {
+export function MarkdownContent({ content }: MarkdownContentProps) {
   const resolveHeadingId = createHeadingIdResolver();
 
   return (
     <Markdown
       remarkPlugins={[remarkGfm, remarkMath]}
       rehypePlugins={[rehypeHighlight, rehypeKatex]}
-      components={createMarkdownComponents({
-        resolveHeadingId,
-        renderLink,
-      })}
+      components={createMarkdownComponents({ resolveHeadingId })}
     >
-      {content}
+      {preprocessAlerts(content)}
     </Markdown>
   );
 }

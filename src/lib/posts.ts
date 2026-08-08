@@ -1,7 +1,5 @@
 import path from "path";
-import {
-  readFrontmatterString,
-} from "./frontmatter";
+import { type ParsedFrontmatter } from "./frontmatter";
 import {
   listMarkdownFiles,
   readParsedContentBySlug,
@@ -11,22 +9,13 @@ import {
 import {
   formatDate,
   parseStringArray,
+  readFrontmatterString,
 } from "./content-common";
 import {
   stripMarkdownExtension,
 } from "./markdown-file";
 
 const notesDirectory = path.join(process.cwd(), "content/notes");
-
-export interface Post {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  tags: string[];
-  content: string;
-  error?: string;
-}
 
 export interface PostMeta {
   slug: string;
@@ -37,20 +26,24 @@ export interface PostMeta {
   error?: string;
 }
 
+export interface Post extends PostMeta {
+  content: string;
+}
+
+function normalizePost(slug: string, { data, error }: ParsedFrontmatter): PostMeta {
+  return {
+    slug,
+    title: readFrontmatterString(data.title, slug) ?? slug,
+    date: formatDate(data.date),
+    excerpt: readFrontmatterString(data.excerpt) ?? "",
+    tags: parseStringArray(data.tags),
+    error,
+  };
+}
+
 export function getAllPosts(): PostMeta[] {
   const allPosts = readParsedContentFiles(notesDirectory, "note")
-    .map(({ slug, parsed }) => {
-      const { data, error } = parsed;
-
-      return {
-        slug,
-        title: readFrontmatterString(data.title, slug) ?? slug,
-        date: formatDate(data.date),
-        excerpt: readFrontmatterString(data.excerpt) ?? "",
-        tags: parseStringArray(data.tags),
-        error,
-      };
-    });
+    .map(({ slug, parsed }) => normalizePost(slug, parsed));
 
   return sortByDateDescThenSlug(allPosts);
 }
@@ -62,16 +55,9 @@ export function getPostBySlug(slug: string): Post | null {
     return null;
   }
 
-  const { data, content, error } = parsedFile.parsed;
-
   return {
-    slug,
-    title: readFrontmatterString(data.title, slug) ?? slug,
-    date: formatDate(data.date),
-    excerpt: readFrontmatterString(data.excerpt) ?? "",
-    tags: parseStringArray(data.tags),
-    content,
-    error,
+    ...normalizePost(slug, parsedFile.parsed),
+    content: parsedFile.parsed.content,
   };
 }
 
@@ -81,10 +67,5 @@ export function getAllPostSlugs(): string[] {
 }
 
 export function getAllTags(): string[] {
-  const posts = getAllPosts();
-  const tagSet = new Set<string>();
-  posts.forEach((post) => {
-    post.tags.forEach((tag) => tagSet.add(tag));
-  });
-  return Array.from(tagSet).sort();
+  return [...new Set(getAllPosts().flatMap((post) => post.tags))].sort();
 }

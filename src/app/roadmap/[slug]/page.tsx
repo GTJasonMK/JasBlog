@@ -7,14 +7,12 @@ import {
   type RoadmapItem,
 } from "@/lib/roadmap";
 import { calculateRoadmapProgress } from "@/lib/roadmap-content";
-import { preprocessAlerts } from "@/lib/preprocess-alerts";
 import {
   ROADMAP_ITEM_STATUS_BADGE_CONFIG,
   ROADMAP_PRIORITY_CONFIG,
   ROADMAP_STATUS_BADGE_CONFIG,
 } from "@/lib/roadmap-ui";
-import { decodeRouteSlug } from "@/lib/route-slug";
-import MarkdownRenderer from "@/components/MarkdownRenderer";
+import { MarkdownContent } from "@/components/markdown/MarkdownContent";
 
 interface RoadmapPageProps {
   params: Promise<{ slug: string }>;
@@ -37,7 +35,7 @@ export async function generateMetadata({ params }: RoadmapPageProps): Promise<Me
     return { title: "规划未找到" };
   }
 
-  const roadmap = getRoadmapBySlug(decodeRouteSlug(slug));
+  const roadmap = getRoadmapBySlug(decodeURIComponent(slug));
   if (!roadmap) {
     return { title: "规划未找到" };
   }
@@ -114,7 +112,7 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
     notFound();
   }
 
-  const roadmap = getRoadmapBySlug(decodeRouteSlug(slug));
+  const roadmap = getRoadmapBySlug(decodeURIComponent(slug));
 
   if (!roadmap) {
     notFound();
@@ -208,7 +206,7 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
 
       {roadmap.content.trim() && (
         <div className="prose-chinese mb-8">
-          <MarkdownRenderer content={preprocessAlerts(roadmap.content)} />
+          <MarkdownContent content={roadmap.content} />
         </div>
       )}
 

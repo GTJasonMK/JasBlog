@@ -60,6 +60,31 @@ export function resolveDiaryDate(metaDate?: string, inferredDate?: string): stri
   return DIARY_DATE_PATTERN.test(normalizedInferredDate) ? normalizedInferredDate : "";
 }
 
+export function normalizeDiaryTime(value: unknown): string {
+  if (!value) return "";
+
+  const raw = String(value).trim();
+  const colonMatch = raw.match(/^(\d{1,2}):(\d{2})$/);
+  if (colonMatch) {
+    const hour = Number(colonMatch[1]);
+    const minute = Number(colonMatch[2]);
+    if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
+      return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+    }
+  }
+
+  const compactMatch = raw.match(/^(\d{2})(\d{2})$/);
+  if (compactMatch) {
+    const hour = Number(compactMatch[1]);
+    const minute = Number(compactMatch[2]);
+    if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
+      return `${compactMatch[1]}:${compactMatch[2]}`;
+    }
+  }
+
+  return "";
+}
+
 export function buildDiaryEntryId(filePath: string, diaryRootPath: string): string {
   const normalizedPath = normalizeSlashes(filePath);
   const normalizedRoot = normalizeSlashes(diaryRootPath).replace(/\/+$/, "");

@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useState } from "react";
+import { memo } from "react";
 import { Handle, Position } from "@xyflow/react";
 import { getNodeColor, nodeColorConfig, type KnowledgeNodeData } from "../../types/graph";
 
@@ -10,7 +10,6 @@ interface KnowledgeNodeProps {
 }
 
 function KnowledgeNode({ data, selected }: KnowledgeNodeProps) {
-  const [isHovered, setIsHovered] = useState(false);
   const color = getNodeColor(data.color);
   const colorConfig = nodeColorConfig[color];
 
@@ -23,11 +22,7 @@ function KnowledgeNode({ data, selected }: KnowledgeNodeProps) {
   };
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="relative group">
       {/* 节点内容 */}
       <div
         className="px-4 py-3 rounded-xl border-2 min-w-[120px] max-w-[200px] transition-all duration-200 hover:shadow-md"
@@ -87,18 +82,17 @@ function KnowledgeNode({ data, selected }: KnowledgeNodeProps) {
 
       {/* 中心连接点 - 悬停时显示 */}
       <div
-        className={`
+        className="
           absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
           w-8 h-8 rounded-full
           flex items-center justify-center
           transition-all duration-150
-          ${isHovered
-            ? "opacity-100 scale-100 bg-[var(--color-vermilion)]/30 border-2 border-[var(--color-vermilion)]"
-            : "opacity-0 scale-50"
-          }
-        `}
+          opacity-0 scale-50
+          group-hover:opacity-100 group-hover:scale-100
+          group-hover:bg-[var(--color-vermilion)]/30 group-hover:border-2 group-hover:border-[var(--color-vermilion)]
+        "
       >
-        <div className={`w-3 h-3 rounded-full bg-[var(--color-vermilion)] ${isHovered ? "animate-pulse" : ""}`} />
+        <div className="w-3 h-3 rounded-full bg-[var(--color-vermilion)] group-hover:animate-pulse" />
 
         {/* Handle 放在中心，覆盖整个区域 */}
         <Handle

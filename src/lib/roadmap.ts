@@ -1,7 +1,5 @@
 import path from "path";
-import {
-  readFrontmatterString,
-} from "./frontmatter";
+import { type ParsedFrontmatter } from "./frontmatter";
 import {
   normalizeRoadmapStatus,
   type RoadmapStatus,
@@ -18,7 +16,7 @@ import {
   readParsedContentFiles,
   sortByDateDescThenSlug,
 } from "./content-repository";
-import { formatDate } from "./content-common";
+import { formatDate, readFrontmatterString } from "./content-common";
 import {
   stripMarkdownExtension,
 } from "./markdown-file";
@@ -50,36 +48,7 @@ export interface RoadmapMeta {
   error?: string;
 }
 
-export function getAllRoadmaps(): RoadmapMeta[] {
-  const allRoadmaps = readParsedContentFiles(roadmapsDirectory, "roadmap")
-    .map(({ slug, parsed }) => {
-      const { data, content, error: frontmatterError } = parsed;
-      const { items } = parseRoadmapItemsFromContent(content);
-      const status = normalizeRoadmapStatus(data.status);
-      const error = [frontmatterError, status.error].filter(Boolean).join("\n") || undefined;
-
-      return {
-        slug,
-        name: readFrontmatterString(data.name, data.title, slug) ?? slug,
-        description: readFrontmatterString(data.description) ?? "",
-        date: formatDate(data.date),
-        status: status.status,
-        progress: calculateRoadmapProgress(items),
-        error,
-      };
-    });
-
-  return sortByDateDescThenSlug(allRoadmaps);
-}
-
-export function getRoadmapBySlug(slug: string): Roadmap | null {
-  const parsedFile = readParsedContentBySlug(roadmapsDirectory, slug, "roadmap");
-
-  if (!parsedFile) {
-    return null;
-  }
-
-  const { data, content, error: frontmatterError } = parsedFile.parsed;
+function normalizeRoadmap(slug: string, { data, content, error: frontmatterError }: ParsedFrontmatter): Roadmap {
   const { items, remainingContent } = parseRoadmapItemsFromContent(content);
   const status = normalizeRoadmapStatus(data.status);
   const error = [frontmatterError, status.error].filter(Boolean).join("\n") || undefined;
@@ -94,6 +63,35 @@ export function getRoadmapBySlug(slug: string): Roadmap | null {
     content: remainingContent,
     error,
   };
+}
+
+export function getAllRoadmaps(): RoadmapMeta[] {
+  const allRoadmaps = readParsedContentFiles(roadmapsDirectory, "roadmap")
+    .map(({ slug, parsed }) => {
+      const roadmap = normalizeRoadmap(slug, parsed);
+
+      return {
+        slug: roadmap.slug,
+        name: roadmap.name,
+        description: roadmap.description,
+        date: roadmap.date,
+        status: roadmap.status,
+        progress: calculateRoadmapProgress(roadmap.items),
+        error: roadmap.error,
+      };
+    });
+
+  return sortByDateDescThenSlug(allRoadmaps);
+}
+
+export function getRoadmapBySlug(slug: string): Roadmap | null {
+  const parsedFile = readParsedContentBySlug(roadmapsDirectory, slug, "roadmap");
+
+  if (!parsedFile) {
+    return null;
+  }
+
+  return normalizeRoadmap(slug, parsedFile.parsed);
 }
 
 export function getAllRoadmapSlugs(): string[] {

@@ -22,19 +22,16 @@ export function isValidGraphData(value: unknown): value is GraphData {
 export interface ParsedGraphDocument {
   graphData: GraphData;
   remainingContent: string;
-  hasGraphBlock: boolean;
   error: string | null;
 }
 
-export function parseGraphDocument(slug: string, content: string): ParsedGraphDocument {
-  void slug;
+export function parseGraphDocument(content: string): ParsedGraphDocument {
   const match = content.match(GRAPH_BLOCK_REGEX);
 
   if (!match) {
     return {
       graphData: createEmptyGraphData(),
       remainingContent: content.trim(),
-      hasGraphBlock: false,
       error: "缺少 ```graph 代码块：知识图谱文件必须包含 graph 数据",
     };
   }
@@ -48,7 +45,6 @@ export function parseGraphDocument(slug: string, content: string): ParsedGraphDo
       return {
         graphData: createEmptyGraphData(),
         remainingContent: content.trim(),
-        hasGraphBlock: true,
         error: "graph 数据格式无效：需要包含 nodes/edges 数组，且节点需包含 id/position/data",
       };
     }
@@ -56,14 +52,12 @@ export function parseGraphDocument(slug: string, content: string): ParsedGraphDo
     return {
       graphData: parsed,
       remainingContent: content.replace(GRAPH_BLOCK_REGEX, "").trim(),
-      hasGraphBlock: true,
       error: null,
     };
   } catch (error) {
     return {
       graphData: createEmptyGraphData(),
       remainingContent: content.trim(),
-      hasGraphBlock: true,
       error: `graph 代码块 JSON 解析失败：${String(error)}`,
     };
   }

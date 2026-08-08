@@ -10,7 +10,7 @@ Use `npm install` to install dependencies; CI uses `npm ci` on Node 20. Run `npm
 Write TypeScript with `strict` mode in mind and prefer the `@/*` import alias for files under `src`. Follow the existing style: 2-space indentation, double quotes, PascalCase for React components (`ArticleCard.tsx`), and camelCase for utility modules (`posts.ts`, `roadmap.ts`). Keep route folders lowercase and match content categories to their URL segment names. Use ESLint (`next/core-web-vitals`) as the enforced style baseline; no Prettier config is checked in.
 
 ## Testing Guidelines
-There is no dedicated automated test suite in the repository yet. Treat `npm run lint` and `npm run build` as the minimum verification set for every change. When adding tests, prefer `*.test.ts` or `*.test.tsx` naming and place them near the module they exercise so content parsing and route behavior stay easy to trace.
+Node tests use the built-in `node:test` API and live in `scripts/*.test.ts`; run them with `npm test`. Add focused behavior tests for parsing or content-contract changes, then run `npm run lint` and `npm run build` before opening a PR. Avoid tests that inspect source text or lock in component implementation details.
 
 ## Commit & Pull Request Guidelines
 Follow the commit patterns already in history: `feat:`, `fix:`, `refactor:`, `style:`, or the generated `content:` prefix for content batches. Keep each commit focused on one concern. Pull requests should summarize affected routes or content types, mention the verification commands you ran, link the related issue when applicable, and include screenshots for layout, Markdown rendering, or graph-view changes.

@@ -1,19 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import fs from "node:fs";
-import path from "node:path";
-import {
-  parseFrontmatter,
-  readFrontmatterString,
-} from "../src/lib/frontmatter.ts";
+import { parseFrontmatter } from "../src/lib/frontmatter.ts";
+import { readFrontmatterString } from "../src/lib/content-common.ts";
 import { compareDateDescThenSlug } from "../src/lib/date-sort.ts";
+import { normalizeDiaryTime } from "../src/lib/diary-contract.ts";
 import { normalizeRoadmapStatus } from "../src/lib/roadmap-status.ts";
-
-const repoRoot = path.resolve(import.meta.dirname, "..");
-
-function readRepoFile(relativePath: string): string {
-  return fs.readFileSync(path.join(repoRoot, relativePath), "utf8");
-}
 
 test("站点会显式暴露 frontmatter YAML 错误，而不是让构建阶段直接炸掉", () => {
   const raw = `---
@@ -44,15 +35,11 @@ test("frontmatter 文本字段只接受字符串，非字符串会回退到后�
   assert.equal(readFrontmatterString("标题", "fallback"), "标题");
 });
 
-test("project 详情页只在存在 GitHub 地址时渲染 GitHub 按钮", () => {
-  const source = readRepoFile("src/app/projects/[slug]/page.tsx");
-
-  assert.match(source, /\{project\.github && \(/);
-});
-
-test("diary 多条聚合标题使用中文文案，与编辑器一致", () => {
-  const source = `${readRepoFile("src/lib/diary.ts")}\n${readRepoFile("src/lib/diary-contract.ts")}`;
-  assert.match(source, /\$\{date\} 考研日志/);
+test("diary 时间统一规范为 HH:MM，并拒绝非法时间", () => {
+  assert.equal(normalizeDiaryTime("9:00"), "09:00");
+  assert.equal(normalizeDiaryTime("0900"), "09:00");
+  assert.equal(normalizeDiaryTime("24:00"), "");
+  assert.equal(normalizeDiaryTime("9:0"), "");
 });
 
 test("按日期倒序的列表排序在相同日期时使用 slug 稳定打破平局", () => {
@@ -67,19 +54,4 @@ test("按日期倒序的列表排序在相同日期时使用 slug 稳定打破�
     "zeta",
     "middle",
   ]);
-});
-
-test("动态详情页会先解码路由 slug，再读取内容", () => {
-  const pagePaths = [
-    "src/app/notes/[slug]/page.tsx",
-    "src/app/projects/[slug]/page.tsx",
-    "src/app/graphs/[slug]/page.tsx",
-    "src/app/roadmap/[slug]/page.tsx",
-  ];
-
-  for (const pagePath of pagePaths) {
-    const source = readRepoFile(pagePath);
-
-    assert.match(source, /decodeRouteSlug/);
-  }
 });

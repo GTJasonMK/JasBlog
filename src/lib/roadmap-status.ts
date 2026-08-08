@@ -1,6 +1,4 @@
-export const ROADMAP_STATUSES = ["active", "completed", "paused"] as const;
-
-export type RoadmapStatus = (typeof ROADMAP_STATUSES)[number];
+export type RoadmapStatus = "active" | "completed" | "paused";
 
 export function normalizeRoadmapStatus(value: unknown): {
   status: RoadmapStatus;

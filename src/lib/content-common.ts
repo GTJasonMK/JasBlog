@@ -1,9 +1,16 @@
-import fs from "fs";
-
 export function formatDate(value: unknown): string {
   if (!value) return "";
   if (value instanceof Date) return value.toISOString().split("T")[0];
   return String(value);
+}
+
+export function readFrontmatterString(...values: unknown[]): string | undefined {
+  for (const value of values) {
+    if (typeof value === "string" && value.trim() !== "") {
+      return value;
+    }
+  }
+  return undefined;
 }
 
 export function parseStringArray(value: unknown): string[] {
@@ -21,9 +28,4 @@ export function parseStringArray(value: unknown): string[] {
   }
 
   return [];
-}
-
-export function readUtf8FileIfExists(fullPath: string): string | null {
-  if (!fs.existsSync(fullPath)) return null;
-  return fs.readFileSync(fullPath, "utf8");
 }

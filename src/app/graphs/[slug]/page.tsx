@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getGraphBySlug, getAllGraphSlugs } from "@/lib/graphs";
-import { decodeRouteSlug } from "@/lib/route-slug";
 import GraphPageClient from "./GraphPageClient";
 
 interface GraphPageProps {
@@ -25,7 +24,7 @@ export async function generateMetadata({ params }: GraphPageProps): Promise<Meta
     return { title: "图谱未找到" };
   }
 
-  const graph = getGraphBySlug(decodeRouteSlug(slug));
+  const graph = getGraphBySlug(decodeURIComponent(slug));
   if (!graph) {
     return { title: "图谱未找到" };
   }
@@ -42,7 +41,7 @@ export default async function GraphPage({ params }: GraphPageProps) {
     notFound();
   }
 
-  const graph = getGraphBySlug(decodeRouteSlug(slug));
+  const graph = getGraphBySlug(decodeURIComponent(slug));
 
   if (!graph) {
     notFound();

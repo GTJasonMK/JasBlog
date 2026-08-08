@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { DiaryDayMeta } from "@/lib/diary";
 
@@ -30,14 +30,22 @@ export default function DiaryTimeline({ days }: DiaryTimelineProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [selectedYear, setSelectedYear] = useState(searchParams.get("year") || "all");
-  const [selectedMonth, setSelectedMonth] = useState(searchParams.get("month") || "all");
 
   const years = useMemo(() => {
     return Array.from(new Set(days.map((day) => getYear(day.date))))
       .filter(Boolean)
       .sort((a, b) => b.localeCompare(a));
   }, [days]);
+
+  const yearFromQuery = searchParams.get("year") || "all";
+  const selectedYear = yearFromQuery === "all" || years.includes(yearFromQuery)
+    ? yearFromQuery
+    : "all";
+  const months = useMemo(() => getMonthsForYear(days, selectedYear), [days, selectedYear]);
+  const monthFromQuery = searchParams.get("month") || "all";
+  const selectedMonth = monthFromQuery === "all" || months.includes(monthFromQuery)
+    ? monthFromQuery
+    : "all";
 
   const syncUrl = useCallback(
     (year: string, month: string) => {
@@ -67,32 +75,6 @@ export default function DiaryTimeline({ days }: DiaryTimelineProps) {
     [pathname, router, searchParams]
   );
 
-  useEffect(() => {
-    const yearFromQuery = searchParams.get("year") || "all";
-    const normalizedYear = yearFromQuery === "all" || years.includes(yearFromQuery)
-      ? yearFromQuery
-      : "all";
-
-    const monthFromQuery = searchParams.get("month") || "all";
-    const allowedMonths = getMonthsForYear(days, normalizedYear);
-    const normalizedMonth = monthFromQuery === "all" || allowedMonths.includes(monthFromQuery)
-      ? monthFromQuery
-      : "all";
-
-    setSelectedYear((prev) => (prev === normalizedYear ? prev : normalizedYear));
-    setSelectedMonth((prev) => (prev === normalizedMonth ? prev : normalizedMonth));
-  }, [searchParams, days, years]);
-
-  const months = useMemo(() => getMonthsForYear(days, selectedYear), [days, selectedYear]);
-
-  useEffect(() => {
-    if (selectedMonth === "all") return;
-    if (months.includes(selectedMonth)) return;
-
-    setSelectedMonth("all");
-    syncUrl(selectedYear, "all");
-  }, [months, selectedMonth, selectedYear, syncUrl]);
-
   const handleYearChange = (nextYearRaw: string) => {
     const nextYear = nextYearRaw === "all" || years.includes(nextYearRaw)
       ? nextYearRaw
@@ -102,8 +84,6 @@ export default function DiaryTimeline({ days }: DiaryTimelineProps) {
       ? selectedMonth
       : "all";
 
-    setSelectedYear(nextYear);
-    setSelectedMonth(nextMonth);
     syncUrl(nextYear, nextMonth);
   };
 
@@ -113,7 +93,6 @@ export default function DiaryTimeline({ days }: DiaryTimelineProps) {
       ? nextMonthRaw
       : "all";
 
-    setSelectedMonth(nextMonth);
     syncUrl(selectedYear, nextMonth);
   };
 

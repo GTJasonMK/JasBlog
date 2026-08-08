@@ -1,7 +1,5 @@
 import path from "path";
-import {
-  readFrontmatterString,
-} from "./frontmatter";
+import { type ParsedFrontmatter } from "./frontmatter";
 import {
   listMarkdownFiles,
   readParsedContentBySlug,
@@ -11,25 +9,13 @@ import {
 import {
   formatDate,
   parseStringArray,
+  readFrontmatterString,
 } from "./content-common";
 import {
   stripMarkdownExtension,
 } from "./markdown-file";
 
 const projectsDirectory = path.join(process.cwd(), "content/projects");
-
-export interface Project {
-  slug: string;
-  name: string;
-  description: string;
-  github: string;
-  demo?: string;
-  date: string;
-  tags: string[];
-  techStack: TechItem[];
-  content: string;
-  error?: string;
-}
 
 export interface TechItem {
   name: string;
@@ -47,6 +33,10 @@ export interface ProjectMeta {
   tags: string[];
   techStack: TechItem[];
   error?: string;
+}
+
+export interface Project extends ProjectMeta {
+  content: string;
 }
 
 function parseTechStack(techStack: unknown): TechItem[] {
@@ -73,23 +63,23 @@ function parseTechStack(techStack: unknown): TechItem[] {
   }).filter((item) => Boolean(item.name));
 }
 
+function normalizeProject(slug: string, { data, error }: ParsedFrontmatter): ProjectMeta {
+  return {
+    slug,
+    name: readFrontmatterString(data.name, data.title, slug) ?? slug,
+    description: readFrontmatterString(data.description) ?? "",
+    github: readFrontmatterString(data.github) ?? "",
+    demo: readFrontmatterString(data.demo),
+    date: formatDate(data.date),
+    tags: parseStringArray(data.tags),
+    techStack: parseTechStack(data.techStack),
+    error,
+  };
+}
+
 export function getAllProjects(): ProjectMeta[] {
   const allProjects = readParsedContentFiles(projectsDirectory, "project")
-    .map(({ slug, parsed }) => {
-      const { data, error } = parsed;
-
-      return {
-        slug,
-        name: readFrontmatterString(data.name, data.title, slug) ?? slug,
-        description: readFrontmatterString(data.description) ?? "",
-        github: readFrontmatterString(data.github) ?? "",
-        demo: readFrontmatterString(data.demo),
-        date: formatDate(data.date),
-        tags: parseStringArray(data.tags),
-        techStack: parseTechStack(data.techStack),
-        error,
-      };
-    });
+    .map(({ slug, parsed }) => normalizeProject(slug, parsed));
 
   return sortByDateDescThenSlug(allProjects);
 }
@@ -101,32 +91,13 @@ export function getProjectBySlug(slug: string): Project | null {
     return null;
   }
 
-  const { data, content, error } = parsedFile.parsed;
-
   return {
-    slug,
-    name: readFrontmatterString(data.name, data.title, slug) ?? slug,
-    description: readFrontmatterString(data.description) ?? "",
-    github: readFrontmatterString(data.github) ?? "",
-    demo: readFrontmatterString(data.demo),
-    date: formatDate(data.date),
-    tags: parseStringArray(data.tags),
-    techStack: parseTechStack(data.techStack),
-    content,
-    error,
+    ...normalizeProject(slug, parsedFile.parsed),
+    content: parsedFile.parsed.content,
   };
 }
 
 export function getAllProjectSlugs(): string[] {
   return listMarkdownFiles(projectsDirectory)
     .map(stripMarkdownExtension);
-}
-
-export function getAllProjectTags(): string[] {
-  const projects = getAllProjects();
-  const tagSet = new Set<string>();
-  projects.forEach((project) => {
-    project.tags.forEach((tag) => tagSet.add(tag));
-  });
-  return Array.from(tagSet).sort();
 }

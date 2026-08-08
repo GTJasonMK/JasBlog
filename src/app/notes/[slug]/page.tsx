@@ -2,8 +2,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
-import { preprocessAlerts } from "@/lib/preprocess-alerts";
-import { decodeRouteSlug } from "@/lib/route-slug";
 import ArticleContent from "@/components/ArticleContent";
 import Comments from "@/components/Comments";
 
@@ -28,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "笔记未找到" };
   }
 
-  const post = getPostBySlug(decodeRouteSlug(slug));
+  const post = getPostBySlug(decodeURIComponent(slug));
   if (!post) {
     return { title: "笔记未找到" };
   }
@@ -46,7 +44,7 @@ export default async function NotePage({ params }: Props) {
     notFound();
   }
 
-  const post = getPostBySlug(decodeRouteSlug(slug));
+  const post = getPostBySlug(decodeURIComponent(slug));
   if (!post) {
     notFound();
   }
@@ -92,7 +90,7 @@ export default async function NotePage({ params }: Props) {
 
       <div className="divider-cloud mb-8" />
 
-      <ArticleContent content={preprocessAlerts(post.content)} />
+      <ArticleContent content={post.content} />
 
       <div className="divider-cloud my-12" />
 

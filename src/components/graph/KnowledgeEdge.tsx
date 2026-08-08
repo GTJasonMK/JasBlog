@@ -2,13 +2,7 @@
 
 import { memo } from "react";
 import { EdgeLabelRenderer } from "@xyflow/react";
-import { type EdgeColor, getEdgeStroke } from "../../types/graph";
-
-interface KnowledgeEdgeData {
-  relation?: string;
-  label?: string;
-  color?: EdgeColor;
-}
+import { getEdgeStroke, type KnowledgeEdgeData } from "../../types/graph";
 
 interface KnowledgeEdgeProps {
   id: string;

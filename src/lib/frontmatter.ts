@@ -8,15 +8,6 @@ export interface ParsedFrontmatter {
   error?: string;
 }
 
-export function readFrontmatterString(...values: unknown[]): string | undefined {
-  for (const value of values) {
-    if (typeof value === "string" && value.trim() !== "") {
-      return value;
-    }
-  }
-  return undefined;
-}
-
 function extractBody(raw: string): string {
   const matched = raw.match(FRONTMATTER_BODY_REGEX);
   if (!matched) {

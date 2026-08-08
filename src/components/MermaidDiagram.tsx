@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import mermaid from "mermaid";
 
 // 初始化 mermaid 配置
@@ -38,7 +38,6 @@ interface MermaidDiagramProps {
 }
 
 export default function MermaidDiagram({ code }: MermaidDiagramProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [svg, setSvg] = useState<string>("");
   const [error, setError] = useState<string>("");
 
@@ -48,7 +47,7 @@ export default function MermaidDiagram({ code }: MermaidDiagramProps) {
 
       try {
         // 生成唯一 ID
-        const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
+        const id = `mermaid-${crypto.randomUUID()}`;
         const { svg } = await mermaid.render(id, code.trim());
         setSvg(svg);
         setError("");
@@ -82,7 +81,6 @@ export default function MermaidDiagram({ code }: MermaidDiagramProps) {
 
   return (
     <div
-      ref={containerRef}
       className="mermaid-container"
       dangerouslySetInnerHTML={{ __html: svg }}
     />

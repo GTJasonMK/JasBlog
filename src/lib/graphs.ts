@@ -1,8 +1,6 @@
 import path from "path";
 
-import {
-  readFrontmatterString,
-} from "./frontmatter";
+import { type ParsedFrontmatter } from "./frontmatter";
 import { parseGraphDocument } from "./graph-document";
 import {
   listMarkdownFiles,
@@ -12,6 +10,7 @@ import {
 } from "./content-repository";
 import {
   formatDate,
+  readFrontmatterString,
 } from "./content-common";
 import {
   stripMarkdownExtension,
@@ -21,40 +20,36 @@ import {
   type GraphMeta,
 } from "@/types/graph";
 
-export * from "@/types/graph";
-
 const graphsDirectory = path.join(process.cwd(), "content/graphs");
+
+function normalizeGraph(slug: string, { data, content, error: frontmatterError }: ParsedFrontmatter): Graph {
+  const parsed = parseGraphDocument(content);
+  const error = [frontmatterError, parsed.error].filter(Boolean).join("\n") || undefined;
+
+  return {
+    slug,
+    name: readFrontmatterString(data.name, data.title, slug) ?? slug,
+    description: readFrontmatterString(data.description) ?? "",
+    date: formatDate(data.date),
+    content: parsed.remainingContent,
+    graphData: parsed.graphData,
+    error,
+  };
+}
 
 export function getAllGraphs(): GraphMeta[] {
   const graphs = readParsedContentFiles(graphsDirectory, "graph")
-    .map(({ slug, parsed: frontmatter }) => {
-      const { data, content, error: frontmatterError } = frontmatter;
-
-      try {
-        const parsed = parseGraphDocument(slug, content);
-        const error = [frontmatterError, parsed.error].filter(Boolean).join("\n") || undefined;
-
-        return {
-          slug,
-          name: readFrontmatterString(data.name, data.title, slug) ?? slug,
-          description: readFrontmatterString(data.description) ?? "",
-          date: formatDate(data.date),
-          nodeCount: parsed.graphData.nodes.length,
-          edgeCount: parsed.graphData.edges.length,
-          error,
-        };
-      } catch (e) {
-        console.error(`解析图谱 ${slug} 失败:`, e);
-        return {
-          slug,
-          name: slug,
-          description: "",
-          date: "",
-          nodeCount: 0,
-          edgeCount: 0,
-          error: `图谱文档解析失败：${String(e)}`,
-        };
-      }
+    .map(({ slug, parsed }) => {
+      const graph = normalizeGraph(slug, parsed);
+      return {
+        slug: graph.slug,
+        name: graph.name,
+        description: graph.description,
+        date: graph.date,
+        nodeCount: graph.graphData.nodes.length,
+        edgeCount: graph.graphData.edges.length,
+        error: graph.error,
+      };
     });
 
   return sortByDateDescThenSlug(graphs);
@@ -67,33 +62,7 @@ export function getGraphBySlug(slug: string): Graph | null {
     return null;
   }
 
-  const { data, content, error: frontmatterError } = parsedFile.parsed;
-
-  try {
-    const parsed = parseGraphDocument(slug, content);
-    const error = [frontmatterError, parsed.error].filter(Boolean).join("\n") || undefined;
-
-    return {
-      slug,
-      name: readFrontmatterString(data.name, data.title, slug) ?? slug,
-      description: readFrontmatterString(data.description) ?? "",
-      date: formatDate(data.date),
-      content: parsed.remainingContent,
-      graphData: parsed.graphData,
-      error,
-    };
-  } catch (e) {
-    console.error(`获取图谱 ${slug} 失败:`, e);
-    return {
-      slug,
-      name: slug,
-      description: "",
-      date: "",
-      content,
-      graphData: { nodes: [], edges: [] },
-      error: `图谱文档解析失败：${String(e)}`,
-    };
-  }
+  return normalizeGraph(slug, parsedFile.parsed);
 }
 
 export function getAllGraphSlugs(): string[] {

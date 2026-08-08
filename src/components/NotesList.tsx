@@ -1,19 +1,11 @@
 ﻿"use client";
 
-import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import type { PostMeta } from "@/lib/posts";
 import ArticleCard from "./ArticleCard";
 
-interface Post {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  tags: string[];
-}
-
 interface NotesListProps {
-  posts: Post[];
+  posts: PostMeta[];
   allTags: string[];
 }
 
@@ -21,17 +13,11 @@ export default function NotesList({ posts, allTags }: NotesListProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [selectedTag, setSelectedTag] = useState(searchParams.get("tag") || "");
-
-  useEffect(() => {
-    const tagFromQuery = searchParams.get("tag") || "";
-    const normalizedTag = tagFromQuery && allTags.includes(tagFromQuery) ? tagFromQuery : "";
-    setSelectedTag((prev) => (prev === normalizedTag ? prev : normalizedTag));
-  }, [searchParams, allTags]);
+  const tagFromQuery = searchParams.get("tag") || "";
+  const selectedTag = allTags.includes(tagFromQuery) ? tagFromQuery : "";
 
   const applyTagFilter = (tag: string) => {
     const normalizedTag = tag && allTags.includes(tag) ? tag : "";
-    setSelectedTag(normalizedTag);
 
     const currentTag = searchParams.get("tag") || "";
     if (currentTag === normalizedTag) return;

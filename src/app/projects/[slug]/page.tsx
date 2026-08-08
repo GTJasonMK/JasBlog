@@ -2,10 +2,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getAllProjectSlugs } from "@/lib/projects";
-import { preprocessAlerts } from "@/lib/preprocess-alerts";
-import { decodeRouteSlug } from "@/lib/route-slug";
 import TechStack from "@/components/TechStack";
-import ProjectContent from "@/components/ProjectContent";
+import BackToTop from "@/components/BackToTop";
+import { MarkdownContent } from "@/components/markdown/MarkdownContent";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -30,7 +29,7 @@ export async function generateMetadata({
     return { title: "项目未找到" };
   }
 
-  const project = getProjectBySlug(decodeRouteSlug(slug));
+  const project = getProjectBySlug(decodeURIComponent(slug));
   if (!project) {
     return { title: "项目未找到" };
   }
@@ -48,7 +47,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const project = getProjectBySlug(decodeRouteSlug(slug));
+  const project = getProjectBySlug(decodeURIComponent(slug));
   if (!project) {
     notFound();
   }
@@ -137,7 +136,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <div className="divider-cloud my-8" />
 
-      <ProjectContent content={preprocessAlerts(project.content)} />
+      <article className="prose-chinese">
+        <MarkdownContent content={project.content} />
+      </article>
+      <BackToTop />
     </div>
   );
 }

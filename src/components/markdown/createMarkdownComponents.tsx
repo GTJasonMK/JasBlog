@@ -1,6 +1,5 @@
 "use client";
 
-import type { ReactNode } from "react";
 import type { Components } from "react-markdown";
 import {
   ALERT_CONFIG,
@@ -11,51 +10,15 @@ import {
   parseAlertFromChildren,
 } from "./MarkdownPrimitives";
 
-export interface MarkdownLinkProps {
-  href?: string;
-  children?: ReactNode;
-  [key: string]: unknown;
-}
-
-export type MarkdownLinkRenderer = (
-  props: MarkdownLinkProps,
-  renderDefaultLink: (props: MarkdownLinkProps) => ReactNode
-) => ReactNode;
-
 interface CreateMarkdownComponentsOptions {
   resolveHeadingId: (text: string) => string;
-  renderLink?: MarkdownLinkRenderer;
 }
 
 type MarkdownHeadingRenderer = NonNullable<Components["h1"]>;
 
-function DefaultMarkdownLink({ href, children, ...props }: MarkdownLinkProps) {
-  const isExternal = href?.startsWith("http");
-
-  return (
-    <a
-      href={href}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      {...props}
-    >
-      {children}
-    </a>
-  );
-}
-
-DefaultMarkdownLink.displayName = "DefaultMarkdownLink";
-
-function createDefaultLinkRenderer() {
-  return DefaultMarkdownLink;
-}
-
 export function createMarkdownComponents({
   resolveHeadingId,
-  renderLink,
 }: CreateMarkdownComponentsOptions): Components {
-  const renderDefaultLink = createDefaultLinkRenderer();
-
   function renderHeading(level: 1 | 2 | 3 | 4): MarkdownHeadingRenderer {
     const HeadingRenderer: MarkdownHeadingRenderer = ({
       children,
@@ -80,8 +43,17 @@ export function createMarkdownComponents({
     h3: renderHeading(3),
     h4: renderHeading(4),
     a: ({ href, children, ...props }) => {
-      const linkProps: MarkdownLinkProps = { href, children, ...props };
-      return renderLink ? renderLink(linkProps, renderDefaultLink) : renderDefaultLink(linkProps);
+      const isExternal = href?.startsWith("http");
+      return (
+        <a
+          href={href}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+          {...props}
+        >
+          {children}
+        </a>
+      );
     },
     img: ({ src, alt, width, height }) => {
       const imageSrc = typeof src === "string" ? src : undefined;

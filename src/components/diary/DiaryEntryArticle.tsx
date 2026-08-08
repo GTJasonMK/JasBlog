@@ -1,5 +1,4 @@
 import type { DiaryEntry } from "@/lib/diary";
-import { preprocessAlerts } from "@/lib/preprocess-alerts";
 import ArticleContent from "@/components/ArticleContent";
 
 interface DiaryEntryArticleProps {
@@ -58,7 +57,7 @@ export default function DiaryEntryArticle({ entry, singleEntry = false }: DiaryE
       )}
 
       <ArticleContent
-        content={preprocessAlerts(entry.content)}
+        content={entry.content}
         showTableOfContents={false}
         showBackToTop={false}
       />

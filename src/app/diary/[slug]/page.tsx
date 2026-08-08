@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllDiaryDaySlugs, getDiaryDayBySlug } from "@/lib/diary";
-import { decodeRouteSlug } from "@/lib/route-slug";
 import DiaryDayView from "@/components/diary/DiaryDayView";
 
 interface DiaryDetailPageProps {
@@ -25,7 +24,7 @@ export async function generateMetadata({ params }: DiaryDetailPageProps): Promis
     return { title: "考研日志未找到" };
   }
 
-  const day = getDiaryDayBySlug(decodeRouteSlug(slug));
+  const day = getDiaryDayBySlug(decodeURIComponent(slug));
   if (!day) {
     return { title: "考研日志未找到" };
   }
@@ -43,7 +42,7 @@ export default async function DiaryDetailPage({ params }: DiaryDetailPageProps) 
     notFound();
   }
 
-  const day = getDiaryDayBySlug(decodeRouteSlug(slug));
+  const day = getDiaryDayBySlug(decodeURIComponent(slug));
   if (!day) {
     notFound();
   }

@@ -1,14 +1,7 @@
-"use client";
-
-interface TechItem {
-  name: string;
-  icon?: string;
-  color?: string;
-}
+import type { TechItem } from "@/lib/projects";
 
 interface TechStackProps {
   items: TechItem[];
-  title?: string;
 }
 
 // 预设的技术栈颜色映射
@@ -56,12 +49,12 @@ const techColors: Record<string, string> = {
   "Tauri": "#FFC131",
 };
 
-export default function TechStack({ items, title = "技术栈" }: TechStackProps) {
+export default function TechStack({ items }: TechStackProps) {
   if (!items || items.length === 0) return null;
 
   return (
     <div className="my-6">
-      <h3 className="text-lg font-semibold mb-4 text-[var(--color-ink)]">{title}</h3>
+      <h3 className="text-lg font-semibold mb-4 text-[var(--color-ink)]">技术栈</h3>
       <div className="flex flex-wrap gap-3">
         {items.map((item, index) => {
           const bgColor = item.color || techColors[item.name] || "#6B7280";

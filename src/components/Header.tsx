@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface SearchItem {
   url: string;
@@ -93,9 +93,7 @@ export default function Header() {
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const searchRequestIdRef = useRef(0);
 
-  const isActivePath = useMemo(() => {
-    return (href: string) => pathname === href || (href !== "/" && pathname.startsWith(href));
-  }, [pathname]);
+  const isActivePath = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(href));
 
   const closeSearch = useCallback(() => {
     searchRequestIdRef.current += 1;

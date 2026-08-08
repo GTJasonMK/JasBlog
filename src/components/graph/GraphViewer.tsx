@@ -8,8 +8,6 @@ import { type GraphData } from "../../types/graph";
 
 interface GraphViewerProps {
   data: GraphData;
-  heightClassName?: string;
-  panelWidthClassName?: string;
 }
 
 function OverlayCard({ children }: { children: ReactNode }) {
@@ -52,11 +50,7 @@ function GraphViewerOverlay({
   );
 }
 
-export default function GraphViewer({
-  data,
-  heightClassName = "h-[600px]",
-  panelWidthClassName = "xl:w-[320px]",
-}: GraphViewerProps) {
+export default function GraphViewer({ data }: GraphViewerProps) {
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [showMinimap, setShowMinimap] = useState(true);
 
@@ -68,16 +62,9 @@ export default function GraphViewer({
     });
   }, [data.nodes]);
 
-  const panelClassName = `w-full xl:w-[320px] flex-shrink-0 rounded-lg overflow-hidden border border-[var(--color-border)] ${panelWidthClassName}`.replace(
-    "xl:w-[320px] xl:w-[320px]",
-    "xl:w-[320px]"
-  );
-
   return (
     <div className="flex flex-col gap-4 xl:flex-row">
-      <div
-        className={`relative min-h-[320px] flex-1 rounded-lg overflow-hidden border border-[var(--color-border)] ${heightClassName}`}
-      >
+      <div className="relative min-h-[320px] h-[600px] flex-1 rounded-lg overflow-hidden border border-[var(--color-border)]">
         <GraphCanvas
           data={data}
           selectedNode={selectedNode}
@@ -93,7 +80,7 @@ export default function GraphViewer({
       </div>
 
       {selectedNode ? (
-        <div className={panelClassName}>
+        <div className="w-full xl:w-[320px] flex-shrink-0 rounded-lg overflow-hidden border border-[var(--color-border)]">
           <NodeDetailPanel
             node={selectedNode}
             onClose={() => setSelectedNode(null)}

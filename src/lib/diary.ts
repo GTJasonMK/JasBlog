@@ -1,9 +1,6 @@
 import fs from "fs";
 import path from "path";
-import {
-  parseFrontmatter,
-  readFrontmatterString,
-} from "./frontmatter";
+import { parseFrontmatter } from "./frontmatter";
 import {
   isMarkdownFileName,
   stripMarkdownExtension,
@@ -13,40 +10,17 @@ import {
   buildDiaryDaySummary,
   DIARY_DATE_PATTERN,
   inferDiaryFromFileName,
+  normalizeDiaryTime,
   sortDiaryEntriesByTimeAsc,
   titleFromSlug,
 } from "./diary-contract";
 import {
   formatDate,
   parseStringArray,
+  readFrontmatterString,
 } from "./content-common";
 
 const diaryDirectory = path.join(process.cwd(), "content/diary");
-
-function normalizeTime(value: unknown): string {
-  if (!value) return "";
-
-  const raw = String(value).trim();
-  const colonMatch = raw.match(/^(\d{1,2}):(\d{2})$/);
-  if (colonMatch) {
-    const hour = Number(colonMatch[1]);
-    const minute = Number(colonMatch[2]);
-    if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
-      return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
-    }
-  }
-
-  const compactMatch = raw.match(/^(\d{2})(\d{2})$/);
-  if (compactMatch) {
-    const hour = Number(compactMatch[1]);
-    const minute = Number(compactMatch[2]);
-    if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
-      return `${compactMatch[1]}:${compactMatch[2]}`;
-    }
-  }
-
-  return "";
-}
 
 function parseFromFileName(fileName: string): {
   date: string;
@@ -132,7 +106,7 @@ function readDiaryEntries(): DiaryEntry[] {
       return;
     }
 
-    const time = normalizeTime(data.time) || normalizeTime(parsedFromName.time) || "00:00";
+    const time = normalizeDiaryTime(data.time) || normalizeDiaryTime(parsedFromName.time) || "00:00";
     const title =
       readFrontmatterString(data.title, parsedFromName.title, baseName) ||
       baseName;
