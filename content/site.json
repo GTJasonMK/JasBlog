@@ -65,7 +65,7 @@
     {
       "target": "diary",
       "label": "考研日志",
-      "visible": true
+      "visible": false
     },
     {
       "target": "photography",
