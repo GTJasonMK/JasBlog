@@ -63,11 +63,6 @@
       "visible": true
     },
     {
-      "target": "diary",
-      "label": "考研日志",
-      "visible": false
-    },
-    {
       "target": "photography",
       "label": "摄影作品",
       "visible": true
@@ -75,11 +70,6 @@
     {
       "target": "graphs",
       "label": "知识图谱",
-      "visible": true
-    },
-    {
-      "target": "roadmap",
-      "label": "我的规划",
       "visible": true
     }
   ],
