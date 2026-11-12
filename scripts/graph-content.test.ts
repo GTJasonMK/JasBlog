@@ -1,53 +1,32 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import { parseArticleContentSegments } from '../src/lib/graph-content.ts';
+import test from "node:test";
+import assert from "node:assert/strict";
+import { createEmptyGraph } from "@jas/graph-core";
+import { parseGraphDocument } from "@jas/content-core/graph-document";
+import { MarkdownRenderer } from '@jas/content-ui/markdown';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 
-test('合法 graph 代码块会被解析为图谱段落', () => {
-  const segments = parseArticleContentSegments(`
-前言
-
-\`\`\`graph
-{
-  "nodes": [{ "id": "n1", "position": { "x": 0, "y": 0 }, "data": { "label": "节点" } }],
-  "edges": []
-}
-\`\`\`
-`);
-
-  assert.equal(segments.length, 2);
-  assert.equal(segments[1]?.type, 'graph');
+test("合法 graph 文档保留完整图谱与其他正文", () => {
+  const graph = { ...createEmptyGraph(), nodes: [{ id: "n1", type: "knowledgeNode", position: { x: 0, y: 0 }, data: { label: "节点", content: "", tags: [], createdAt: 1, updatedAt: 1 } }] };
+  const parsed = parseGraphDocument("前言\n\n```graph\n" + JSON.stringify(graph) + "\n```\n");
+  assert.equal(parsed.error, null);
+  assert.deepEqual(parsed.graphData, graph);
+  assert.equal(parsed.remainingContent, '前言');
 });
 
-test('JSON 合法但 graph 结构不合法时，退回为普通代码块而不是图谱段落', () => {
-  const segments = parseArticleContentSegments(`
-\`\`\`graph
-{
-  "nodes": "invalid",
-  "edges": []
-}
-\`\`\`
-`);
-
-  assert.equal(segments.length, 1);
-  assert.deepEqual(segments[0], {
-    type: 'markdown',
-    content: '```json\n{\n  "nodes": "invalid",\n  "edges": []\n}```',
-  });
+test("错误图谱在实际正文渲染中显示错误并保留代码块", () => {
+  const content = '```graph\n{"nodes":"invalid","edges":[]}\n```';
+  const markup = renderToStaticMarkup(createElement(MarkdownRenderer, { content }));
+  assert.match(markup, /role="alert"/);
+  assert.match(markup, /language-graph/);
+  assert.match(markup, /nodes/);
+  assert.match(markup, /invalid/);
 });
 
-test('节点缺少 id/position/data 时，内嵌 graph 代码块也会退回为普通代码块', () => {
-  const segments = parseArticleContentSegments(`
-\`\`\`graph
-{
-  "nodes": [{ "id": "n1", "data": { "label": "残缺节点" } }],
-  "edges": []
-}
-\`\`\`
-`);
-
-  assert.equal(segments.length, 1);
-  assert.deepEqual(segments[0], {
-    type: 'markdown',
-    content: '```json\n{\n  "nodes": [{ "id": "n1", "data": { "label": "残缺节点" } }],\n  "edges": []\n}```',
-  });
+test("残缺节点不会进入渲染流程，错误包含具体字段", () => {
+  const content = '```graph\n' + JSON.stringify({ ...createEmptyGraph(), nodes: [{ id: "n1", data: { label: "残缺节点" } }] }) + '\n```';
+  const markup = renderToStaticMarkup(createElement(MarkdownRenderer, { content }));
+  assert.match(markup, /role="alert"/);
+  assert.match(markup, /position/);
+  assert.match(markup, /残缺节点/);
 });

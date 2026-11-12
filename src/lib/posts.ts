@@ -1,43 +1,27 @@
 import path from "path";
-import { type ParsedFrontmatter } from "./frontmatter";
 import {
-  listMarkdownFiles,
   readParsedContentBySlug,
   readParsedContentFiles,
   sortByDateDescThenSlug,
 } from "./content-repository";
-import {
-  formatDate,
-  parseStringArray,
-  readFrontmatterString,
-} from "./content-common";
-import {
-  stripMarkdownExtension,
-} from "./markdown-file";
+import { resolveNoteDisplay, type ParsedContentDocument, type NoteMetadata, type NoteListEntry } from "@jas/content-core";
 
 const notesDirectory = path.join(process.cwd(), "content/notes");
 
-export interface PostMeta {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  tags: string[];
-  error?: string;
-}
+export type PostMeta = NoteListEntry;
 
 export interface Post extends PostMeta {
   content: string;
 }
 
-function normalizePost(slug: string, { data, error }: ParsedFrontmatter): PostMeta {
+function normalizePost(slug: string, parsed: ParsedContentDocument): PostMeta {
+  const metadata = parsed.metadata as NoteMetadata;
   return {
     slug,
-    title: readFrontmatterString(data.title, slug) ?? slug,
-    date: formatDate(data.date),
-    excerpt: readFrontmatterString(data.excerpt) ?? "",
-    tags: parseStringArray(data.tags),
-    error,
+    ...metadata,
+    ...resolveNoteDisplay(slug, metadata),
+    tags: metadata.tags ?? [],
+    error: parsed.issues.join("\n") || undefined,
   };
 }
 
@@ -62,10 +46,5 @@ export function getPostBySlug(slug: string): Post | null {
 }
 
 export function getAllPostSlugs(): string[] {
-  return listMarkdownFiles(notesDirectory)
-    .map(stripMarkdownExtension);
-}
-
-export function getAllTags(): string[] {
-  return [...new Set(getAllPosts().flatMap((post) => post.tags))].sort();
+  return readParsedContentFiles(notesDirectory, "note").map((post) => post.slug);
 }

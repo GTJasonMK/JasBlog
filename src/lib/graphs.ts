@@ -1,20 +1,12 @@
 import path from "path";
 
-import { type ParsedFrontmatter } from "./frontmatter";
-import { parseGraphDocument } from "./graph-document";
+import { parseGraphDocument } from "@jas/content-core/graph-document";
 import {
-  listMarkdownFiles,
   readParsedContentBySlug,
   readParsedContentFiles,
   sortByDateDescThenSlug,
 } from "./content-repository";
-import {
-  formatDate,
-  readFrontmatterString,
-} from "./content-common";
-import {
-  stripMarkdownExtension,
-} from "./markdown-file";
+import { resolveGraphDisplay, type ParsedContentDocument, type GraphMetadata } from "@jas/content-core";
 import {
   type Graph,
   type GraphMeta,
@@ -22,15 +14,15 @@ import {
 
 const graphsDirectory = path.join(process.cwd(), "content/graphs");
 
-function normalizeGraph(slug: string, { data, content, error: frontmatterError }: ParsedFrontmatter): Graph {
-  const parsed = parseGraphDocument(content);
-  const error = [frontmatterError, parsed.error].filter(Boolean).join("\n") || undefined;
+function normalizeGraph(slug: string, document: ParsedContentDocument): Graph {
+  const parsed = parseGraphDocument(document.content);
+  const metadata = document.metadata as GraphMetadata;
+  const error = [...document.issues, parsed.error].filter(Boolean).join("\n") || undefined;
 
   return {
     slug,
-    name: readFrontmatterString(data.name, data.title, slug) ?? slug,
-    description: readFrontmatterString(data.description) ?? "",
-    date: formatDate(data.date),
+    ...metadata,
+    ...resolveGraphDisplay(slug, metadata),
     content: parsed.remainingContent,
     graphData: parsed.graphData,
     error,
@@ -66,6 +58,5 @@ export function getGraphBySlug(slug: string): Graph | null {
 }
 
 export function getAllGraphSlugs(): string[] {
-  return listMarkdownFiles(graphsDirectory)
-    .map(stripMarkdownExtension);
+  return readParsedContentFiles(graphsDirectory, "graph").map((graph) => graph.slug);
 }

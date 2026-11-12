@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Typewriter from "./Typewriter";
+import type { SiteConfig } from "@jas/content-core";
 
-export default function Hero() {
+export default function Hero({ home }: { home: SiteConfig["home"] }) {
   const [showSubtitle, setShowSubtitle] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
 
@@ -11,14 +12,14 @@ export default function Hero() {
     <section className="text-center mb-16">
       <h1 className="text-4xl font-bold mb-4">
         <Typewriter
-          text="代码与文字，"
+          text={home.heading}
           speed={120}
           onComplete={() => setShowSubtitle(true)}
         />
         {showSubtitle && (
           <span className="text-[var(--color-vermilion)]">
             <Typewriter
-              text="皆是修行"
+              text={home.accent}
               speed={120}
               onComplete={() => setShowDescription(true)}
             />
@@ -30,7 +31,7 @@ export default function Hero() {
           showDescription ? "opacity-100" : "opacity-0"
         }`}
       >
-        这里记录我的开源项目与学习心得，愿以代码为笔，书写技术人生。
+        {home.description}
       </p>
       <div
         className={`divider-cloud mt-10 transition-opacity duration-500 ${

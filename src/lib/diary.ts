@@ -1,160 +1,55 @@
-import fs from "fs";
 import path from "path";
-import { parseFrontmatter } from "./frontmatter";
+import { stripMarkdownExtension, isCalendarDate } from "@jas/content-core";
+import { readParsedContentFiles } from "./content-repository";
 import {
-  isMarkdownFileName,
-  stripMarkdownExtension,
-} from "./markdown-file";
-import { compareDateDescThenSlug } from "./date-sort";
-import {
-  buildDiaryDaySummary,
+  groupDiaryEntries,
   DIARY_DATE_PATTERN,
   inferDiaryFromFileName,
-  normalizeDiaryTime,
-  sortDiaryEntriesByTimeAsc,
-  titleFromSlug,
-} from "./diary-contract";
-import {
-  formatDate,
-  parseStringArray,
-  readFrontmatterString,
-} from "./content-common";
+} from "@jas/content-core/diary-contract";
+import { resolveDiaryDisplay, type DiaryMetadata, type DiaryEntry as SharedDiaryEntry, type DiaryDay as SharedDiaryDay, type DiaryListEntry } from "@jas/content-core";
 
 const diaryDirectory = path.join(process.cwd(), "content/diary");
 
-function parseFromFileName(fileName: string): {
-  date: string;
-  time: string;
-  title: string;
-} {
-  const inferred = inferDiaryFromFileName(fileName);
-  if (!inferred) return { date: "", time: "", title: titleFromSlug(fileName) };
-  return inferred;
-}
-
-function readMarkdownFiles(directory: string): string[] {
-  if (!fs.existsSync(directory)) return [];
-
-  const entries = fs.readdirSync(directory, { withFileTypes: true });
-  const files: string[] = [];
-
-  entries.forEach((entry) => {
-    const fullPath = path.join(directory, entry.name);
-    if (entry.isDirectory()) {
-      files.push(...readMarkdownFiles(fullPath));
-      return;
-    }
-
-    if (entry.isFile() && isMarkdownFileName(entry.name)) {
-      files.push(fullPath);
-    }
-  });
-
-  return files;
-}
-
-export interface DiaryEntry {
-  id: string;
-  title: string;
-  date: string;
-  time: string;
-  excerpt: string;
-  tags: string[];
-  mood?: string;
-  weather?: string;
-  location?: string;
-  companions: string[];
-  content: string;
-  error?: string;
-}
-
-export interface DiaryDayMeta {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  tags: string[];
-  entryCount: number;
-  mood?: string;
-  weather?: string;
-  location?: string;
-  error?: string;
-}
-
-export interface DiaryDay extends DiaryDayMeta {
-  entries: DiaryEntry[];
-}
+export type DiaryEntry = SharedDiaryEntry;
+export type DiaryDayMeta = DiaryListEntry;
+export type DiaryDay = SharedDiaryDay;
 
 function readDiaryEntries(): DiaryEntry[] {
-  const files = readMarkdownFiles(diaryDirectory);
+  const files = readParsedContentFiles(diaryDirectory, "diary", true);
   const entries: DiaryEntry[] = [];
 
-  files.forEach((filePath) => {
+  files.forEach(({ fullPath: filePath, parsed }) => {
     const relativePath = path
       .relative(diaryDirectory, filePath)
       .replace(/\\/g, "/");
     const id = stripMarkdownExtension(relativePath);
     const baseName = stripMarkdownExtension(path.basename(filePath));
-    const parsedFromName = parseFromFileName(baseName);
+    const parsedFromName = inferDiaryFromFileName(baseName);
 
-    const fileContents = fs.readFileSync(filePath, "utf8");
-    const parsed = parseFrontmatter(fileContents, "diary");
-    const { data, content, error } = parsed;
-
-    const date = formatDate(data.date) || parsedFromName.date;
-    if (!DIARY_DATE_PATTERN.test(date)) {
-      return;
+    const metadata = parsed.metadata as DiaryMetadata;
+    const display = resolveDiaryDisplay(baseName, metadata, parsedFromName);
+    const { date, title } = display;
+    if (!isCalendarDate(date)) {
+      throw new Error(`日记日期无效：${relativePath}`);
     }
-
-    const time = normalizeDiaryTime(data.time) || normalizeDiaryTime(parsedFromName.time) || "00:00";
-    const title =
-      readFrontmatterString(data.title, parsedFromName.title, baseName) ||
-      baseName;
 
     entries.push({
       id,
+      ...metadata,
       title,
       date,
-      time,
-      excerpt: readFrontmatterString(data.excerpt) ?? "",
-      tags: parseStringArray(data.tags),
-      mood: readFrontmatterString(data.mood),
-      weather: readFrontmatterString(data.weather),
-      location: readFrontmatterString(data.location),
-      companions: parseStringArray(data.companions),
-      content,
-      error,
+      time: display.time,
+      tags: metadata.tags ?? [],
+      content: parsed.content,
+      error: parsed.issues.join("\n") || undefined,
     });
   });
 
   return entries;
 }
 
-function buildDiaryDay(date: string, entries: DiaryEntry[]): DiaryDay {
-  const sortedEntries = [...entries].sort(sortDiaryEntriesByTimeAsc);
-  const summary = buildDiaryDaySummary(date, sortedEntries);
-  const error = sortedEntries.map((entry) => entry.error).find(Boolean);
-
-  return {
-    ...summary,
-    error,
-    entries: sortedEntries,
-  };
-}
-
 function buildDiaryDays(): DiaryDay[] {
-  const entries = readDiaryEntries();
-  const grouped = new Map<string, DiaryEntry[]>();
-
-  entries.forEach((entry) => {
-    const current = grouped.get(entry.date) || [];
-    current.push(entry);
-    grouped.set(entry.date, current);
-  });
-
-  return Array.from(grouped.entries())
-    .map(([date, dayEntries]) => buildDiaryDay(date, dayEntries))
-    .sort(compareDateDescThenSlug);
+  return groupDiaryEntries(readDiaryEntries());
 }
 
 export function getAllDiaryDays(): DiaryDayMeta[] {

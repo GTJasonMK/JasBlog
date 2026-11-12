@@ -1,0 +1,93 @@
+{
+  "name": "JasBlog",
+  "description": "一个现代简约中国风的个人博客，分享开源项目和学习经验",
+  "footer": "JasBlog",
+  "home": {
+    "heading": "代码与文字，",
+    "accent": "皆是修行",
+    "description": "这里记录我的开源项目与学习心得，愿以代码为笔，书写技术人生。",
+    "notesDescription": "最近的学习记录",
+    "projectsDescription": "我的开源作品"
+  },
+  "sections": {
+    "home": {
+      "title": "首页",
+      "description": "",
+      "enabled": true
+    },
+    "notes": {
+      "title": "学习笔记",
+      "description": "记录学习过程中的收获与思考",
+      "enabled": true
+    },
+    "projects": {
+      "title": "开源项目",
+      "description": "分享我的开源作品",
+      "enabled": true
+    },
+    "diary": {
+      "title": "考研日志",
+      "description": "按天聚合的考研日志时间线。",
+      "enabled": false
+    },
+    "graphs": {
+      "title": "知识图谱",
+      "description": "可视化的知识体系",
+      "enabled": true
+    },
+    "roadmap": {
+      "title": "我的规划",
+      "description": "我的学习和开发计划",
+      "enabled": true
+    },
+    "photography": {
+      "title": "摄影作品",
+      "description": "记录光线、风景与日常。",
+      "enabled": true
+    }
+  },
+  "navigation": [
+    {
+      "target": "home",
+      "label": "首页",
+      "visible": true
+    },
+    {
+      "target": "projects",
+      "label": "开源项目",
+      "visible": true
+    },
+    {
+      "target": "notes",
+      "label": "学习笔记",
+      "visible": true
+    },
+    {
+      "target": "diary",
+      "label": "考研日志",
+      "visible": true
+    },
+    {
+      "target": "photography",
+      "label": "摄影作品",
+      "visible": true
+    },
+    {
+      "target": "graphs",
+      "label": "知识图谱",
+      "visible": true
+    },
+    {
+      "target": "roadmap",
+      "label": "我的规划",
+      "visible": true
+    }
+  ],
+  "comments": {
+    "enabled": false,
+    "repo": "",
+    "repoId": "",
+    "category": "",
+    "categoryId": ""
+  }
+}

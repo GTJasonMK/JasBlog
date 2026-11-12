@@ -19,38 +19,15 @@ type Pagefind = {
 let pagefindLoadPromise: Promise<Pagefind> | null = null;
 
 function getBasePathFromMeta(): string {
-  if (typeof document === "undefined") return "";
   const meta = document.querySelector('meta[name="base-path"]') as HTMLMetaElement | null;
-  return meta?.content || "";
+  if (!meta) throw new Error("页面缺少 base-path 配置。");
+  return meta.content;
 }
 
 async function loadPagefind(): Promise<Pagefind> {
-  const existing = (globalThis as unknown as { pagefind?: Pagefind }).pagefind;
-  if (existing) return existing;
-
   if (!pagefindLoadPromise) {
-    pagefindLoadPromise = new Promise<Pagefind>((resolve, reject) => {
-      const basePath = getBasePathFromMeta();
-      const script = document.createElement("script");
-
-      script.src = `${basePath}/pagefind/pagefind.js`;
-      script.async = true;
-      script.onload = () => {
-        const loaded = (globalThis as unknown as { pagefind?: Pagefind }).pagefind;
-        if (!loaded) {
-          pagefindLoadPromise = null;
-          reject(new Error("Pagefind loaded but pagefind object was not found."));
-          return;
-        }
-        resolve(loaded);
-      };
-      script.onerror = () => {
-        pagefindLoadPromise = null;
-        reject(new Error("Failed to load Pagefind index. Run npm run build first."));
-      };
-
-      document.head.appendChild(script);
-    });
+    const basePath = getBasePathFromMeta();
+    pagefindLoadPromise = import(/* webpackIgnore: true */ `${basePath}/pagefind/pagefind.js`) as Promise<Pagefind>;
   }
 
   try {
@@ -72,17 +49,10 @@ function isEditableTarget(target: EventTarget | null): boolean {
   );
 }
 
-const navItems = [
-  { href: "/", label: "首页" },
-  { href: "/projects", label: "开源项目" },
-  { href: "/notes", label: "学习笔记" },
-  { href: "/diary", label: "考研日志" },
-  { href: "/graphs", label: "知识图谱" },
-  { href: "/roadmap", label: "我的规划" },
-];
-
-export default function Header() {
+export default function Header({ name, navItems }: { name: string; navItems: Array<{ href: string; label: string }> }) {
   const pathname = usePathname();
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const navButtonRef = useRef<HTMLButtonElement>(null);
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -91,6 +61,7 @@ export default function Header() {
   const [searchError, setSearchError] = useState<string | null>(null);
 
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const searchButtonRef = useRef<HTMLButtonElement>(null);
   const searchRequestIdRef = useRef(0);
 
   const isActivePath = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(href));
@@ -104,6 +75,11 @@ export default function Header() {
     setSearchError(null);
   }, []);
 
+  const dismissSearch = useCallback(() => {
+    closeSearch();
+    searchButtonRef.current?.focus();
+  }, [closeSearch]);
+
   useEffect(() => {
     if (!isSearchOpen) return;
     const timer = window.setTimeout(() => {
@@ -114,27 +90,40 @@ export default function Header() {
 
   useEffect(() => {
     closeSearch();
+    setIsNavOpen(false);
   }, [pathname, closeSearch]);
 
   useEffect(() => {
+    if (isNavOpen) document.getElementById("site:primary-navigation")?.querySelector<HTMLAnchorElement>("a")?.focus();
+  }, [isNavOpen]);
+
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || document.querySelector("dialog[open]")) return;
       if (event.key === "/") {
         if (isEditableTarget(event.target)) return;
         event.preventDefault();
+        setIsNavOpen(false);
         setIsSearchOpen(true);
         return;
       }
 
       if (event.key === "Escape") {
+        if (isNavOpen) {
+          event.preventDefault();
+          setIsNavOpen(false);
+          navButtonRef.current?.focus();
+          return;
+        }
         if (!isSearchOpen) return;
         event.preventDefault();
-        closeSearch();
+        dismissSearch();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isSearchOpen, closeSearch]);
+  }, [isSearchOpen, isNavOpen, dismissSearch]);
 
   useEffect(() => {
     if (!isSearchOpen) return;
@@ -173,7 +162,10 @@ export default function Header() {
               return null;
             }
 
-            return { url, title, excerpt } satisfies SearchItem;
+            const basePath = getBasePathFromMeta();
+            const internal = basePath && (url === basePath || url.startsWith(basePath + "/")) ? url.slice(basePath.length) || "/" : url;
+            const href = internal.replace(/^\/index\.html(?=$|[?#])/, "/").replace(/\.html(?=$|[?#])/, "");
+            return { url: href, title, excerpt } satisfies SearchItem;
           })
           .filter((item): item is SearchItem => Boolean(item));
 
@@ -201,31 +193,34 @@ export default function Header() {
   }, [isSearchOpen, searchQuery]);
 
   return (
-    <header className="sticky top-0 z-50 bg-[var(--color-paper)] border-b border-[var(--color-paper-darker)]">
+    <header className="site-header sticky top-0 z-50 bg-[var(--color-paper)] border-b border-[var(--color-paper-darker)]"
+      onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setIsNavOpen(false); }}>
+      {isNavOpen && <button type="button" aria-label="关闭导航菜单" className="fixed inset-0 z-40 cursor-default bg-black/10" onClick={() => setIsNavOpen(false)} />}
       {isSearchOpen && (
         <button
           type="button"
           aria-label="关闭搜索"
           className="fixed inset-0 z-40 cursor-default bg-black/10"
-          onClick={closeSearch}
+          onClick={dismissSearch}
         />
       )}
 
-      <div className="max-w-4xl mx-auto px-6 relative">
-        <nav className="flex items-center justify-between h-14">
-          <Link href="/" className="seal text-sm">
-            JasBlog
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-50">
+        <nav aria-label="主导航" className="flex items-center justify-between gap-3 min-h-14 py-1">
+          <Link href="/" className="seal text-sm min-w-0 max-w-[50%] lg:max-w-48 [overflow-wrap:anywhere]">
+            {name}
           </Link>
 
-          <div className="flex items-center gap-4">
-            <ul className="flex items-center gap-6">
+            <ul id="site:primary-navigation" className={`${isNavOpen ? "grid" : "hidden"} absolute left-0 right-0 top-full z-50 grid-cols-2 gap-2 border-b border-[var(--color-paper-darker)] bg-[var(--color-paper)] p-4 lg:static lg:flex lg:flex-wrap lg:flex-1 lg:min-w-0 lg:justify-center lg:items-center lg:gap-x-5 lg:gap-y-0 lg:border-0 lg:p-0`}>
               {navItems.map((item) => {
                 const isActive = isActivePath(item.href);
                 return (
-                  <li key={item.href}>
+                  <li key={item.href} className="min-w-0 max-w-full">
                     <Link
                       href={item.href}
-                      className={`text-sm ${
+                      aria-current={isActive ? "page" : undefined}
+                      onClick={() => setIsNavOpen(false)}
+                      className={`flex min-h-11 min-w-11 items-center px-2 text-sm [overflow-wrap:anywhere] lg:max-w-48 lg:justify-center lg:px-0 ${
                         isActive
                           ? "text-[var(--color-vermilion)] font-medium"
                           : "text-[var(--color-gray)] hover:text-[var(--color-ink)]"
@@ -238,40 +233,50 @@ export default function Header() {
               })}
             </ul>
 
+          <div className="flex shrink-0 items-center gap-2">
             <button
+              ref={searchButtonRef}
               type="button"
-              onClick={() => setIsSearchOpen((open) => !open)}
-              className="text-sm text-[var(--color-gray)] hover:text-[var(--color-ink)] px-2 py-1 rounded-md border border-transparent hover:border-[var(--color-paper-darker)] transition-colors"
+              onClick={() => { setIsNavOpen(false); if (isSearchOpen) closeSearch(); else setIsSearchOpen(true); }}
+              className="min-h-[44px] min-w-[44px] text-sm text-[var(--color-gray)] hover:text-[var(--color-ink)] px-2 py-1 rounded-md border border-transparent hover:border-[var(--color-paper-darker)] transition-colors"
               aria-label="打开搜索（快捷键：/）"
+              aria-expanded={isSearchOpen}
+              aria-controls="site:search"
             >
               <span className="hidden sm:inline">搜索</span>
               <span className="sm:hidden">/</span>
+            </button>
+            <button ref={navButtonRef} type="button" className="grid min-h-[44px] min-w-[44px] place-items-center lg:hidden"
+              aria-expanded={isNavOpen} aria-controls="site:primary-navigation" aria-label={isNavOpen ? "收起导航" : "展开导航"}
+              onClick={() => { closeSearch(); setIsNavOpen((open) => !open); }}>
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d={isNavOpen ? "m6 6 12 12M18 6 6 18" : "M4 7h16M4 12h16M4 17h16"} /></svg>
             </button>
           </div>
         </nav>
 
         <div
-          className={`absolute left-0 right-0 top-14 z-50 transition-all duration-200 ease-out ${
-            isSearchOpen
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 -translate-y-2 pointer-events-none"
-          }`}
+          id="site:search"
+          role="search"
+          aria-label="站内搜索"
+          hidden={!isSearchOpen}
+          className="absolute left-0 right-0 top-full z-50"
         >
           <div className="bg-[var(--color-paper)] border border-[var(--color-paper-darker)] rounded-lg shadow-lg p-4">
             <div className="flex items-center gap-3">
               <input
+                aria-label="搜索站点内容"
                 ref={searchInputRef}
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="搜索笔记 / 日志 / 项目 / 图谱 / 规划"
-                className="flex-1 bg-white border border-[var(--color-paper-darker)] rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-vermilion)]"
+                placeholder="搜索内容"
+                className="min-w-0 flex-1 bg-white border border-[var(--color-paper-darker)] rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-vermilion)]"
               />
               <button
                 type="button"
-                onClick={closeSearch}
-                className="text-xs px-2 py-2 rounded-md text-[var(--color-gray)] hover:text-[var(--color-ink)] border border-transparent hover:border-[var(--color-paper-darker)] transition-colors"
+                onClick={dismissSearch}
+                className="min-h-[44px] min-w-[44px] shrink-0 text-sm px-2 py-2 rounded-md text-[var(--color-gray)] hover:text-[var(--color-ink)] border border-transparent hover:border-[var(--color-paper-darker)] transition-colors"
               >
-                ESC
+                关闭
               </button>
             </div>
 
@@ -314,13 +319,12 @@ export default function Header() {
               )}
             </div>
 
-            <div className="mt-3 text-xs text-[var(--color-gray)]">
-              提示：按 <span className="font-mono">/</span> 打开搜索，按{" "}
-              <span className="font-mono">ESC</span> 关闭。
-            </div>
           </div>
         </div>
       </div>
+      <noscript><nav aria-label="页面导航" className="mx-auto flex max-w-4xl flex-wrap gap-x-6 gap-y-1 px-6 py-3 lg:hidden">
+        {navItems.map((item) => <Link key={item.href} href={item.href} className="py-2 text-sm">{item.label}</Link>)}
+      </nav></noscript>
     </header>
   );
 }

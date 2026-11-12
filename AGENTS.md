@@ -1,10 +1,14 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-`src/app` contains App Router pages such as `notes`, `projects`, `graphs`, `roadmap`, and `diary`. Reusable UI lives in `src/components`, with graph-specific pieces under `src/components/graph`. Data loading and Markdown parsing helpers live in `src/lib`, and shared TypeScript types live in `src/types`. Content is file-based under `content/notes`, `content/projects`, `content/graphs`, `content/roadmaps`, and `content/diary`. Static assets and deployment metadata belong in `public`, while small maintenance scripts live in `scripts`.
+`src/app` contains App Router pages such as `notes`, `projects`, `graphs`, `roadmap`, `diary`, and `photography`. Reusable UI lives in `src/components`. Data loading helpers live in `src/lib`, and types live in `src/types`. Photography data belongs to the blog: its manifest is `content/photography/photos.json` and images are in `public/photography`; the shared view belongs to `@jas/content-ui`. Other content remains Markdown-based. Static assets and deployment metadata belong in `public`, while small maintenance scripts live in `scripts`.
 
 ## Build, Test, and Development Commands
 Use `npm install` to install dependencies; CI uses `npm ci` on Node 20. Run `npm run dev` for local development. Run `npm run build` to create the static export in `out/`; this also triggers `pagefind` through `postbuild` to generate search indexes. Use `npm run start` to serve the exported site locally from `out/`. Run `npm run lint` before opening a PR. For content-only commits, `npm run commit:content` generates a descriptive commit message from changes under `content/`.
+
+Use `npm run photo:add -- <file> --title <title>` to import a photograph; see `docs/photography.md`. Publish the manifest and generated public images together. Shared content styles and ContentHost belong inside the main content area, outside the site navigation.
+
+Site content configuration lives in `content/site.json`, independent Markdown pages in `content/pages`, and generated article images in `public/media`. All publishable content explicitly declares `publication`. `@jas/site-tools` owns image processing, static-export cleanup and deployment orchestration; `@jas/content-ui` owns the shared photography view. See `docs/site-management.md`. `npm run site:migrate` backs up and upgrades existing content. `npm run commit:content` now performs the complete publishing workflow and must not be used as a verification command.
 
 ## Coding Style & Naming Conventions
 Write TypeScript with `strict` mode in mind and prefer the `@/*` import alias for files under `src`. Follow the existing style: 2-space indentation, double quotes, PascalCase for React components (`ArticleCard.tsx`), and camelCase for utility modules (`posts.ts`, `roadmap.ts`). Keep route folders lowercase and match content categories to their URL segment names. Use ESLint (`next/core-web-vitals`) as the enforced style baseline; no Prettier config is checked in.

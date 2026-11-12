@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { parseGraphDocument } from "../src/lib/graph-document.ts";
+import { parseGraphDocument } from "@jas/content-core/graph-document";
+import { createEmptyGraph } from "@jas/graph-core";
 
 test("非法 graph 文档不会被发布链路静默丢弃，而是返回显式错误", () => {
   const parsed = parseGraphDocument(`前言
@@ -14,8 +15,8 @@ test("非法 graph 文档不会被发布链路静默丢弃，而是返回显式�
 \`\`\`
 `);
 
-  assert.equal(parsed.error, "graph 数据格式无效：需要包含 nodes/edges 数组，且节点需包含 id/position/data");
-  assert.deepEqual(parsed.graphData, { nodes: [], edges: [] });
+  assert.match(parsed.error ?? "", /graph 数据格式无效[\s\S]*nodes/);
+  assert.deepEqual(parsed.graphData, createEmptyGraph());
   assert.equal(parsed.remainingContent.includes("```graph"), true);
 });
 

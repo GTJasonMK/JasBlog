@@ -1,84 +1,40 @@
-﻿/**
- * Import a graph JSON export into content/graphs as markdown.
- *
- * Usage:
- *   node scripts/import-graph.js <input-file> <graph-name> <description> [date]
- *
- * Example:
- *   node scripts/import-graph.js graph_export.json "React Learning" "Core React concepts" 2026-02-18
- */
+const fs = require("node:fs");
+const path = require("node:path");
 
-const fs = require("fs");
-const path = require("path");
-
-const args = process.argv.slice(2);
-
-if (args.length < 3) {
-  console.error("Usage: node scripts/import-graph.js <input-file> <graph-name> <description> [date]");
-  process.exit(1);
+async function importGraph({ inputPath, graphsDirectory, name, description, date }) {
+  const { deserializeGraphData } = await import("@jas/graph-core");
+  if (typeof name !== "string" || typeof description !== "string") throw new Error("图谱名称和描述必须为字符串。");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error("日期必须使用 YYYY-MM-DD 格式。");
+  const graph = deserializeGraphData(fs.readFileSync(inputPath, "utf8"));
+  const slug = name.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, "-").replace(/^-+|-+$/g, "") || `graph-${Date.now()}`;
+  const outputPath = path.join(graphsDirectory, `${slug}.md`);
+  const markdown = ["---", `name: ${JSON.stringify(name)}`, `description: ${JSON.stringify(description)}`, `date: ${date}`, "---", "", "```graph", JSON.stringify(graph, null, 2), "```", ""].join("\n");
+  fs.mkdirSync(graphsDirectory, { recursive: true });
+  let descriptor;
+  try {
+    descriptor = fs.openSync(outputPath, "wx");
+    fs.writeFileSync(descriptor, markdown, "utf8");
+    fs.fsyncSync(descriptor);
+  } catch (error) {
+    if (descriptor !== undefined) {
+      fs.closeSync(descriptor);
+      descriptor = undefined;
+      fs.unlinkSync(outputPath);
+    }
+    throw error;
+  } finally {
+    if (descriptor !== undefined) fs.closeSync(descriptor);
+  }
+  return { outputPath, slug, nodeCount: graph.nodes.length, edgeCount: graph.edges.length };
 }
 
-const [inputFileArg, name, description, dateArg] = args;
-const graphsDir = path.join(__dirname, "..", "content", "graphs");
-const inputPath = path.isAbsolute(inputFileArg)
-  ? inputFileArg
-  : path.resolve(graphsDir, inputFileArg);
-
-if (!fs.existsSync(inputPath)) {
-  console.error(`ERROR: Input file not found: ${inputPath}`);
-  process.exit(1);
+async function main() {
+  const [input, name, description, date = new Date().toISOString().slice(0, 10)] = process.argv.slice(2);
+  if (input === undefined || name === undefined || description === undefined) throw new Error("Usage: node scripts/import-graph.js <input-file> <graph-name> <description> [date]");
+  const graphsDirectory = path.join(__dirname, "..", "content", "graphs");
+  const result = await importGraph({ inputPath: path.resolve(graphsDirectory, input), graphsDirectory, name, description, date });
+  console.log(`Graph import completed: ${result.outputPath} (${result.nodeCount} nodes, ${result.edgeCount} edges)`);
 }
 
-let parsed;
-try {
-  const jsonText = fs.readFileSync(inputPath, "utf8").replace(/^\uFEFF/, "");
-  parsed = JSON.parse(jsonText);
-} catch (error) {
-  console.error(`ERROR: Failed to parse JSON: ${error.message}`);
-  process.exit(1);
-}
-
-if (!parsed || !Array.isArray(parsed.nodes) || !Array.isArray(parsed.edges)) {
-  console.error("ERROR: Invalid graph JSON. Expected top-level 'nodes' and 'edges' arrays.");
-  process.exit(1);
-}
-
-const graphData = {
-  nodes: parsed.nodes,
-  edges: parsed.edges,
-};
-
-const slugFromName = name
-  .toLowerCase()
-  .replace(/[^\w\u4e00-\u9fa5]+/g, "-")
-  .replace(/^-+|-+$/g, "");
-const slug = slugFromName || `graph-${Date.now()}`;
-const outputPath = path.join(graphsDir, `${slug}.md`);
-const date = dateArg || new Date().toISOString().slice(0, 10);
-
-const markdown = [
-  "---",
-  `name: ${JSON.stringify(name)}`,
-  `description: ${JSON.stringify(description)}`,
-  `date: ${date}`,
-  "---",
-  "",
-  "```graph",
-  JSON.stringify(graphData, null, 2),
-  "```",
-  "",
-].join("\n");
-
-fs.writeFileSync(outputPath, markdown, "utf8");
-
-console.log("Graph import completed.");
-console.log(`- Input: ${inputPath}`);
-console.log(`- Output: ${outputPath}`);
-console.log(`- Slug: ${slug}`);
-console.log(`- Nodes: ${graphData.nodes.length}`);
-console.log(`- Edges: ${graphData.edges.length}`);
-console.log(`- URL: /graphs/${slug}`);
-
-if (path.resolve(inputPath) !== path.resolve(outputPath)) {
-  console.log(`Tip: You can remove the original file if it is no longer needed: ${inputPath}`);
-}
+module.exports = { importGraph };
+if (require.main === module) main().catch((error) => { console.error(error.message); process.exitCode = 1; });

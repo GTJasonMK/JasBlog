@@ -1,18 +1,11 @@
-﻿import { Metadata } from "next";
+import { RoadmapView } from "@jas/content-ui/views";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
   getRoadmapBySlug,
   getAllRoadmapSlugs,
-  type RoadmapItem,
 } from "@/lib/roadmap";
-import { calculateRoadmapProgress } from "@/lib/roadmap-content";
-import {
-  ROADMAP_ITEM_STATUS_BADGE_CONFIG,
-  ROADMAP_PRIORITY_CONFIG,
-  ROADMAP_STATUS_BADGE_CONFIG,
-} from "@/lib/roadmap-ui";
-import { MarkdownContent } from "@/components/markdown/MarkdownContent";
 
 interface RoadmapPageProps {
   params: Promise<{ slug: string }>;
@@ -41,68 +34,9 @@ export async function generateMetadata({ params }: RoadmapPageProps): Promise<Me
   }
 
   return {
-    title: roadmap.name,
+    title: roadmap.title,
     description: roadmap.description,
   };
-}
-
-function StatusBadge({ status }: { status: RoadmapItem["status"] }) {
-  const { label, className } = ROADMAP_ITEM_STATUS_BADGE_CONFIG[status];
-  return <span className={`text-xs px-2 py-1 rounded ${className}`}>{label}</span>;
-}
-
-function PriorityIndicator({ priority }: { priority: RoadmapItem["priority"] }) {
-  const priorityInfo = ROADMAP_PRIORITY_CONFIG[priority];
-
-  return (
-    <span
-      className={`w-2 h-2 rounded-full ${priorityInfo.className}`}
-      title={`优先级：${priorityInfo.label}`}
-      aria-label={`优先级：${priorityInfo.label}`}
-    />
-  );
-}
-
-function ItemCard({ item }: { item: RoadmapItem }) {
-  const hasDetailContent = Boolean(item.description || item.details || item.deadline || item.completedAt);
-
-  return (
-    <details className="card-hover bg-white rounded-lg border border-[var(--color-paper-dark)]">
-      <summary className="list-none cursor-pointer p-5">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <PriorityIndicator priority={item.priority} />
-            <h4 className="font-medium">{item.title}</h4>
-          </div>
-          <StatusBadge status={item.status} />
-        </div>
-        <p className="text-xs text-[var(--color-gray)] mt-2 ml-5">
-          {hasDetailContent ? "点击查看详情" : "暂无详细信息"}
-        </p>
-      </summary>
-
-      {hasDetailContent && (
-        <div className="px-5 pb-5 pt-0 ml-5">
-          {item.description && (
-            <p className="text-sm text-[var(--color-gray)]">{item.description}</p>
-          )}
-          {item.details && (
-            <div className="text-sm text-[var(--color-ink)] whitespace-pre-line mt-2">
-              {item.details}
-            </div>
-          )}
-          {(item.deadline || item.completedAt) && (
-            <div className="flex flex-wrap gap-4 text-xs text-[var(--color-gray)] mt-2">
-              {item.deadline && <span>截止: {item.deadline}</span>}
-              {item.completedAt && (
-                <span className="text-green-600">完成: {item.completedAt}</span>
-              )}
-            </div>
-          )}
-        </div>
-      )}
-    </details>
-  );
 }
 
 export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
@@ -117,159 +51,5 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
   if (!roadmap) {
     notFound();
   }
-
-  const inProgress = roadmap.items.filter((item) => item.status === "in_progress");
-  const todo = roadmap.items.filter((item) => item.status === "todo");
-  const done = roadmap.items.filter((item) => item.status === "done");
-
-  const progress = calculateRoadmapProgress(roadmap.items);
-  const total = progress.total;
-  const doneCount = progress.done;
-  const progressPercent = total > 0 ? Math.round((doneCount / total) * 100) : 0;
-
-  return (
-    <div className="max-w-4xl mx-auto px-6 py-12">
-      <Link
-        href="/roadmap"
-        className="inline-flex items-center gap-1 text-[var(--color-gray)] hover:text-[var(--color-vermilion)] mb-6 transition-colors"
-      >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path
-            d="M10 12L6 8L10 4"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        返回规划列表
-      </Link>
-
-      {/* 仪表盘卡片 */}
-      <header className="rounded-2xl border border-[var(--color-paper-darker)] overflow-hidden mb-8">
-        <div className="h-1 bg-gradient-to-r from-[var(--color-vermilion)] to-[var(--color-gold)]" />
-        <div className="bg-[var(--color-paper-dark)]/40 p-8">
-          <p className="text-xs tracking-[0.16em] uppercase text-[var(--color-gold)] mb-2">我的规划</p>
-          <div className="flex items-center gap-3 mb-2">
-            {roadmap.status === "active" ? (
-              <span className="relative flex h-3 w-3 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-vermilion)] opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-[var(--color-vermilion)]" />
-              </span>
-            ) : (
-              <span className={`h-3 w-3 rounded-full shrink-0 ${roadmap.status === "completed" ? "bg-green-500" : "bg-gray-400"}`} />
-            )}
-            <h1 className="text-2xl font-bold">{roadmap.name}</h1>
-            <span className={`text-xs px-2 py-1 rounded ${ROADMAP_STATUS_BADGE_CONFIG[roadmap.status].className}`}>
-              {ROADMAP_STATUS_BADGE_CONFIG[roadmap.status].label}
-            </span>
-          </div>
-          <p className="text-[var(--color-gray)] mb-4">{roadmap.description}</p>
-
-          {roadmap.error && (
-            <div className="mb-4 rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-4 text-sm text-[var(--color-gray)]">
-              <p className="mb-1 font-medium text-[var(--color-danger)]">frontmatter 错误</p>
-              <p>{roadmap.error}</p>
-            </div>
-          )}
-
-          {total > 0 && (
-            <div className="bg-[var(--color-bg,#fff)]/60 rounded-lg p-4">
-              <div className="flex justify-between text-sm mb-2">
-                <span className="text-[var(--color-gray)]">完成进度</span>
-                <span className="font-medium">{doneCount}/{total} ({progressPercent}%)</span>
-              </div>
-              <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-green-500 transition-all duration-500"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-              <div className="flex gap-4 mt-2 text-xs text-[var(--color-gray)]">
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-500" />
-                  已完成 {doneCount}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-vermilion)]" />
-                  进行中 {inProgress.length}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-gray-300" />
-                  待开始 {todo.length}
-                </span>
-              </div>
-            </div>
-          )}
-        </div>
-      </header>
-
-      {roadmap.content.trim() && (
-        <div className="prose-chinese mb-8">
-          <MarkdownContent content={roadmap.content} />
-        </div>
-      )}
-
-      {roadmap.items.length > 0 && roadmap.content.trim() && (
-        <div className="divider-cloud my-8" />
-      )}
-
-      {roadmap.items.length > 0 && (
-        <section>
-          <h2 className="text-xl font-semibold mb-8 flex items-center gap-2">
-            <span className={`w-3 h-3 rounded-full ${ROADMAP_STATUS_BADGE_CONFIG.active.dotClassName}`} />
-            任务列表 ({roadmap.items.length})
-          </h2>
-
-          {inProgress.length > 0 && (
-            <section className="mb-10">
-              <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-full ${ROADMAP_ITEM_STATUS_BADGE_CONFIG.in_progress.dotClassName}`} />
-                正在进行 ({inProgress.length})
-              </h3>
-              <div className="grid gap-3">
-                {inProgress.map((item) => (
-                  <ItemCard key={item.id} item={item} />
-                ))}
-              </div>
-            </section>
-          )}
-
-          {todo.length > 0 && (
-            <section className="mb-10">
-              <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-full ${ROADMAP_ITEM_STATUS_BADGE_CONFIG.todo.dotClassName}`} />
-                计划中 ({todo.length})
-              </h3>
-              <div className="grid gap-3">
-                {todo.map((item) => (
-                  <ItemCard key={item.id} item={item} />
-                ))}
-              </div>
-            </section>
-          )}
-
-          {done.length > 0 && (
-            <section>
-              <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-full ${ROADMAP_ITEM_STATUS_BADGE_CONFIG.done.dotClassName}`} />
-                已完成 ({done.length})
-              </h3>
-              <div className="grid gap-3">
-                {done.map((item) => (
-                  <ItemCard key={item.id} item={item} />
-                ))}
-              </div>
-            </section>
-          )}
-        </section>
-      )}
-
-      {roadmap.items.length === 0 && (
-        <p className="text-[var(--color-gray)] text-center py-12">
-          暂无任务项
-        </p>
-      )}
-    </div>
-  );
+  return <RoadmapView roadmap={roadmap} back={<Link href="/roadmap" className="text-sm text-[var(--color-gray)] mb-6 inline-block">← 返回规划列表</Link>} />;
 }

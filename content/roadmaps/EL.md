@@ -1,8 +1,9 @@
 ﻿---
 title: EL
-description:
+description: ""
 date: 2026-02-20
 status: active
+publication: published
 ---
 ## 第一阶段：奠定基础
 

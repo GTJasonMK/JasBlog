@@ -4,7 +4,7 @@ import {
   createHeadingIdResolver,
   extractHeadingsFromContent,
   generateHeadingId,
-} from "../src/lib/heading-content.ts";
+} from "@jas/content-core/heading-content";
 
 test("重复标题会生成稳定且唯一的锚点 id", () => {
   const resolveHeadingId = createHeadingIdResolver();

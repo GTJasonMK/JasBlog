@@ -1,24 +1,18 @@
-import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getAllPosts, getAllTags } from "@/lib/posts";
-import SectionTitle from "@/components/SectionTitle";
+import { getAllPosts } from "@/lib/posts";
 import NotesList from "@/components/NotesList";
 
-export const metadata: Metadata = {
-  title: "学习笔记",
-  description: "技术文章和学习经验分享",
-};
+import { sectionEnabled, sectionMetadata } from "@/lib/site";
+export function generateMetadata() { return sectionMetadata("notes"); }
 
 export default function NotesPage() {
+  if (!sectionEnabled("notes")) notFound();
   const posts = getAllPosts();
-  const allTags = getAllTags();
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12">
-      <SectionTitle subtitle="记录学习的点滴">学习笔记</SectionTitle>
       <Suspense fallback={<div>加载中...</div>}>
-        <NotesList posts={posts} allTags={allTags} />
+        <NotesList posts={posts} />
       </Suspense>
-    </div>
   );
 }

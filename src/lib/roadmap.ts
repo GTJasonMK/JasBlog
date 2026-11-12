@@ -1,35 +1,27 @@
 import path from "path";
-import { type ParsedFrontmatter } from "./frontmatter";
-import {
-  normalizeRoadmapStatus,
-  type RoadmapStatus,
-} from "./roadmap-status";
+import type { RoadmapStatus } from "@jas/content-core/roadmap-status";
 import {
   calculateRoadmapProgress,
   parseRoadmapItemsFromContent,
   type RoadmapContentItem,
   type RoadmapProgress,
-} from "./roadmap-content";
+} from "@jas/content-core/roadmap-content";
 import {
-  listMarkdownFiles,
   readParsedContentBySlug,
   readParsedContentFiles,
   sortByDateDescThenSlug,
 } from "./content-repository";
-import { formatDate, readFrontmatterString } from "./content-common";
-import {
-  stripMarkdownExtension,
-} from "./markdown-file";
+import { resolveRoadmapDisplay, type ParsedContentDocument, type RoadmapMetadata } from "@jas/content-core";
 
 const roadmapsDirectory = path.join(process.cwd(), "content/roadmaps");
 
 export type RoadmapItem = RoadmapContentItem;
 
-export type { RoadmapStatus } from "./roadmap-status";
+export type { RoadmapStatus } from "@jas/content-core/roadmap-status";
 
 export interface Roadmap {
   slug: string;
-  name: string;
+  title: string;
   description: string;
   date: string;
   status: RoadmapStatus;
@@ -40,7 +32,7 @@ export interface Roadmap {
 
 export interface RoadmapMeta {
   slug: string;
-  name: string;
+  title: string;
   description: string;
   date: string;
   status: RoadmapStatus;
@@ -48,17 +40,18 @@ export interface RoadmapMeta {
   error?: string;
 }
 
-function normalizeRoadmap(slug: string, { data, content, error: frontmatterError }: ParsedFrontmatter): Roadmap {
+function normalizeRoadmap(slug: string, { metadata: rawMetadata, content, issues }: ParsedContentDocument): Roadmap {
   const { items, remainingContent } = parseRoadmapItemsFromContent(content);
-  const status = normalizeRoadmapStatus(data.status);
-  const error = [frontmatterError, status.error].filter(Boolean).join("\n") || undefined;
+  const metadata = rawMetadata as RoadmapMetadata;
+  const display = resolveRoadmapDisplay(slug, metadata);
+  const error = issues.join("\n") || undefined;
 
   return {
     slug,
-    name: readFrontmatterString(data.name, data.title, slug) ?? slug,
-    description: readFrontmatterString(data.description) ?? "",
-    date: formatDate(data.date),
-    status: status.status,
+    title: display.title,
+    description: metadata.description,
+    date: display.date,
+    status: display.status,
     items,
     content: remainingContent,
     error,
@@ -72,7 +65,7 @@ export function getAllRoadmaps(): RoadmapMeta[] {
 
       return {
         slug: roadmap.slug,
-        name: roadmap.name,
+        title: roadmap.title,
         description: roadmap.description,
         date: roadmap.date,
         status: roadmap.status,
@@ -95,6 +88,5 @@ export function getRoadmapBySlug(slug: string): Roadmap | null {
 }
 
 export function getAllRoadmapSlugs(): string[] {
-  return listMarkdownFiles(roadmapsDirectory)
-    .map(stripMarkdownExtension);
+  return readParsedContentFiles(roadmapsDirectory, "roadmap").map((roadmap) => roadmap.slug);
 }

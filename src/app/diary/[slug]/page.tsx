@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllDiaryDaySlugs, getDiaryDayBySlug } from "@/lib/diary";
-import DiaryDayView from "@/components/diary/DiaryDayView";
+import Link from "next/link";
+import DiaryDayView from "@jas/content-ui/diary";
 
 interface DiaryDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -47,5 +48,5 @@ export default async function DiaryDetailPage({ params }: DiaryDetailPageProps) 
     notFound();
   }
 
-  return <DiaryDayView day={day} />;
+  return <DiaryDayView day={day} back={<Link href="/diary" className="text-sm text-[var(--color-gray)] mb-8 inline-block">← 返回考研日志时间线</Link>} />;
 }
