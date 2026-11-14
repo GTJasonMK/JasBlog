@@ -14,7 +14,7 @@ export type DiaryEntry = SharedDiaryEntry;
 export type DiaryDayMeta = DiaryListEntry;
 export type DiaryDay = SharedDiaryDay;
 
-function readDiaryEntries(): DiaryEntry[] {
+export function getAllDiaryEntries(): DiaryEntry[] {
   const files = readParsedContentFiles(diaryDirectory, "diary", true);
   const entries: DiaryEntry[] = [];
 
@@ -49,7 +49,7 @@ function readDiaryEntries(): DiaryEntry[] {
 }
 
 function buildDiaryDays(): DiaryDay[] {
-  return groupDiaryEntries(readDiaryEntries());
+  return groupDiaryEntries(getAllDiaryEntries());
 }
 
 export function getAllDiaryDays(): DiaryDayMeta[] {

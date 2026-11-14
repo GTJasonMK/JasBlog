@@ -48,5 +48,5 @@ export default async function DiaryDetailPage({ params }: DiaryDetailPageProps) 
     notFound();
   }
 
-  return <DiaryDayView day={day} back={<Link href="/diary" className="text-sm text-[var(--color-gray)] mb-8 inline-block">← 返回考研日志时间线</Link>} />;
+  return <DiaryDayView day={day} back={<Link href="/diary" className="text-sm text-[var(--color-text-muted)] mb-8 inline-block">← 返回考研日志时间线</Link>} />;
 }

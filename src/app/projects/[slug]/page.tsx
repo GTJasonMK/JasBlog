@@ -49,5 +49,5 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (!project) {
     notFound();
   }
-  return <ProjectView project={project} back={<Link href="/projects" className="text-sm text-[var(--color-gray)] mb-6 inline-block">← 返回项目列表</Link>} />;
+  return <ProjectView project={project} back={<Link href="/projects" className="text-sm text-[var(--color-text-muted)] mb-6 inline-block">← 返回项目列表</Link>} />;
 }

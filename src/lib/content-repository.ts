@@ -1,14 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
-import { parseMarkdownContent, readPublication, stripMarkdownExtension, type JasBlogContentType, type ParsedContentDocument, type SectionId } from "@jas/content-core";
+import { CONTENT_SECTIONS, parseMarkdownContent, readPublication, stripMarkdownExtension, type JasBlogContentType, type ParsedContentDocument } from "@jas/content-core";
 import { markdownFiles } from "@jas/site-tools/files";
 import { compareDateDescThenSlug } from "@jas/content-core/date-sort";
 import { getSite } from "./site";
 
 function directoryPublished(type: JasBlogContentType): boolean {
-  if (type === "page") return true;
-  const section: SectionId = type === "note" ? "notes" : type === "project" ? "projects" : type === "graph" ? "graphs" : type;
-  return getSite().sections[section].enabled;
+  const section = CONTENT_SECTIONS[type];
+  return section === null || getSite().sections[section].enabled;
 }
 
 export interface ParsedContentFile { slug: string; fullPath: string; parsed: ParsedContentDocument }

@@ -11,7 +11,7 @@ test("公开规则同时约束列表、详情、静态路径、独立页面和�
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "jas-publish-regression-"));
   const config = parseSiteConfig({
     name: "Synthetic site", description: "Synthetic description", footer: "Synthetic author",
-    home: { heading: "Synthetic", accent: "", description: "", notesDescription: "", projectsDescription: "" },
+    home: { motto: "Synthetic", description: "" },
     sections: Object.fromEntries(SECTION_IDS.map((id) => [id, { title: id, description: "", enabled: true }])),
     navigation: [], comments: { enabled: false, repo: "", repoId: "", category: "", categoryId: "" },
   });
@@ -50,9 +50,14 @@ test("公开规则同时约束列表、详情、静态路径、独立页面和�
     assert.equal(diary.getAllDiaryDays()[0].entryCount, 1);
     assert.equal(diary.getDiaryDayBySlug("2026-11-12")?.entries[0].title, "Public journal");
     assert.equal(JSON.stringify(diary.getAllDiaryDays()).includes("Private"), false);
+    const { generateStaticParams } = await import("../src/app/notes/page/[page]/page");
+    assert.deepEqual(generateStaticParams(), [{ page: "__empty_static_params__" }]);
+    for (let index = 0; index < 12; index++) write(`content/notes/public-${index}.md`, markdown(`Public note ${index}`, "published"));
+    assert.deepEqual(generateStaticParams(), [{ page: "2" }]);
     config.sections.notes.enabled = false; config.sections.diary.enabled = false;
     write("content/site.json", JSON.stringify(config));
     assert.deepEqual(posts.getAllPosts(), []); assert.equal(posts.getPostBySlug("public"), null);
+    assert.deepEqual(generateStaticParams(), [{ page: "__empty_static_params__" }]);
     assert.deepEqual(diary.getAllDiaryDays(), []); assert.equal(diary.getDiaryDayBySlug("2026-11-12"), null);
   } finally { process.chdir(previous); fs.rmSync(root, { recursive: true }); }
 });

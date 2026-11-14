@@ -1,0 +1,72 @@
+:root:root, .site-shell [data-theme="light"] {
+  --color-bg: #f3f2ea;
+  --color-surface: #fbfaf6;
+  --color-surface-dark: #eeefe6;
+  --color-surface-hover: #e6ebdf;
+  --color-control: #f0f1e9;
+  --color-text: #263e34;
+  --color-text-muted: #58685f;
+  --color-text-subtle: #617064;
+  --color-primary: #476c53;
+  --color-primary-dark: #2e563e;
+  --color-primary-light: #e3ebda;
+  --color-on-primary: #fffef8;
+  --color-secondary: #79674e;
+  --color-border: #d9dfd2;
+  --color-border-light: #e7eadf;
+  --code-bg: #edf0e7;
+  --code-text: #263e34;
+  --code-comment: #617064;
+  --code-keyword: #815d76;
+  --code-string: #3c6c45;
+  --code-number: #8b5f2d;
+  --code-function: #31616b;
+  --code-tag: #8a4d5b;
+  --code-attr: #795e2f;
+  --code-type: #31636a;
+  --shadow-sm: 0 2px 8px rgb(22 48 35 / 3%);
+  --shadow-md: 0 8px 24px rgb(22 48 35 / 6%);
+  --shadow-lg: 0 20px 56px rgb(9 30 22 / 12%);
+}
+:root.dark, .site-shell [data-theme="dark"] {
+  --color-bg: #11251f;
+  --color-surface: #182e26;
+  --color-surface-dark: #12271f;
+  --color-surface-hover: #243e30;
+  --color-control: #1c3429;
+  --color-text: #e6ebde;
+  --color-text-muted: #afbdad;
+  --color-text-subtle: #a2b19f;
+  --color-primary: #c0d3a0;
+  --color-primary-dark: #d1e1b6;
+  --color-primary-light: #2e452d;
+  --color-on-primary: #1a3022;
+  --color-secondary: #d7c39f;
+  --color-border: #3c5040;
+  --color-border-light: #2d4335;
+  --code-bg: #11271f;
+  --code-text: #e6ebde;
+  --code-comment: #a2b19f;
+  --code-keyword: #d4b4cd;
+  --code-string: #bdd5a6;
+  --code-number: #e4c18f;
+  --code-function: #a4d3d1;
+  --code-tag: #dfb4bc;
+  --code-attr: #e4cf9f;
+  --code-type: #a4d3d1;
+}
+:root {
+  --site-photo-bg: #1a352e;
+  --site-photo-text: #fffef4;
+  --site-cream: #f3f1e5;
+  --site-cream-hover: #fffdf2;
+  --site-ink: #263e34;
+  --site-forest: #243f34;
+  --site-highlight: #d8e5af;
+  --site-chrome-bg: rgb(19 40 32 / 85%);
+  --site-card-glass: rgb(27 51 40 / 90%);
+  --site-card-hover: #324e3c;
+  --site-photo-card: rgb(36 68 54 / 74%);
+  --site-glass-border: rgb(241 244 223 / 25%);
+  --site-font-display: Georgia, "Noto Serif CJK SC", "Songti SC", "STSong", serif;
+}

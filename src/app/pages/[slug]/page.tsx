@@ -12,5 +12,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> { c
 export default async function Page({ params }: Props) {
   const page = getPage(decodeURIComponent((await params).slug));
   if (!page) notFound();
-  return <PageView page={page} comments={<Comments config={getSite().comments} />} />;
+  const view = <PageView page={page} comments={<Comments config={getSite().comments} />} />;
+  return page.slug === "friends" ? <div className="friends-page">{view}</div> : view;
 }

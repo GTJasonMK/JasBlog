@@ -1,0 +1,23 @@
+.publication-page { max-width: 64rem; margin-inline: auto; }
+.publication-results { scroll-margin-top: 7.5rem; }
+.publication-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; min-height: 3rem; padding: .75rem 1rem; margin-bottom: 1.5rem; border: 1px solid var(--site-glass-border); border-radius: .875rem; background: var(--site-chrome-bg); color: var(--site-photo-text); }
+.publication-toolbar p { font-size: 1rem; font-weight: 500; }
+.publication-toolbar > span { font-size: .8125rem; font-variant-numeric: tabular-nums; }
+.publication-month + .publication-month { margin-top: 2rem; }
+.publication-month > h2 { margin-bottom: 1rem; color: var(--site-photo-text); font-size: 1rem; font-weight: 500; }
+.publication-month > ol { margin-left: .375rem; }
+.publication-entry { position: relative; min-width: 0; padding: 0 0 1rem 1.5rem; border-left: 1px solid var(--site-glass-border); }
+.publication-entry:last-child { padding-bottom: 0; }
+.publication-entry::before { content: ""; position: absolute; left: -.3125rem; top: 1.375rem; width: .5625rem; height: .5625rem; border-radius: 50%; background: var(--color-primary); }
+.publication-entry-link { display: block; min-width: 0; padding: 1rem 1.25rem; border: 1px solid var(--color-border); border-radius: .875rem; background: var(--color-surface); color: var(--color-text); overflow-wrap: anywhere; }
+.publication-entry-link:hover { border-color: var(--color-primary); background: var(--color-surface-hover); }
+.publication-entry-link:focus-visible { outline: 2px solid var(--site-highlight); outline-offset: 3px; }
+.publication-entry-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; color: var(--color-text-muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
+.publication-kind { padding: .125rem .5rem; border-radius: .375rem; background: var(--color-surface-dark); }
+.publication-entry-link h3 { margin-block: .625rem .375rem; font-size: 1.0625rem; line-height: 1.7; font-weight: 600; }
+.publication-entry-link p { color: var(--color-text-muted); font-size: .875rem; line-height: 1.8; }
+@media (max-width: 599px) {
+  .publication-entry { padding-left: 1rem; }
+  .publication-entry-link { padding: .875rem 1rem; }
+}
+@media (max-width: 359px) { .publication-results { scroll-margin-top: 9.5rem; } }

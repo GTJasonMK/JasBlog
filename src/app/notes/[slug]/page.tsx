@@ -50,5 +50,5 @@ export default async function NotePage({ params }: Props) {
     notFound();
   }
   const site = getSite();
-  return <NoteView note={post} back={<Link href="/notes" className="text-sm text-[var(--color-gray)] mb-8 inline-block">← 返回{site.sections.notes.title}</Link>} comments={<Comments config={site.comments} />} />;
+  return <NoteView note={post} back={<Link href={post.category ? `/notes?category=${encodeURIComponent(post.category)}` : "/notes"} className="text-sm text-[var(--color-text-muted)] mb-8 inline-block">← 返回{site.sections.notes.title}</Link>} comments={<Comments config={site.comments} />} />;
 }

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import ThemeControl from "./ThemeControl";
+import SiteBackground from "./SiteBackground";
 
 interface SearchItem {
   url: string;
@@ -51,6 +53,7 @@ function isEditableTarget(target: EventTarget | null): boolean {
 
 export default function Header({ name, navItems }: { name: string; navItems: Array<{ href: string; label: string }> }) {
   const pathname = usePathname();
+  const isHome = pathname === "/";
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -193,8 +196,9 @@ export default function Header({ name, navItems }: { name: string; navItems: Arr
   }, [isSearchOpen, searchQuery]);
 
   return (
-    <header className="site-header sticky top-0 z-50 bg-[var(--color-paper)] border-b border-[var(--color-paper-darker)]"
+    <header className={`site-header${isHome ? " site-header-portal" : ""}`}
       onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setIsNavOpen(false); }}>
+      <div className="site-header-backdrop"><SiteBackground /></div>
       {isNavOpen && <button type="button" aria-label="关闭导航菜单" className="fixed inset-0 z-40 cursor-default bg-black/10" onClick={() => setIsNavOpen(false)} />}
       {isSearchOpen && (
         <button
@@ -205,13 +209,13 @@ export default function Header({ name, navItems }: { name: string; navItems: Arr
         />
       )}
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-50">
-        <nav aria-label="主导航" className="flex items-center justify-between gap-3 min-h-14 py-1">
-          <Link href="/" className="seal text-sm min-w-0 max-w-[50%] lg:max-w-48 [overflow-wrap:anywhere]">
-            {name}
+      <div className="site-header-inner relative z-50">
+        <nav aria-label="主导航" className="flex flex-wrap items-center justify-between gap-3 min-h-16 py-2">
+          <Link href="/" className="site-brand">
+            <span className="site-brand-mark" aria-hidden="true">J</span><span>{name}</span>
           </Link>
 
-            <ul id="site:primary-navigation" className={`${isNavOpen ? "grid" : "hidden"} absolute left-0 right-0 top-full z-50 grid-cols-2 gap-2 border-b border-[var(--color-paper-darker)] bg-[var(--color-paper)] p-4 lg:static lg:flex lg:flex-wrap lg:flex-1 lg:min-w-0 lg:justify-center lg:items-center lg:gap-x-5 lg:gap-y-0 lg:border-0 lg:p-0`}>
+            {!isHome && <ul id="site:primary-navigation" className={`site-navigation ${isNavOpen ? "grid" : "hidden"} absolute left-0 right-0 top-full z-50 grid-cols-2 gap-2 border-b p-4 lg:static lg:flex lg:flex-wrap lg:flex-1 lg:min-w-0 lg:justify-center lg:items-center lg:gap-x-5 lg:gap-y-0 lg:border-0 lg:p-0`}>
               {navItems.map((item) => {
                 const isActive = isActivePath(item.href);
                 return (
@@ -220,37 +224,33 @@ export default function Header({ name, navItems }: { name: string; navItems: Arr
                       href={item.href}
                       aria-current={isActive ? "page" : undefined}
                       onClick={() => setIsNavOpen(false)}
-                      className={`flex min-h-11 min-w-11 items-center px-2 text-sm [overflow-wrap:anywhere] lg:max-w-48 lg:justify-center lg:px-0 ${
-                        isActive
-                          ? "text-[var(--color-vermilion)] font-medium"
-                          : "text-[var(--color-gray)] hover:text-[var(--color-ink)]"
-                      }`}
+                      className="flex min-h-11 min-w-11 items-center px-2 text-sm [overflow-wrap:anywhere] lg:max-w-48 lg:justify-center lg:px-0"
                     >
                       {item.label}
                     </Link>
                   </li>
                 );
               })}
-            </ul>
+            </ul>}
 
           <div className="flex shrink-0 items-center gap-2">
             <button
               ref={searchButtonRef}
               type="button"
               onClick={() => { setIsNavOpen(false); if (isSearchOpen) closeSearch(); else setIsSearchOpen(true); }}
-              className="min-h-[44px] min-w-[44px] text-sm text-[var(--color-gray)] hover:text-[var(--color-ink)] px-2 py-1 rounded-md border border-transparent hover:border-[var(--color-paper-darker)] transition-colors"
+              className="site-search-button min-h-[44px] min-w-[44px] text-sm px-2 py-1 rounded-md border border-transparent transition-colors"
               aria-label="打开搜索（快捷键：/）"
               aria-expanded={isSearchOpen}
               aria-controls="site:search"
             >
-              <span className="hidden sm:inline">搜索</span>
-              <span className="sm:hidden">/</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg><span className="site-search-label" aria-hidden="true">搜索</span><kbd aria-hidden="true">/</kbd>
             </button>
-            <button ref={navButtonRef} type="button" className="grid min-h-[44px] min-w-[44px] place-items-center lg:hidden"
+            <ThemeControl />
+            {!isHome && <button ref={navButtonRef} type="button" className="grid min-h-[44px] min-w-[44px] place-items-center lg:hidden"
               aria-expanded={isNavOpen} aria-controls="site:primary-navigation" aria-label={isNavOpen ? "收起导航" : "展开导航"}
               onClick={() => { closeSearch(); setIsNavOpen((open) => !open); }}>
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d={isNavOpen ? "m6 6 12 12M18 6 6 18" : "M4 7h16M4 12h16M4 17h16"} /></svg>
-            </button>
+            </button>}
           </div>
         </nav>
 
@@ -261,7 +261,7 @@ export default function Header({ name, navItems }: { name: string; navItems: Arr
           hidden={!isSearchOpen}
           className="absolute left-0 right-0 top-full z-50"
         >
-          <div className="bg-[var(--color-paper)] border border-[var(--color-paper-darker)] rounded-lg shadow-lg p-4">
+          <div className="bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] rounded-lg shadow-lg p-4">
             <div className="flex items-center gap-3">
               <input
                 aria-label="搜索站点内容"
@@ -269,12 +269,12 @@ export default function Header({ name, navItems }: { name: string; navItems: Arr
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder="搜索内容"
-                className="min-w-0 flex-1 bg-white border border-[var(--color-paper-darker)] rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-vermilion)]"
+                className="min-w-0 flex-1 bg-[var(--color-control)] text-[var(--color-text)] border border-[var(--color-border)] rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-[var(--color-primary)]"
               />
               <button
                 type="button"
                 onClick={dismissSearch}
-                className="min-h-[44px] min-w-[44px] shrink-0 text-sm px-2 py-2 rounded-md text-[var(--color-gray)] hover:text-[var(--color-ink)] border border-transparent hover:border-[var(--color-paper-darker)] transition-colors"
+                className="min-h-[44px] min-w-[44px] shrink-0 text-sm px-2 py-2 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text)] border border-transparent hover:border-[var(--color-border)] transition-colors"
               >
                 关闭
               </button>
@@ -282,33 +282,33 @@ export default function Header({ name, navItems }: { name: string; navItems: Arr
 
             <div className="mt-3">
               {searchError && (
-                <p className="text-sm text-[var(--color-gray)]">{searchError}</p>
+                <p className="text-sm text-[var(--color-text-muted)]">{searchError}</p>
               )}
 
               {!searchError && isSearching && (
-                <p className="text-sm text-[var(--color-gray)]">搜索中...</p>
+                <p className="text-sm text-[var(--color-text-muted)]">搜索中...</p>
               )}
 
               {!searchError &&
                 !isSearching &&
                 searchQuery.trim() &&
                 searchItems.length === 0 && (
-                  <p className="text-sm text-[var(--color-gray)]">没有找到结果。</p>
+                  <p className="text-sm text-[var(--color-text-muted)]">没有找到结果。</p>
                 )}
 
               {searchItems.length > 0 && (
-                <ul className="mt-2 max-h-[60vh] overflow-auto divide-y divide-[var(--color-paper-darker)]">
+                <ul className="mt-2 max-h-[60vh] overflow-auto divide-y divide-[var(--color-border)]">
                   {searchItems.map((item) => (
                     <li key={item.url} className="py-3">
                       <Link
                         href={item.url}
-                        className="block hover:text-[var(--color-vermilion)]"
+                        className="block hover:text-[var(--color-primary)]"
                         onClick={closeSearch}
                       >
                         <div className="text-sm font-medium">{item.title}</div>
                         {item.excerpt && (
                           <div
-                            className="text-sm text-[var(--color-gray)] mt-1"
+                            className="text-sm text-[var(--color-text-muted)] mt-1"
                             dangerouslySetInnerHTML={{ __html: item.excerpt }}
                           />
                         )}
@@ -322,9 +322,9 @@ export default function Header({ name, navItems }: { name: string; navItems: Arr
           </div>
         </div>
       </div>
-      <noscript><nav aria-label="页面导航" className="mx-auto flex max-w-4xl flex-wrap gap-x-6 gap-y-1 px-6 py-3 lg:hidden">
+      {!isHome && <noscript><nav aria-label="页面导航" className="mx-auto flex max-w-4xl flex-wrap gap-x-6 gap-y-1 px-6 py-3 lg:hidden">
         {navItems.map((item) => <Link key={item.href} href={item.href} className="py-2 text-sm">{item.label}</Link>)}
-      </nav></noscript>
+      </nav></noscript>}
     </header>
   );
 }

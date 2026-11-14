@@ -51,5 +51,5 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
   if (!roadmap) {
     notFound();
   }
-  return <RoadmapView roadmap={roadmap} back={<Link href="/roadmap" className="text-sm text-[var(--color-gray)] mb-6 inline-block">← 返回规划列表</Link>} />;
+  return <RoadmapView roadmap={roadmap} back={<Link href="/roadmap" className="text-sm text-[var(--color-text-muted)] mb-6 inline-block">← 返回规划列表</Link>} />;
 }

@@ -19,7 +19,7 @@ export type RoadmapItem = RoadmapContentItem;
 
 export type { RoadmapStatus } from "@jas/content-core/roadmap-status";
 
-export interface Roadmap {
+export interface Roadmap extends Pick<RoadmapMetadata, "publication" | "publishedAt"> {
   slug: string;
   title: string;
   description: string;
@@ -30,7 +30,7 @@ export interface Roadmap {
   error?: string;
 }
 
-export interface RoadmapMeta {
+export interface RoadmapMeta extends Pick<RoadmapMetadata, "publication" | "publishedAt"> {
   slug: string;
   title: string;
   description: string;
@@ -51,6 +51,8 @@ function normalizeRoadmap(slug: string, { metadata: rawMetadata, content, issues
     title: display.title,
     description: metadata.description,
     date: display.date,
+    publication: metadata.publication,
+    publishedAt: metadata.publishedAt,
     status: display.status,
     items,
     content: remainingContent,
@@ -68,6 +70,8 @@ export function getAllRoadmaps(): RoadmapMeta[] {
         title: roadmap.title,
         description: roadmap.description,
         date: roadmap.date,
+        publication: roadmap.publication,
+        publishedAt: roadmap.publishedAt,
         status: roadmap.status,
         progress: calculateRoadmapProgress(roadmap.items),
         error: roadmap.error,

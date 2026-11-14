@@ -38,6 +38,8 @@ export function getAllGraphs(): GraphMeta[] {
         name: graph.name,
         description: graph.description,
         date: graph.date,
+        publication: graph.publication,
+        publishedAt: graph.publishedAt,
         nodeCount: graph.graphData.nodes.length,
         edgeCount: graph.graphData.edges.length,
         error: graph.error,

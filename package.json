@@ -15,11 +15,11 @@
     "site:migrate": "tsx scripts/migrate-site.ts"
   },
   "dependencies": {
-    "@jas/content-core": "https://github.com/GTJasonMK/JasShared/releases/download/content-core-v0.4.0/jas-content-core-0.4.0.tgz",
-    "@jas/content-ui": "https://github.com/GTJasonMK/JasShared/releases/download/content-ui-v0.4.0/jas-content-ui-0.4.0.tgz",
-    "@jas/site-tools": "https://github.com/GTJasonMK/JasShared/releases/download/site-tools-v0.4.0/jas-site-tools-0.4.0.tgz",
+    "@jas/content-core": "https://github.com/GTJasonMK/JasShared/releases/download/content-core-v0.7.0/jas-content-core-0.7.0.tgz",
+    "@jas/content-ui": "https://github.com/GTJasonMK/JasShared/releases/download/content-ui-v0.7.0/jas-content-ui-0.7.0.tgz",
+    "@jas/site-tools": "https://github.com/GTJasonMK/JasShared/releases/download/site-tools-v0.7.0/jas-site-tools-0.7.0.tgz",
     "@jas/graph-core": "https://github.com/GTJasonMK/JasShared/releases/download/graph-core-v0.2.0/jas-graph-core-0.2.0.tgz",
-    "@jas/graph-ui": "https://github.com/GTJasonMK/JasShared/releases/download/graph-ui-v0.2.0/jas-graph-ui-0.2.0.tgz",
+    "@jas/graph-ui": "https://github.com/GTJasonMK/JasShared/releases/download/graph-ui-v0.3.0/jas-graph-ui-0.3.0.tgz",
     "@giscus/react": "^3.1.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@xyflow/react": "^12.10.0",
