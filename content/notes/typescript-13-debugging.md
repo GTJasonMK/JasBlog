@@ -1,0 +1,33 @@
+---
+title: "TypeScript 13：调试时，先找实际数据第一次变错的位置"
+date: "2026-11-12"
+excerpt: "看到错误后，我会先保存复现输入和预期结果，再沿调用栈或网络请求往回找。一次只改一个因素，才知道某个修改究竟有没有解决根因。"
+tags: [ "TypeScript", "JavaScript 异步与工具" ]
+category: "typescript-03-js-engineering"
+publication: "published"
+display: { "toc": true }
+publishedAt: 2026-11-12
+---
+
+看到错误后，我会先保存复现输入和预期结果，再沿调用栈或网络请求往回找。一次只改一个因素，才知道某个修改究竟有没有解决根因。
+
+遇到报错先记录复现步骤、输入和预期结果。阅读调用栈，查看第一处属于自己代码的帧；在关键变量上设断点，逐步检查实际值。浏览器开发者工具适合检查 DOM、网络请求和前端状态；Node 调试器适合检查服务端执行流程。
+
+缩小问题时一次只改一个因素，并保留失败信息。可用小函数和小输入建立最小复现。
+
+## 排查顺序
+
+1. 错误发生在浏览器、API 还是数据库？
+2. 请求是否发出？状态码和响应体是什么？
+3. 实际数据与预期结构在哪一步首次不同？
+
+## 动手验证
+
+故意把 API 路径改错，使用 Network 面板找到请求、状态码和响应；再恢复并验证。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：fetch 的失败：网络、HTTP 和业务要分开处理](/notes/typescript-12-fetch-errors) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：TypeScript 的检查发生在什么时候](/notes/typescript-14-typescript-compiler)
+

@@ -1,0 +1,3077 @@
+{
+  "importedOn": "2026-11-13",
+  "sourcePreserved": true,
+  "sourceFiles": [
+    {
+      "path": "python知识点全讲解/README.md",
+      "sha256": "f99b8bd5cb14aeec35ac1b221c7ff3b4c00bc0c6c7d48dfaba8ac61ead58a6b0",
+      "bytes": 1884,
+      "destination": [
+        "/notes/python-00-learning-guide"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/01-environment.md",
+      "sha256": "cccd13186b6d9e73e70a1d40cc2a4e1e088165b0f1f12c2af43dd3c1600f575c",
+      "bytes": 181,
+      "destination": [
+        "/notes/python-01-environment"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/02-objects.md",
+      "sha256": "de196036ec4799a3e655a7d0cd1925fc8d15f9c8820310aac160d6a60f39aaed",
+      "bytes": 169,
+      "destination": [
+        "/notes/python-02-objects"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/03-basic-types.md",
+      "sha256": "18f92b7f34132305d658cc26829abc047ceea824bca30d8514650d8f9248e1bf",
+      "bytes": 181,
+      "destination": [
+        "/notes/python-03-basic-types"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/04-strings.md",
+      "sha256": "2a4cf0ec240d23516876f058a533cfb15284cb032fef06cd7f6aea86acb6d755",
+      "bytes": 175,
+      "destination": [
+        "/notes/python-04-strings"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/05-sequences.md",
+      "sha256": "2741fd1c153672efbb79a3a4f79aa7ff76b337c86f63afb5a1aae451df2bef11",
+      "bytes": 178,
+      "destination": [
+        "/notes/python-05-sequences"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/06-mappings-sets.md",
+      "sha256": "47a87514b67c62c7e674a0c1fcb50d415416299e2c7f522567ed301054dc27dc",
+      "bytes": 160,
+      "destination": [
+        "/notes/python-06-mappings-sets"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/07-control-flow.md",
+      "sha256": "2b5136850e7e041bc5bf8f016555080b2cf7fd758d0d9d0e4b8b1df66c36f80c",
+      "bytes": 172,
+      "destination": [
+        "/notes/python-07-control-flow"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/08-functions.md",
+      "sha256": "3494972bdacad565ed70ce958de47d5f46acbfcbad8b2bfaacbb654e7665cbb0",
+      "bytes": 169,
+      "destination": [
+        "/notes/python-08-functions"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/README.md",
+      "sha256": "4a245b55be149c12ea6e880265018e0766a7039198e5d7f99e4084f2d4fa5b21",
+      "bytes": 607,
+      "destination": [
+        "/notes?category=python-part1"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part1/guide.md",
+      "sha256": "932c68b3774850cede7f9a47246a6c31b7be54687720fee1f278ecd6fdf6feb1",
+      "bytes": 8702,
+      "destination": [
+        "/notes/python-01-environment",
+        "/notes/python-02-objects",
+        "/notes/python-03-basic-types",
+        "/notes/python-04-strings",
+        "/notes/python-05-sequences",
+        "/notes/python-06-mappings-sets",
+        "/notes/python-07-control-flow",
+        "/notes/python-08-functions"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/09-functions-advanced.md",
+      "sha256": "fdca52547e2f99aa2149cb23f26280326fe71d4267e7fccd11146efd3308f9c6",
+      "bytes": 177,
+      "destination": [
+        "/notes/python-09-functions-advanced"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/10-exceptions.md",
+      "sha256": "c5c944a8986d7a92a5cfa22474d9dc940881e8410a1092b4773fd6ea9185bafe",
+      "bytes": 171,
+      "destination": [
+        "/notes/python-10-exceptions"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/11-files-paths.md",
+      "sha256": "ee64a58f301388adc00bd2f84d25ac0da299b6686e8311df5d9e65942d3768c9",
+      "bytes": 168,
+      "destination": [
+        "/notes/python-11-files-paths"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/12-data-formats.md",
+      "sha256": "940f46f3fbc022838513ededbfe341b8a56c8c5208a045a392502ef9265ef947",
+      "bytes": 167,
+      "destination": [
+        "/notes/python-12-data-formats"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/13-modules-imports.md",
+      "sha256": "a9417b6e0fa265e922a702bfbdab6c6b8f1a114f2d2250869c2d927d5807197b",
+      "bytes": 174,
+      "destination": [
+        "/notes/python-13-modules-imports"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/14-classes.md",
+      "sha256": "07f1c2c13955ae5aa833003435cc3936d4ea5516c39098ae0b7afa9a974ecd0a",
+      "bytes": 177,
+      "destination": [
+        "/notes/python-14-classes"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/15-composition-inheritance.md",
+      "sha256": "572fd1553c687cb4709d9655d3f7c54f48863b0d62d1ffcbf3153ad879c3e61e",
+      "bytes": 168,
+      "destination": [
+        "/notes/python-15-composition-inheritance"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/16-iterators-generators.md",
+      "sha256": "f165c3315d35610a7cacc72254d67bb83f8ef5601505b73b0ee4935bd5cfa49e",
+      "bytes": 183,
+      "destination": [
+        "/notes/python-16-iterators-generators"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/README.md",
+      "sha256": "109cbbab64cef85dc9cb33e71fe8d068cd124706dd87ab5fbd100ede929cd870",
+      "bytes": 658,
+      "destination": [
+        "/notes?category=python-part2"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part2/guide.md",
+      "sha256": "f36c1c657e72ad9561a921a8dc8f6407705019de2c12671704c2b8696ec8aeec",
+      "bytes": 9027,
+      "destination": [
+        "/notes/python-09-functions-advanced",
+        "/notes/python-10-exceptions",
+        "/notes/python-11-files-paths",
+        "/notes/python-12-data-formats",
+        "/notes/python-13-modules-imports",
+        "/notes/python-14-classes",
+        "/notes/python-15-composition-inheritance",
+        "/notes/python-16-iterators-generators"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/17-decorators-context.md",
+      "sha256": "e96f3d44fd95b2fd287d621d60fa9e04733329f09e3e95aefbcb09893983b98b",
+      "bytes": 171,
+      "destination": [
+        "/notes/python-17-decorators-context"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/18-standard-library.md",
+      "sha256": "9cfcc9971cb74c271cc91793ccf63bc8ff804d9102a6636db2c0feb2dc6b9dbc",
+      "bytes": 156,
+      "destination": [
+        "/notes/python-18-standard-library"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/19-regex-datetime.md",
+      "sha256": "9160440c92efe55e71e70038981a37b9484591e2996157d245061a9a231efd93",
+      "bytes": 174,
+      "destination": [
+        "/notes/python-19-regex-datetime"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/20-cli-http.md",
+      "sha256": "bfbed982b80a6e743bcb752c3bcab3575148745946286b25855a8158b7dc40b2",
+      "bytes": 170,
+      "destination": [
+        "/notes/python-20-cli-http"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/21-environments-projects.md",
+      "sha256": "528f6d6b3ef5dda06c88e4c0a2d7e6d0bc55353b7818a5be63f2510439b750e9",
+      "bytes": 177,
+      "destination": [
+        "/notes/python-21-environments-projects"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/22-typing.md",
+      "sha256": "90c3b51b3dd69061a27216e2000213f553d3488a2d23cf7ae6cba9b4d2af178f",
+      "bytes": 168,
+      "destination": [
+        "/notes/python-22-typing"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/23-testing.md",
+      "sha256": "6d8a376cb8edeae263cde41cff9a4c16f6b8b2b569856a0323b3ed69dd0bd751",
+      "bytes": 157,
+      "destination": [
+        "/notes/python-23-testing"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/24-debugging-logging.md",
+      "sha256": "79a29d00ec22d7dc193737044d50011c4ebd821cc655f1ed3f08a85c0b1f8141",
+      "bytes": 165,
+      "destination": [
+        "/notes/python-24-debugging-logging"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/25-packaging.md",
+      "sha256": "41ba033cdc377a3be44792dff140446059a25d8cc09448c197da428147b68b39",
+      "bytes": 171,
+      "destination": [
+        "/notes/python-25-packaging"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/26-git-security.md",
+      "sha256": "92d09a23f6ac57f7ae5ba13cd4e46e486a59993bc98906402da5e769673e03bc",
+      "bytes": 168,
+      "destination": [
+        "/notes/python-26-git-security"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/README.md",
+      "sha256": "c2b1577d0bc7b28e62aa98a7856ea97b08c8147e4c1a4d560cfdc369801f4d05",
+      "bytes": 732,
+      "destination": [
+        "/notes?category=python-part3"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part3/guide.md",
+      "sha256": "a69c51fad6c7b226ed3d348975fab176bf5cabd00e166893618cd2bda7aced7e",
+      "bytes": 11358,
+      "destination": [
+        "/notes/python-17-decorators-context",
+        "/notes/python-18-standard-library",
+        "/notes/python-19-regex-datetime",
+        "/notes/python-20-cli-http",
+        "/notes/python-21-environments-projects",
+        "/notes/python-22-typing",
+        "/notes/python-23-testing",
+        "/notes/python-24-debugging-logging",
+        "/notes/python-25-packaging",
+        "/notes/python-26-git-security"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part4/27-references-copy.md",
+      "sha256": "c287bf8a0c784a1cdc2c23f9b926f30daefdfa7863bb44caa0dc4769b2b9b3f8",
+      "bytes": 165,
+      "destination": [
+        "/notes/python-27-references-copy"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part4/28-data-model.md",
+      "sha256": "1540b9ac0ebea77177cfb6ee8e115fb5084ecf9a2978ab2626e4247f157d7ba9",
+      "bytes": 165,
+      "destination": [
+        "/notes/python-28-data-model"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part4/29-descriptors-metaclasses.md",
+      "sha256": "0736a51b283bca8238329e373664887564f68d88d47ae8dfac20324039eab72f",
+      "bytes": 171,
+      "destination": [
+        "/notes/python-29-descriptors-metaclasses"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part4/30-performance.md",
+      "sha256": "3aa679fe415af6fb1d3c3e945dcb8866e755e98b3f5e5fcea3429f6228f814e3",
+      "bytes": 162,
+      "destination": [
+        "/notes/python-30-performance"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part4/31-concurrency.md",
+      "sha256": "5d13697f201e049fe9b85329fe4d316a84aa704dc28c6b02ed842f3a5a1b9f8a",
+      "bytes": 160,
+      "destination": [
+        "/notes/python-31-concurrency"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part4/32-asyncio.md",
+      "sha256": "18103791e85e2b21a14037f9d2c4b8322d524f0f6ac3c87b42421ca48116cd2a",
+      "bytes": 163,
+      "destination": [
+        "/notes/python-32-asyncio"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part4/README.md",
+      "sha256": "cda1381311f074354ae0ccc10ed727f24cf46c6ed57831f6ceb9779c862aa828",
+      "bytes": 509,
+      "destination": [
+        "/notes?category=python-part4"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part4/guide.md",
+      "sha256": "46fbff299a5137830095b4d7a24f2f476cbe00a33a95a64f31bdeaec34d34374",
+      "bytes": 8388,
+      "destination": [
+        "/notes/python-27-references-copy",
+        "/notes/python-28-data-model",
+        "/notes/python-29-descriptors-metaclasses",
+        "/notes/python-30-performance",
+        "/notes/python-31-concurrency",
+        "/notes/python-32-asyncio"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/33-automation.md",
+      "sha256": "72a5970a0910a9ba996a8c8c9ca460e675ac891af43331c27af68ccaf0100d27",
+      "bytes": 177,
+      "destination": [
+        "/notes/python-33-automation"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/34-etl-project.md",
+      "sha256": "1a57a5e4ca40b36a87c460c6ce20203b90d2620eddb61beabc370f313093c29e",
+      "bytes": 185,
+      "destination": [
+        "/notes/python-34-etl-project"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/35-data-analysis.md",
+      "sha256": "bf8c08bd7cd711dfbd660cd011186322ba7197bcd9154b8a50ce29eac5fc7d59",
+      "bytes": 186,
+      "destination": [
+        "/notes/python-35-data-analysis"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/36-analysis-project.md",
+      "sha256": "5890de8c689ffbb27770fcca96f8e114e9ce2e05719f046fa9f0c1a158ecc6c9",
+      "bytes": 185,
+      "destination": [
+        "/notes/python-36-analysis-project"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/37-machine-learning.md",
+      "sha256": "2ada1a37954555400cd7778f841495ca80a76730eb574b97bbff057b9f9a5e2d",
+      "bytes": 171,
+      "destination": [
+        "/notes/python-37-machine-learning"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/38-ml-project.md",
+      "sha256": "6ad818946cdc38a13065186d90b928a128b8036a44b3799dbb58da3dfa5204b8",
+      "bytes": 179,
+      "destination": [
+        "/notes/python-38-ml-project"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/39-pytorch.md",
+      "sha256": "b2f41af0e4655213c0e1ef12a6696cc10243819a1580a95e2b79b92268b10a97",
+      "bytes": 190,
+      "destination": [
+        "/notes/python-39-pytorch"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/40-dl-project.md",
+      "sha256": "ab07d7552ee96c345b3deca84b04901cd84c4fb88c4ea32fbdbb1cd4ffb33cb2",
+      "bytes": 179,
+      "destination": [
+        "/notes/python-40-dl-project"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/41-backend.md",
+      "sha256": "6017b2371b3a9c770c9a0d4841a5d722ea1e1b7673faeade46312c8424f55396",
+      "bytes": 181,
+      "destination": [
+        "/notes/python-41-backend"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/42-backend-project.md",
+      "sha256": "0dd3153f99f2a43aed135bc24c5b9c0ec8db01fc85d765ebc4b33c889ddf8bd5",
+      "bytes": 186,
+      "destination": [
+        "/notes/python-42-backend-project"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/43-other-domains.md",
+      "sha256": "13b9ac4bd93878af8672ca6ff1989c25b48969b7c80ca748a48fe1efa3bd68df",
+      "bytes": 208,
+      "destination": [
+        "/notes/python-43-other-domains"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/README.md",
+      "sha256": "66c1efa45a90417b9202a44533ff956a0957c5203bf91e0c7f6f8942b527bb2c",
+      "bytes": 926,
+      "destination": [
+        "/notes?category=python-part5"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/chapters/part5/guide.md",
+      "sha256": "ec59629005e289c4deef160e6139efa8cc8f41d985693cf9f7ba6679b97723cc",
+      "bytes": 33305,
+      "destination": [
+        "/notes/python-33-automation",
+        "/notes/python-34-etl-project",
+        "/notes/python-35-data-analysis",
+        "/notes/python-36-analysis-project",
+        "/notes/python-37-machine-learning",
+        "/notes/python-38-ml-project",
+        "/notes/python-39-pytorch",
+        "/notes/python-40-dl-project",
+        "/notes/python-41-backend",
+        "/notes/python-42-backend-project",
+        "/notes/python-43-other-domains"
+      ]
+    },
+    {
+      "path": "python知识点全讲解/references.md",
+      "sha256": "4abd1e7873245e561ac705ddfed75e15500157d67453f9fde5fda3c1bfd896cc",
+      "bytes": 3638,
+      "destination": [
+        "/notes/python-reference"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/README.md",
+      "sha256": "4dc20f70ad2cd5435ef83fa37aec33e853eaf95e8ae21530bc9e2e1ae9198ac9",
+      "bytes": 3179,
+      "destination": [
+        "/notes/go-00-learning-guide"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/advanced/01-elasticsearch.md",
+      "sha256": "9719847816d7662b2d9297ed22ee91f59635cddc234c59fa5f7c63937ed56679",
+      "bytes": 158,
+      "destination": [
+        "/notes/go-advanced-01-elasticsearch"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/advanced/02-messaging-choice.md",
+      "sha256": "659fa87e5089b511dd9579eb047748eca58d3d70e66ee7933d6d2eecb011dcd8",
+      "bytes": 168,
+      "destination": [
+        "/notes/go-advanced-02-messaging-choice"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/advanced/03-database-scaling.md",
+      "sha256": "01af42ee1ed9f3beb548ba4bd4f4372abc3327f11e4b0610bde67da7f2613f51",
+      "bytes": 150,
+      "destination": [
+        "/notes/go-advanced-03-database-scaling"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/advanced/04-service-discovery-mesh.md",
+      "sha256": "8f24c53b1d973e86b28b10da483c0fa09076942e20ffad6db0093f086b1fadb7",
+      "bytes": 156,
+      "destination": [
+        "/notes/go-advanced-04-service-discovery-mesh"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/advanced/05-postgresql.md",
+      "sha256": "8e3206d54140326689273c09210f4532858c6d45a512da66c2a13908f4feb985",
+      "bytes": 152,
+      "destination": [
+        "/notes/go-advanced-05-postgresql"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/advanced/06-networking-linux.md",
+      "sha256": "d18d223dbc4b068aac7c8643f58756e0a4caeb6098312da49889e33987183322",
+      "bytes": 161,
+      "destination": [
+        "/notes/go-advanced-06-networking-linux"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/advanced/README.md",
+      "sha256": "b226ab6491c1013e298555e4a01a3a5bf3f617224c889a1729b001cb454c9285",
+      "bytes": 669,
+      "destination": [
+        "/notes?category=go-advanced"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/advanced/guide.md",
+      "sha256": "1f2e1d64f24d9171b16285709ab6f0ebc206c011abeaca0bcc5dbef5f7599b98",
+      "bytes": 5684,
+      "destination": [
+        "/notes/go-advanced-01-elasticsearch",
+        "/notes/go-advanced-02-messaging-choice",
+        "/notes/go-advanced-03-database-scaling",
+        "/notes/go-advanced-04-service-discovery-mesh",
+        "/notes/go-advanced-05-postgresql",
+        "/notes/go-advanced-06-networking-linux"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/01-roadmap.md",
+      "sha256": "000a507ed2ac430a8111344f175973ee36e05154d32cfb104d5f82d0535bd964",
+      "bytes": 165,
+      "destination": [
+        "/notes/go-01-roadmap"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/02-toolchain.md",
+      "sha256": "be1d4ec0d6bad17c8ede15491430efb12f590603761ee076c53fee9d9c7c4b39",
+      "bytes": 166,
+      "destination": [
+        "/notes/go-02-toolchain"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/03-program-basics.md",
+      "sha256": "d9308f35d5cfccc19f59a54e140216cc4e00b896b55170ea623848a24e74ad22",
+      "bytes": 165,
+      "destination": [
+        "/notes/go-03-program-basics"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/04-types-control.md",
+      "sha256": "abc9f0f80ad48e61601ea491e25f8496d3404d1b1c2b6c1c2670a50112b9ed8f",
+      "bytes": 159,
+      "destination": [
+        "/notes/go-04-types-control"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/05-collections.md",
+      "sha256": "5dad99a81cd7f0928c740bf61879fa23bd707843ed8bda7a675e953b28d2ed6a",
+      "bytes": 174,
+      "destination": [
+        "/notes/go-05-collections"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/06-functions-methods.md",
+      "sha256": "f40557f100382df695e33c838abe46364882ca7d6844c1783e230194bc60d54a",
+      "bytes": 162,
+      "destination": [
+        "/notes/go-06-functions-methods"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/07-structs-interfaces.md",
+      "sha256": "370c91613bf19cc6b0fa62b562fbdf84ded792f1bea79af4ea93a1a9d1a8d61c",
+      "bytes": 165,
+      "destination": [
+        "/notes/go-07-structs-interfaces"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/08-errors.md",
+      "sha256": "10abeb970636ab105c8862e1092f7333bfc32b8e2cede3194e546dc4d9a37d5d",
+      "bytes": 165,
+      "destination": [
+        "/notes/go-08-errors"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/09-packages.md",
+      "sha256": "d58bb99f76fdab15cd5466f1ea58188bfd42ead2f4cc4eb930c64da8fb431e6f",
+      "bytes": 162,
+      "destination": [
+        "/notes/go-09-packages"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/10-concurrency.md",
+      "sha256": "f9ec22cad08d1fbe120bd81a1446842268a345caee3eab6ccdfeca7c606a66da",
+      "bytes": 150,
+      "destination": [
+        "/notes/go-10-concurrency"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/11-sync-context.md",
+      "sha256": "b772312c96486ef18cebf0a479ba6d040bd0291e1b724572272be52a091a9927",
+      "bytes": 161,
+      "destination": [
+        "/notes/go-11-sync-context"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/12-memory.md",
+      "sha256": "41816218b427fad3df5be945198e14469ba5a45c7a52b46c7fff8068abfe63f6",
+      "bytes": 162,
+      "destination": [
+        "/notes/go-12-memory"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/13-stdlib.md",
+      "sha256": "a0dc2e00b2628eba34c1f700bcd589e003587339be1adc1ce4430d0df33a2f16",
+      "bytes": 153,
+      "destination": [
+        "/notes/go-13-stdlib"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/14-testing-tools.md",
+      "sha256": "333c56f5388a44992769f8563bc52dd4257bff963e9dabe61a6145a1f0193599",
+      "bytes": 162,
+      "destination": [
+        "/notes/go-14-testing-tools"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/README.md",
+      "sha256": "5ef734cdc97f2aa895a386af6935e34d5caa690c72baf1a4e4f2b70fc3ab8c4b",
+      "bytes": 1039,
+      "destination": [
+        "/notes?category=go-part1"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part1/guide.md",
+      "sha256": "e83769a870622eb7043a8294faa5e0c582ae1cc8ca115376cb257368e3107570",
+      "bytes": 22575,
+      "destination": [
+        "/notes/go-01-roadmap",
+        "/notes/go-02-toolchain",
+        "/notes/go-03-program-basics",
+        "/notes/go-04-types-control",
+        "/notes/go-05-collections",
+        "/notes/go-06-functions-methods",
+        "/notes/go-07-structs-interfaces",
+        "/notes/go-08-errors",
+        "/notes/go-09-packages",
+        "/notes/go-10-concurrency",
+        "/notes/go-11-sync-context",
+        "/notes/go-12-memory",
+        "/notes/go-13-stdlib",
+        "/notes/go-14-testing-tools"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part2/15-http-rest.md",
+      "sha256": "bf70f903690c73fb4deeb472d5b16aeb908ab715294c5835598fd1092ec96676",
+      "bytes": 157,
+      "destination": [
+        "/notes/go-15-http-rest"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part2/16-net-http.md",
+      "sha256": "61bd8afe89419d61d19ed21ea5fb5ed5c8b2116d081a575d3c945e8053982b55",
+      "bytes": 155,
+      "destination": [
+        "/notes/go-16-net-http"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part2/17-gin.md",
+      "sha256": "4e327a69fcc81a472d05f3c4ef91d4147382675fc45538e82945e06d84f5f1cf",
+      "bytes": 156,
+      "destination": [
+        "/notes/go-17-gin"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part2/18-api-contracts.md",
+      "sha256": "144ab5f4ea5ac976f66e70b950066abeebe9ded33433d99522493364ba9efc6b",
+      "bytes": 153,
+      "destination": [
+        "/notes/go-18-api-contracts"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part2/19-config-logging.md",
+      "sha256": "040fe2d1a6be7744185c513520b080b5ab88df81822967a7aa6c1742dbc7efd0",
+      "bytes": 173,
+      "destination": [
+        "/notes/go-19-config-logging"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part2/20-security.md",
+      "sha256": "4d3bf40a192f113e6d42e77c06ba458dfaf14ffd96e6e9e1003f65416bb55f27",
+      "bytes": 163,
+      "destination": [
+        "/notes/go-20-security"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part2/README.md",
+      "sha256": "5292e977faf2f636fc3dd8d43cde0e7a86fb45b4900f0577d088f9ca73b600aa",
+      "bytes": 597,
+      "destination": [
+        "/notes?category=go-part2"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part2/guide.md",
+      "sha256": "96231a5d8cd644d7f8e4c2fcbe5edb76bef8d7cd9c99576e8621401576716520",
+      "bytes": 11551,
+      "destination": [
+        "/notes/go-15-http-rest",
+        "/notes/go-16-net-http",
+        "/notes/go-17-gin",
+        "/notes/go-18-api-contracts",
+        "/notes/go-19-config-logging",
+        "/notes/go-20-security"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/21-mysql-sql.md",
+      "sha256": "435f97f5a7cdd0695b772bece680f6b5f26471cec31b116c92cd94ba1aea16b9",
+      "bytes": 170,
+      "destination": [
+        "/notes/go-21-mysql-sql"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/22-indexes.md",
+      "sha256": "e5402998800229870ec23ac54610e77d669265a5ac0ecd49b6d48afce0a88244",
+      "bytes": 171,
+      "destination": [
+        "/notes/go-22-indexes"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/23-transactions-locks.md",
+      "sha256": "b8043e192c2c45d849efcd496ddc3a8b5b1774547dd9f6a1fa1f59a3261d42b9",
+      "bytes": 174,
+      "destination": [
+        "/notes/go-23-transactions-locks"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/24-gorm-repository.md",
+      "sha256": "29cd51d8db2a1b7287bbe69aad2f47d741ea6fbe3fdde1e38a314f17bbc72cbd",
+      "bytes": 173,
+      "destination": [
+        "/notes/go-24-gorm-repository"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/25-redis-cache.md",
+      "sha256": "3df778387f7c263de64e52c184d1537e2457f8fe0fe689e0530a58e1d7eda96a",
+      "bytes": 177,
+      "destination": [
+        "/notes/go-25-redis-cache"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/26-redis-concurrency.md",
+      "sha256": "9d530f777e7e8e211b706a240691e3d314742848075cf94356b7245a444966a0",
+      "bytes": 171,
+      "destination": [
+        "/notes/go-26-redis-concurrency"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/27-kafka.md",
+      "sha256": "a2f1c15d8d994419c3e32bd857aad66f9d0cef31266b6e6e2e751ee0fe93b1f5",
+      "bytes": 162,
+      "destination": [
+        "/notes/go-27-kafka"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/28-message-reliability.md",
+      "sha256": "e5a8c90767e67b61ea4e352cd29fc78a5da6a48e8a8e6dad6e955920e45df86f",
+      "bytes": 171,
+      "destination": [
+        "/notes/go-28-message-reliability"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/README.md",
+      "sha256": "eb3eb7d7729e4cae8f5e704024c9d232c6446337597bcec4c1c040df82eed80b",
+      "bytes": 775,
+      "destination": [
+        "/notes?category=go-part3"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part3/guide.md",
+      "sha256": "ddf6253f3e67ffcb246d827a539ce2ed2f7fdf47f967e58d06abdb6519a2f3b5",
+      "bytes": 14943,
+      "destination": [
+        "/notes/go-21-mysql-sql",
+        "/notes/go-22-indexes",
+        "/notes/go-23-transactions-locks",
+        "/notes/go-24-gorm-repository",
+        "/notes/go-25-redis-cache",
+        "/notes/go-26-redis-concurrency",
+        "/notes/go-27-kafka",
+        "/notes/go-28-message-reliability"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part4/29-project-design.md",
+      "sha256": "b648864a906aadeff584bf2df09e9d18ec4a530db014aa2ff5440dd62e9f0585",
+      "bytes": 168,
+      "destination": [
+        "/notes/go-29-project-design"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part4/30-project-skeleton.md",
+      "sha256": "dc18b95c7e8bf298b2b72c9aa3916a46008efc0ec22bb9155209eff9e4f33237",
+      "bytes": 168,
+      "destination": [
+        "/notes/go-30-project-skeleton"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part4/31-catalog-campaign.md",
+      "sha256": "667a704c90770ff8316a76600d08d600677ca43e2fbc3c12b4ed2681898875d8",
+      "bytes": 171,
+      "destination": [
+        "/notes/go-31-catalog-campaign"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part4/32-order-inventory.md",
+      "sha256": "06567fb38769981cfc4dc6bdab3292d53171dbcb5d267cb6481cea0cbd926d16",
+      "bytes": 162,
+      "destination": [
+        "/notes/go-32-order-inventory"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part4/33-flash-sale.md",
+      "sha256": "9312db54a6c5c5c9823fdd85d00de93e6ac70ae885d1d93437b58d3e289bf67f",
+      "bytes": 168,
+      "destination": [
+        "/notes/go-33-flash-sale"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part4/34-payment-reconciliation.md",
+      "sha256": "0ec6d9f7751b20d17e666d272c1f9bd811c24cf94affe68e01b1f789ca0e8229",
+      "bytes": 171,
+      "destination": [
+        "/notes/go-34-payment-reconciliation"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part4/README.md",
+      "sha256": "75839f83b178cf8fc294782e72127a7496f173313de13b22c7688a74db825aa1",
+      "bytes": 715,
+      "destination": [
+        "/notes?category=go-part4"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part4/guide.md",
+      "sha256": "99f49f1ba3ea7dc8d02ad7abb3f365edbb97eb35203313b02d6b025e5a6fa22a",
+      "bytes": 10361,
+      "destination": [
+        "/notes/go-29-project-design",
+        "/notes/go-30-project-skeleton",
+        "/notes/go-31-catalog-campaign",
+        "/notes/go-32-order-inventory",
+        "/notes/go-33-flash-sale",
+        "/notes/go-34-payment-reconciliation"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part5/35-test-strategy.md",
+      "sha256": "a6b6fddd02cffff44cbb7fe23423856934df50357f6ec9864272c769b1bfb9aa",
+      "bytes": 162,
+      "destination": [
+        "/notes/go-35-test-strategy"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part5/36-performance.md",
+      "sha256": "26177869fe71198afe8dd2938d460730419c8264b069cd3e66d56cd354d11358",
+      "bytes": 165,
+      "destination": [
+        "/notes/go-36-performance"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part5/37-microservices-grpc.md",
+      "sha256": "6ee46e3ff4b3ddb5d37b797202009b02ab001d91598b3997b7d6bcd2c776119d",
+      "bytes": 173,
+      "destination": [
+        "/notes/go-37-microservices-grpc"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part5/38-resilience.md",
+      "sha256": "bde96954391cbe32ce03f89e40faf26177a65494406ec857f1a18e9c1e5d564b",
+      "bytes": 165,
+      "destination": [
+        "/notes/go-38-resilience"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part5/39-distributed-data.md",
+      "sha256": "a39a7ff469bee35fcda1b9d5bdcfd62e03b1dc3a6514271361b8d3e65ac318c9",
+      "bytes": 177,
+      "destination": [
+        "/notes/go-39-distributed-data"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part5/README.md",
+      "sha256": "c9c3067fc12de90b99447500ee8ce0558c3b9e7bb0e6690af939001e72f86d39",
+      "bytes": 577,
+      "destination": [
+        "/notes?category=go-part5"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part5/guide.md",
+      "sha256": "30bf98f2df0cbe441e45c4bc34fe619caadc28d33fbe36010387c4e8d822088f",
+      "bytes": 7017,
+      "destination": [
+        "/notes/go-35-test-strategy",
+        "/notes/go-36-performance",
+        "/notes/go-37-microservices-grpc",
+        "/notes/go-38-resilience",
+        "/notes/go-39-distributed-data"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part6/40-docker-compose.md",
+      "sha256": "33f840e9dde40e06f0c38f15150c123d1f0a68f1b7b62bd45e366e1226f16196",
+      "bytes": 164,
+      "destination": [
+        "/notes/go-40-docker-compose"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part6/41-kubernetes-basics.md",
+      "sha256": "4924f77fa0976270c25a28a11f7177111bf137e01b627f40b489a6ef09182092",
+      "bytes": 169,
+      "destination": [
+        "/notes/go-41-kubernetes-basics"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part6/42-kubernetes-production.md",
+      "sha256": "02921ab6580309900b1e9dc1b1542622ebc78eb725ecf97fe91f1c477675c76e",
+      "bytes": 169,
+      "destination": [
+        "/notes/go-42-kubernetes-production"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part6/43-observability.md",
+      "sha256": "aabeabb12700fa2814c62a294b808f4ad1f8bd649c2c4a19e0724c1fa0e6806d",
+      "bytes": 176,
+      "destination": [
+        "/notes/go-43-observability"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part6/44-cicd.md",
+      "sha256": "4980d72d4ed8ac895dc073fbbba52d7fd8de089ed497a638dcb614e19545ba3c",
+      "bytes": 167,
+      "destination": [
+        "/notes/go-44-cicd"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part6/45-operations.md",
+      "sha256": "4a48b9d92792d12704b7dc88a9637bfee16719e9fd7d7c6fe4c225c91c8cea5e",
+      "bytes": 173,
+      "destination": [
+        "/notes/go-45-operations"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part6/README.md",
+      "sha256": "6e6f0099fab779f50d7df2aa914962553113cfe4acbbd401a1853e628d23df03",
+      "bytes": 610,
+      "destination": [
+        "/notes?category=go-part6"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/chapters/part6/guide.md",
+      "sha256": "a676cdcbe8661dd665c33a59f0e7bb1f7f5a1f9062e288a30504d832201bcb34",
+      "bytes": 7610,
+      "destination": [
+        "/notes/go-40-docker-compose",
+        "/notes/go-41-kubernetes-basics",
+        "/notes/go-42-kubernetes-production",
+        "/notes/go-43-observability",
+        "/notes/go-44-cicd",
+        "/notes/go-45-operations"
+      ]
+    },
+    {
+      "path": "go知识点全讲解/references.md",
+      "sha256": "af61bc87c8251cc675ee3e85a47158baa912e3b47f73653d98652d24cfc388b2",
+      "bytes": 2173,
+      "destination": [
+        "/notes/go-reference"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/README.md",
+      "sha256": "0f1e093fa94ad9afa62b21b0f31c18ac1b625acfaa492f784792503c66a8fec9",
+      "bytes": 2148,
+      "destination": [
+        "/notes/typescript-00-learning-guide"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/01-web/01-learning-route.md",
+      "sha256": "01b8b75d40c028f060b17ed2d29394dda5c8389a283f5b88730ee8e1c57e3eb5",
+      "bytes": 170,
+      "destination": [
+        "/notes/typescript-01-learning-route"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/01-web/02-web-architecture.md",
+      "sha256": "f872f36abf970980380e9d422e864340798ca58688f9f6fea8d64e083660278a",
+      "bytes": 159,
+      "destination": [
+        "/notes/typescript-02-web-architecture"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/01-web/03-html-css-dom.md",
+      "sha256": "1bb6f7de373354c6e5d87a2b461c837c1430c27a3f63fffeb1f4d00edca8ccd6",
+      "bytes": 172,
+      "destination": [
+        "/notes/typescript-03-html-css-dom"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/01-web/04-http-json-api.md",
+      "sha256": "309d88ca4023b61231901da9f7b1c61e779d39f2c24ca341031ad4491f0a6f78",
+      "bytes": 169,
+      "destination": [
+        "/notes/typescript-04-http-json-api"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/01-web/README.md",
+      "sha256": "08d6a9e704a60139c6caeb0e222cfb6b2cc36437ef81cabacbcd363d7df9b612",
+      "bytes": 133,
+      "destination": [
+        "/notes?category=typescript-01-web"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/01-web/guide.md",
+      "sha256": "fa440b4827193b81c70f70f3c05fa7297a87072ed083be30fdadd3063b7fd161",
+      "bytes": 5122,
+      "destination": [
+        "/notes/typescript-01-learning-route",
+        "/notes/typescript-02-web-architecture",
+        "/notes/typescript-03-html-css-dom",
+        "/notes/typescript-04-http-json-api"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/02-javascript/05-values-and-variables.md",
+      "sha256": "c71b80c329317523c961de0b4db396b2d1c8f02d866122433d771a0abdbbb808",
+      "bytes": 161,
+      "destination": [
+        "/notes/typescript-05-values-and-variables"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/02-javascript/06-control-flow.md",
+      "sha256": "20fa30ef651080e3b966e05318e989fd4f2324ecc3c4cb93e12cb359bf77259f",
+      "bytes": 164,
+      "destination": [
+        "/notes/typescript-06-control-flow"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/02-javascript/07-arrays-objects.md",
+      "sha256": "4f15cd2d76636135e740899564b3dc5ea3ac06a79ae2dc630b3c21129403c351",
+      "bytes": 176,
+      "destination": [
+        "/notes/typescript-07-arrays-objects"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/02-javascript/08-functions-scope.md",
+      "sha256": "14b4c9ce5a75e4e7ee10e85794de75cca64a746189185b1a6d87dbf01c16bb28",
+      "bytes": 167,
+      "destination": [
+        "/notes/typescript-08-functions-scope"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/02-javascript/09-object-model.md",
+      "sha256": "2b08bcfdf05ff9a50997d2c46b3cec99f40884c0b204ade99b4b46b3531033ba",
+      "bytes": 167,
+      "destination": [
+        "/notes/typescript-09-object-model"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/02-javascript/README.md",
+      "sha256": "5dc41707de9591ddc39669881fb2a38846cbb3d32c26e2c1ffda719203e26c10",
+      "bytes": 130,
+      "destination": [
+        "/notes?category=typescript-02-javascript"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/02-javascript/guide.md",
+      "sha256": "90247f2ee69b9fd09a7c64d45a2cb586716b7a4acdd8678cf94f93227ada3bb8",
+      "bytes": 6131,
+      "destination": [
+        "/notes/typescript-05-values-and-variables",
+        "/notes/typescript-06-control-flow",
+        "/notes/typescript-07-arrays-objects",
+        "/notes/typescript-08-functions-scope",
+        "/notes/typescript-09-object-model"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/03-js-engineering/10-modules-node-npm.md",
+      "sha256": "fcea336332c4bb0a29cef13b9154b0fe8ceae6bb5616492ee3a09cfcabf40e69",
+      "bytes": 173,
+      "destination": [
+        "/notes/typescript-10-modules-node-npm"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/03-js-engineering/11-promises-event-loop.md",
+      "sha256": "3c3dc1d8a925db380cb1ee137236cc68724a25afd2d7a660b0308b63cd6927f4",
+      "bytes": 172,
+      "destination": [
+        "/notes/typescript-11-promises-event-loop"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/03-js-engineering/12-fetch-errors.md",
+      "sha256": "acc4e0b584e62a6457dd3bf7db2c2d021b19953e37a33132caad53d3e50a9956",
+      "bytes": 176,
+      "destination": [
+        "/notes/typescript-12-fetch-errors"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/03-js-engineering/13-debugging.md",
+      "sha256": "2c47562fe91e8fd3fa2ca5dab0a93255d63b3f50039571e0577dcccf8306b438",
+      "bytes": 170,
+      "destination": [
+        "/notes/typescript-13-debugging"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/03-js-engineering/README.md",
+      "sha256": "ef8533ad4c6a03c12c9b17931a6e7587a9a9d6ddddf77c41ad9c5292a781ef36",
+      "bytes": 139,
+      "destination": [
+        "/notes?category=typescript-03-js-engineering"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/03-js-engineering/guide.md",
+      "sha256": "70561c7de33126031e1eb9869593424e3affccfcfad4f969148364c554f78e7c",
+      "bytes": 4848,
+      "destination": [
+        "/notes/typescript-10-modules-node-npm",
+        "/notes/typescript-11-promises-event-loop",
+        "/notes/typescript-12-fetch-errors",
+        "/notes/typescript-13-debugging"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/04-typescript-core/14-typescript-compiler.md",
+      "sha256": "581cde03df28c90ce16f4a3eb00b04fa4aa373a68f2242e7657fbb3d9e4356b9",
+      "bytes": 163,
+      "destination": [
+        "/notes/typescript-14-typescript-compiler"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/04-typescript-core/15-basic-types.md",
+      "sha256": "12af48cc84e50cda862cf16c2528da074d76f0adac94bff3549afd48d37155bc",
+      "bytes": 167,
+      "destination": [
+        "/notes/typescript-15-basic-types"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/04-typescript-core/16-object-types.md",
+      "sha256": "9a8c7211142f8445a1693caa59526998c95124b63c2ce8a045c5b9c3d9689f92",
+      "bytes": 170,
+      "destination": [
+        "/notes/typescript-16-object-types"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/04-typescript-core/17-function-types.md",
+      "sha256": "41d1b5fe941c124bac1d7418527a1da5a438e5f091e5dd2ceee54ba5af5e9baa",
+      "bytes": 152,
+      "destination": [
+        "/notes/typescript-17-function-types"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/04-typescript-core/18-alias-interface-unions.md",
+      "sha256": "3ee97a3cd5355025516dfb03859777c75cfc4d68eff839336320a70e8a210ab6",
+      "bytes": 176,
+      "destination": [
+        "/notes/typescript-18-alias-interface-unions"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/04-typescript-core/README.md",
+      "sha256": "942bd76355fc769ee1cbafb7ed4fb9b3882c00f575731933e54667a4f3958b84",
+      "bytes": 130,
+      "destination": [
+        "/notes?category=typescript-04-typescript-core"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/04-typescript-core/guide.md",
+      "sha256": "23c329d0cfeb1a6b7a22ea03d09af67c87afae9845a4ec25302b8c50c783f973",
+      "bytes": 5783,
+      "destination": [
+        "/notes/typescript-14-typescript-compiler",
+        "/notes/typescript-15-basic-types",
+        "/notes/typescript-16-object-types",
+        "/notes/typescript-17-function-types",
+        "/notes/typescript-18-alias-interface-unions"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/05-typescript-modeling/19-narrowing.md",
+      "sha256": "11fd9db8f88c628229179f4e3a8813a67256f5923b0eb8c0f41e2a798d1e23b6",
+      "bytes": 168,
+      "destination": [
+        "/notes/typescript-19-narrowing"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/05-typescript-modeling/20-type-guards.md",
+      "sha256": "0b55f6d2ff25ba026f315495cf571eb2ec813cc73317f6608a0cc05296674183",
+      "bytes": 174,
+      "destination": [
+        "/notes/typescript-20-type-guards"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/05-typescript-modeling/21-generics.md",
+      "sha256": "13eb7a38f9c3a9456288419dc1089b073677b48b0e78e533176d55c7003575d8",
+      "bytes": 150,
+      "destination": [
+        "/notes/typescript-21-generics"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/05-typescript-modeling/22-type-queries.md",
+      "sha256": "144147c5f1a4e961adc5070e6442dbd4b6e15ba8c54a5c761dfe6669989d4c62",
+      "bytes": 165,
+      "destination": [
+        "/notes/typescript-22-type-queries"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/05-typescript-modeling/README.md",
+      "sha256": "4bd880e7f4cf3202a36bdcba2685f80eef4f42ea85e93e72eb54e15f03d2bad0",
+      "bytes": 128,
+      "destination": [
+        "/notes?category=typescript-05-typescript-modeling"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/05-typescript-modeling/guide.md",
+      "sha256": "c9056bd10e1dcf87a9c444ece68820144c2f1863bc7549a8ea21cb00ba9af95d",
+      "bytes": 4698,
+      "destination": [
+        "/notes/typescript-19-narrowing",
+        "/notes/typescript-20-type-guards",
+        "/notes/typescript-21-generics",
+        "/notes/typescript-22-type-queries"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/06-typescript-advanced/23-mapped-conditional-types.md",
+      "sha256": "d402505f72e3b3efb3ebc7a339c209c85ed5f2b24adfe9397d01442cc53608ff",
+      "bytes": 167,
+      "destination": [
+        "/notes/typescript-23-mapped-conditional-types"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/06-typescript-advanced/24-template-utility-types.md",
+      "sha256": "9d0700358cbbc2d6b795b0d92e8f574dccdacdf589fa76e7029e7397fadbbd7e",
+      "bytes": 170,
+      "destination": [
+        "/notes/typescript-24-template-utility-types"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/06-typescript-advanced/25-typescript-classes.md",
+      "sha256": "ba25994bd8c77dcb939ef5528dd5f785a262fd77200f440af9d7e1be42c8ada6",
+      "bytes": 175,
+      "destination": [
+        "/notes/typescript-25-typescript-classes"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/06-typescript-advanced/26-declarations.md",
+      "sha256": "fb460315240e23820b661f723089d753a2170b15575a82bfb52bcc4b4efe0ade",
+      "bytes": 167,
+      "destination": [
+        "/notes/typescript-26-declarations"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/06-typescript-advanced/README.md",
+      "sha256": "a45146ec15ed2441c05519e960f45c9dfd062c01258525d1237e0ee45a0c2caf",
+      "bytes": 130,
+      "destination": [
+        "/notes?category=typescript-06-typescript-advanced"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/06-typescript-advanced/guide.md",
+      "sha256": "fdacb220a1a803c222b40d920abfa2b88972ffc7c83eea4e70f232696f29ad47",
+      "bytes": 5346,
+      "destination": [
+        "/notes/typescript-23-mapped-conditional-types",
+        "/notes/typescript-24-template-utility-types",
+        "/notes/typescript-25-typescript-classes",
+        "/notes/typescript-26-declarations"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/07-typescript-engineering/27-tsconfig-strict.md",
+      "sha256": "3e13b3beae9ad48b7e3ceac502e8197d929b29ac697bc06b2b0f5f92df04c96f",
+      "bytes": 170,
+      "destination": [
+        "/notes/typescript-27-tsconfig-strict"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/07-typescript-engineering/28-module-resolution.md",
+      "sha256": "619600266ea32739b4d7c8bee8d68076d3d8e78415e82816be26e9a4f798095d",
+      "bytes": 167,
+      "destination": [
+        "/notes/typescript-28-module-resolution"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/07-typescript-engineering/29-runtime-validation.md",
+      "sha256": "93904f0db492e7ce4292b9bda3ba706e88b13551cd7d48cc8884dd0adebf9cee",
+      "bytes": 170,
+      "destination": [
+        "/notes/typescript-29-runtime-validation"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/07-typescript-engineering/30-type-organization.md",
+      "sha256": "772477d035f772bb9f155bfb3ba14b145a29e44d6b142d86b1f7e8e6d7dd62be",
+      "bytes": 161,
+      "destination": [
+        "/notes/typescript-30-type-organization"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/07-typescript-engineering/31-quality-tooling.md",
+      "sha256": "4442f060d681aa2723c137e29527160ad5e8deca5d1379ac8049499a7c511db5",
+      "bytes": 167,
+      "destination": [
+        "/notes/typescript-31-quality-tooling"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/07-typescript-engineering/README.md",
+      "sha256": "136da3b932ec03033ab673977d5df3afd431253bf1c1bb701430c8ccde30be76",
+      "bytes": 130,
+      "destination": [
+        "/notes?category=typescript-07-typescript-engineering"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/07-typescript-engineering/guide.md",
+      "sha256": "80d3956f9b5da4e003c919271958cbc90127115e3380969a2c93d2bafde58968",
+      "bytes": 5789,
+      "destination": [
+        "/notes/typescript-27-tsconfig-strict",
+        "/notes/typescript-28-module-resolution",
+        "/notes/typescript-29-runtime-validation",
+        "/notes/typescript-30-type-organization",
+        "/notes/typescript-31-quality-tooling"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/08-react/32-react-project.md",
+      "sha256": "6d01034db60cd6b0d9ae0211784ce9a577ebd233570a2e8a1278fb26c4886077",
+      "bytes": 170,
+      "destination": [
+        "/notes/typescript-32-react-project"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/08-react/33-components-props.md",
+      "sha256": "7dc5715d458e12ee123d629d83a571611722ef5729a614a7c0dd0d814333dc86",
+      "bytes": 162,
+      "destination": [
+        "/notes/typescript-33-components-props"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/08-react/34-state-events.md",
+      "sha256": "4c063fd29cfb30059b90f7a8473ce09a4eb259ef1033cf49fc1c0bada71b501a",
+      "bytes": 162,
+      "destination": [
+        "/notes/typescript-34-state-events"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/08-react/35-hooks.md",
+      "sha256": "7b9eadec9731c5fe3e9f8a390ac3ffe4ae1db59491537c2ed71164aa533acecb",
+      "bytes": 165,
+      "destination": [
+        "/notes/typescript-35-hooks"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/08-react/36-forms-accessibility.md",
+      "sha256": "4c5c74d167922f1ba28a5479d32773f3afa47ce0603d14d0b0204500fd7e8572",
+      "bytes": 168,
+      "destination": [
+        "/notes/typescript-36-forms-accessibility"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/08-react/README.md",
+      "sha256": "31d698ad94f5618b6da59fbe7ea563a2b91153d2591d6785176db71262aa00ca",
+      "bytes": 128,
+      "destination": [
+        "/notes?category=typescript-08-react"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/08-react/guide.md",
+      "sha256": "6a63367b0b78e5c59cf66ea1e2ed27b10b25e5ff03ec268d5393c3b2629020af",
+      "bytes": 7936,
+      "destination": [
+        "/notes/typescript-32-react-project",
+        "/notes/typescript-33-components-props",
+        "/notes/typescript-34-state-events",
+        "/notes/typescript-35-hooks",
+        "/notes/typescript-36-forms-accessibility"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/09-frontend-app/37-routing.md",
+      "sha256": "67d62100e8461f6578b4ec8eb5c8d90260b001696a90defac0a9e2be735ce089",
+      "bytes": 156,
+      "destination": [
+        "/notes/typescript-37-routing"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/09-frontend-app/38-api-requests.md",
+      "sha256": "d0c98fd8df441692c6d20bdc6ac436d9254ef81be540d24044965ab64ede62c4",
+      "bytes": 160,
+      "destination": [
+        "/notes/typescript-38-api-requests"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/09-frontend-app/39-state-cache.md",
+      "sha256": "5e9a5d6207b6e5abfe7265cb8986ee4503b8f2a5909255dd17107405ab538291",
+      "bytes": 162,
+      "destination": [
+        "/notes/typescript-39-state-cache"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/09-frontend-app/40-auth-ui.md",
+      "sha256": "87bcb1f58f3508d613345d719bf2ce6cf072dadbdc1f7523b62b9dcd40999e38",
+      "bytes": 165,
+      "destination": [
+        "/notes/typescript-40-auth-ui"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/09-frontend-app/README.md",
+      "sha256": "0ed1f61a6a8c95d681e913b939e52b4c5f04d3d43d592d6e37115ffee1ca5ae4",
+      "bytes": 125,
+      "destination": [
+        "/notes?category=typescript-09-frontend-app"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/09-frontend-app/guide.md",
+      "sha256": "3360f810167aae33c81b5830654cc623ad91ff6337b0943b8ee73eabc7502439",
+      "bytes": 5011,
+      "destination": [
+        "/notes/typescript-37-routing",
+        "/notes/typescript-38-api-requests",
+        "/notes/typescript-39-state-cache",
+        "/notes/typescript-40-auth-ui"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/10-backend/41-node-runtime.md",
+      "sha256": "ed269a2744099c3a984d55e9c90f5a63433b4bbc262d886113c28bae10872927",
+      "bytes": 166,
+      "destination": [
+        "/notes/typescript-41-node-runtime"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/10-backend/42-express.md",
+      "sha256": "58dc4b956a6444f62084780489e77d4e195d2d4dfa58ae40e52a38df68f4cfc9",
+      "bytes": 169,
+      "destination": [
+        "/notes/typescript-42-express"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/10-backend/43-rest-api.md",
+      "sha256": "c21e7ff4e67f753bd52ea95bb4f8f962e41f4a0fc859780297008b6f411643b8",
+      "bytes": 158,
+      "destination": [
+        "/notes/typescript-43-rest-api"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/10-backend/44-validation-errors.md",
+      "sha256": "1c733e30dc246919a7c59c06d357e01786bb1dd408e25fb668c160dacdb1d568",
+      "bytes": 176,
+      "destination": [
+        "/notes/typescript-44-validation-errors"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/10-backend/45-logging-config.md",
+      "sha256": "627b5301bea489b764e5181dab64595d49f5ce07b6a349df5aa28df448edbadd",
+      "bytes": 164,
+      "destination": [
+        "/notes/typescript-45-logging-config"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/10-backend/README.md",
+      "sha256": "138bba1e3b59b2f0f1f724a83c9f9db36080ff2544968bc52a7ebf121497034b",
+      "bytes": 133,
+      "destination": [
+        "/notes?category=typescript-10-backend"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/10-backend/guide.md",
+      "sha256": "edf10b282daca4d0e8dd29ed8cba36f3462f8a2928c8ce3f09af1f96f37b6d61",
+      "bytes": 6433,
+      "destination": [
+        "/notes/typescript-41-node-runtime",
+        "/notes/typescript-42-express",
+        "/notes/typescript-43-rest-api",
+        "/notes/typescript-44-validation-errors",
+        "/notes/typescript-45-logging-config"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/11-database-security/46-sql.md",
+      "sha256": "fcf50112704ca2a5fcf11dedcac8cfd7f80850741f3ea37a59d30a97ef8fb7af",
+      "bytes": 179,
+      "destination": [
+        "/notes/typescript-46-sql"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/11-database-security/47-data-modeling.md",
+      "sha256": "c865b102729398fa2dff4927420c13596df66609ad3b98d612086e077150eb21",
+      "bytes": 177,
+      "destination": [
+        "/notes/typescript-47-data-modeling"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/11-database-security/48-prisma.md",
+      "sha256": "f756892e05ff27991bf1f03c4b7281e76ede3b72388433e6718dfb5ce7f0e0b0",
+      "bytes": 175,
+      "destination": [
+        "/notes/typescript-48-prisma"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/11-database-security/49-migrations-transactions.md",
+      "sha256": "c200939f32e4af45f2e20ebdf03b5836d53983fc3889d5b0a0fc07d700de31ff",
+      "bytes": 177,
+      "destination": [
+        "/notes/typescript-49-migrations-transactions"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/11-database-security/50-auth-security.md",
+      "sha256": "e17c7da36108c4baf8892e4b356768599f846ecf83c097c87e91743cc06e9036",
+      "bytes": 176,
+      "destination": [
+        "/notes/typescript-50-auth-security"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/11-database-security/README.md",
+      "sha256": "9623a68cda22ebf103b31da8fd03dea537552161aaed3af14e5ff34338b9f866",
+      "bytes": 140,
+      "destination": [
+        "/notes?category=typescript-11-database-security"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/11-database-security/guide.md",
+      "sha256": "9fd9ee2f79cc09f0d544dc0528f36da7fe5a110b4cb601aa12c8a4fb49c443bd",
+      "bytes": 7937,
+      "destination": [
+        "/notes/typescript-46-sql",
+        "/notes/typescript-47-data-modeling",
+        "/notes/typescript-48-prisma",
+        "/notes/typescript-49-migrations-transactions",
+        "/notes/typescript-50-auth-security"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/12-delivery/51-workspaces.md",
+      "sha256": "f733a0c3dd0a5c4b501328a2bf55c252e263bc3d560094a16fc118092c3904ff",
+      "bytes": 180,
+      "destination": [
+        "/notes/typescript-51-workspaces"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/12-delivery/52-shared-contracts.md",
+      "sha256": "f119430962a7094eed5f2dd216a1e4b1eb9805d67b28b7efa9f58b6cb1324056",
+      "bytes": 177,
+      "destination": [
+        "/notes/typescript-52-shared-contracts"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/12-delivery/53-task-api.md",
+      "sha256": "236362e8659b7f35f9b3bd9f627ec469c6cb66d03b413387de26aea586c78953",
+      "bytes": 172,
+      "destination": [
+        "/notes/typescript-53-task-api"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/12-delivery/54-auth-integration.md",
+      "sha256": "0fe444ed5abd9fc2c141b89a1a70ab9136d0bdc33d92c040cabcb332496cd7c8",
+      "bytes": 177,
+      "destination": [
+        "/notes/typescript-54-auth-integration"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/12-delivery/55-unit-component-tests.md",
+      "sha256": "6616830ba11c0529dd72cf8caf2d5de258e52272dd10e50e0d13dda3834c73ed",
+      "bytes": 171,
+      "destination": [
+        "/notes/typescript-55-unit-component-tests"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/12-delivery/56-api-e2e-tests.md",
+      "sha256": "7fe5507acb62abb50ae17c1aea1e98e401f5b00ebf229a34637918330df23e4e",
+      "bytes": 172,
+      "destination": [
+        "/notes/typescript-56-api-e2e-tests"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/12-delivery/57-deployment-capstone.md",
+      "sha256": "ff156bf483244de5434b2575e7b10aacacc60858894e52fbc4b2113c6fdf92b4",
+      "bytes": 180,
+      "destination": [
+        "/notes/typescript-57-deployment-capstone"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/12-delivery/README.md",
+      "sha256": "fcecb31ff5a5ce0c8c675af02ca30e32291ddef390c2e5034c00f75d80243bb7",
+      "bytes": 143,
+      "destination": [
+        "/notes?category=typescript-12-delivery"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/12-delivery/guide.md",
+      "sha256": "9675ca27ccc248ea04f3539418cec0d1407730c3c6e0004a796c6dc4e7fa5315",
+      "bytes": 10643,
+      "destination": [
+        "/notes/typescript-51-workspaces",
+        "/notes/typescript-52-shared-contracts",
+        "/notes/typescript-53-task-api",
+        "/notes/typescript-54-auth-integration",
+        "/notes/typescript-55-unit-component-tests",
+        "/notes/typescript-56-api-e2e-tests",
+        "/notes/typescript-57-deployment-capstone"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/capstone.md",
+      "sha256": "ef56a811b24a9dafd244bc079e1cea4c1f8ce0d6401ebc555270e894e6eb3dfd",
+      "bytes": 2919,
+      "destination": [
+        "/notes/typescript-task-project"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/exercise-answers.md",
+      "sha256": "3aa505951a08e938cb37e9fe260801b2853af7948d4ad088e6603b041a4aa888",
+      "bytes": 7108,
+      "destination": [
+        "/notes/typescript-exercise-answers"
+      ]
+    },
+    {
+      "path": "typescript知识点全讲解/docs/glossary.md",
+      "sha256": "73902912d3d790bd35175417022b387e34634e45e05c5295a1c23f4609da5b1c",
+      "bytes": 1504,
+      "destination": [
+        "/notes/typescript-glossary"
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "path": "content/notes/python-01-environment.md",
+      "slug": "python-01-environment",
+      "sha256": "798e3d72cd248f3e783e9f36252efee06d1415ef7dbc5e74d905537d18105c2e",
+      "source": "python知识点全讲解/chapters/part1/guide.md",
+      "chapter": "python/01"
+    },
+    {
+      "path": "content/notes/python-02-objects.md",
+      "slug": "python-02-objects",
+      "sha256": "430efb8343f3ffa8e3bf775728750fb6ddb66e04a4e88b6ccba228f8df130736",
+      "source": "python知识点全讲解/chapters/part1/guide.md",
+      "chapter": "python/02"
+    },
+    {
+      "path": "content/notes/python-03-basic-types.md",
+      "slug": "python-03-basic-types",
+      "sha256": "db1a90b95d8aa431d8a442654f78577ea751546c652d1ff2755f9d7e33abb006",
+      "source": "python知识点全讲解/chapters/part1/guide.md",
+      "chapter": "python/03"
+    },
+    {
+      "path": "content/notes/python-04-strings.md",
+      "slug": "python-04-strings",
+      "sha256": "964c9f615a8e6bb29b8447d2630980f032132b34bf38f3fe1c86ee0af516acc8",
+      "source": "python知识点全讲解/chapters/part1/guide.md",
+      "chapter": "python/04"
+    },
+    {
+      "path": "content/notes/python-05-sequences.md",
+      "slug": "python-05-sequences",
+      "sha256": "516bca3bdc4659fdea5afd0ff020fcae9c0fffa4f2ec46b117472d9b1234bfde",
+      "source": "python知识点全讲解/chapters/part1/guide.md",
+      "chapter": "python/05"
+    },
+    {
+      "path": "content/notes/python-06-mappings-sets.md",
+      "slug": "python-06-mappings-sets",
+      "sha256": "0720c7cead537ec6eb772fedb1f0d39420a06497150868a5a559f9833e6cd5e8",
+      "source": "python知识点全讲解/chapters/part1/guide.md",
+      "chapter": "python/06"
+    },
+    {
+      "path": "content/notes/python-07-control-flow.md",
+      "slug": "python-07-control-flow",
+      "sha256": "0bb0dde65bb8c0fb56866a0b9f7b742a4491104201d490e9e5d8d9d69ea1106e",
+      "source": "python知识点全讲解/chapters/part1/guide.md",
+      "chapter": "python/07"
+    },
+    {
+      "path": "content/notes/python-08-functions.md",
+      "slug": "python-08-functions",
+      "sha256": "8201907fa7dfa726dcf0a34533ff8a522964a06fbea4f2858ebc6a2bad7277c3",
+      "source": "python知识点全讲解/chapters/part1/guide.md",
+      "chapter": "python/08"
+    },
+    {
+      "path": "content/notes/python-09-functions-advanced.md",
+      "slug": "python-09-functions-advanced",
+      "sha256": "66adcda6a2e66d2aea1fae74583037cc207fa6b281ee31999e10546008a6ea50",
+      "source": "python知识点全讲解/chapters/part2/guide.md",
+      "chapter": "python/09"
+    },
+    {
+      "path": "content/notes/python-10-exceptions.md",
+      "slug": "python-10-exceptions",
+      "sha256": "cf84a728209b4a8db3f6c065fda2db57eb8d94d11b3b80ee2d9880f8a49e301e",
+      "source": "python知识点全讲解/chapters/part2/guide.md",
+      "chapter": "python/10"
+    },
+    {
+      "path": "content/notes/python-11-files-paths.md",
+      "slug": "python-11-files-paths",
+      "sha256": "962ff843ae457f2d9de4b2685f5129964ef3bf951ace52fe44bba9d88bc5474c",
+      "source": "python知识点全讲解/chapters/part2/guide.md",
+      "chapter": "python/11"
+    },
+    {
+      "path": "content/notes/python-12-data-formats.md",
+      "slug": "python-12-data-formats",
+      "sha256": "d6173cd1195456dd273007267c6dbf242a30c890b135596332999ab1e9b21828",
+      "source": "python知识点全讲解/chapters/part2/guide.md",
+      "chapter": "python/12"
+    },
+    {
+      "path": "content/notes/python-13-modules-imports.md",
+      "slug": "python-13-modules-imports",
+      "sha256": "d174f7f46f69136668b1077e83b8a4ab2273e2b366c7266a394fac58f774d4e0",
+      "source": "python知识点全讲解/chapters/part2/guide.md",
+      "chapter": "python/13"
+    },
+    {
+      "path": "content/notes/python-14-classes.md",
+      "slug": "python-14-classes",
+      "sha256": "cc953778dfbb71100857e3145b0e3664d83abc45bb02086b4abaa694f9f06372",
+      "source": "python知识点全讲解/chapters/part2/guide.md",
+      "chapter": "python/14"
+    },
+    {
+      "path": "content/notes/python-15-composition-inheritance.md",
+      "slug": "python-15-composition-inheritance",
+      "sha256": "11166caf1e36547382f394a0704355368fa7a84436091cf8bdd35492d942a2dd",
+      "source": "python知识点全讲解/chapters/part2/guide.md",
+      "chapter": "python/15"
+    },
+    {
+      "path": "content/notes/python-16-iterators-generators.md",
+      "slug": "python-16-iterators-generators",
+      "sha256": "07991d5dcf78b092f1a54dbf0498884ce9c9b8b2a6a2b6e2b432c90d0e35ade8",
+      "source": "python知识点全讲解/chapters/part2/guide.md",
+      "chapter": "python/16"
+    },
+    {
+      "path": "content/notes/python-17-decorators-context.md",
+      "slug": "python-17-decorators-context",
+      "sha256": "161197dd735556adb5cb68c29ab43326ec6cae53d7bddeee03ecc864f6af000f",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/17"
+    },
+    {
+      "path": "content/notes/python-18-standard-library.md",
+      "slug": "python-18-standard-library",
+      "sha256": "4434e0acf49a0cc1fc435d84b9a3580cdcb1a44882bb0df7992d252b186b0196",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/18"
+    },
+    {
+      "path": "content/notes/python-19-regex-datetime.md",
+      "slug": "python-19-regex-datetime",
+      "sha256": "f475c0f23eccfe86160fcfe70f97cd7167a8f683e840cc7b1851c58ea82974bf",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/19"
+    },
+    {
+      "path": "content/notes/python-20-cli-http.md",
+      "slug": "python-20-cli-http",
+      "sha256": "5844177819b42031311322f279cc41cde2447dc45443555408b0922878e56bb3",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/20"
+    },
+    {
+      "path": "content/notes/python-21-environments-projects.md",
+      "slug": "python-21-environments-projects",
+      "sha256": "7870555e9d7cabe4a1428179e0c89cdfb2d3ade36386ceca74d21daec80ef2de",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/21"
+    },
+    {
+      "path": "content/notes/python-22-typing.md",
+      "slug": "python-22-typing",
+      "sha256": "7a157d4fccfe9220ddd4772dc443249cd06db5a68c1f113af7276426b3cc289c",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/22"
+    },
+    {
+      "path": "content/notes/python-23-testing.md",
+      "slug": "python-23-testing",
+      "sha256": "01734461620bb57b1d0d1c3c2e2e598da18cc4909edff15320d8c18eab34807f",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/23"
+    },
+    {
+      "path": "content/notes/python-24-debugging-logging.md",
+      "slug": "python-24-debugging-logging",
+      "sha256": "9b10f52043913d5e7ff4d24942d77fb311c0ad3a08e4393afe97b0d3027fc8aa",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/24"
+    },
+    {
+      "path": "content/notes/python-25-packaging.md",
+      "slug": "python-25-packaging",
+      "sha256": "1e7c6cac2a1bcd519fb3955bdd639387a34683fe24814e033661591d8d5b403a",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/25"
+    },
+    {
+      "path": "content/notes/python-26-git-security.md",
+      "slug": "python-26-git-security",
+      "sha256": "8766682975f7349cd4b9b3ee1cef2900ef137d8dc4cdb72e41a409a2e1f556c9",
+      "source": "python知识点全讲解/chapters/part3/guide.md",
+      "chapter": "python/26"
+    },
+    {
+      "path": "content/notes/python-27-references-copy.md",
+      "slug": "python-27-references-copy",
+      "sha256": "64bf1b97a3dc514ace4a142eb9e6a7f4de82ff1baee12706c2bf322731711cca",
+      "source": "python知识点全讲解/chapters/part4/guide.md",
+      "chapter": "python/27"
+    },
+    {
+      "path": "content/notes/python-28-data-model.md",
+      "slug": "python-28-data-model",
+      "sha256": "6115d164d60a5fa98140aa48ae66144682344e428a00d7c4dfb8b6640676e0ef",
+      "source": "python知识点全讲解/chapters/part4/guide.md",
+      "chapter": "python/28"
+    },
+    {
+      "path": "content/notes/python-29-descriptors-metaclasses.md",
+      "slug": "python-29-descriptors-metaclasses",
+      "sha256": "b5e642ab0f30fd1a3741e2ab349fddf98bcc95cee7e11541e0586286a48677b1",
+      "source": "python知识点全讲解/chapters/part4/guide.md",
+      "chapter": "python/29"
+    },
+    {
+      "path": "content/notes/python-30-performance.md",
+      "slug": "python-30-performance",
+      "sha256": "2b28faaa7ada31ae740b97b8d94b1e10f5ee3770e62d060ee62373de75398adb",
+      "source": "python知识点全讲解/chapters/part4/guide.md",
+      "chapter": "python/30"
+    },
+    {
+      "path": "content/notes/python-31-concurrency.md",
+      "slug": "python-31-concurrency",
+      "sha256": "d6857b0ce745d44c4ba494651fd6f082b75a42d876c69456f0c36750335cc48b",
+      "source": "python知识点全讲解/chapters/part4/guide.md",
+      "chapter": "python/31"
+    },
+    {
+      "path": "content/notes/python-32-asyncio.md",
+      "slug": "python-32-asyncio",
+      "sha256": "153be08fd9d6b9cdc009d1f57cf5c186fd46d29a81d3fe801d99af56aca4ee41",
+      "source": "python知识点全讲解/chapters/part4/guide.md",
+      "chapter": "python/32"
+    },
+    {
+      "path": "content/notes/python-33-automation.md",
+      "slug": "python-33-automation",
+      "sha256": "11a2d0847c9c6e0b20260fd4eeb9c31e5bb6d1e4373eecf3b9a0d61dc4356b45",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/33"
+    },
+    {
+      "path": "content/notes/python-34-etl-project.md",
+      "slug": "python-34-etl-project",
+      "sha256": "c301cedac06c51e142086d7a40814ac382f398744ee0a25e9fdec76c477706ca",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/34"
+    },
+    {
+      "path": "content/notes/python-35-data-analysis.md",
+      "slug": "python-35-data-analysis",
+      "sha256": "102b7c8a059da3160af26cd077adb43978b853ca1c70a6deb89bc6a25d2ae4e9",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/35"
+    },
+    {
+      "path": "content/notes/python-36-analysis-project.md",
+      "slug": "python-36-analysis-project",
+      "sha256": "30ed399604d41fe5acd79e8423d1cfb4ba790ffb80ada7670a1751923680d2ac",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/36"
+    },
+    {
+      "path": "content/notes/python-37-machine-learning.md",
+      "slug": "python-37-machine-learning",
+      "sha256": "cad89fdebdb88ef414e965705c2b15604ca1460cb9ec4977fd2b9b22c0fe74fd",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/37"
+    },
+    {
+      "path": "content/notes/python-38-ml-project.md",
+      "slug": "python-38-ml-project",
+      "sha256": "598bd3f0faf422ea063bfcb3a636288eb82064c8b38dd8dcc021b115961969a7",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/38"
+    },
+    {
+      "path": "content/notes/python-39-pytorch.md",
+      "slug": "python-39-pytorch",
+      "sha256": "49a47e7ff4dca1ecec2f2bd6950ea9c5572683f47e0a7c387132ed6270a90571",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/39"
+    },
+    {
+      "path": "content/notes/python-40-dl-project.md",
+      "slug": "python-40-dl-project",
+      "sha256": "6dc2d17d43fd82e9051eb8b05794f5ca3dee94a8439d4ccbc2fc9f9da404c63c",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/40"
+    },
+    {
+      "path": "content/notes/python-41-backend.md",
+      "slug": "python-41-backend",
+      "sha256": "8bde26ce6aa21857b45c091351a732a0afb7833d02593c61f936eef0bac9f502",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/41"
+    },
+    {
+      "path": "content/notes/python-42-backend-project.md",
+      "slug": "python-42-backend-project",
+      "sha256": "98f17becb87bb8580db5cbf748257e90787bf25ba8a6d7530948e2fb598d7e6a",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/42"
+    },
+    {
+      "path": "content/notes/python-43-other-domains.md",
+      "slug": "python-43-other-domains",
+      "sha256": "88e1854f70d1a8944e8992798136543fdf4595bc5e61ac07870d2f7485dff07f",
+      "source": "python知识点全讲解/chapters/part5/guide.md",
+      "chapter": "python/43"
+    },
+    {
+      "path": "content/notes/python-reference.md",
+      "slug": "python-reference",
+      "sha256": "3741d46ac4f69817be3d4a0845b4b8834b02328da6499e1e0cd0c46b1c3a1b90",
+      "source": "python知识点全讲解/references.md"
+    },
+    {
+      "path": "content/notes/python-00-learning-guide.md",
+      "slug": "python-00-learning-guide",
+      "sha256": "605d9075ead1ff8dd1518af155b93400cca672f1994ab43c6386f91b4bd7d2da",
+      "source": "python知识点全讲解/README.md"
+    },
+    {
+      "path": "content/notes/go-01-roadmap.md",
+      "slug": "go-01-roadmap",
+      "sha256": "ae4b28393ad4acc2ece723a6adf01a9a716bebf74d7c595bc03569b3125c73e6",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/01"
+    },
+    {
+      "path": "content/notes/go-02-toolchain.md",
+      "slug": "go-02-toolchain",
+      "sha256": "0e4003ca2a71eaaf876a61cf11f4b07d2a53d29f4f5ef2f0ad025539d8e705ae",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/02"
+    },
+    {
+      "path": "content/notes/go-03-program-basics.md",
+      "slug": "go-03-program-basics",
+      "sha256": "81cfee342b11375ae72701d54a184e6d08a6639857522d14c63f1d21a67a436a",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/03"
+    },
+    {
+      "path": "content/notes/go-04-types-control.md",
+      "slug": "go-04-types-control",
+      "sha256": "ca96cd5cf0bf705dd1db6c6eebea7edbc0620d5e4cdd16b32f6634c7bc9a9f11",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/04"
+    },
+    {
+      "path": "content/notes/go-05-collections.md",
+      "slug": "go-05-collections",
+      "sha256": "7828fa5cadf5666b6c4701a743585eb1a3e829cf75e58bed43bff9beceb96806",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/05"
+    },
+    {
+      "path": "content/notes/go-06-functions-methods.md",
+      "slug": "go-06-functions-methods",
+      "sha256": "125741b018c219e6394e2894fc1b595738507f9a2ac7608b3055408aa0f70f6e",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/06"
+    },
+    {
+      "path": "content/notes/go-07-structs-interfaces.md",
+      "slug": "go-07-structs-interfaces",
+      "sha256": "d405fe071cab9fe30547a04174b0b84d71fb1281bb037eaa8725d5eeb80c07cd",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/07"
+    },
+    {
+      "path": "content/notes/go-08-errors.md",
+      "slug": "go-08-errors",
+      "sha256": "cbddbb09601af66a0f8bc7bf2475b9ed4fe9af62da19cd74391fcfae111a06ae",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/08"
+    },
+    {
+      "path": "content/notes/go-09-packages.md",
+      "slug": "go-09-packages",
+      "sha256": "92d505fabf87d50030ae1d39af399efb76b57631cbe25464c3cd70aac47aa193",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/09"
+    },
+    {
+      "path": "content/notes/go-10-concurrency.md",
+      "slug": "go-10-concurrency",
+      "sha256": "bb16d74e46f22b39a60cf66f59323f2acb06925ecf10730095569866ad463481",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/10"
+    },
+    {
+      "path": "content/notes/go-11-sync-context.md",
+      "slug": "go-11-sync-context",
+      "sha256": "93706faa05b73107e9b4edde1d101809b4845061c85c3461910a14c9a562d48c",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/11"
+    },
+    {
+      "path": "content/notes/go-12-memory.md",
+      "slug": "go-12-memory",
+      "sha256": "58331286ed0f44a7e9247eee222f0460fb6bdf06397373981cdb4569ea54be58",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/12"
+    },
+    {
+      "path": "content/notes/go-13-stdlib.md",
+      "slug": "go-13-stdlib",
+      "sha256": "386d31accb826f86fd214d911e4377347615e5d9ace75b53f33aa0430d094ad6",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/13"
+    },
+    {
+      "path": "content/notes/go-14-testing-tools.md",
+      "slug": "go-14-testing-tools",
+      "sha256": "5c7efa735026387f02a7a184d2131ac7e5c3d7ad79d6bb8fffc70fb0a03eef5f",
+      "source": "go知识点全讲解/chapters/part1/guide.md",
+      "chapter": "go/14"
+    },
+    {
+      "path": "content/notes/go-15-http-rest.md",
+      "slug": "go-15-http-rest",
+      "sha256": "a0a732fceb5e024f4cc8ed9694ac9f98479dc7bf96ecf4e3f845d5d279dd980d",
+      "source": "go知识点全讲解/chapters/part2/guide.md",
+      "chapter": "go/15"
+    },
+    {
+      "path": "content/notes/go-16-net-http.md",
+      "slug": "go-16-net-http",
+      "sha256": "56b86e75451421fae1e672c053322689e1c281fc17e65b97f560b20c1fe231ba",
+      "source": "go知识点全讲解/chapters/part2/guide.md",
+      "chapter": "go/16"
+    },
+    {
+      "path": "content/notes/go-17-gin.md",
+      "slug": "go-17-gin",
+      "sha256": "26b807d574f6944dfe481333a3c3aafbe3abbf9a34adde794dd0281766fa2b59",
+      "source": "go知识点全讲解/chapters/part2/guide.md",
+      "chapter": "go/17"
+    },
+    {
+      "path": "content/notes/go-18-api-contracts.md",
+      "slug": "go-18-api-contracts",
+      "sha256": "4ed33bf6859913173f39a29727b2cf9d302a77eec117518862d8b0caccb12c6d",
+      "source": "go知识点全讲解/chapters/part2/guide.md",
+      "chapter": "go/18"
+    },
+    {
+      "path": "content/notes/go-19-config-logging.md",
+      "slug": "go-19-config-logging",
+      "sha256": "5cb15aefd0f07457453cb3488b871bd42ba9db5e4fdba306c31fb4a145554fe2",
+      "source": "go知识点全讲解/chapters/part2/guide.md",
+      "chapter": "go/19"
+    },
+    {
+      "path": "content/notes/go-20-security.md",
+      "slug": "go-20-security",
+      "sha256": "7cb3dae6e7630086286948fd45eaef5c136915ddef2a7f9a26bfa2c4e3e2e67d",
+      "source": "go知识点全讲解/chapters/part2/guide.md",
+      "chapter": "go/20"
+    },
+    {
+      "path": "content/notes/go-21-mysql-sql.md",
+      "slug": "go-21-mysql-sql",
+      "sha256": "cbc1a2d3ca02fe878d958bfc6ba929c5e615f3297f553a516152bc726a716771",
+      "source": "go知识点全讲解/chapters/part3/guide.md",
+      "chapter": "go/21"
+    },
+    {
+      "path": "content/notes/go-22-indexes.md",
+      "slug": "go-22-indexes",
+      "sha256": "fc2865a37c23d06b64789ee565b9049da0ca4f3bb857307790427b0379f766a4",
+      "source": "go知识点全讲解/chapters/part3/guide.md",
+      "chapter": "go/22"
+    },
+    {
+      "path": "content/notes/go-23-transactions-locks.md",
+      "slug": "go-23-transactions-locks",
+      "sha256": "85ef43b0b851828dde20c8e833c3385b084a593104738c597446abc522a83e10",
+      "source": "go知识点全讲解/chapters/part3/guide.md",
+      "chapter": "go/23"
+    },
+    {
+      "path": "content/notes/go-24-gorm-repository.md",
+      "slug": "go-24-gorm-repository",
+      "sha256": "540437074c9b0735d498064cedada737d744ad0cfed18aa56e71a06a740ec8e7",
+      "source": "go知识点全讲解/chapters/part3/guide.md",
+      "chapter": "go/24"
+    },
+    {
+      "path": "content/notes/go-25-redis-cache.md",
+      "slug": "go-25-redis-cache",
+      "sha256": "725c062d939da18822d5e4620a952105d8065bfdafaebaeb6ff8c8de98fa01f2",
+      "source": "go知识点全讲解/chapters/part3/guide.md",
+      "chapter": "go/25"
+    },
+    {
+      "path": "content/notes/go-26-redis-concurrency.md",
+      "slug": "go-26-redis-concurrency",
+      "sha256": "f1eb1bc6073db3102f40a3dfa961fe75846c7ce29d2d36a6088553fc730ea4af",
+      "source": "go知识点全讲解/chapters/part3/guide.md",
+      "chapter": "go/26"
+    },
+    {
+      "path": "content/notes/go-27-kafka.md",
+      "slug": "go-27-kafka",
+      "sha256": "2af54193f9a98c5f93d18a464d8c5fea85313feec6852a6f74310042ae7bebac",
+      "source": "go知识点全讲解/chapters/part3/guide.md",
+      "chapter": "go/27"
+    },
+    {
+      "path": "content/notes/go-28-message-reliability.md",
+      "slug": "go-28-message-reliability",
+      "sha256": "69941ff42e327cd58bc7b8cb633b8074771aa95cd2b40cd408aa6bc4fdcd5b64",
+      "source": "go知识点全讲解/chapters/part3/guide.md",
+      "chapter": "go/28"
+    },
+    {
+      "path": "content/notes/go-29-project-design.md",
+      "slug": "go-29-project-design",
+      "sha256": "0983371082ba0d2e2b590891116b8a701806cc991804baee3c29f654d5ce6f8f",
+      "source": "go知识点全讲解/chapters/part4/guide.md",
+      "chapter": "go/29"
+    },
+    {
+      "path": "content/notes/go-30-project-skeleton.md",
+      "slug": "go-30-project-skeleton",
+      "sha256": "c04892c3036497fa51e84ccdf1bb634e3f91fc5b92b3b729bb1e6f4e26adf093",
+      "source": "go知识点全讲解/chapters/part4/guide.md",
+      "chapter": "go/30"
+    },
+    {
+      "path": "content/notes/go-31-catalog-campaign.md",
+      "slug": "go-31-catalog-campaign",
+      "sha256": "adb4c66066990735318de0a0f6610011e734dd6c2bb5a2b31d93e59b13fc3edf",
+      "source": "go知识点全讲解/chapters/part4/guide.md",
+      "chapter": "go/31"
+    },
+    {
+      "path": "content/notes/go-32-order-inventory.md",
+      "slug": "go-32-order-inventory",
+      "sha256": "872fb3ee09e58527c2893a4b528e3517d52caf7dfde7153dd95fc05308baec78",
+      "source": "go知识点全讲解/chapters/part4/guide.md",
+      "chapter": "go/32"
+    },
+    {
+      "path": "content/notes/go-33-flash-sale.md",
+      "slug": "go-33-flash-sale",
+      "sha256": "b1ecf89f28e9276ad4ca6ee99a2705229f556c64c57062de51286e274bbf538d",
+      "source": "go知识点全讲解/chapters/part4/guide.md",
+      "chapter": "go/33"
+    },
+    {
+      "path": "content/notes/go-34-payment-reconciliation.md",
+      "slug": "go-34-payment-reconciliation",
+      "sha256": "99f899f341ba0be4adce7ef76dba6a38e082cbcf512afc3e38655da7e6318076",
+      "source": "go知识点全讲解/chapters/part4/guide.md",
+      "chapter": "go/34"
+    },
+    {
+      "path": "content/notes/go-35-test-strategy.md",
+      "slug": "go-35-test-strategy",
+      "sha256": "a4bcbe3df5dcf981260c466769bd9c8f719a6bfc3515c8fc3d6ae7343e750cd1",
+      "source": "go知识点全讲解/chapters/part5/guide.md",
+      "chapter": "go/35"
+    },
+    {
+      "path": "content/notes/go-36-performance.md",
+      "slug": "go-36-performance",
+      "sha256": "a07ef3d6e215b5c9c271d570a49bd98ce176a36da111124378831b30300f2ee3",
+      "source": "go知识点全讲解/chapters/part5/guide.md",
+      "chapter": "go/36"
+    },
+    {
+      "path": "content/notes/go-37-microservices-grpc.md",
+      "slug": "go-37-microservices-grpc",
+      "sha256": "e1b7dfaa40d223bdc35e869dd5d78fd211f92890892aa61db64df1bba8ec3d55",
+      "source": "go知识点全讲解/chapters/part5/guide.md",
+      "chapter": "go/37"
+    },
+    {
+      "path": "content/notes/go-38-resilience.md",
+      "slug": "go-38-resilience",
+      "sha256": "f50be0b99368240f43fe5ab8791e3fb9bd58a3cd88a62342de6fe443593896dd",
+      "source": "go知识点全讲解/chapters/part5/guide.md",
+      "chapter": "go/38"
+    },
+    {
+      "path": "content/notes/go-39-distributed-data.md",
+      "slug": "go-39-distributed-data",
+      "sha256": "0c6473ee9d29b932b9e8715176d49b2fdf8e8430ecea82cd05f91d705bf5e321",
+      "source": "go知识点全讲解/chapters/part5/guide.md",
+      "chapter": "go/39"
+    },
+    {
+      "path": "content/notes/go-40-docker-compose.md",
+      "slug": "go-40-docker-compose",
+      "sha256": "7636ae27574e94a1bd597f64c435724ae20788f9caf863a5a2f0b4cf526e83a9",
+      "source": "go知识点全讲解/chapters/part6/guide.md",
+      "chapter": "go/40"
+    },
+    {
+      "path": "content/notes/go-41-kubernetes-basics.md",
+      "slug": "go-41-kubernetes-basics",
+      "sha256": "ddd59089bc5db2397f86705065218dbd917ef3ffd7625f30d858e776cfe33b15",
+      "source": "go知识点全讲解/chapters/part6/guide.md",
+      "chapter": "go/41"
+    },
+    {
+      "path": "content/notes/go-42-kubernetes-production.md",
+      "slug": "go-42-kubernetes-production",
+      "sha256": "8f48567ad4cfd44fe9399eeee9e35c8cdc7206c3b971d4cc84a300bd08e586dc",
+      "source": "go知识点全讲解/chapters/part6/guide.md",
+      "chapter": "go/42"
+    },
+    {
+      "path": "content/notes/go-43-observability.md",
+      "slug": "go-43-observability",
+      "sha256": "a84d7e791db312109d060788f2207491789ef40f59407de6887190b806d76fa9",
+      "source": "go知识点全讲解/chapters/part6/guide.md",
+      "chapter": "go/43"
+    },
+    {
+      "path": "content/notes/go-44-cicd.md",
+      "slug": "go-44-cicd",
+      "sha256": "0bedd5df76d64b66fc93998883b392881062d11ac082fc9f91c7ac3ff1d0f252",
+      "source": "go知识点全讲解/chapters/part6/guide.md",
+      "chapter": "go/44"
+    },
+    {
+      "path": "content/notes/go-45-operations.md",
+      "slug": "go-45-operations",
+      "sha256": "ddd1875969f412a4ffe16f4713e75368bbc5e9a1878f8d587c50307f53d5736e",
+      "source": "go知识点全讲解/chapters/part6/guide.md",
+      "chapter": "go/45"
+    },
+    {
+      "path": "content/notes/go-advanced-01-elasticsearch.md",
+      "slug": "go-advanced-01-elasticsearch",
+      "sha256": "56b401f124303a7244959240f6dc5812f08102f43df46ec8e151715cfc9a7c23",
+      "source": "go知识点全讲解/chapters/advanced/guide.md",
+      "chapter": "go/advanced-01"
+    },
+    {
+      "path": "content/notes/go-advanced-02-messaging-choice.md",
+      "slug": "go-advanced-02-messaging-choice",
+      "sha256": "5f4a04f676e5cd500720ce10adb0b276dd502a733d0d9fc68891ee93d887a802",
+      "source": "go知识点全讲解/chapters/advanced/guide.md",
+      "chapter": "go/advanced-02"
+    },
+    {
+      "path": "content/notes/go-advanced-03-database-scaling.md",
+      "slug": "go-advanced-03-database-scaling",
+      "sha256": "846979c75fa610a37ea4af4c8ee01f48ff25015c5273f1c4938850c10febc447",
+      "source": "go知识点全讲解/chapters/advanced/guide.md",
+      "chapter": "go/advanced-03"
+    },
+    {
+      "path": "content/notes/go-advanced-04-service-discovery-mesh.md",
+      "slug": "go-advanced-04-service-discovery-mesh",
+      "sha256": "52fdb67a10691edde9a1e8a08d609ed181042c919d4b59d08eae897a32c7b7d2",
+      "source": "go知识点全讲解/chapters/advanced/guide.md",
+      "chapter": "go/advanced-04"
+    },
+    {
+      "path": "content/notes/go-advanced-05-postgresql.md",
+      "slug": "go-advanced-05-postgresql",
+      "sha256": "3f0e83cefdafd06144f49ee6877cbf8d1e0707c5e9966d0f25c4da423cc88a3c",
+      "source": "go知识点全讲解/chapters/advanced/guide.md",
+      "chapter": "go/advanced-05"
+    },
+    {
+      "path": "content/notes/go-advanced-06-networking-linux.md",
+      "slug": "go-advanced-06-networking-linux",
+      "sha256": "51f1108f2445a0f232040137e53ba7ace9e8109709bea4e8985086ae4a6a75e9",
+      "source": "go知识点全讲解/chapters/advanced/guide.md",
+      "chapter": "go/advanced-06"
+    },
+    {
+      "path": "content/notes/go-reference.md",
+      "slug": "go-reference",
+      "sha256": "e28f585c60c7a13189dec0bea5e5243d828da4fed0c0b94e93175ba7d508d3a9",
+      "source": "go知识点全讲解/references.md"
+    },
+    {
+      "path": "content/notes/go-00-learning-guide.md",
+      "slug": "go-00-learning-guide",
+      "sha256": "5ea094fe465e234ce75265a5e4a981d3c703deacfdf5ef5b7139b5a5f8ab2029",
+      "source": "go知识点全讲解/README.md"
+    },
+    {
+      "path": "content/notes/typescript-01-learning-route.md",
+      "slug": "typescript-01-learning-route",
+      "sha256": "347cddfa3b13a6ce69961e6c2fb45cd52cfa3784045bb96fd560ac12e4afbdb9",
+      "source": "typescript知识点全讲解/docs/01-web/guide.md",
+      "chapter": "typescript/01"
+    },
+    {
+      "path": "content/notes/typescript-02-web-architecture.md",
+      "slug": "typescript-02-web-architecture",
+      "sha256": "f8d514d2cb0e9de2a5d0387f46c546e6cf1ea3fe4eee7bed3e797806e18e4d8e",
+      "source": "typescript知识点全讲解/docs/01-web/guide.md",
+      "chapter": "typescript/02"
+    },
+    {
+      "path": "content/notes/typescript-03-html-css-dom.md",
+      "slug": "typescript-03-html-css-dom",
+      "sha256": "68b89cb3862114e6d10a0cf7dfcc3ba9b9a1d608e9ccc475e3c530a40e14cfdb",
+      "source": "typescript知识点全讲解/docs/01-web/guide.md",
+      "chapter": "typescript/03"
+    },
+    {
+      "path": "content/notes/typescript-04-http-json-api.md",
+      "slug": "typescript-04-http-json-api",
+      "sha256": "0aaa6638bb6dd86d2a5d81d88f4ed5d4af62af4ac277b667b10391329ebaa1e1",
+      "source": "typescript知识点全讲解/docs/01-web/guide.md",
+      "chapter": "typescript/04"
+    },
+    {
+      "path": "content/notes/typescript-05-values-and-variables.md",
+      "slug": "typescript-05-values-and-variables",
+      "sha256": "7ed8803eda181a7e7189b7a6d0ef229a47611c96619ed06ebced8494ed91ce5c",
+      "source": "typescript知识点全讲解/docs/02-javascript/guide.md",
+      "chapter": "typescript/05"
+    },
+    {
+      "path": "content/notes/typescript-06-control-flow.md",
+      "slug": "typescript-06-control-flow",
+      "sha256": "b999113ed74a7efedbe61fec06d8b8bece89c68195a120cd2f42a28fa7d484dd",
+      "source": "typescript知识点全讲解/docs/02-javascript/guide.md",
+      "chapter": "typescript/06"
+    },
+    {
+      "path": "content/notes/typescript-07-arrays-objects.md",
+      "slug": "typescript-07-arrays-objects",
+      "sha256": "0faca6c107b5e58224c194524c3e80e1246262d18e12500cdb13aa046bc89ffb",
+      "source": "typescript知识点全讲解/docs/02-javascript/guide.md",
+      "chapter": "typescript/07"
+    },
+    {
+      "path": "content/notes/typescript-08-functions-scope.md",
+      "slug": "typescript-08-functions-scope",
+      "sha256": "30e76ba63643989c4a99db2cd5cc2efe31b82c7c6187c4b977f3030c469d8c01",
+      "source": "typescript知识点全讲解/docs/02-javascript/guide.md",
+      "chapter": "typescript/08"
+    },
+    {
+      "path": "content/notes/typescript-09-object-model.md",
+      "slug": "typescript-09-object-model",
+      "sha256": "7868fd18c45891eb87c63cc3882c824d8ad6b0fff1a7c4477b4087f5ef9cf6cb",
+      "source": "typescript知识点全讲解/docs/02-javascript/guide.md",
+      "chapter": "typescript/09"
+    },
+    {
+      "path": "content/notes/typescript-10-modules-node-npm.md",
+      "slug": "typescript-10-modules-node-npm",
+      "sha256": "8e5ef0ea466302b6577333404b1b39aafc485828f965c73ecaacfd77a874d314",
+      "source": "typescript知识点全讲解/docs/03-js-engineering/guide.md",
+      "chapter": "typescript/10"
+    },
+    {
+      "path": "content/notes/typescript-11-promises-event-loop.md",
+      "slug": "typescript-11-promises-event-loop",
+      "sha256": "0f166441fc5fe9fe9da23f641bc13dd54e2622732e287b317b41f9cada546ccc",
+      "source": "typescript知识点全讲解/docs/03-js-engineering/guide.md",
+      "chapter": "typescript/11"
+    },
+    {
+      "path": "content/notes/typescript-12-fetch-errors.md",
+      "slug": "typescript-12-fetch-errors",
+      "sha256": "f14c6f8456e213c6e0f125f0dd6706ef5a7d64e95680f9e5a5a9e84af8c4da65",
+      "source": "typescript知识点全讲解/docs/03-js-engineering/guide.md",
+      "chapter": "typescript/12"
+    },
+    {
+      "path": "content/notes/typescript-13-debugging.md",
+      "slug": "typescript-13-debugging",
+      "sha256": "8d0a70b79fc11a67f3d849adb875cd7d2137013226d2fe8a5c075420506f6af6",
+      "source": "typescript知识点全讲解/docs/03-js-engineering/guide.md",
+      "chapter": "typescript/13"
+    },
+    {
+      "path": "content/notes/typescript-14-typescript-compiler.md",
+      "slug": "typescript-14-typescript-compiler",
+      "sha256": "1bfaa702a4ab3400a306a51c9789c59e405c05f88f58e5873834dc36ea825720",
+      "source": "typescript知识点全讲解/docs/04-typescript-core/guide.md",
+      "chapter": "typescript/14"
+    },
+    {
+      "path": "content/notes/typescript-15-basic-types.md",
+      "slug": "typescript-15-basic-types",
+      "sha256": "afdaabf70139fd153f9bb6e31e1a31948c6b53c13db276316205bf22acc34652",
+      "source": "typescript知识点全讲解/docs/04-typescript-core/guide.md",
+      "chapter": "typescript/15"
+    },
+    {
+      "path": "content/notes/typescript-16-object-types.md",
+      "slug": "typescript-16-object-types",
+      "sha256": "428ccf604829daddbcc2be2c804148b90985b78d47ac5d3ee9bca5452d696b52",
+      "source": "typescript知识点全讲解/docs/04-typescript-core/guide.md",
+      "chapter": "typescript/16"
+    },
+    {
+      "path": "content/notes/typescript-17-function-types.md",
+      "slug": "typescript-17-function-types",
+      "sha256": "8b79bf5a47dc168a7d136cdc9d7493a1bfa116c793b2971bd59ca048246a6ded",
+      "source": "typescript知识点全讲解/docs/04-typescript-core/guide.md",
+      "chapter": "typescript/17"
+    },
+    {
+      "path": "content/notes/typescript-18-alias-interface-unions.md",
+      "slug": "typescript-18-alias-interface-unions",
+      "sha256": "dfba8c12f3185b5bbd2e87be00fbca0f9c64f3423a8e28115d6045e941192f03",
+      "source": "typescript知识点全讲解/docs/04-typescript-core/guide.md",
+      "chapter": "typescript/18"
+    },
+    {
+      "path": "content/notes/typescript-19-narrowing.md",
+      "slug": "typescript-19-narrowing",
+      "sha256": "3603bdebba7bcc4edd634edf285acc797cc2f4ec1c942fbd2a63b8f88e6d697c",
+      "source": "typescript知识点全讲解/docs/05-typescript-modeling/guide.md",
+      "chapter": "typescript/19"
+    },
+    {
+      "path": "content/notes/typescript-20-type-guards.md",
+      "slug": "typescript-20-type-guards",
+      "sha256": "56a82cd9cd913f41beb5e32e3086b81d110d530d71f3cf02b5a2476aad5ec1dd",
+      "source": "typescript知识点全讲解/docs/05-typescript-modeling/guide.md",
+      "chapter": "typescript/20"
+    },
+    {
+      "path": "content/notes/typescript-21-generics.md",
+      "slug": "typescript-21-generics",
+      "sha256": "5cbead20270f672cb5e689ecfc6e171c54b7c50ffec72accef1868ad5cf57de0",
+      "source": "typescript知识点全讲解/docs/05-typescript-modeling/guide.md",
+      "chapter": "typescript/21"
+    },
+    {
+      "path": "content/notes/typescript-22-type-queries.md",
+      "slug": "typescript-22-type-queries",
+      "sha256": "db1dd234ef4bd82ad03fe8bcb0d34c577e7699663b07b7e38e641e1b7d13a55d",
+      "source": "typescript知识点全讲解/docs/05-typescript-modeling/guide.md",
+      "chapter": "typescript/22"
+    },
+    {
+      "path": "content/notes/typescript-23-mapped-conditional-types.md",
+      "slug": "typescript-23-mapped-conditional-types",
+      "sha256": "88c37bf76098be4532948794cf5a3756fc0a18909a1db2a6231c9e00bb9c195f",
+      "source": "typescript知识点全讲解/docs/06-typescript-advanced/guide.md",
+      "chapter": "typescript/23"
+    },
+    {
+      "path": "content/notes/typescript-24-template-utility-types.md",
+      "slug": "typescript-24-template-utility-types",
+      "sha256": "40af6c1161531680d3f8d3e45f9525575509b64c3290b287989070b0a709d88c",
+      "source": "typescript知识点全讲解/docs/06-typescript-advanced/guide.md",
+      "chapter": "typescript/24"
+    },
+    {
+      "path": "content/notes/typescript-25-typescript-classes.md",
+      "slug": "typescript-25-typescript-classes",
+      "sha256": "c551b9161b6574172f13b4b629f0147a2188451c56e28fdffa657ed1c9745dec",
+      "source": "typescript知识点全讲解/docs/06-typescript-advanced/guide.md",
+      "chapter": "typescript/25"
+    },
+    {
+      "path": "content/notes/typescript-26-declarations.md",
+      "slug": "typescript-26-declarations",
+      "sha256": "226a462eed41b1e8621574169c68e46d1e6dc90da67e20360d50460820c1ae9f",
+      "source": "typescript知识点全讲解/docs/06-typescript-advanced/guide.md",
+      "chapter": "typescript/26"
+    },
+    {
+      "path": "content/notes/typescript-27-tsconfig-strict.md",
+      "slug": "typescript-27-tsconfig-strict",
+      "sha256": "011eb41c1d5698e85a2388b1d9fc30e32d329d878e2e68f084de24bdf9779776",
+      "source": "typescript知识点全讲解/docs/07-typescript-engineering/guide.md",
+      "chapter": "typescript/27"
+    },
+    {
+      "path": "content/notes/typescript-28-module-resolution.md",
+      "slug": "typescript-28-module-resolution",
+      "sha256": "0ea75ca2e908ffb156ff3949b80c71b5ef475f312cd31999cc12e7bfc4a28909",
+      "source": "typescript知识点全讲解/docs/07-typescript-engineering/guide.md",
+      "chapter": "typescript/28"
+    },
+    {
+      "path": "content/notes/typescript-29-runtime-validation.md",
+      "slug": "typescript-29-runtime-validation",
+      "sha256": "1b5aaa42a5f14521d58eb4db354fe4106e0fa9b23f96e96726b9c69032a04852",
+      "source": "typescript知识点全讲解/docs/07-typescript-engineering/guide.md",
+      "chapter": "typescript/29"
+    },
+    {
+      "path": "content/notes/typescript-30-type-organization.md",
+      "slug": "typescript-30-type-organization",
+      "sha256": "6d308bc68caea08fafd0a0ff2f4030143760e60e616f7ce1a54841a5075dd48a",
+      "source": "typescript知识点全讲解/docs/07-typescript-engineering/guide.md",
+      "chapter": "typescript/30"
+    },
+    {
+      "path": "content/notes/typescript-31-quality-tooling.md",
+      "slug": "typescript-31-quality-tooling",
+      "sha256": "2d3858d97996d3c250e97f1e4ca98a3e88168fe7fed22dea6aa77ebf151a415c",
+      "source": "typescript知识点全讲解/docs/07-typescript-engineering/guide.md",
+      "chapter": "typescript/31"
+    },
+    {
+      "path": "content/notes/typescript-32-react-project.md",
+      "slug": "typescript-32-react-project",
+      "sha256": "7d03ecbdab97ff5faeebf55cff8055699ae0122e8d572e7df16d5178805c4d26",
+      "source": "typescript知识点全讲解/docs/08-react/guide.md",
+      "chapter": "typescript/32"
+    },
+    {
+      "path": "content/notes/typescript-33-components-props.md",
+      "slug": "typescript-33-components-props",
+      "sha256": "e3abb179c5600fcbd8f23c0dffb5b9285d08e7189b2ca9b23cc344f962272225",
+      "source": "typescript知识点全讲解/docs/08-react/guide.md",
+      "chapter": "typescript/33"
+    },
+    {
+      "path": "content/notes/typescript-34-state-events.md",
+      "slug": "typescript-34-state-events",
+      "sha256": "3c15dfb01ed1d65a1930d4f49f1dbcd7b7e66f582e8c4fe0cbdeaeb5499d5627",
+      "source": "typescript知识点全讲解/docs/08-react/guide.md",
+      "chapter": "typescript/34"
+    },
+    {
+      "path": "content/notes/typescript-35-hooks.md",
+      "slug": "typescript-35-hooks",
+      "sha256": "f04784cba57f4d072158f6cd4a9bb3ff02c4a19f13331b0151c8e7ba26c358c2",
+      "source": "typescript知识点全讲解/docs/08-react/guide.md",
+      "chapter": "typescript/35"
+    },
+    {
+      "path": "content/notes/typescript-36-forms-accessibility.md",
+      "slug": "typescript-36-forms-accessibility",
+      "sha256": "5ac14c02e2bfcd5c3afc5c944301bed794351dfe7e250441d48b31cfb5ff82f3",
+      "source": "typescript知识点全讲解/docs/08-react/guide.md",
+      "chapter": "typescript/36"
+    },
+    {
+      "path": "content/notes/typescript-37-routing.md",
+      "slug": "typescript-37-routing",
+      "sha256": "2d27e8a33891c5945bc6f99cbe8026e1836b0256f90848a85ee4269f9feda096",
+      "source": "typescript知识点全讲解/docs/09-frontend-app/guide.md",
+      "chapter": "typescript/37"
+    },
+    {
+      "path": "content/notes/typescript-38-api-requests.md",
+      "slug": "typescript-38-api-requests",
+      "sha256": "bbd24e7289a636d3297bfd398cbf57541f42bd98b8f1488526bf36f24403795a",
+      "source": "typescript知识点全讲解/docs/09-frontend-app/guide.md",
+      "chapter": "typescript/38"
+    },
+    {
+      "path": "content/notes/typescript-39-state-cache.md",
+      "slug": "typescript-39-state-cache",
+      "sha256": "c84414b12cbb2b3ec680774344961cf7cbced019bd06264d7c4b9edf9ce2befd",
+      "source": "typescript知识点全讲解/docs/09-frontend-app/guide.md",
+      "chapter": "typescript/39"
+    },
+    {
+      "path": "content/notes/typescript-40-auth-ui.md",
+      "slug": "typescript-40-auth-ui",
+      "sha256": "2169c4a9c065817466fbf97b4d0334005b0acdfa2848332b9ecd6e1a66f3fe8a",
+      "source": "typescript知识点全讲解/docs/09-frontend-app/guide.md",
+      "chapter": "typescript/40"
+    },
+    {
+      "path": "content/notes/typescript-41-node-runtime.md",
+      "slug": "typescript-41-node-runtime",
+      "sha256": "7649379c3f478ecea8b8b1c10891764dcf48bc2e52d80ab558d3a23e277fb70e",
+      "source": "typescript知识点全讲解/docs/10-backend/guide.md",
+      "chapter": "typescript/41"
+    },
+    {
+      "path": "content/notes/typescript-42-express.md",
+      "slug": "typescript-42-express",
+      "sha256": "99fbcea53e73aaeb4d812077325cde52c7f397bc778531faa5ba3e9e77c837c2",
+      "source": "typescript知识点全讲解/docs/10-backend/guide.md",
+      "chapter": "typescript/42"
+    },
+    {
+      "path": "content/notes/typescript-43-rest-api.md",
+      "slug": "typescript-43-rest-api",
+      "sha256": "b35bd0f22c15a036587be2c662c1bb7158971bc7a240349f810e9ae948b6d3bb",
+      "source": "typescript知识点全讲解/docs/10-backend/guide.md",
+      "chapter": "typescript/43"
+    },
+    {
+      "path": "content/notes/typescript-44-validation-errors.md",
+      "slug": "typescript-44-validation-errors",
+      "sha256": "f5044cb9beef925383d77eec369386cc13362d43f84def1c234a649a02039fe7",
+      "source": "typescript知识点全讲解/docs/10-backend/guide.md",
+      "chapter": "typescript/44"
+    },
+    {
+      "path": "content/notes/typescript-45-logging-config.md",
+      "slug": "typescript-45-logging-config",
+      "sha256": "032650660c3697856d44e0bdb654e79db7e1cfc4ba9fa8f2b48aacab9d338ff8",
+      "source": "typescript知识点全讲解/docs/10-backend/guide.md",
+      "chapter": "typescript/45"
+    },
+    {
+      "path": "content/notes/typescript-46-sql.md",
+      "slug": "typescript-46-sql",
+      "sha256": "e0b3bd96944235e1298378af8273c5ad59f3f5169a3a4f69a7445897aad13f46",
+      "source": "typescript知识点全讲解/docs/11-database-security/guide.md",
+      "chapter": "typescript/46"
+    },
+    {
+      "path": "content/notes/typescript-47-data-modeling.md",
+      "slug": "typescript-47-data-modeling",
+      "sha256": "09cb5dadcc43ee16ee91edc7794c39b358f855acfaa352d3dd88dcf3d729aa31",
+      "source": "typescript知识点全讲解/docs/11-database-security/guide.md",
+      "chapter": "typescript/47"
+    },
+    {
+      "path": "content/notes/typescript-48-prisma.md",
+      "slug": "typescript-48-prisma",
+      "sha256": "4e63dddbf88aea8aa0c3bcbd6cff2d40336fb12e8f90202831cb64eb5b2f8629",
+      "source": "typescript知识点全讲解/docs/11-database-security/guide.md",
+      "chapter": "typescript/48"
+    },
+    {
+      "path": "content/notes/typescript-49-migrations-transactions.md",
+      "slug": "typescript-49-migrations-transactions",
+      "sha256": "a70bef6575fa56bd48f258332ee1cc03ba3660afeb5acf2ae3dc77b94a2ee5ac",
+      "source": "typescript知识点全讲解/docs/11-database-security/guide.md",
+      "chapter": "typescript/49"
+    },
+    {
+      "path": "content/notes/typescript-50-auth-security.md",
+      "slug": "typescript-50-auth-security",
+      "sha256": "7b398eb72788212a33d4c288f4a015de15f5db3df7dbec33f2cc0c6a75ba861e",
+      "source": "typescript知识点全讲解/docs/11-database-security/guide.md",
+      "chapter": "typescript/50"
+    },
+    {
+      "path": "content/notes/typescript-51-workspaces.md",
+      "slug": "typescript-51-workspaces",
+      "sha256": "4207c4d34ba608ac412832717e83dc5545898508aad2ffc47962461497e6e767",
+      "source": "typescript知识点全讲解/docs/12-delivery/guide.md",
+      "chapter": "typescript/51"
+    },
+    {
+      "path": "content/notes/typescript-52-shared-contracts.md",
+      "slug": "typescript-52-shared-contracts",
+      "sha256": "3097c7e6ef28499ac6fd8c9429e98359452be39b2b2fbeb3021e46ad514f31e8",
+      "source": "typescript知识点全讲解/docs/12-delivery/guide.md",
+      "chapter": "typescript/52"
+    },
+    {
+      "path": "content/notes/typescript-53-task-api.md",
+      "slug": "typescript-53-task-api",
+      "sha256": "5b3911740ecf682f203d3d74a0426f787df4812bfd37db8838cb78b5609ced8e",
+      "source": "typescript知识点全讲解/docs/12-delivery/guide.md",
+      "chapter": "typescript/53"
+    },
+    {
+      "path": "content/notes/typescript-54-auth-integration.md",
+      "slug": "typescript-54-auth-integration",
+      "sha256": "0b8ef7f16d152e108ad73a891580b28ce85e6148b8c082dd7e0ca40361cef57a",
+      "source": "typescript知识点全讲解/docs/12-delivery/guide.md",
+      "chapter": "typescript/54"
+    },
+    {
+      "path": "content/notes/typescript-55-unit-component-tests.md",
+      "slug": "typescript-55-unit-component-tests",
+      "sha256": "06d5c9d0afd7e23286f0e78a92c04eec5a6d58da4b7967933b17068b265f6218",
+      "source": "typescript知识点全讲解/docs/12-delivery/guide.md",
+      "chapter": "typescript/55"
+    },
+    {
+      "path": "content/notes/typescript-56-api-e2e-tests.md",
+      "slug": "typescript-56-api-e2e-tests",
+      "sha256": "38cdc9592a147dc26256f7e50b57c1ca76f49fe02df2648ad3fee0d35aba4f4b",
+      "source": "typescript知识点全讲解/docs/12-delivery/guide.md",
+      "chapter": "typescript/56"
+    },
+    {
+      "path": "content/notes/typescript-57-deployment-capstone.md",
+      "slug": "typescript-57-deployment-capstone",
+      "sha256": "933fe287acb48f3570ea9ebc4945fc90955c5773e4ae3c5825222facf9b106e2",
+      "source": "typescript知识点全讲解/docs/12-delivery/guide.md",
+      "chapter": "typescript/57"
+    },
+    {
+      "path": "content/notes/typescript-task-project.md",
+      "slug": "typescript-task-project",
+      "sha256": "3e1b2ef5b6aa67a4b7e128211522f12e48c48c84db2496c7c07dc3ce4ad07f62",
+      "source": "typescript知识点全讲解/docs/capstone.md"
+    },
+    {
+      "path": "content/notes/typescript-exercise-answers.md",
+      "slug": "typescript-exercise-answers",
+      "sha256": "73126420519b27a7576624b3689d7274167072e4e54a22614bbd62871c4bcfae",
+      "source": "typescript知识点全讲解/docs/exercise-answers.md"
+    },
+    {
+      "path": "content/notes/typescript-glossary.md",
+      "slug": "typescript-glossary",
+      "sha256": "800b080386436c3a430d8183d891ebc955774110ce87bde02758d9679de96b47",
+      "source": "typescript知识点全讲解/docs/glossary.md"
+    },
+    {
+      "path": "content/notes/typescript-00-learning-guide.md",
+      "slug": "typescript-00-learning-guide",
+      "sha256": "357852bc008461460d59c98e4dbdc9da7b5099f0817a2711e70311ed75ca16c6",
+      "source": "typescript知识点全讲解/README.md"
+    }
+  ],
+  "categories": [
+    {
+      "id": "python",
+      "name": "Python"
+    },
+    {
+      "id": "python-part1",
+      "name": "语言基础",
+      "parentId": "python"
+    },
+    {
+      "id": "python-part2",
+      "name": "函数与程序组织",
+      "parentId": "python"
+    },
+    {
+      "id": "python-part3",
+      "name": "标准库与工程实践",
+      "parentId": "python"
+    },
+    {
+      "id": "python-part4",
+      "name": "运行机制与并发",
+      "parentId": "python"
+    },
+    {
+      "id": "python-part5",
+      "name": "应用与项目",
+      "parentId": "python"
+    },
+    {
+      "id": "go",
+      "name": "Go"
+    },
+    {
+      "id": "go-part1",
+      "name": "语言与工具链",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part2",
+      "name": "HTTP 与服务设计",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part3",
+      "name": "数据库、缓存与消息",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part4",
+      "name": "促销订单项目",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part5",
+      "name": "测试、性能与微服务",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part6",
+      "name": "部署与运维",
+      "parentId": "go"
+    },
+    {
+      "id": "go-advanced",
+      "name": "进阶专题",
+      "parentId": "go"
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript"
+    },
+    {
+      "id": "typescript-01-web",
+      "name": "Web 基础",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-02-javascript",
+      "name": "JavaScript 语法",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-03-js-engineering",
+      "name": "JavaScript 异步与工具",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-04-typescript-core",
+      "name": "TypeScript 类型基础",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-05-typescript-modeling",
+      "name": "类型收窄与泛型",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-06-typescript-advanced",
+      "name": "进阶类型",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-07-typescript-engineering",
+      "name": "TypeScript 工程实践",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-08-react",
+      "name": "React 组件",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-09-frontend-app",
+      "name": "前端应用",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-10-backend",
+      "name": "Node.js 与 Express",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-11-database-security",
+      "name": "数据库与安全",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-12-delivery",
+      "name": "全栈整合与发布",
+      "parentId": "typescript"
+    }
+  ],
+  "technicalCorrections": [
+    {
+      "chapter": "python/21",
+      "reason": "区分标准库与独立维护的包安装工具。"
+    },
+    {
+      "chapter": "typescript/06",
+      "reason": "原文列举的是假值，修正术语。"
+    },
+    {
+      "chapter": "typescript/11",
+      "reason": "独立文章中的请求示例必须检查 HTTP 状态，避免把 4xx/5xx 当作成功数据。",
+      "codeChanged": true
+    },
+    {
+      "chapter": "typescript/11",
+      "reason": "明确 Promise.all 的拒绝不会自动取消其他任务。"
+    },
+    {
+      "chapter": "typescript/17",
+      "reason": "修正可选参数与 undefined 的表述。"
+    },
+    {
+      "chapter": "typescript/54",
+      "reason": "说明预查询不能替代数据库唯一约束，避免注册并发竞争。"
+    },
+    {
+      "chapter": "typescript/glossary",
+      "reason": "区分转译与类型检查，避免把构建通过当作类型检查通过。"
+    }
+  ],
+  "checks": {
+    "sourceFiles": 207,
+    "sourceFilesUnchanged": true,
+    "articles": 159,
+    "categoryCounts": {
+      "python": 45,
+      "go": 53,
+      "typescript": 61
+    },
+    "internalLinks": 691,
+    "externalLinks": 40,
+    "codeBlocks": 166,
+    "mathBlocks": 0,
+    "codeComparedToSource": true,
+    "onlyDocumentedCodeChange": true
+  }
+}

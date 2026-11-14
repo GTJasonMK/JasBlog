@@ -1,0 +1,1370 @@
+{
+  "description": "首次发布时间元数据迁移；原导入映射保留导入时快照，本文档记录后续合法元数据变更。",
+  "documents": [
+    {
+      "path": "content/notes/database-00-learning-guide.md",
+      "beforeSha256": "a106377aa2b46c4b3b86c328106b4b56c66935635c25893fd80cb0152c42a123",
+      "afterSha256": "46264b6012a6fc4e6b1f6fed7bda72ed0196a83bf00adc4760cef3925ef03185",
+      "bodySha256": "cee115eb9a5ea842d5cd21c8468768ff9f0899b6be736f841d120a0cf2791c75",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-01-environment.md",
+      "beforeSha256": "dcef8f1f1631029fcc08a11351e38fdd082ad3066cadf49a1692b76632101f2f",
+      "afterSha256": "4bcc6375571315e05ef0c495cb5fba74b4c18c825ab15187e0fee3bf20f9dad9",
+      "bodySha256": "8664aa0fcf27fc5af6487f31ad9d300d1e622e17ee6d7da8b97815a18a2729ee",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-02-storage-execution.md",
+      "beforeSha256": "f15df32ef19fb2b663e17e2b57df5c65e831c25b86feccc2bff6b6eebce64f6f",
+      "afterSha256": "e406026dc2ba2daa2e4a79b8030edc1b0021892f3909184e69ffd6a5e4d77949",
+      "bodySha256": "cc6acda744e91c7ca5c024dd199e7b7c1e4cdddcd185988c95918abd16f3a1c2",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-03-modeling-types.md",
+      "beforeSha256": "eb63b588f28c8b2a401d5c599152cf3e83674ee555c659bd9c811f6cbe5eb224",
+      "afterSha256": "f5c536a31a8dd6c47a10c5fff2ac350d51b9a8a3f50aee2222a5186c380a434c",
+      "bodySha256": "2beec462a0b6f308cd23aa844da5b76592fc1af556edf32bf0cffa54e64eb34c",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-04-sql-basics.md",
+      "beforeSha256": "1a2f2e47b56fa6a0e6c099414f17cd999296114af58e009bb938210355e29f61",
+      "afterSha256": "68c34ebf4ad2a7862a870479cde0bbc81999a884f3ab2f3c4b4ea63da170d7ef",
+      "bodySha256": "cb20522eb0ee10b5d502461de98637b61b8851ee73f0e4c9b622209381bc2b43",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-05-joins-subqueries.md",
+      "beforeSha256": "42ce09ac1a993fa755f2057286648038c4af987b8bf8a1e01822a5cf5a630f81",
+      "afterSha256": "166af8bd385610d34e0305ee847e62115cadbdc67e46f89301d499c4a1870ccc",
+      "bodySha256": "0f7c5a8c20a30fd432a40d14439774a45ffdb5ceb3d5b9c861d076d86fba7013",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-06-windows-reports.md",
+      "beforeSha256": "4a63d41840862a0c4c7af9f63830e7358595cc85590e015a874b2add04f05411",
+      "afterSha256": "64dd854d0a8567d95d180a6a09155084174877d88f30ce200970c1008fdfb9e6",
+      "bodySha256": "f2934ce8d0f962497e0194bf16d8d633fc03f83bf934107477fbfcfe846aa931",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-07-transactions-mvcc.md",
+      "beforeSha256": "5b3d20c556e963b540471eb8bc632f71392fe82b52fe66592d404ec895a40da7",
+      "afterSha256": "50e0fb675c4f2d59ccb8f8c70c8db259d613b6dc7cdcfa3fe6bbe88c4c63dc83",
+      "bodySha256": "11392370a541db9177613365edb1b9ab394cbe2925ae58fb5c612af7959c4f3a",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-08-locks-deadlocks.md",
+      "beforeSha256": "c780170528b1e327c590d97c7706fa4e0cff68ebbec7ee67ceea42486f1ce667",
+      "afterSha256": "f357764ae8c7c6dd8a8d360ee1cc0663a433c0ff3702007f39187d3b764a0c7f",
+      "bodySha256": "ec42a2c513e07e97a66977711c3cf1039aba681c77d050daeaa35a2c2fa578ad",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-09-orders-idempotency.md",
+      "beforeSha256": "a81fde457efdab9859f8de0b19a3b8c611ea31bf3ab02f4d1df5f011d286d30e",
+      "afterSha256": "1cb4325b2f1ace749d934167da33ea4cc7c4180208c11f0e1fa656e2813472af",
+      "bodySha256": "70cadbcbcbf939145fdbea1c640293f7b11539b7b40647e9a73a0daa9479b0d5",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-10-connections-application.md",
+      "beforeSha256": "1e3341b9f5e8aabcc5392f4c5383531c78e50063051cbdca3bdc8ef81c86f089",
+      "afterSha256": "57c70039bd6da268fadc9853c634af3f2cc8b9e649a52ec3cea88af97b52e647",
+      "bodySha256": "8fe01bcda18fcd6cc59e4758b01db481ad36cb1e07ff2fe451a003bf2ab0b866",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-11-indexes.md",
+      "beforeSha256": "8c17bb23b28c191370c117be9493de3522a6586d06a19bce551aab6ccddcdcbe",
+      "afterSha256": "aa8c05ad1114cda4525f898b830583bed247d0ff26f1c45595889733a5b6d8ca",
+      "bodySha256": "b82a2c8ee3849f037a82d893eabad0f2905d55b78477783f5aaff362cc2ba507",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-12-query-plans.md",
+      "beforeSha256": "7b80b371a6e7239bd11d44ab516ff65d476831e077e3f485c271bdfa2eb528a5",
+      "afterSha256": "b551866c221413f1e293dd0198802dbb428542078b9893ba8f44a500ae8d05a3",
+      "bodySha256": "0d8a77a0a9f8a8eba0610a4512c9540dd6a7edb056668ac43eb5fef55ff8883b",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-13-vacuum-partitions.md",
+      "beforeSha256": "fa3b94d626806800e3f58ded8ec041954344f6bc190fda6e1f372333361465e0",
+      "afterSha256": "b7e793ab3dca29482c9d2aa44e6b6226c6a3c138a29579369d66e63f04384f57",
+      "bodySha256": "c8b00900d7dc2cfb92dc5ca2ae9080de3ae404ffdbf8be4364c785993a1b3daf",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-14-security.md",
+      "beforeSha256": "777d6ee6490c26c46ae689c0aee9ef484d1794a1aaff155c5fa1074fcc181292",
+      "afterSha256": "e6f7f2f8f2cc48832d569ddd918e7fd187746d573b34760e4e143dc9eea94281",
+      "bodySha256": "dd0de81688f8977b826e4602ef0a0b9db37a89ca87e2e89dc55447b72820c3af",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-15-backup-restore.md",
+      "beforeSha256": "372acd2b5eefe3072f19c47fe566e3ae9d5d07262e29b9996351a822d0e32d54",
+      "afterSha256": "2acc125d75894d7cf1c3737dd2fadd946d7c2d983729454e9aebf811ab09f541",
+      "bodySha256": "3a84da370bdd9fdd797a8e963fdbb682f68cad908e6376e21fdcf6abc79fe9e3",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-16-wal-pitr.md",
+      "beforeSha256": "08d306b3f21261701e93fcb89fcf07855ba073825989f4074ff10dd643559d6f",
+      "afterSha256": "9bd51978738e9a730c08f730d25e19db11ea1a1a8bf72a6b78e1a856dd8fcd0d",
+      "bodySha256": "b011279b86c2cddb5c948db6082f1638f26cbc0987ffdc4d80a5bcff7fab7bc1",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-17-replication-ha.md",
+      "beforeSha256": "f8e31204dc81b43f4f397e3f4d948f3fc967ee0cd8de348b35452fc9ba84f732",
+      "afterSha256": "1994589317280593f13e8cd424c6f3d338af27b0bc0d737afc9ce58a228b6277",
+      "bodySha256": "6c08c8cac2fbcd18a53aa2106dd16f4e1fe68f8fc3523c67961f978b11865f25",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-18-monitoring-capacity.md",
+      "beforeSha256": "4bc0327b70f55eccbe530d62b1cb058f0a393d913e8ff5e9efa8a59cb928b2c0",
+      "afterSha256": "ae1a6c96be2f7c8f0d8eb2137e8656296c5a7333e3fc90febe9ce6f5a9e92356",
+      "bodySha256": "a64f8fc86ed9fada8a9627133f776647e5019222098e1c6febdba26a14561ebf",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-19-troubleshooting.md",
+      "beforeSha256": "b3c3c992557190651cce8952561ccb4e3b1d196d04cecb97f1020c6c5d187e22",
+      "afterSha256": "e00f8a8c98e6e2a2eccdc96e2cf67b82109e3cc7c140c38bb0ab7792a82ba981",
+      "bodySha256": "1ca786c9ea8da12e7a10d24d1241d6ae9a04439f9875584ce537ced18001e048",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-20-migrations.md",
+      "beforeSha256": "5e0fbedce19fdf12b661f3cd15cba3a8f41c7837bbe4147820cbd302cedd1866",
+      "afterSha256": "f233964d97850beb88f6d6d136dea408acd56364629958f2a6466a91375c6fa5",
+      "bodySha256": "bcc06067143770d9ff427e0ea1bc0d90770eaf3b6ca9aba15dc35555784715be",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-21-mysql.md",
+      "beforeSha256": "051a4da0baf0247ba864f3f7c851962610258bbe8e620bb7819354b13aea8897",
+      "afterSha256": "c652942f4d6f90d547ead0f9abfb8cbb2ac47778c24758a490c96ae57e45ef4b",
+      "bodySha256": "fd4a85286fe2f3e0f49d2369c1d5bbe6c6e891f900b0cf009ddd8097c56c2bce",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-22-cache-distribution.md",
+      "beforeSha256": "103442d69d793ff509289f272c7ed7696a996546f3ccb827b207bf9f0ad3895c",
+      "afterSha256": "38087f9969af3a10f6f53673d732bc71915082e6162fc45a34b4becdbb78b1e8",
+      "bodySha256": "bab3462943020047375c7d425dfc2d8d7b9f0f712c66f4c06dd37271dd5d744d",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-23-product-comparison.md",
+      "beforeSha256": "2b721f5073b42ac3c3ef45d7ce802312b3b342baf61d7a555cb84143fd4744c1",
+      "afterSha256": "a60cde6751efbdd632ad8d9d0147cbac8dcfb87c6b21c6367cbb6e3c43788d15",
+      "bodySha256": "5924f2aa6bfd9523764f9cd763451f9e088a2bb7f4146995fecdc6359b547f1e",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-exercise-answers.md",
+      "beforeSha256": "7c97174b61618dc1a22dd2729ec44bc2b1653506c4f34ee9f40c434d1d980687",
+      "afterSha256": "adab2fb35160bec1b0b5f6129deff765c911ee3a48e09fdff5ce664b3ff2bbee",
+      "bodySha256": "e2443f566030b7745141f9ae4b96e47caeda75b98229f97c25b34508cd94abb9",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-exercises.md",
+      "beforeSha256": "e4df25cc3c24b61d4b220c08904f9cde378a315d0ba19970e9ae1be347db5bbf",
+      "afterSha256": "55d92eed3911defcd6103ae38564ff43ee4ed14c2472bfb1b1c32595c0b595c4",
+      "bodySha256": "a6b7a2294b4d8972e8d214ba740d1183a1fe43eda582424790ddd88bd1a15599",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-glossary.md",
+      "beforeSha256": "e0d862e2319d71af45e780510de207ecfaab98d02822b3b9a9f6383ae0b7a422",
+      "afterSha256": "5ee8c7f33b61f07d06b88f972bfb38a6cdd03411e6d263c1cc8e2754682b3a40",
+      "bodySha256": "6ce57559f615fe5d33f36ccb0ae6e5bd9612876851a428cbac648ef9584fa261",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-lab-guide.md",
+      "beforeSha256": "0ec2c7b5592572f502f6960cb5900c1b8d2f4dfd465e5ba49f27ad51840d3756",
+      "afterSha256": "98e48edfb571d9f77d9c18218c16613a701e39e1baa19687312807da3dcf7acf",
+      "bodySha256": "1e02622d2c53d191a7ecedb6a0f40bb7f1aa034969613022b2154588deb7cebf",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-lab-results.md",
+      "beforeSha256": "7f1ead99494dc1e1de6a162dca55d7921ed19ca193fa42ea7d48611e66967b63",
+      "afterSha256": "a3858481fb7a58a57d939386105a7f1d420db8724c8ab6ff929c630b3a5faa2e",
+      "bodySha256": "11bb222faf6ab1317cf14e94a59e5628fe2f2d1c63885318550318b3592828fd",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-learning-template.md",
+      "beforeSha256": "ca895f1dfb87ccd801789c37508b18c710df330d1341fbaf542af8fa8f48a3bc",
+      "afterSha256": "c8563dc1d76f0ec1a5141629a9245f406e28263e4bfc95b80ac36dec7fe6cc61",
+      "bodySha256": "553a5fd01bfdee750a04fdf3e57d2c3287ea7f6f9335a3412341521f8453b4fe",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-order-project.md",
+      "beforeSha256": "dd70ea35561319953bfe75318cd3b1e7ca6f8a97530ebb90e33a388c00099fe5",
+      "afterSha256": "c5876b8f69f461c293baa7d50200b08e7730ef0218cacfd46c39f512381c70f5",
+      "bodySha256": "d090dd697441171f28d28d1c64245b3f2b70ee8e999d08adc0c2bf943d2eb63e",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-references.md",
+      "beforeSha256": "5314e22fe677160d7d676cea1d0d51192edbf10bb03dbe5858f44f16ea8e3ef4",
+      "afterSha256": "43cc1292681857759bf1f988359db73d98070d962635514345c361133686c56c",
+      "bodySha256": "904ba8b56f98232fd66ed5d8c93f44516d42c41cf4df1ccb9327197b2f82c220",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/database-runbooks.md",
+      "beforeSha256": "be1e3b74d1db80276c61e8e2335f2441e0e1652a8e0bcfbad6ae3a217056eda3",
+      "afterSha256": "6992bc8c407df955116696848f0ce4bb7e5b095c3cc3e4e67b58851432189156",
+      "bodySha256": "b6b1da1fce77dc4d8feec301ce6d2236fb18d5d4091c241de074829490b06a88",
+      "publishedAt": "2026-11-13"
+    },
+    {
+      "path": "content/notes/go-00-learning-guide.md",
+      "beforeSha256": "5ea094fe465e234ce75265a5e4a981d3c703deacfdf5ef5b7139b5a5f8ab2029",
+      "afterSha256": "b83a58752760d3d07d92acd1bb387b5e732f2d5bfaaae12125ba3a2c36514494",
+      "bodySha256": "b28fe0e9e15e3526e0a064ca9ea10231fa55eba230d34d659e99af8e14e8ab15",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-01-roadmap.md",
+      "beforeSha256": "ae4b28393ad4acc2ece723a6adf01a9a716bebf74d7c595bc03569b3125c73e6",
+      "afterSha256": "450172618767a73409beea334d03b61554400b562fbc9df1b3b1a60909560629",
+      "bodySha256": "f4b87158e98ec50622c342bc8597172d9a1f8130d8e5798835c21d579f31c0d2",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-02-toolchain.md",
+      "beforeSha256": "0e4003ca2a71eaaf876a61cf11f4b07d2a53d29f4f5ef2f0ad025539d8e705ae",
+      "afterSha256": "25923850e29baa742eb75910d174c8ff25343aad5303d8617cb91d15438b4cd8",
+      "bodySha256": "c9afdc5e3935a54d734aac6d0fdd3c4fa68d558d7c02037acf016986a0f0ff02",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-03-program-basics.md",
+      "beforeSha256": "81cfee342b11375ae72701d54a184e6d08a6639857522d14c63f1d21a67a436a",
+      "afterSha256": "08eb366aca3700dc29dbf8c5d21d61b1469d9f32d8c48bf174af44badee598cc",
+      "bodySha256": "7e8f66919e9f32da79738939725558446580624da3975b76634faa0005d541c7",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-04-types-control.md",
+      "beforeSha256": "ca96cd5cf0bf705dd1db6c6eebea7edbc0620d5e4cdd16b32f6634c7bc9a9f11",
+      "afterSha256": "568f2521e7274e917489672d6157e751c4578c7c8c2cd1a57548bc5cc5e439c1",
+      "bodySha256": "950787ea5ed6224f726802d38507b0cb292bd3684ec283457c0631e319a1b083",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-05-collections.md",
+      "beforeSha256": "7828fa5cadf5666b6c4701a743585eb1a3e829cf75e58bed43bff9beceb96806",
+      "afterSha256": "5f57fbb1a151b2c6b5a044f452d490a8240f1be5b53126f4d7fed61a8c2177c0",
+      "bodySha256": "64b054c3613cdbd9e5c22de034d933a096e8c7563eb712591777a92aff7913e8",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-06-functions-methods.md",
+      "beforeSha256": "125741b018c219e6394e2894fc1b595738507f9a2ac7608b3055408aa0f70f6e",
+      "afterSha256": "9bca7dfc3797a8b049c56bc78490cfbe1664a8479ad6681a29f2bea8e264b681",
+      "bodySha256": "231f224a8ab696cfc807b1b6a7c9010689d1d0520e32963a7095b08ddbdd2b16",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-07-structs-interfaces.md",
+      "beforeSha256": "d405fe071cab9fe30547a04174b0b84d71fb1281bb037eaa8725d5eeb80c07cd",
+      "afterSha256": "d45e2826507dcc9013c8935acbda865f12c4b67a5a024d076e391c775a24de20",
+      "bodySha256": "8d03388dbed258c91169bae0a18e020d01f0a2ccffd6fdce2b0ebed6dfe47e00",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-08-errors.md",
+      "beforeSha256": "cbddbb09601af66a0f8bc7bf2475b9ed4fe9af62da19cd74391fcfae111a06ae",
+      "afterSha256": "9f788b57581c263802c8edeacd48753acd3afb9c6d3eee4481aca4f1b1b81ddb",
+      "bodySha256": "7dffea45c7724e418db90d5f5aea40529ff8f011d894368e32425d76e4be014d",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-09-packages.md",
+      "beforeSha256": "92d505fabf87d50030ae1d39af399efb76b57631cbe25464c3cd70aac47aa193",
+      "afterSha256": "84ceebb7fadd61ed4bf13d24a2cd5170e8a2e27189f4add394b50c54ad5040bc",
+      "bodySha256": "247e52b6f4ed1378493a2f31d2b1b5745ac20bd983c968c1738a830f3aff2882",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-10-concurrency.md",
+      "beforeSha256": "bb16d74e46f22b39a60cf66f59323f2acb06925ecf10730095569866ad463481",
+      "afterSha256": "be62682a940dbfbf72b8d3139f389bddcacb0cec36dd6977bb0187d422912f90",
+      "bodySha256": "54f29f073ff9d17155690b03565f735adfb9aff6bdf5b3e1270c3897a494b37c",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-11-sync-context.md",
+      "beforeSha256": "93706faa05b73107e9b4edde1d101809b4845061c85c3461910a14c9a562d48c",
+      "afterSha256": "338a8b28ebbf7fa4847f58d56f68392fcde8c75208cc07fa656b1134932f5bf6",
+      "bodySha256": "d8ce643ca44b80f9423e9021262e4a5e460f3947abedd38e5445319daa0cb59d",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-12-memory.md",
+      "beforeSha256": "58331286ed0f44a7e9247eee222f0460fb6bdf06397373981cdb4569ea54be58",
+      "afterSha256": "4acc09b1efcb438dbae37dec3f4db0f9183d76a6767e259084adb76bc0bb96c2",
+      "bodySha256": "c0e40ac79d4be76a4caed86bdc3cd05ca485eead808d75b6f624fb146fcb1d82",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-13-stdlib.md",
+      "beforeSha256": "386d31accb826f86fd214d911e4377347615e5d9ace75b53f33aa0430d094ad6",
+      "afterSha256": "84119e3e4ab468a5b0c5e0d70bbda290722666a2d5623c367a20f48979843c76",
+      "bodySha256": "ca4515049a4f4cf82c8c2fc24683d05d1573778c232526986a0356ce8ef2da81",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-14-testing-tools.md",
+      "beforeSha256": "5c7efa735026387f02a7a184d2131ac7e5c3d7ad79d6bb8fffc70fb0a03eef5f",
+      "afterSha256": "3135cef12849fce7777538ea6073f95bb706a16c962969daeffdf23637835b05",
+      "bodySha256": "68848824209f9f35c5686f8a888ae61cdf8f81c18ef05aa14a143d9524a3a7b3",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-15-http-rest.md",
+      "beforeSha256": "a0a732fceb5e024f4cc8ed9694ac9f98479dc7bf96ecf4e3f845d5d279dd980d",
+      "afterSha256": "476902e9a4d61e873d24540a986d10349e382914a81cbc54872da33f3de4ce5d",
+      "bodySha256": "31b2416b0b4cd7c5035835241038ed3322cbcaa1de7ca25ce6f8ed065bb0a5cd",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-16-net-http.md",
+      "beforeSha256": "56b86e75451421fae1e672c053322689e1c281fc17e65b97f560b20c1fe231ba",
+      "afterSha256": "832bd7f04252dc55442a9f03f4533aa0b9139acabfe7452ddba03d024609ea06",
+      "bodySha256": "96ffc7d14c992535279c7d2f423005305323ea72e6c03584bf4c1103e76afa1e",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-17-gin.md",
+      "beforeSha256": "26b807d574f6944dfe481333a3c3aafbe3abbf9a34adde794dd0281766fa2b59",
+      "afterSha256": "c819577041146abbc136106fffbc2d63856b62c3423dac81b7da914360d1c966",
+      "bodySha256": "607268ccad90d9ef880bf75e347e5bd9fa7288a6c30bfed90fb902c85f12216e",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-18-api-contracts.md",
+      "beforeSha256": "4ed33bf6859913173f39a29727b2cf9d302a77eec117518862d8b0caccb12c6d",
+      "afterSha256": "38f607e81b4ffb22ba43d1c8fb0607efc76e8e33e7f2ae69d3f996c9bc5bbb32",
+      "bodySha256": "24a7d6f6e4d6fc3d75846c356d6bc091c9d20dd8243b7e0285f9dab2360fab0c",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-19-config-logging.md",
+      "beforeSha256": "5cb15aefd0f07457453cb3488b871bd42ba9db5e4fdba306c31fb4a145554fe2",
+      "afterSha256": "76c5394b8b6ac146beedc4178622fe6b71d0402527a9fd552f6af63088cf8ed3",
+      "bodySha256": "480269e90441e8698635ee13a05f14039eda2debcaa953346bc1a088175d1037",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-20-security.md",
+      "beforeSha256": "7cb3dae6e7630086286948fd45eaef5c136915ddef2a7f9a26bfa2c4e3e2e67d",
+      "afterSha256": "02e68ae8c88e7d092ab26403996bab9cae38f8d13bd10b25ce6c1aa18aaa2771",
+      "bodySha256": "ba7e5ea59a455994ce109c6b740588a833211dc8dd4a2f247e43fa678a3baff0",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-21-mysql-sql.md",
+      "beforeSha256": "cbc1a2d3ca02fe878d958bfc6ba929c5e615f3297f553a516152bc726a716771",
+      "afterSha256": "5d95f86f7db9151265fb3343c1555701f6fa0de5dd558d94f144048ec9924871",
+      "bodySha256": "742e6a94940714c2775046250d4b55659b1bd69fac31267ff54681a5c0b2e9ba",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-22-indexes.md",
+      "beforeSha256": "fc2865a37c23d06b64789ee565b9049da0ca4f3bb857307790427b0379f766a4",
+      "afterSha256": "0e5ede9bcffbc6d1a7c0d76f50af0dca4a34ea201d034bf6ec96c7f3c9d3ccd5",
+      "bodySha256": "bd420d3180336984e5ab56c7807b895473bf8e70d4664508a75542d4505c3ee3",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-23-transactions-locks.md",
+      "beforeSha256": "85ef43b0b851828dde20c8e833c3385b084a593104738c597446abc522a83e10",
+      "afterSha256": "55c397eb83140673975d3b8bb6221070b45699e27d8cc26cdc4d28f0401f8560",
+      "bodySha256": "f3f5ec9407e4dc7969b63b4e8e173057d3c37ac4332e08442713f5e3ce19e057",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-24-gorm-repository.md",
+      "beforeSha256": "540437074c9b0735d498064cedada737d744ad0cfed18aa56e71a06a740ec8e7",
+      "afterSha256": "f1c29dfdcf983543188363dadca4db7603ffaa10209cc9ab7c7851bbdb319ce0",
+      "bodySha256": "9971de9b43a3002e79ca0dd15c3a3e02181e9c7499fa94d9632cb783b8aae575",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-25-redis-cache.md",
+      "beforeSha256": "725c062d939da18822d5e4620a952105d8065bfdafaebaeb6ff8c8de98fa01f2",
+      "afterSha256": "0fa2c7ff4e0a4bb38ab1d6dfd950d50feba3be47d43f1bc8f06c99db4423e518",
+      "bodySha256": "59afe3b5b68c7b828db4c3df23939eaf486d518700ec1889b4c4530d519dedc5",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-26-redis-concurrency.md",
+      "beforeSha256": "f1eb1bc6073db3102f40a3dfa961fe75846c7ce29d2d36a6088553fc730ea4af",
+      "afterSha256": "2e3bd7e300ed4b84cacc97e372246ba59860ff32f6520c984a4d1f2ed9fe14e7",
+      "bodySha256": "2fc037683610515be482f93f2ec035238cc199bceb49f0b944f6243f86254f38",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-27-kafka.md",
+      "beforeSha256": "2af54193f9a98c5f93d18a464d8c5fea85313feec6852a6f74310042ae7bebac",
+      "afterSha256": "4fd905182600815977974502f97d685dba9cc33e094915112236354634b388c3",
+      "bodySha256": "2c1a0db8a32630785ca70343bb4002e7bf307f798463e1c34e3268dc2d26e7b8",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-28-message-reliability.md",
+      "beforeSha256": "69941ff42e327cd58bc7b8cb633b8074771aa95cd2b40cd408aa6bc4fdcd5b64",
+      "afterSha256": "2b2ad57c3ebcea92b083c20e3c7d895eb615d1f5e90e4619938fd166f1fd3f1f",
+      "bodySha256": "51dc44af41ae4d9f8c0d4aa5ef533de14fbe3d61ee5491788d9df41e6f5839fd",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-29-project-design.md",
+      "beforeSha256": "0983371082ba0d2e2b590891116b8a701806cc991804baee3c29f654d5ce6f8f",
+      "afterSha256": "bb4e5952477bcb0202990a47fdc1ad6947eac763dad3268744b862869dab917d",
+      "bodySha256": "a5c001a42fad8f3b085e1d4b5baf3a767e2c8f938e457877ef17d909507953b4",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-30-project-skeleton.md",
+      "beforeSha256": "c04892c3036497fa51e84ccdf1bb634e3f91fc5b92b3b729bb1e6f4e26adf093",
+      "afterSha256": "560c8e0012a6bb69a2bb867b186e0d3fac0780a8ae50591ab77ff0da9c7c2b54",
+      "bodySha256": "79321966901652fd2bbec807c847310c5527797c53c4bcd33f1dae7646155f16",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-31-catalog-campaign.md",
+      "beforeSha256": "adb4c66066990735318de0a0f6610011e734dd6c2bb5a2b31d93e59b13fc3edf",
+      "afterSha256": "09695a6de8df0683c7b37ec71c1c1c9472d0cac897e3a1cdc0f6da93347b6dae",
+      "bodySha256": "2bafec81be8c2370d1b3b76299a357080d0dfede142d783a7a0dc0036a342b4e",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-32-order-inventory.md",
+      "beforeSha256": "872fb3ee09e58527c2893a4b528e3517d52caf7dfde7153dd95fc05308baec78",
+      "afterSha256": "c5278e46720da755df443f4e7284ad5628039f95ee838babfa7903dd8dc29078",
+      "bodySha256": "b4ae0fc66a02d4984c92bf0169427fcd3d51aa675e62df7b3162d3ae0b1804d9",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-33-flash-sale.md",
+      "beforeSha256": "b1ecf89f28e9276ad4ca6ee99a2705229f556c64c57062de51286e274bbf538d",
+      "afterSha256": "4567305eeaef2f21a347d81b343c6e63d8d1b56357051171e32139e2995ab597",
+      "bodySha256": "9dd232d41aa832b56b77c93471c236153f0fb31ecab02b8079f1081f3e780984",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-34-payment-reconciliation.md",
+      "beforeSha256": "99f899f341ba0be4adce7ef76dba6a38e082cbcf512afc3e38655da7e6318076",
+      "afterSha256": "d522f05503da15c9e1e36e227cea48d0150e48fff47008f332e04de89bd3519e",
+      "bodySha256": "a6faba33a463616596fc51313fc0e0ddb25c5b70c8aba428ac9f4605a5f1ba49",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-35-test-strategy.md",
+      "beforeSha256": "a4bcbe3df5dcf981260c466769bd9c8f719a6bfc3515c8fc3d6ae7343e750cd1",
+      "afterSha256": "8b553f2694e54f1e829760ec983ca6a29781aada60d8a32a428e663b77479114",
+      "bodySha256": "cfa59b7dec91251a1bb783ddd68d8c6c31553e4c3f0b6fb4f6ca287a3f216714",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-36-performance.md",
+      "beforeSha256": "a07ef3d6e215b5c9c271d570a49bd98ce176a36da111124378831b30300f2ee3",
+      "afterSha256": "cc6fbc83c7af37ef0afcac56994c586eaffa621f3e1edb60f29fe015265f004c",
+      "bodySha256": "a7109ae8174ebfe1e2f38304b802a9a815b7b158c0b821bacc5cbd22f5a54762",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-37-microservices-grpc.md",
+      "beforeSha256": "e1b7dfaa40d223bdc35e869dd5d78fd211f92890892aa61db64df1bba8ec3d55",
+      "afterSha256": "d4386dae6382d621911a5851a539214b4e3aef1585cb2e3b1f81c4083293bca2",
+      "bodySha256": "f4b444856a0d55f6b5a21ae5ec44367565e42f9e927f495286f57d815b4429b6",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-38-resilience.md",
+      "beforeSha256": "f50be0b99368240f43fe5ab8791e3fb9bd58a3cd88a62342de6fe443593896dd",
+      "afterSha256": "8f8f7835b88e56f8319cc73b1893030204a684a299ab602986411af2e12e96e6",
+      "bodySha256": "e6c99448554b288478e2c069284509904fc27d5c76f55008c4b202ec442cee92",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-39-distributed-data.md",
+      "beforeSha256": "0c6473ee9d29b932b9e8715176d49b2fdf8e8430ecea82cd05f91d705bf5e321",
+      "afterSha256": "7c6eab29c63645c4c1efbad8e7e21d8c165e94144898b28cba244e4c2baf7e24",
+      "bodySha256": "e6f801df25e1af244beaa311eeb1bdc48619013ff5cbdf90955e6bbb1a7fe803",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-40-docker-compose.md",
+      "beforeSha256": "7636ae27574e94a1bd597f64c435724ae20788f9caf863a5a2f0b4cf526e83a9",
+      "afterSha256": "69f542d7aae06aad28eb458e1dd3b6171e0b9f9db39557541bc6f79c15aed4ac",
+      "bodySha256": "8ba2b918fedb752368a71da1c827d113c9b4702d0c5bb19d28331b61ebe0e563",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-41-kubernetes-basics.md",
+      "beforeSha256": "ddd59089bc5db2397f86705065218dbd917ef3ffd7625f30d858e776cfe33b15",
+      "afterSha256": "927bdfb0b9db0cf9dc6b11478e6a45d5d4c1479f597ca106ecd1d78945bfc758",
+      "bodySha256": "8c0241e7f51c9dcf8c1c80c3c43fb10f74a0d8c903c0494c4f532b44677270cf",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-42-kubernetes-production.md",
+      "beforeSha256": "8f48567ad4cfd44fe9399eeee9e35c8cdc7206c3b971d4cc84a300bd08e586dc",
+      "afterSha256": "eb4482c9a04ab0416b9fe898c9e9dd9f326a1593fb3dbb8636003f5dc1919370",
+      "bodySha256": "796f3ba150c9a4492a8f990289156d388748733e3fa8850e9c1f4dcf30848b7a",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-43-observability.md",
+      "beforeSha256": "a84d7e791db312109d060788f2207491789ef40f59407de6887190b806d76fa9",
+      "afterSha256": "0fcaae69af86ff40adb3f31094ddb88a9aec33a2ebe1448b000ac799d33c971f",
+      "bodySha256": "6bb34ec0feed81bc51e5d4b5409d520d20a658fa10c9381015598905534f338b",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-44-cicd.md",
+      "beforeSha256": "0bedd5df76d64b66fc93998883b392881062d11ac082fc9f91c7ac3ff1d0f252",
+      "afterSha256": "c193b99d47e46db8a659ed3517bb1a319fa81a32e6259c7810ece699d04455ac",
+      "bodySha256": "8c45b5a072632455c2880480b41b9f720ceb9002d9cda7ce71b1995ecaffd803",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-45-operations.md",
+      "beforeSha256": "ddd1875969f412a4ffe16f4713e75368bbc5e9a1878f8d587c50307f53d5736e",
+      "afterSha256": "fe9df14ecfde5ed7c6adda1e2a29b6fd63b5c869f1b9cf562dd521245cb7831f",
+      "bodySha256": "304272e8b69da5bfcb1744a103a1864b6902f78ee9600ce5e531292e36fc772c",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-advanced-01-elasticsearch.md",
+      "beforeSha256": "56b401f124303a7244959240f6dc5812f08102f43df46ec8e151715cfc9a7c23",
+      "afterSha256": "3fc43a4568a56a46b482e254ef8841ca4fe71555a8e123591fc4ead2266de2e5",
+      "bodySha256": "69051327cae0c9725e1dc49db87dcec54815178c4330100c6b06c7c8bb2c0335",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-advanced-02-messaging-choice.md",
+      "beforeSha256": "5f4a04f676e5cd500720ce10adb0b276dd502a733d0d9fc68891ee93d887a802",
+      "afterSha256": "a7c9399fbbd4f3a9b572cec870735d1b0184ad7ed55246cf4b19dcbf68bc9765",
+      "bodySha256": "8a4284a3373095e490876f1293833b6e8b877246ed1c8e4105bf125c14126975",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-advanced-03-database-scaling.md",
+      "beforeSha256": "846979c75fa610a37ea4af4c8ee01f48ff25015c5273f1c4938850c10febc447",
+      "afterSha256": "14a9fc4b28622ff402ccf454d212621d3ad727e22db8a339d36278c205064822",
+      "bodySha256": "dea0f87af20a51b145c410122bdea51127fbc67dd289d8b7e0ee4260bead1c15",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-advanced-04-service-discovery-mesh.md",
+      "beforeSha256": "52fdb67a10691edde9a1e8a08d609ed181042c919d4b59d08eae897a32c7b7d2",
+      "afterSha256": "51989a3eb79e9768f7ac0e8ec6cf5f30f4279334b9809fd7447f3c94d574ba42",
+      "bodySha256": "ab1509ce499295f54fae1d778fe145bc4f64937174b4e396b84fc75cd8066988",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-advanced-05-postgresql.md",
+      "beforeSha256": "3f0e83cefdafd06144f49ee6877cbf8d1e0707c5e9966d0f25c4da423cc88a3c",
+      "afterSha256": "3be35305bfe8b49f0f5015204b07c93ea95ab11b8a08721ec67dc4b262b8390e",
+      "bodySha256": "43156a79ccdbcac304a0259f1586e905b91124fab22be2d2d7189ba2228be980",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-advanced-06-networking-linux.md",
+      "beforeSha256": "51f1108f2445a0f232040137e53ba7ace9e8109709bea4e8985086ae4a6a75e9",
+      "afterSha256": "41a0b452960a97bd8406e24d75b724cf4d4240cd3db9166af8f70bd0e6f8408a",
+      "bodySha256": "dcd82928f70d04b2a23898e5964370aeec23111bf2790d66ebfc605a8058cc07",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/go-reference.md",
+      "beforeSha256": "e28f585c60c7a13189dec0bea5e5243d828da4fed0c0b94e93175ba7d508d3a9",
+      "afterSha256": "c3b2ff9013db18d142389deb90a14782556ed64b8be98cfb0ff6570b461cf8e5",
+      "bodySha256": "f99f8a1f3170de129c39f7af04add1548304b645b58816c2f3b5536cf6d5f3ea",
+      "publishedAt": "2026-11-11"
+    },
+    {
+      "path": "content/notes/python-00-learning-guide.md",
+      "beforeSha256": "605d9075ead1ff8dd1518af155b93400cca672f1994ab43c6386f91b4bd7d2da",
+      "afterSha256": "e2191085283aca28baf9cf132c98c3538d262c5f63d3c3284665d962027fb883",
+      "bodySha256": "c0d91573df2cb21b36e75634887b2520d253ef5d1797d3dbea453c027a70d6f4",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-01-environment.md",
+      "beforeSha256": "798e3d72cd248f3e783e9f36252efee06d1415ef7dbc5e74d905537d18105c2e",
+      "afterSha256": "9a373dd710447b1a6230095b5421fb18c3839c96c14d6d8f8fae59ed54d6ce8b",
+      "bodySha256": "3e43a6b6b2f7f5938f65adec63668d72d9846a7d77e9d5d7654d54c5aea90af8",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-02-objects.md",
+      "beforeSha256": "430efb8343f3ffa8e3bf775728750fb6ddb66e04a4e88b6ccba228f8df130736",
+      "afterSha256": "ab2b56a26bf5e913b3cbc557b4f67af2322b04c380d59bd46b22c39b902f1baf",
+      "bodySha256": "68bb27a7ef3e9a92f2b68c511ecb3cf2b3de2f338ae378493dcf4b637bdc52d5",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-03-basic-types.md",
+      "beforeSha256": "db1a90b95d8aa431d8a442654f78577ea751546c652d1ff2755f9d7e33abb006",
+      "afterSha256": "57d535742ebd0b7b8be687931adbb996e3dee76306e809f8649fd46cf959593c",
+      "bodySha256": "6437e2fd9110fa4ccdbab62c4ca6bbb70e5e51f819244448775353ea313d7fb5",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-04-strings.md",
+      "beforeSha256": "964c9f615a8e6bb29b8447d2630980f032132b34bf38f3fe1c86ee0af516acc8",
+      "afterSha256": "6dfdce36f9b5ce35ce50158f6ae51245a60e757af8febc3fea7e499bde5e0ef1",
+      "bodySha256": "eec04601217564e2c611f4f779b88775811fa6c93fdce5be5344222d930e4df4",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-05-sequences.md",
+      "beforeSha256": "516bca3bdc4659fdea5afd0ff020fcae9c0fffa4f2ec46b117472d9b1234bfde",
+      "afterSha256": "5ffd254aafd2c9f12aaca006ddcc5c0c959b18b44dea771b7417703ffe49e23d",
+      "bodySha256": "632d0b3294a76640f29d08c218e1f1e1ae58541fa746d5b67003aab6f77a4fc4",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-06-mappings-sets.md",
+      "beforeSha256": "0720c7cead537ec6eb772fedb1f0d39420a06497150868a5a559f9833e6cd5e8",
+      "afterSha256": "455eaafef0f3315c2a2aae14a9e09eec2b1f4cf7474794027894e673dfae60ad",
+      "bodySha256": "1c9640f01134a4cc5b20515615cc4f929d147ce373159386a7263c8359b3caae",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-07-control-flow.md",
+      "beforeSha256": "0bb0dde65bb8c0fb56866a0b9f7b742a4491104201d490e9e5d8d9d69ea1106e",
+      "afterSha256": "7721967208badefd33660c4ee2c6de229775cebcca45a4283d59207fb2491eba",
+      "bodySha256": "4b69ce894585675957c74668870acc25d247169bb6a6b15913e0ca363c9047c0",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-08-functions.md",
+      "beforeSha256": "8201907fa7dfa726dcf0a34533ff8a522964a06fbea4f2858ebc6a2bad7277c3",
+      "afterSha256": "8c475969560830cc7b33d6b43dd98ad803dadc4207120e54b27dca3cf1799ce4",
+      "bodySha256": "cc086771e6ff54eaa169f6616cea1a924b5c8b45774d320c00fea124bb218b3e",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-09-functions-advanced.md",
+      "beforeSha256": "66adcda6a2e66d2aea1fae74583037cc207fa6b281ee31999e10546008a6ea50",
+      "afterSha256": "e2d2f6c6937426d27baafb338fdf6c39d9e5c521254ee77e0060d6c1b9b30fbe",
+      "bodySha256": "8ccbda111eb47d8cedd688f2fb8da49a3397f27d065457e9e4447e7583cf135b",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-10-exceptions.md",
+      "beforeSha256": "cf84a728209b4a8db3f6c065fda2db57eb8d94d11b3b80ee2d9880f8a49e301e",
+      "afterSha256": "39be7fe8217038c66e92e50fc942083ba9978559aba64a646b0fb265029e975c",
+      "bodySha256": "f493f2b550c8dec819dee39714d2557c6e91155c2bf0f4f4ed5e8f9568b4d8d3",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-11-files-paths.md",
+      "beforeSha256": "962ff843ae457f2d9de4b2685f5129964ef3bf951ace52fe44bba9d88bc5474c",
+      "afterSha256": "cb5cd8dfc15466f4c9ca45d4c057c24e932c9099e48177cb03c464ad9be63c1d",
+      "bodySha256": "45e800491f146a4e9f176d13e5b57cb38b6603e39946cfb74d0ee726e557fb8e",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-12-data-formats.md",
+      "beforeSha256": "d6173cd1195456dd273007267c6dbf242a30c890b135596332999ab1e9b21828",
+      "afterSha256": "84c7c6268093b732b8f0f2bade5a32317f22bcea2f119f014b3dd9a2ce82249a",
+      "bodySha256": "ea038fc02b79b5849fdccd1331b783c30aedd2176bbb7cfdbbc367e26f11e69b",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-13-modules-imports.md",
+      "beforeSha256": "d174f7f46f69136668b1077e83b8a4ab2273e2b366c7266a394fac58f774d4e0",
+      "afterSha256": "0f81f0726c3e28e2d71bc12dd6a97e88ebc7671f890c178ffc2b0e695bcb17ae",
+      "bodySha256": "e61d8d40f98a83825f6f5d40c4b71c52ae96c33a3a33dc3f9ff646abc1407dd3",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-14-classes.md",
+      "beforeSha256": "cc953778dfbb71100857e3145b0e3664d83abc45bb02086b4abaa694f9f06372",
+      "afterSha256": "abeda2530e98a56dfb25a08856e58f3ed0a05fd3833588e3e136b911664976c5",
+      "bodySha256": "3421b49133cb702ab89e4db8792feaea73537be74f86b72b362a62aca792bac1",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-15-composition-inheritance.md",
+      "beforeSha256": "11166caf1e36547382f394a0704355368fa7a84436091cf8bdd35492d942a2dd",
+      "afterSha256": "4be38196530aa8b7011e6d11cc33ab2f26afffbfdd1c7c69b67add86d70957f1",
+      "bodySha256": "8aa6b412dd8ca80f9f02977c0e4e6ad725e404f74630a943c6e7faa25a5ad9b0",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-16-iterators-generators.md",
+      "beforeSha256": "07991d5dcf78b092f1a54dbf0498884ce9c9b8b2a6a2b6e2b432c90d0e35ade8",
+      "afterSha256": "082f5df0ab301a18bd57cc5c50c6ea3ea93cb6ff38079483cebf196099186b5d",
+      "bodySha256": "0bd26c717243b2e655f95356f54c59c19351e4415f6aa658195daf8d385878fd",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-17-decorators-context.md",
+      "beforeSha256": "161197dd735556adb5cb68c29ab43326ec6cae53d7bddeee03ecc864f6af000f",
+      "afterSha256": "83f30a8bbd69ee134697eedb5884b1b50eb8e25bbd52ea7e71a4afe8d8c1ee1e",
+      "bodySha256": "e740425fd88011c7fd9d69bc651ed8987f563e373c882b6d3751c964ad0d3d4c",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-18-standard-library.md",
+      "beforeSha256": "4434e0acf49a0cc1fc435d84b9a3580cdcb1a44882bb0df7992d252b186b0196",
+      "afterSha256": "922aa72db473e936ade1bd6b73902a214cd32e6b99bf1aebb64cb226ed92c6eb",
+      "bodySha256": "af9918da5a4190033aad6b1494b831586124292c37f86be5de86baa17fb1d4dc",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-19-regex-datetime.md",
+      "beforeSha256": "f475c0f23eccfe86160fcfe70f97cd7167a8f683e840cc7b1851c58ea82974bf",
+      "afterSha256": "c38b72c354476f722585ae63cffa338bcc62d5c070f40d6d6d831035523cd10e",
+      "bodySha256": "f610c227dea26159349bc715d5a0fd9e487aa837816e0f9db40f8306b98e70e2",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-20-cli-http.md",
+      "beforeSha256": "5844177819b42031311322f279cc41cde2447dc45443555408b0922878e56bb3",
+      "afterSha256": "2eaeb858936cc44dc052942e97ec9371c28da7096ec64e06b7fe8d75f3bedd90",
+      "bodySha256": "faa3fba0f18fb82a5ccd9f901007262da24a1545bf21879d37bcc549ed5a9c14",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-21-environments-projects.md",
+      "beforeSha256": "7870555e9d7cabe4a1428179e0c89cdfb2d3ade36386ceca74d21daec80ef2de",
+      "afterSha256": "9704dcdf986936296c38604eab8a29cc821b993ba20cfb7d2fd11cd4cb630d77",
+      "bodySha256": "456941710291aa5a4075de905879cc0f349128047f8818abd2f552b92dd61604",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-22-typing.md",
+      "beforeSha256": "7a157d4fccfe9220ddd4772dc443249cd06db5a68c1f113af7276426b3cc289c",
+      "afterSha256": "729cc35410d57fdb3d80b1c0c97e2c71f4b7041da90b4c8b860cd9be330de3ed",
+      "bodySha256": "ec7792e44a9892f53bba29eb10f76f3dbcf33525f6fc07a62f801dd8ccb581dd",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-23-testing.md",
+      "beforeSha256": "01734461620bb57b1d0d1c3c2e2e598da18cc4909edff15320d8c18eab34807f",
+      "afterSha256": "b63e54500b4dfee19f300045616c9ec99935bc8ac7ad04b07df0c29f6a3bf60f",
+      "bodySha256": "7d5cc198a231e5eaa4cccd2df8d26c51453f5142c74f7c776a610626a9ea2209",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-24-debugging-logging.md",
+      "beforeSha256": "9b10f52043913d5e7ff4d24942d77fb311c0ad3a08e4393afe97b0d3027fc8aa",
+      "afterSha256": "a1027c62eccab94ef910633cb2f3320f0870d518953e096065a835e22d7e3c88",
+      "bodySha256": "79dc77ca3fb0e5d8253a102de197d98f8ff1d235126a5969038fb31d11ff9f2f",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-25-packaging.md",
+      "beforeSha256": "1e7c6cac2a1bcd519fb3955bdd639387a34683fe24814e033661591d8d5b403a",
+      "afterSha256": "f8101cec7c86f6bee66967861d2c353707a997bacfcde885759016cf7fb4109b",
+      "bodySha256": "e8f342e543b7529ae44661860af323dc5620c346f10d687f7b390979915af423",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-26-git-security.md",
+      "beforeSha256": "8766682975f7349cd4b9b3ee1cef2900ef137d8dc4cdb72e41a409a2e1f556c9",
+      "afterSha256": "44a8ec1bb0f304def9486273deb0b56d63eefaf8834198058ba7f776d3f61479",
+      "bodySha256": "219ff9ccd03bd9632f711da3ae94712873b865de024940e09fe4edf3b96589bf",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-27-references-copy.md",
+      "beforeSha256": "64bf1b97a3dc514ace4a142eb9e6a7f4de82ff1baee12706c2bf322731711cca",
+      "afterSha256": "45a6e6b0f5eaca3babeffedc4bc0d34f9497b37bf1f45dc021659f5f9541f590",
+      "bodySha256": "dd513a7a595bdc2515e7d20f4d3cbf1dc0adc7a25d6aa2ba093e366c1b664c49",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-28-data-model.md",
+      "beforeSha256": "6115d164d60a5fa98140aa48ae66144682344e428a00d7c4dfb8b6640676e0ef",
+      "afterSha256": "998753c3dfbafe588d18cfdfc911e1a587855ab57d169ee2e6a52ad5078b42a5",
+      "bodySha256": "d90696339da76066516a61d15a47e505978382d16b17cdc974817902c76a4a46",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-29-descriptors-metaclasses.md",
+      "beforeSha256": "b5e642ab0f30fd1a3741e2ab349fddf98bcc95cee7e11541e0586286a48677b1",
+      "afterSha256": "6de810099b322e662328c77814fb0f266c0bda951964cb1e252e8007835aca6d",
+      "bodySha256": "4414a0007adf84d942c82b016f409a730d9d19a73d48b2bed8341e790ef09947",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-30-performance.md",
+      "beforeSha256": "2b28faaa7ada31ae740b97b8d94b1e10f5ee3770e62d060ee62373de75398adb",
+      "afterSha256": "72c46dd265859a71c654c2cc80dd868ebf078e3ffdbfc09b233ba66a89b5a9b5",
+      "bodySha256": "bbf6b4f2f26ba5ec1216e858aa2a2f065ef7b51bc8674a06fbd6d9e729919e0a",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-31-concurrency.md",
+      "beforeSha256": "d6857b0ce745d44c4ba494651fd6f082b75a42d876c69456f0c36750335cc48b",
+      "afterSha256": "2e926b5abc4e6fa72ee5b2609e507f6368889f568a0519d5b80b8361007fb595",
+      "bodySha256": "5e195c82a3b02af57febb9af5d04062224a23c10151aed3a7a592436bfd25a01",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-32-asyncio.md",
+      "beforeSha256": "153be08fd9d6b9cdc009d1f57cf5c186fd46d29a81d3fe801d99af56aca4ee41",
+      "afterSha256": "142b9372f0a2fe59a3a82afbba5e63cc0da55de69e8117dee55a5e60d3902d27",
+      "bodySha256": "9af71b6accedaa8338071ff1e8068c08827925791ba1f81fa13e3962919dd374",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-33-automation.md",
+      "beforeSha256": "11a2d0847c9c6e0b20260fd4eeb9c31e5bb6d1e4373eecf3b9a0d61dc4356b45",
+      "afterSha256": "c8c894c960499f345c5b618dd2f627670b745b7ec63003f83c382e0933eced94",
+      "bodySha256": "0d9a918a89818333038133ae68c21f7afd54fe9be0a862cc753d3140dd6aed1b",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-34-etl-project.md",
+      "beforeSha256": "c301cedac06c51e142086d7a40814ac382f398744ee0a25e9fdec76c477706ca",
+      "afterSha256": "92f1a8f3c46154d2430f8fcd6c0008d9df055f8e2e23ee68b1e03dfafbce1dd4",
+      "bodySha256": "619b55168e7ef8c7f06cb1709ff1d3175cc5ca9e2d542accc50a7f15bfff0178",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-35-data-analysis.md",
+      "beforeSha256": "102b7c8a059da3160af26cd077adb43978b853ca1c70a6deb89bc6a25d2ae4e9",
+      "afterSha256": "cbbb2797c92674c035da8812b7bf4bb5aa7cdc8b5bda153041c1000d1cd5076f",
+      "bodySha256": "2641ace15ba54dba0f411b6ce18d9cc9e870ee428f9a46a69dd579de8d082460",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-36-analysis-project.md",
+      "beforeSha256": "30ed399604d41fe5acd79e8423d1cfb4ba790ffb80ada7670a1751923680d2ac",
+      "afterSha256": "ad926506a211b052951b6c357bd2feddc1c9dadf435ff9f2d293ebd13c884ce3",
+      "bodySha256": "b675d76d886382b47cd2e2d40a9ab16d3b82b8428582187f797be83ed0db2465",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-37-machine-learning.md",
+      "beforeSha256": "cad89fdebdb88ef414e965705c2b15604ca1460cb9ec4977fd2b9b22c0fe74fd",
+      "afterSha256": "49b1d64d6e3167fa8dd231f0ba8865294b2b8ec19ca6aef2289388b6e8a9e656",
+      "bodySha256": "4cf067aa6558ac716a173d21fe53bdc6f9b0eccd84f8afef791d4e2d5fb30dd9",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-38-ml-project.md",
+      "beforeSha256": "598bd3f0faf422ea063bfcb3a636288eb82064c8b38dd8dcc021b115961969a7",
+      "afterSha256": "b9f84f56ecc1c8aa2cfcaf34a6b5623d07b1a9b3fa68c2f9c534bf8538a18381",
+      "bodySha256": "3ac36ae4b79bc6a20145629e1b1d71bd7d538994beac724bb7f5674821f1ce40",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-39-pytorch.md",
+      "beforeSha256": "49a47e7ff4dca1ecec2f2bd6950ea9c5572683f47e0a7c387132ed6270a90571",
+      "afterSha256": "8d5df75a2de86c645b7065f51f901f83595ea0167a63c42eb131a847c1e53900",
+      "bodySha256": "b44b5d836b458b8d4f0fe8c8257fb7ff2ab6221b86b29838aecf8a7f49b7fbd7",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-40-dl-project.md",
+      "beforeSha256": "6dc2d17d43fd82e9051eb8b05794f5ca3dee94a8439d4ccbc2fc9f9da404c63c",
+      "afterSha256": "d9cb64adfbd546518eb19e273e8752b0cc35004921918957dc14be7e28a473a6",
+      "bodySha256": "137ee420d01c1111239f7759d752c18f11e0c88a683fa58dfcf924fc7d307806",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-41-backend.md",
+      "beforeSha256": "8bde26ce6aa21857b45c091351a732a0afb7833d02593c61f936eef0bac9f502",
+      "afterSha256": "eeb2f4ed71bd93f239d3b5e7147d5518cf853144189044973e45d17a7f09de41",
+      "bodySha256": "a8066be4f47c40baab71c8627e7fe725d177dd249d3c974daff515b971e4480a",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-42-backend-project.md",
+      "beforeSha256": "98f17becb87bb8580db5cbf748257e90787bf25ba8a6d7530948e2fb598d7e6a",
+      "afterSha256": "f08e0f135e678db581477cd56041e9c341720c7d2422634eead78ffc4b961a9b",
+      "bodySha256": "8058d5792cf4b644c50a311cc0c2a5b005c19dfd02b3b51d971061e4a6d3ed83",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-43-other-domains.md",
+      "beforeSha256": "88e1854f70d1a8944e8992798136543fdf4595bc5e61ac07870d2f7485dff07f",
+      "afterSha256": "c1866c5a750505be04a39985dda20c5d95a7ce73fbc60fc3d61eb7cbc00b268d",
+      "bodySha256": "41c2d9af930048cf7c6d4d01c526effd384754bfcc05a0914910ccf98b90c186",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/python-reference.md",
+      "beforeSha256": "3741d46ac4f69817be3d4a0845b4b8834b02328da6499e1e0cd0c46b1c3a1b90",
+      "afterSha256": "84a56704edb9d5fa3fe5dd98af7abcab77c913a1045759eb0126b5ee773d769b",
+      "bodySha256": "18ccfe8a4bfe098db160670185b910e8984c7d357638ecf4b3b53b01241a290a",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-00-learning-guide.md",
+      "beforeSha256": "357852bc008461460d59c98e4dbdc9da7b5099f0817a2711e70311ed75ca16c6",
+      "afterSha256": "614c102295aed3a4a8e3b12a272ccb40ae204c0fcef2c0b399b70cd240c97c95",
+      "bodySha256": "233763dcfe5688cc978b2005c7c66ec0991ef7eb305616371a39e8e6205447eb",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-01-learning-route.md",
+      "beforeSha256": "347cddfa3b13a6ce69961e6c2fb45cd52cfa3784045bb96fd560ac12e4afbdb9",
+      "afterSha256": "812d49500a4e321fc92fe13f4aa3574a0dc3ff3250993db85dc9c4b19ef0b931",
+      "bodySha256": "3524279bf59b4a583bf7b09e0ac9972e9bda1d9711135454c44fa8e58e6d7886",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-02-web-architecture.md",
+      "beforeSha256": "f8d514d2cb0e9de2a5d0387f46c546e6cf1ea3fe4eee7bed3e797806e18e4d8e",
+      "afterSha256": "9f0fe60655499b7d32471824be3cd2d3d821ef1ad4ff82cf5544de6f1fcd4aa3",
+      "bodySha256": "5be81903cbce958914eb2e1b1ff3d6b2b888d9f1ed71a81c3950164c2db8a32b",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-03-html-css-dom.md",
+      "beforeSha256": "68b89cb3862114e6d10a0cf7dfcc3ba9b9a1d608e9ccc475e3c530a40e14cfdb",
+      "afterSha256": "96a687c7950e1a97d6d30b939a65687bb319631517b7fcb21e5665940c94161b",
+      "bodySha256": "205c8e296fc08521904f9189a3b8469384d38b1273112d9565f11f61003960cb",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-04-http-json-api.md",
+      "beforeSha256": "0aaa6638bb6dd86d2a5d81d88f4ed5d4af62af4ac277b667b10391329ebaa1e1",
+      "afterSha256": "0c83e14a17ee987b53a449c05ff21710180d0009c79e373b397e4acb60b23004",
+      "bodySha256": "d97aa9ac47a257769c2dfaf235dd0e27f02a005aeb5f847a5eef1791883ae774",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-05-values-and-variables.md",
+      "beforeSha256": "7ed8803eda181a7e7189b7a6d0ef229a47611c96619ed06ebced8494ed91ce5c",
+      "afterSha256": "c2cf17e04603246d2a824567519aabdd6bf4f756917e52cfcd06092ca69017ce",
+      "bodySha256": "5d46c8ffbae4efc0964bf8aa080cc3053007d31656d880a915dd77300e341b2e",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-06-control-flow.md",
+      "beforeSha256": "b999113ed74a7efedbe61fec06d8b8bece89c68195a120cd2f42a28fa7d484dd",
+      "afterSha256": "427de47aa43ccaa8f974291af4d79bd428cca7baa5fbf7ccffa0b523e61dc331",
+      "bodySha256": "63b6c21fa15a5e09d48fde9be47296fd15bc3353ce32232c77c136dc91819715",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-07-arrays-objects.md",
+      "beforeSha256": "0faca6c107b5e58224c194524c3e80e1246262d18e12500cdb13aa046bc89ffb",
+      "afterSha256": "218681361559b4f79232ed22f128ebf5d699ad4b2a385f5c0938def6ff93f856",
+      "bodySha256": "50e3704ef15777a6e80eb06a372276ea465e5f64bd021ab3801ac5c3990198a4",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-08-functions-scope.md",
+      "beforeSha256": "30e76ba63643989c4a99db2cd5cc2efe31b82c7c6187c4b977f3030c469d8c01",
+      "afterSha256": "ba41991a0d91375807b45cf5ddeeca3c684dcac7e7723a1ab0446c8c3790353c",
+      "bodySha256": "b5b0af0dd219a24c4f312b87e85b805a1e315023417600d71b38a2f4903d0506",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-09-object-model.md",
+      "beforeSha256": "7868fd18c45891eb87c63cc3882c824d8ad6b0fff1a7c4477b4087f5ef9cf6cb",
+      "afterSha256": "b71018b39314516db3ca9e3576b5759c1a9f9215fee161a23872a01ba5da8dbd",
+      "bodySha256": "c37615754b0655dcc61858e28d8e16db2be93d9f2c459199b604527b23977109",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-10-modules-node-npm.md",
+      "beforeSha256": "8e5ef0ea466302b6577333404b1b39aafc485828f965c73ecaacfd77a874d314",
+      "afterSha256": "4b5ad3d278a62137cfb92365450e177fad056d3b0eb44137a04db14532a0ab9d",
+      "bodySha256": "adeef9560907a09ab8f7850e0a42684a2b5b69b9a092f38fc771b8d41b56b383",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-11-promises-event-loop.md",
+      "beforeSha256": "0f166441fc5fe9fe9da23f641bc13dd54e2622732e287b317b41f9cada546ccc",
+      "afterSha256": "055e8e7364cc8e109e3db69a7ed4a55bc3efa638ce4a502ad3f99021cdede9d3",
+      "bodySha256": "23d3419012620658ae8528731896a51f9103a9685ef42eaa26750fcbbfae8ffb",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-12-fetch-errors.md",
+      "beforeSha256": "f14c6f8456e213c6e0f125f0dd6706ef5a7d64e95680f9e5a5a9e84af8c4da65",
+      "afterSha256": "a5d12f0c774b224d2412e1aa2c0df2fabea2ebe37d1241a154545ec56c0b23a3",
+      "bodySha256": "6ee1af28bf872eba3a687a170ec30a51a988b8a43f9ed124dfea286eb564b2c2",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-13-debugging.md",
+      "beforeSha256": "8d0a70b79fc11a67f3d849adb875cd7d2137013226d2fe8a5c075420506f6af6",
+      "afterSha256": "96b4c341a7db5244c9c7b282a5f955142ff82a0310e2a1cb1d791630ac92fb67",
+      "bodySha256": "ea56488929df4a07048586c0d2282cef845a5bdd4b486063bbf1ae33e416a063",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-14-typescript-compiler.md",
+      "beforeSha256": "1bfaa702a4ab3400a306a51c9789c59e405c05f88f58e5873834dc36ea825720",
+      "afterSha256": "8ffb87c83fe0000132222540299f21d7bcbf9ad1383e4f49c533b6ab7d253d8f",
+      "bodySha256": "28b8499afa28eefec4686195fdaf05502c4540036c0fbabfb27ceb0787a4a0d0",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-15-basic-types.md",
+      "beforeSha256": "afdaabf70139fd153f9bb6e31e1a31948c6b53c13db276316205bf22acc34652",
+      "afterSha256": "0c63974843a5d04a2db2036986222a9af08e762664cbcd7dff1ca584a37e4529",
+      "bodySha256": "3cc62551712994272bfd4c4e80fbb0ef58b285645ab3134f466da58957c1d3a0",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-16-object-types.md",
+      "beforeSha256": "428ccf604829daddbcc2be2c804148b90985b78d47ac5d3ee9bca5452d696b52",
+      "afterSha256": "e73a11c9ad3bf142b20d791916c4572581bb4881aeab6b6e8acdb025d0de51ad",
+      "bodySha256": "cd8e21f42a68ed42af25c4efcf86d3b1acfad7d4d701b61a8a83e02f6ecba3b1",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-17-function-types.md",
+      "beforeSha256": "8b79bf5a47dc168a7d136cdc9d7493a1bfa116c793b2971bd59ca048246a6ded",
+      "afterSha256": "2e58a72b2444a95aa966bc32ed8f6bbb64a506225d1f1d70a6b64a9f68b4b5d0",
+      "bodySha256": "1fab40b0143c8afd00a94da317a1125582688c7008f7a632296233992bea44c7",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-18-alias-interface-unions.md",
+      "beforeSha256": "dfba8c12f3185b5bbd2e87be00fbca0f9c64f3423a8e28115d6045e941192f03",
+      "afterSha256": "ae4b53f5c5a9c6869042f38d4c2a7923a5e13553e2432e4b9c09ed6e7f3bdbca",
+      "bodySha256": "aeaf81f35ee2e0c81ad215614e9677e0dcf850419b3157aff53da2cd534e1189",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-19-narrowing.md",
+      "beforeSha256": "3603bdebba7bcc4edd634edf285acc797cc2f4ec1c942fbd2a63b8f88e6d697c",
+      "afterSha256": "e00ca4f77b01cc9a5524e8f549e26f8c1a4917f3d716dbd9cfa4c6e0e13588b9",
+      "bodySha256": "35bbb33bb86200de1047e6121d8258ffa19ba8bd014f299d69f12fc51a7ae62e",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-20-type-guards.md",
+      "beforeSha256": "56a82cd9cd913f41beb5e32e3086b81d110d530d71f3cf02b5a2476aad5ec1dd",
+      "afterSha256": "32d849f8dc738a45e91bb18300da504963ac047f76d85782f694888050afd3b8",
+      "bodySha256": "71485a32298cb43432cc55a144161b83888261b29f8a57545783a2a7d60d055e",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-21-generics.md",
+      "beforeSha256": "5cbead20270f672cb5e689ecfc6e171c54b7c50ffec72accef1868ad5cf57de0",
+      "afterSha256": "7ce1a1cf7001a045afce0b4e94377c68d8f55f5513026e0cd268960787ecfd58",
+      "bodySha256": "b22c60d4287859df55b2326786565e27ad398cc6c8b80eeefc6a054d606d0938",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-22-type-queries.md",
+      "beforeSha256": "db1dd234ef4bd82ad03fe8bcb0d34c577e7699663b07b7e38e641e1b7d13a55d",
+      "afterSha256": "4acccc870003c022707c5fb7c63898eb888303ce6b02ec15a3c692acb0254b7f",
+      "bodySha256": "0e13ebad5f948d433bb2901acc3c4e475d55f0d81662774d3276094fae9bfeae",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-23-mapped-conditional-types.md",
+      "beforeSha256": "88c37bf76098be4532948794cf5a3756fc0a18909a1db2a6231c9e00bb9c195f",
+      "afterSha256": "af877382534293264957231edf0ae2e17d93a184928dfa7f4898d7de07b2bdf0",
+      "bodySha256": "28b37c40fd4b50b69f5abdc6bf5efffeea9c3bd41c6b3e881964d4827fcb9948",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-24-template-utility-types.md",
+      "beforeSha256": "40af6c1161531680d3f8d3e45f9525575509b64c3290b287989070b0a709d88c",
+      "afterSha256": "49278e748506614459b90fdae72d8355ce93ed1a919356738c7384b5b6549148",
+      "bodySha256": "7894015f3cfdbacd1278424dc6d9585f8e4fd5004228e05a043e7dce163c3c83",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-25-typescript-classes.md",
+      "beforeSha256": "c551b9161b6574172f13b4b629f0147a2188451c56e28fdffa657ed1c9745dec",
+      "afterSha256": "027a526ca777e900fd72c8743356ecd24c26e16c24f79e920195d8997fee12c2",
+      "bodySha256": "6ea8e64b9c3fd48ca3389381855c32a9bdb54ff433ec8b7a149ac8a20ef28eb3",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-26-declarations.md",
+      "beforeSha256": "226a462eed41b1e8621574169c68e46d1e6dc90da67e20360d50460820c1ae9f",
+      "afterSha256": "3b0035ebdcbb4341147e407a227d59956b721eea0fb674ee7aa104d2e0e89fcc",
+      "bodySha256": "ddf62894f1e6e729d4e84a950b7527161e6542294f580a21bc5c10f5c563235c",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-27-tsconfig-strict.md",
+      "beforeSha256": "011eb41c1d5698e85a2388b1d9fc30e32d329d878e2e68f084de24bdf9779776",
+      "afterSha256": "1e0785144425fdff98a8ff8e046726e863c323221a3719857002af54f830cd2a",
+      "bodySha256": "669b1f3a16b845b4ed88ec262ae90cb79cbe97411a60c78a5f924c5a21a8ff17",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-28-module-resolution.md",
+      "beforeSha256": "0ea75ca2e908ffb156ff3949b80c71b5ef475f312cd31999cc12e7bfc4a28909",
+      "afterSha256": "9e119e82d9dadc380ffaeb79a0da3303def0b4eb8c34aeca42f961847c8c7318",
+      "bodySha256": "0cd11fe2a35a67b6501df198f11fcd2008608b0e729ad5ee5a0a92f7ffa3457f",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-29-runtime-validation.md",
+      "beforeSha256": "1b5aaa42a5f14521d58eb4db354fe4106e0fa9b23f96e96726b9c69032a04852",
+      "afterSha256": "2448efdc7805bbc1424906891985cd13e46bcbb476f895caffede2c953348d02",
+      "bodySha256": "b19ab322157c59275a51f35b52dbd765b4f2f091b75eee3fdeceaf491b13b070",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-30-type-organization.md",
+      "beforeSha256": "6d308bc68caea08fafd0a0ff2f4030143760e60e616f7ce1a54841a5075dd48a",
+      "afterSha256": "16b9e0de362b9411555faf8a2d52f617106c8f6ea78e92fce6adba317d6e70e2",
+      "bodySha256": "8438cbee76d1fad9bbe92a1ffb1fda77b8f53afd312ffa6535612d4e771a315e",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-31-quality-tooling.md",
+      "beforeSha256": "2d3858d97996d3c250e97f1e4ca98a3e88168fe7fed22dea6aa77ebf151a415c",
+      "afterSha256": "69fcbe07cb9d19a4da40a2f9a2a5bffe176c9fdf522b6c97651c8c6f2173514d",
+      "bodySha256": "32dc7526d521498c26de527fdd4b3f09a06a74e227a40b2f82a18efb69423e8f",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-32-react-project.md",
+      "beforeSha256": "7d03ecbdab97ff5faeebf55cff8055699ae0122e8d572e7df16d5178805c4d26",
+      "afterSha256": "a5b10d3caae3bc114eed0630fca53ac8bf180bbe1d7132e01e9449ca2d8dc405",
+      "bodySha256": "2c6e3a143628f3d3a55eeb621dc6fa4671a379ffed57583316639dbb87a84125",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-33-components-props.md",
+      "beforeSha256": "e3abb179c5600fcbd8f23c0dffb5b9285d08e7189b2ca9b23cc344f962272225",
+      "afterSha256": "70f9d7b48b5215d8ffb69ec054d3147f878b4fe8ebcb7566b87fbc9d26a2e409",
+      "bodySha256": "07ca1f76f36ffca8c0054ccfce7ea3bb769695a375040d621049c755797faa5f",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-34-state-events.md",
+      "beforeSha256": "3c15dfb01ed1d65a1930d4f49f1dbcd7b7e66f582e8c4fe0cbdeaeb5499d5627",
+      "afterSha256": "034350bbffe93f45e3f8596f4bba4a8c86408cd4b0f357660751e68ce113e873",
+      "bodySha256": "c7944d7e8a5205af13c28a5a370bf17602be2b926b0ed473cb6b0e85ae663e08",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-35-hooks.md",
+      "beforeSha256": "f04784cba57f4d072158f6cd4a9bb3ff02c4a19f13331b0151c8e7ba26c358c2",
+      "afterSha256": "5d9a00c193441ff0a0b7cab963d16b93ec4be68c0a12ab9a5d330b8759697751",
+      "bodySha256": "0099a21d58a696d2e94823bd53e188bbf0281a5e497d1a487c907d3a8b32c361",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-36-forms-accessibility.md",
+      "beforeSha256": "5ac14c02e2bfcd5c3afc5c944301bed794351dfe7e250441d48b31cfb5ff82f3",
+      "afterSha256": "f4daae00bf60daa478f83d23b104cf987810881f416302a45919de7b3aba7b5c",
+      "bodySha256": "5ce79c794a01fb10c3a0c04fedc73a596df2d2eb0986582435c3f38018b29245",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-37-routing.md",
+      "beforeSha256": "2d27e8a33891c5945bc6f99cbe8026e1836b0256f90848a85ee4269f9feda096",
+      "afterSha256": "1a0f663e20855ccf1859cf42b8462fd4b8939edd03746beeaf8c728e57058bd6",
+      "bodySha256": "ee4c90d213e0da2a3f8a3e553f3f919048c9aaaef8bae702496eb26280bd8a77",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-38-api-requests.md",
+      "beforeSha256": "bbd24e7289a636d3297bfd398cbf57541f42bd98b8f1488526bf36f24403795a",
+      "afterSha256": "8939d7da6143145f7883a436714451a91fcc012a5a199743dcb9ade21821aa1a",
+      "bodySha256": "5d3106aa4194a89a79eefe22d01bacb9f02fe3ce3e364260f1c73b5bfa481473",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-39-state-cache.md",
+      "beforeSha256": "c84414b12cbb2b3ec680774344961cf7cbced019bd06264d7c4b9edf9ce2befd",
+      "afterSha256": "de3bf12df3b7ee585ca1134bf24b05986704c95caa2e956a4f9071d7ee24f5c1",
+      "bodySha256": "d6df6ae7c96ceb7d1ba31e91f1f96d80e263def46133276dd9eb789f0813c85b",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-40-auth-ui.md",
+      "beforeSha256": "2169c4a9c065817466fbf97b4d0334005b0acdfa2848332b9ecd6e1a66f3fe8a",
+      "afterSha256": "cf287953c9c59ff156075fbd1773774ddd534f01598b0610fa53682bf954d2dd",
+      "bodySha256": "3b71f26241aa3f2f2e12c33f1f4895cf0c7ca83cb5afba0a1468f8e2600dcf21",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-41-node-runtime.md",
+      "beforeSha256": "7649379c3f478ecea8b8b1c10891764dcf48bc2e52d80ab558d3a23e277fb70e",
+      "afterSha256": "a036fa2aa06d8b11af153ddd315d3c45f73aa0f4691786f165372a4a7add9418",
+      "bodySha256": "8baf4e8be88eb1bdcee043a6aee1482cec4017458caa716c67c832c6cf66a68c",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-42-express.md",
+      "beforeSha256": "99fbcea53e73aaeb4d812077325cde52c7f397bc778531faa5ba3e9e77c837c2",
+      "afterSha256": "ae37723da3b288eb3afbcd8f27eb799e43d2bb56bfdf126fda30f141f5fad93b",
+      "bodySha256": "03713c689418f43f727e98ae9a461e678789a58b55285e98e46dfbe5ee9aa3c4",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-43-rest-api.md",
+      "beforeSha256": "b35bd0f22c15a036587be2c662c1bb7158971bc7a240349f810e9ae948b6d3bb",
+      "afterSha256": "8b939ced28fd105566beacffad24a63db7f0cc74b17dc4dd9ba7593f6d27a2ec",
+      "bodySha256": "bd670980b0b602bf46f107c26da0abe2434a95ec34847839b80f08a67f1ad264",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-44-validation-errors.md",
+      "beforeSha256": "f5044cb9beef925383d77eec369386cc13362d43f84def1c234a649a02039fe7",
+      "afterSha256": "8378c3065075c6ec6d987c093e37f9fa4eef88ea53763e65422df99eba7f0cd3",
+      "bodySha256": "6cb998e44970e8861bf3aea26988e9ad4638c7baf9d0b0a7ed4bf5250f8fd94a",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-45-logging-config.md",
+      "beforeSha256": "032650660c3697856d44e0bdb654e79db7e1cfc4ba9fa8f2b48aacab9d338ff8",
+      "afterSha256": "3c852ce56148ff26d9a5772d8bedf4020010250aacddaf181abc00f7449d7077",
+      "bodySha256": "0c3b642b1d6f21ff69489ed848d8dd28189c5fec7f52e32f77347fb2f8f4d140",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-46-sql.md",
+      "beforeSha256": "e0b3bd96944235e1298378af8273c5ad59f3f5169a3a4f69a7445897aad13f46",
+      "afterSha256": "8138ed33cdf096dfa8d649caf005dc6f4e5d2718004f7ca384362d7225c87181",
+      "bodySha256": "3c0f5dfac7810cf270f44dd5029fb8ce91bb6effba0c560333014b439ad6637d",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-47-data-modeling.md",
+      "beforeSha256": "09cb5dadcc43ee16ee91edc7794c39b358f855acfaa352d3dd88dcf3d729aa31",
+      "afterSha256": "65f21dd3291bcdc86197069510d0c50d79bf1be46d4e949cb04b0f6ccec55c16",
+      "bodySha256": "d61a7bb84aa9c869a859ad165ef03b0e0d15ad59f7f073b573c68e9a6528a794",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-48-prisma.md",
+      "beforeSha256": "4e63dddbf88aea8aa0c3bcbd6cff2d40336fb12e8f90202831cb64eb5b2f8629",
+      "afterSha256": "77284d3407488b039ee963a86875343fbc0e0ab81a0c8353bf78a5fec6c4131d",
+      "bodySha256": "78138e8bc1a9d7042bcf345c714e643e1e2b29903d9b2133a57edf4fe3eb3800",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-49-migrations-transactions.md",
+      "beforeSha256": "a70bef6575fa56bd48f258332ee1cc03ba3660afeb5acf2ae3dc77b94a2ee5ac",
+      "afterSha256": "5ec06f0ef1368d9dde4b3a215debd572eac8fc39884f796eeba5ece528c054a3",
+      "bodySha256": "9a0ce8dd70d55faa2771845f5e3da17aa31ffd536a0d11faafb193b2f7822eae",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-50-auth-security.md",
+      "beforeSha256": "7b398eb72788212a33d4c288f4a015de15f5db3df7dbec33f2cc0c6a75ba861e",
+      "afterSha256": "f4d3a5550a45a5a3fa40a21b35a9df82134661c567779cf9ef4701e208a71590",
+      "bodySha256": "4cd3e5959d45771d840a2c6010625a5825bc6de6fd41c65f7847181a0ea7bd46",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-51-workspaces.md",
+      "beforeSha256": "4207c4d34ba608ac412832717e83dc5545898508aad2ffc47962461497e6e767",
+      "afterSha256": "13b7ddc49d2a0dbbc2939b618292db707d7fef49a0c19df763375f4c4e2eb610",
+      "bodySha256": "4a5f863aa47c36088cfc079e5c864b74b94201f63882ec01f93c82383651d43d",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-52-shared-contracts.md",
+      "beforeSha256": "3097c7e6ef28499ac6fd8c9429e98359452be39b2b2fbeb3021e46ad514f31e8",
+      "afterSha256": "661a87f32616bdc032c971b7ca64e9fb01101345f08d0c3643ec6217d376cfb5",
+      "bodySha256": "34335e7264111f1239561bfc1e99f6fd3653d8fa95143bd9677fde9e7a9c59c9",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-53-task-api.md",
+      "beforeSha256": "5b3911740ecf682f203d3d74a0426f787df4812bfd37db8838cb78b5609ced8e",
+      "afterSha256": "cb516a64b63f09a8262396874aa7b45844158ba2016a6f3ac6a9b0c45259a222",
+      "bodySha256": "05d229e4c41ccbaad32b7b6163a4712d67ae87ae516edeca42e7ad269170962a",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-54-auth-integration.md",
+      "beforeSha256": "0b8ef7f16d152e108ad73a891580b28ce85e6148b8c082dd7e0ca40361cef57a",
+      "afterSha256": "df6aaab7fbb737e671f48f8268debf68bbb433c1835700cb459b4c16c086bd9a",
+      "bodySha256": "60f628ccbdd14ebd5fab990f8b56be7e32ddb092eab3cd5b63a45433da9d077f",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-55-unit-component-tests.md",
+      "beforeSha256": "06d5c9d0afd7e23286f0e78a92c04eec5a6d58da4b7967933b17068b265f6218",
+      "afterSha256": "2b7039f5779f8909c62b15f39b00c3b67d98a53c9e0327f7fca8987964641d8e",
+      "bodySha256": "6ffafeb09f578233a4396afae7d697fb93921d7d4701f3884c5f75d29b56c26d",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-56-api-e2e-tests.md",
+      "beforeSha256": "38cdc9592a147dc26256f7e50b57c1ca76f49fe02df2648ad3fee0d35aba4f4b",
+      "afterSha256": "e03e8d4b4c51703828c713ff621a52507f59d6eaec2e3ee5bf93af4a50f3b105",
+      "bodySha256": "fa41e02dc10bd53926fb6ad77f2f9be24e03aba33c1d5ecaddb6a8b1a8d5064a",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-57-deployment-capstone.md",
+      "beforeSha256": "933fe287acb48f3570ea9ebc4945fc90955c5773e4ae3c5825222facf9b106e2",
+      "afterSha256": "5d309dd8690ef00257deac6e13485eb32c19494a2918c8c5419455ceecbfefe3",
+      "bodySha256": "932ea2336381c71c431b962da5bad5d07ff68f3746ebb34a8cdd3b7a55f85225",
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "path": "content/notes/typescript-exercise-answers.md",
+      "beforeSha256": "73126420519b27a7576624b3689d7274167072e4e54a22614bbd62871c4bcfae",
+      "afterSha256": "efe3f16b141a2b999ffe712c2ebaaa47b50379b35370b683724b48834a6de82c",
+      "bodySha256": "8772b46e377fce79af4a461c6d9f9f85d03b65dc430995e3ffdb8e1a4aca260b",
+      "publishedAt": "2026-11-11"
+    },
+    {
+      "path": "content/notes/typescript-glossary.md",
+      "beforeSha256": "800b080386436c3a430d8183d891ebc955774110ce87bde02758d9679de96b47",
+      "afterSha256": "b41a8bb7a35044b0eaa49b2532b263371a6ff678bce9a75d69c59c07af93eb1f",
+      "bodySha256": "08459c40489f93ff76f5e264a5f7c2a4a60d4fc9fbc8c1248039b06f3d238c26",
+      "publishedAt": "2026-11-11"
+    },
+    {
+      "path": "content/notes/typescript-task-project.md",
+      "beforeSha256": "3e1b2ef5b6aa67a4b7e128211522f12e48c48c84db2496c7c07dc3ce4ad07f62",
+      "afterSha256": "0020525b774c96ba2e56d072bb450f29bb19c9c9de80ed2e847e6f220cabb8f1",
+      "bodySha256": "74a3c4d43d98ca9d6da0b70abb99e18353c3bd02c6d8ea9d7131b5aa1d9f0f70",
+      "publishedAt": "2026-11-11"
+    },
+    {
+      "path": "content/roadmaps/EL.md",
+      "beforeSha256": "649123f32f5fa309ac2a62686d12c06d4d3f5cda519da36c5b52b376d6e1def6",
+      "afterSha256": "ffae2f6ba4acc8300eed68706f6d7ade1fcfbf9c2cce2b96e47e306c6582f45c",
+      "bodySha256": "b6b0e64bf18b226cf28ce6f987fc8120fc6438e49cff85b362ec048ad29a66ee",
+      "publishedAt": "2026-02-20"
+    },
+    {
+      "path": "content/roadmaps/自媒体项目规划.md",
+      "beforeSha256": "8503b17e2a3f157cc1625e01b0a86b0403083731149c908b9f3f6d8da7148116",
+      "afterSha256": "3c25feadee1fddf0599ca90aafc7c3e90ae44be55920673731cb59d88a1b5e6d",
+      "bodySha256": "9461a342537ab6e8fcc1a639492a90ff850fff364f4bd3c7b37347867bda610b",
+      "publishedAt": "2026-02-22"
+    },
+    {
+      "path": "content/pages/friends.md",
+      "beforeSha256": "c764804140f778ecc778bf0dd0d8a810b3247d0a5968f848f2b8fb6c7828d225",
+      "afterSha256": "c764804140f778ecc778bf0dd0d8a810b3247d0a5968f848f2b8fb6c7828d225",
+      "bodySha256": "f4ce8f9da6ff66440aca8a92605e802cbaef4cab36e31a71300671432add2bea",
+      "publishedAt": null
+    }
+  ]
+}

@@ -1,13 +1,10 @@
 {
   "name": "JasBlog",
-  "description": "一个现代简约中国风的个人博客，分享开源项目和学习经验",
+  "description": "记录代码、摄影，以及认真生活的日常。",
   "footer": "JasBlog",
   "home": {
-    "heading": "代码与文字，",
-    "accent": "皆是修行",
-    "description": "这里记录我的开源项目与学习心得，愿以代码为笔，书写技术人生。",
-    "notesDescription": "最近的学习记录",
-    "projectsDescription": "我的开源作品"
+    "motto": "努力成为一个无能且热爱生活的忙人",
+    "description": "写代码，拍照片，也记录生活。"
   },
   "sections": {
     "home": {
@@ -44,6 +41,11 @@
       "title": "摄影作品",
       "description": "记录光线、风景与日常。",
       "enabled": true
+    },
+    "timeline": {
+      "title": "发布时间线",
+      "description": "按时间浏览笔记、项目与摄影作品的发布记录。",
+      "enabled": true
     }
   },
   "navigation": [
@@ -71,6 +73,194 @@
       "target": "graphs",
       "label": "知识图谱",
       "visible": true
+    },
+    {
+      "target": "page:friends",
+      "label": "友链",
+      "visible": true
+    },
+    {
+      "target": "timeline",
+      "label": "时间线",
+      "visible": true
+    }
+  ],
+  "noteCategories": [
+    {
+      "id": "python",
+      "name": "Python"
+    },
+    {
+      "id": "python-part1",
+      "name": "语言基础",
+      "parentId": "python"
+    },
+    {
+      "id": "python-part2",
+      "name": "函数与程序组织",
+      "parentId": "python"
+    },
+    {
+      "id": "python-part3",
+      "name": "标准库与工程实践",
+      "parentId": "python"
+    },
+    {
+      "id": "python-part4",
+      "name": "运行机制与并发",
+      "parentId": "python"
+    },
+    {
+      "id": "python-part5",
+      "name": "应用与项目",
+      "parentId": "python"
+    },
+    {
+      "id": "go",
+      "name": "Go"
+    },
+    {
+      "id": "go-part1",
+      "name": "语言与工具链",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part2",
+      "name": "HTTP 与服务设计",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part3",
+      "name": "数据库、缓存与消息",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part4",
+      "name": "促销订单项目",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part5",
+      "name": "测试、性能与微服务",
+      "parentId": "go"
+    },
+    {
+      "id": "go-part6",
+      "name": "部署与运维",
+      "parentId": "go"
+    },
+    {
+      "id": "go-advanced",
+      "name": "进阶专题",
+      "parentId": "go"
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript"
+    },
+    {
+      "id": "typescript-01-web",
+      "name": "Web 基础",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-02-javascript",
+      "name": "JavaScript 语法",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-03-js-engineering",
+      "name": "JavaScript 异步与工具",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-04-typescript-core",
+      "name": "TypeScript 类型基础",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-05-typescript-modeling",
+      "name": "类型收窄与泛型",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-06-typescript-advanced",
+      "name": "进阶类型",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-07-typescript-engineering",
+      "name": "TypeScript 工程实践",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-08-react",
+      "name": "React 组件",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-09-frontend-app",
+      "name": "前端应用",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-10-backend",
+      "name": "Node.js 与 Express",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-11-database-security",
+      "name": "数据库与安全",
+      "parentId": "typescript"
+    },
+    {
+      "id": "typescript-12-delivery",
+      "name": "全栈整合与发布",
+      "parentId": "typescript"
+    },
+    {
+      "id": "database",
+      "name": "数据库"
+    },
+    {
+      "id": "database-sql",
+      "name": "基础与 SQL",
+      "parentId": "database"
+    },
+    {
+      "id": "database-transactions",
+      "name": "事务与应用",
+      "parentId": "database"
+    },
+    {
+      "id": "database-performance",
+      "name": "性能与维护",
+      "parentId": "database"
+    },
+    {
+      "id": "database-recovery",
+      "name": "安全与恢复",
+      "parentId": "database"
+    },
+    {
+      "id": "database-operations",
+      "name": "运维与变更",
+      "parentId": "database"
+    },
+    {
+      "id": "database-choices",
+      "name": "对照与选型",
+      "parentId": "database"
+    },
+    {
+      "id": "database-resources",
+      "name": "练习与资料",
+      "parentId": "database"
+    },
+    {
+      "id": "database-labs",
+      "name": "实验与实作",
+      "parentId": "database"
     }
   ],
   "comments": {

@@ -1,0 +1,94 @@
+---
+title: "数据库 08：找到谁在等谁，再处理锁和死锁"
+date: "2026-11-13"
+excerpt: "看到一条更新长时间不返回，我会先找阻塞者和事务状态。锁等待、死锁和执行慢的原因不同，取消查询与结束事务的结果也不同，不能都靠重发 SQL 处理。"
+tags: [ "数据库", "PostgreSQL" ]
+category: "database-transactions"
+publication: "published"
+display: { "toc": true }
+publishedAt: 2026-11-13
+---
+
+看到一条更新长时间不返回，我会先找阻塞者和事务状态。锁等待、死锁和执行慢的原因不同，取消查询与结束事务的结果也不同，不能都靠重发 SQL 处理。
+
+先准备好[事务与隔离实验](/notes/database-07-transactions-mvcc)中的练习表。
+
+## 锁保护竞争资源
+
+普通更新会锁定目标行，`SELECT ... FOR UPDATE` 用于先锁定后判断再修改。表级锁保护结构等操作，普通行级修改也会取得相应表级锁。`ALTER TABLE` 的某些操作需要很强的表锁，等待中的 DDL 还可能让后续请求排队。
+
+“先查库存，再在应用里算新库存并覆盖”会使用过时结果。单商品扣减应让判断与写入在同一条语句中完成：
+
+```sql
+BEGIN;
+UPDATE shop.products SET stock = stock - 1
+WHERE id = 1 AND stock >= 1
+RETURNING id, stock;
+ROLLBACK;
+```
+
+示例完整下单还必须写订单和流水，统一使用第 9 章函数。这里回滚是为了单独观察锁，不是完整业务入口。
+
+## 实验一：观察等待
+
+A 执行后保持事务不结束：
+
+```sql
+BEGIN;
+UPDATE practice.isolation_demo SET balance = balance - 10 WHERE id = 1;
+```
+
+B 执行：
+
+```sql
+BEGIN;
+SET LOCAL lock_timeout = '15s';
+UPDATE practice.isolation_demo SET balance = balance + 10 WHERE id = 1;
+```
+
+B 会等待。第三个管理员会话在超时前运行：
+
+```sql
+SELECT pid, application_name, state, wait_event_type, wait_event,
+       pg_blocking_pids(pid) AS blockers,
+       now() - xact_start AS transaction_age, query
+FROM pg_stat_activity
+WHERE datname = current_database()
+ORDER BY xact_start NULLS LAST;
+```
+
+找到 B 的阻塞者 A。A 执行 `ROLLBACK` 后，B 的更新可继续，B 最后也 `ROLLBACK`。若 B 先超时，它的事务已失败，必须回滚，不能直接重发更新。
+
+`lock_timeout` 限制等待锁的时间，`statement_timeout` 限制语句总时长，`idle_in_transaction_session_timeout` 限制事务内空闲。后者会断开会话，应用要能正确处理连接失效。数值根据业务时限设置，不是越短越安全。
+
+## 实验二：形成死锁
+
+两行互相等待形成环：
+
+| 顺序 | 会话 A | 会话 B |
+|---|---|---|
+| 1 | `BEGIN; UPDATE practice.isolation_demo SET balance=balance+1 WHERE id=1;` | |
+| 2 | | `BEGIN; UPDATE practice.isolation_demo SET balance=balance+1 WHERE id=2;` |
+| 3 | `UPDATE practice.isolation_demo SET balance=balance+1 WHERE id=2;` 等待 | |
+| 4 | | `UPDATE practice.isolation_demo SET balance=balance+1 WHERE id=1;` |
+| 5 | 系统检测环并中止一方 | 错误 SQLSTATE 为 `40P01`，受害者不固定 |
+
+两边最后都 `ROLLBACK`。保存错误和日志，不要依赖“数据库通常会杀掉哪个会话”。重做时所有事务都按 id 从小到大操作，可消除本例的反向锁序。
+
+多商品下单也要按稳定商品键排序获取锁；事务内不能等待支付 HTTP 请求或用户输入。缩短持锁时间能减少排队，但不能删除维护正确性必需的锁。
+
+## NOWAIT 与 SKIP LOCKED
+
+`NOWAIT` 在无法立即取得行锁时失败；`SKIP LOCKED` 跳过被锁行，适合并发领取队列任务。它看到的是不完整集合，不适合算准确余额或决定库存是否真实存在。
+
+队列领取必须配合任务状态、租约和失败回收，不能把 `SELECT ... SKIP LOCKED` 当作消息已经可靠交付。不同消费者仍需幂等处理。
+
+## 动手验证
+
+复现等待与死锁，找出等待链。写出取消语句和终止会话的区别：`pg_cancel_backend` 请求取消当前查询，`pg_terminate_backend` 结束连接；两者都需要权限，可能引发回滚，事务锁需等回滚结束才释放。先确认事务身份和业务影响，再使用管理操作。
+
+参考：[显式锁](https://www.postgresql.org/docs/16/explicit-locking.html)。
+
+---
+
+[上一篇：快照稳定了，业务规则就一定正确吗](/notes/database-07-transactions-mvcc) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：让订单、库存、幂等和流水一起成立](/notes/database-09-orders-idempotency)

@@ -1,0 +1,788 @@
+{
+  "importedOn": "2026-11-13",
+  "sourcePreserved": true,
+  "sourceRoot": "数据库知识点",
+  "sourceFiles": [
+    {
+      "path": "README.md",
+      "sha256": "efe37efc43c625ac4b82bf4c6ec0e7bf9118f65d6e7f054309516db42e9783dc",
+      "bytes": 5575,
+      "mtime": 1794584232.2460725,
+      "destination": [
+        "/notes/database-00-learning-guide"
+      ]
+    },
+    {
+      "path": "answers.md",
+      "sha256": "16d8379db053b56a2d4e2d29bec4f4bea497784a94aed6d7de9da090bc4f7535",
+      "bytes": 10008,
+      "mtime": 1794584232.2480726,
+      "destination": [
+        "/notes/database-exercise-answers"
+      ]
+    },
+    {
+      "path": "capstone.md",
+      "sha256": "d05968bb5eac65655e3a09cf18ffdb6440f2003b9ae203b9105cdaa1e0ac74ba",
+      "bytes": 4918,
+      "mtime": 1794581931.3543124,
+      "destination": [
+        "/notes/database-order-project"
+      ]
+    },
+    {
+      "path": "chapters/01-数据库与实验环境.md",
+      "sha256": "0952634513f10719dfea550abaf5ab1bc8a71031499fee45df750af4cda853e5",
+      "bytes": 3359,
+      "mtime": 1794582457.589805,
+      "destination": [
+        "/notes/database-01-environment"
+      ]
+    },
+    {
+      "path": "chapters/02-存储与查询执行.md",
+      "sha256": "b1fe8953ee6c53b0ae982c9812c016d724037ab540768ed85a832c9a7eb361dd",
+      "bytes": 3527,
+      "mtime": 1794582457.589805,
+      "destination": [
+        "/notes/database-02-storage-execution"
+      ]
+    },
+    {
+      "path": "chapters/03-关系建模与数据类型.md",
+      "sha256": "59b181b1c860e8f26cd31de277c3273690b6c02ceb8caa276b8a7deb0eacd48d",
+      "bytes": 4972,
+      "mtime": 1794582457.5908048,
+      "destination": [
+        "/notes/database-03-modeling-types"
+      ]
+    },
+    {
+      "path": "chapters/04-SQL基础与数据修改.md",
+      "sha256": "759382375f2269fdfe474ba8e4509c43491bf92b10600730a570c83ac79b8160",
+      "bytes": 4032,
+      "mtime": 1794582457.591805,
+      "destination": [
+        "/notes/database-04-sql-basics"
+      ]
+    },
+    {
+      "path": "chapters/05-关联子查询与集合.md",
+      "sha256": "4c6f837b0843e59302d5289dc7025e58534b4686207fbd0e88235610c7b2391f",
+      "bytes": 3393,
+      "mtime": 1794582457.5928051,
+      "destination": [
+        "/notes/database-05-joins-subqueries"
+      ]
+    },
+    {
+      "path": "chapters/06-窗口函数与报表.md",
+      "sha256": "abe7cea40ef13ed8e6e6c560d2ce6a435ae6bf77e91ac0709b83e40686ed3df5",
+      "bytes": 3777,
+      "mtime": 1794582457.5928051,
+      "destination": [
+        "/notes/database-06-windows-reports"
+      ]
+    },
+    {
+      "path": "chapters/07-事务MVCC与隔离级别.md",
+      "sha256": "c145a5b4db0e51b8336b9d303cc00cd54b69ea1d9a3e39712ef7fb51939c8de2",
+      "bytes": 4141,
+      "mtime": 1794582457.5938053,
+      "destination": [
+        "/notes/database-07-transactions-mvcc"
+      ]
+    },
+    {
+      "path": "chapters/08-锁并发与死锁.md",
+      "sha256": "87f60d23f66603f2b8292954798f18d9db951b91d4ef6aa007c0e4806f23e516",
+      "bytes": 3788,
+      "mtime": 1794582457.5938053,
+      "destination": [
+        "/notes/database-08-locks-deadlocks"
+      ]
+    },
+    {
+      "path": "chapters/09-订单库存幂等与对账.md",
+      "sha256": "5ee81d94dea97f5cb46c45ce6f35d418d537f94579df034a57da5695aef76525",
+      "bytes": 4648,
+      "mtime": 1794582457.5948052,
+      "destination": [
+        "/notes/database-09-orders-idempotency"
+      ]
+    },
+    {
+      "path": "chapters/10-连接池参数化与应用事务.md",
+      "sha256": "8163f136f11bcb5ce64ca6f41319fa53bb4762c270aded3b0877d4759317f19d",
+      "bytes": 3853,
+      "mtime": 1794582457.5958054,
+      "destination": [
+        "/notes/database-10-connections-application"
+      ]
+    },
+    {
+      "path": "chapters/11-索引原理与设计.md",
+      "sha256": "275686969ddeb1fa3a9f28803880524c8b2595996e494791dfa967e4dd96b08b",
+      "bytes": 4230,
+      "mtime": 1794582457.5878046,
+      "destination": [
+        "/notes/database-11-indexes"
+      ]
+    },
+    {
+      "path": "chapters/12-执行计划与慢查询优化.md",
+      "sha256": "a6c79cb614d6d6d00ccbbec1e925190fdbd68fb764ff8b1617f9917a504679b2",
+      "bytes": 4247,
+      "mtime": 1794582457.5968056,
+      "destination": [
+        "/notes/database-12-query-plans"
+      ]
+    },
+    {
+      "path": "chapters/13-VACUUM膨胀与分区.md",
+      "sha256": "2f7e4fde2b18c8d37caeccbca44305c4c976b7fb38532c0647daef6732e9d0af",
+      "bytes": 3781,
+      "mtime": 1794582457.5968056,
+      "destination": [
+        "/notes/database-13-vacuum-partitions"
+      ]
+    },
+    {
+      "path": "chapters/14-身份权限与数据安全.md",
+      "sha256": "450fe8f906cf1e2cfcd2901841828e8d289bde07d8381a30740b681f8bf0b515",
+      "bytes": 4142,
+      "mtime": 1794582457.5968056,
+      "destination": [
+        "/notes/database-14-security"
+      ]
+    },
+    {
+      "path": "chapters/15-逻辑备份与恢复验收.md",
+      "sha256": "b4ea4f5c90036969199c094217fb430c00f224fd80f2abd72ecda669d2964762",
+      "bytes": 4503,
+      "mtime": 1794582457.5978055,
+      "destination": [
+        "/notes/database-15-backup-restore"
+      ]
+    },
+    {
+      "path": "chapters/16-WAL归档与时间点恢复.md",
+      "sha256": "e0ac552214f713727e1f8e8f26cbbc1f681d88096e8af46fea63a4c0b94a9276",
+      "bytes": 7045,
+      "mtime": 1794582842.259161,
+      "destination": [
+        "/notes/database-16-wal-pitr"
+      ]
+    },
+    {
+      "path": "chapters/17-复制高可用与容灾.md",
+      "sha256": "724b0fa72cec413b45def121f6544ec6c50725a0ef65e9706bea4e9c96de04ff",
+      "bytes": 4628,
+      "mtime": 1794582457.5988057,
+      "destination": [
+        "/notes/database-17-replication-ha"
+      ]
+    },
+    {
+      "path": "chapters/18-监控配置与容量规划.md",
+      "sha256": "90cc3ce3bd1dd77b6d2c63ffc5c99896414067bf3b54f3b7630c811434e449f1",
+      "bytes": 4021,
+      "mtime": 1794582457.5988057,
+      "destination": [
+        "/notes/database-18-monitoring-capacity"
+      ]
+    },
+    {
+      "path": "chapters/19-生产故障排查.md",
+      "sha256": "c5b40bb78e4fa295664cb54e52cc7f9ac69d439362f820de26e87d34376dafac",
+      "bytes": 3779,
+      "mtime": 1794582457.5998058,
+      "destination": [
+        "/notes/database-19-troubleshooting"
+      ]
+    },
+    {
+      "path": "chapters/20-迁移发布与数据变更.md",
+      "sha256": "58b720992117dc9200ea02c6224523dedf08a3b6c5404e937c45d95ae4ecbad0",
+      "bytes": 5352,
+      "mtime": 1794582457.5998058,
+      "destination": [
+        "/notes/database-20-migrations"
+      ]
+    },
+    {
+      "path": "chapters/21-MySQL对照与操作.md",
+      "sha256": "d864e6080d0edf19b6e8e13222881e23ca6b58f091c4e45dd50267286156a59d",
+      "bytes": 5810,
+      "mtime": 1794582711.9579103,
+      "destination": [
+        "/notes/database-21-mysql"
+      ]
+    },
+    {
+      "path": "chapters/22-缓存分析与分布式选型.md",
+      "sha256": "5da8108eb8aa8bed35f3f12e24947c3007a176c839e7523242990e1b4262b678",
+      "bytes": 3545,
+      "mtime": 1794584232.2460725,
+      "destination": [
+        "/notes/database-22-cache-distribution"
+      ]
+    },
+    {
+      "path": "chapters/23-常用数据库优缺点与适用场景.md",
+      "sha256": "676fff01342bb6caa057a24ae56449b83ca160cdd6a1af0747ba533a30fff9b5",
+      "bytes": 24232,
+      "mtime": 1794584232.2470727,
+      "destination": [
+        "/notes/database-23-product-comparison"
+      ]
+    },
+    {
+      "path": "exercises.md",
+      "sha256": "e4336d4180ca7f4b897ff7051e4fae45f7eccd2d1cc7e1e87b7b88a091ec97d6",
+      "bytes": 5909,
+      "mtime": 1794584232.2480726,
+      "destination": [
+        "/notes/database-exercises"
+      ]
+    },
+    {
+      "path": "glossary.md",
+      "sha256": "0306167e32346429b48f27a507f2c2f95bf567863ee0a75ebb547c80f4e392ce",
+      "bytes": 4177,
+      "mtime": 1794582711.9579103,
+      "destination": [
+        "/notes/database-glossary"
+      ]
+    },
+    {
+      "path": "labs/.gitignore",
+      "sha256": "f1eefba1be7b8bd4928c96421673cadc73a1af3ad501a94f42171e45c3c22d4d",
+      "bytes": 20,
+      "mtime": 1794581036.5620623,
+      "destination": [
+        "/downloads/database-labs.zip"
+      ]
+    },
+    {
+      "path": "labs/README.md",
+      "sha256": "1bbf6f5c63733bcda48fa70c87567d21c71d132b1a0a6287b2851521e750fbcf",
+      "bytes": 5642,
+      "mtime": 1794582842.259161,
+      "destination": [
+        "/notes/database-lab-guide"
+      ]
+    },
+    {
+      "path": "labs/compose.recovery.yaml",
+      "sha256": "08b560b00f4f92083af2b8a41d523318ebe6ebfd0482b8eded822b88c1ca27b2",
+      "bytes": 651,
+      "mtime": 1794582457.5838044,
+      "destination": [
+        "/downloads/database-labs/compose.recovery.yaml"
+      ]
+    },
+    {
+      "path": "labs/compose.yaml",
+      "sha256": "9b59e3f6f4824611cabb53b76a1c1bfc2aebb5b0f6bf97b9f4b2e9b96b8cfd23",
+      "bytes": 864,
+      "mtime": 1794582457.5828042,
+      "destination": [
+        "/downloads/database-labs/compose.yaml"
+      ]
+    },
+    {
+      "path": "labs/sql/00-schema.sql",
+      "sha256": "b1a4aaf244cd811b677d4cbf666315f02012b960678949eb541b4940ddae887e",
+      "bytes": 3185,
+      "mtime": 1794581036.5620623,
+      "destination": [
+        "/downloads/database-labs/sql/00-schema.sql"
+      ]
+    },
+    {
+      "path": "labs/sql/01-seed.sql",
+      "sha256": "8acdeb03aa4d6c0bc3b27fa5d9c953c046854fa85e7bb58c804f5d824cd4e980",
+      "bytes": 1447,
+      "mtime": 1794581036.5620623,
+      "destination": [
+        "/downloads/database-labs/sql/01-seed.sql"
+      ]
+    },
+    {
+      "path": "labs/sql/02-checks.sql",
+      "sha256": "3e59c9c2d2bb30da7f042342fea372ad3579cf14b2c090d40deb3079bfa5d070",
+      "bytes": 1899,
+      "mtime": 1794582205.5727766,
+      "destination": [
+        "/downloads/database-labs/sql/02-checks.sql"
+      ]
+    },
+    {
+      "path": "labs/sql/03-place-order.sql",
+      "sha256": "92fcdce215b13980daa2f499941db97ab8c88bbd9a2e1b07eab58eb206f55b57",
+      "bytes": 2657,
+      "mtime": 1794581502.716617,
+      "destination": [
+        "/downloads/database-labs/sql/03-place-order.sql"
+      ]
+    },
+    {
+      "path": "labs/sql/04-order-checks.sql",
+      "sha256": "bc8b790bf0e421fa59b31960d54ca3c23cacf481741fb8e56e3852b56b4cc358",
+      "bytes": 2006,
+      "mtime": 1794581036.5620623,
+      "destination": [
+        "/downloads/database-labs/sql/04-order-checks.sql"
+      ]
+    },
+    {
+      "path": "labs/sql/05-performance.sql",
+      "sha256": "2c306e543e24a401d4a13a170320f7451bfc7bda4cb72c1a92606df37607f08c",
+      "bytes": 1423,
+      "mtime": 1794581036.5620623,
+      "destination": [
+        "/downloads/database-labs/sql/05-performance.sql"
+      ]
+    },
+    {
+      "path": "labs/sql/06-security-checks.sql",
+      "sha256": "60cd4d5569ac147d2b059a0592dde8216c52b4e73e8b625047bf4cb1d76fbb7a",
+      "bytes": 1184,
+      "mtime": 1794581457.2188232,
+      "destination": [
+        "/downloads/database-labs/sql/06-security-checks.sql"
+      ]
+    },
+    {
+      "path": "labs/验证记录.md",
+      "sha256": "f76d584ecfba7eb5216f49fe7a2fa8ca0819c6d03f14b6f208317abd09c9c7b9",
+      "bytes": 5065,
+      "mtime": 1794584232.2500727,
+      "destination": [
+        "/notes/database-lab-results"
+      ]
+    },
+    {
+      "path": "references.md",
+      "sha256": "bb38c87d58e4dfcc019f4c4e6c03afd7c6673c3720dbf95a7abc5ee4f3c38897",
+      "bytes": 9001,
+      "mtime": 1794584232.2490728,
+      "destination": [
+        "/notes/database-references"
+      ]
+    },
+    {
+      "path": "runbooks.md",
+      "sha256": "64cfeb7f1bb96ade9c139278d38293d4ad7d7f6545e50d18a987b760dd8f7d21",
+      "bytes": 5398,
+      "mtime": 1794582457.5858045,
+      "destination": [
+        "/notes/database-runbooks"
+      ]
+    },
+    {
+      "path": "学习记录模板.md",
+      "sha256": "23549a0df5a37984c8a1830934a04c2b82942fd413782b9e791a11b3679528a8",
+      "bytes": 1515,
+      "mtime": 1794582021.4464526,
+      "destination": [
+        "/notes/database-learning-template"
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "source": "README.md",
+      "path": "content/notes/database-00-learning-guide.md",
+      "slug": "database-00-learning-guide",
+      "category": "database",
+      "sha256": "a106377aa2b46c4b3b86c328106b4b56c66935635c25893fd80cb0152c42a123"
+    },
+    {
+      "source": "answers.md",
+      "path": "content/notes/database-exercise-answers.md",
+      "slug": "database-exercise-answers",
+      "category": "database-resources",
+      "sha256": "7c97174b61618dc1a22dd2729ec44bc2b1653506c4f34ee9f40c434d1d980687"
+    },
+    {
+      "source": "capstone.md",
+      "path": "content/notes/database-order-project.md",
+      "slug": "database-order-project",
+      "category": "database-labs",
+      "sha256": "dd70ea35561319953bfe75318cd3b1e7ca6f8a97530ebb90e33a388c00099fe5"
+    },
+    {
+      "source": "chapters/01-数据库与实验环境.md",
+      "path": "content/notes/database-01-environment.md",
+      "slug": "database-01-environment",
+      "category": "database-sql",
+      "sha256": "dcef8f1f1631029fcc08a11351e38fdd082ad3066cadf49a1692b76632101f2f"
+    },
+    {
+      "source": "chapters/02-存储与查询执行.md",
+      "path": "content/notes/database-02-storage-execution.md",
+      "slug": "database-02-storage-execution",
+      "category": "database-sql",
+      "sha256": "f15df32ef19fb2b663e17e2b57df5c65e831c25b86feccc2bff6b6eebce64f6f"
+    },
+    {
+      "source": "chapters/03-关系建模与数据类型.md",
+      "path": "content/notes/database-03-modeling-types.md",
+      "slug": "database-03-modeling-types",
+      "category": "database-sql",
+      "sha256": "eb63b588f28c8b2a401d5c599152cf3e83674ee555c659bd9c811f6cbe5eb224"
+    },
+    {
+      "source": "chapters/04-SQL基础与数据修改.md",
+      "path": "content/notes/database-04-sql-basics.md",
+      "slug": "database-04-sql-basics",
+      "category": "database-sql",
+      "sha256": "1a2f2e47b56fa6a0e6c099414f17cd999296114af58e009bb938210355e29f61"
+    },
+    {
+      "source": "chapters/05-关联子查询与集合.md",
+      "path": "content/notes/database-05-joins-subqueries.md",
+      "slug": "database-05-joins-subqueries",
+      "category": "database-sql",
+      "sha256": "42ce09ac1a993fa755f2057286648038c4af987b8bf8a1e01822a5cf5a630f81"
+    },
+    {
+      "source": "chapters/06-窗口函数与报表.md",
+      "path": "content/notes/database-06-windows-reports.md",
+      "slug": "database-06-windows-reports",
+      "category": "database-sql",
+      "sha256": "4a63d41840862a0c4c7af9f63830e7358595cc85590e015a874b2add04f05411"
+    },
+    {
+      "source": "chapters/07-事务MVCC与隔离级别.md",
+      "path": "content/notes/database-07-transactions-mvcc.md",
+      "slug": "database-07-transactions-mvcc",
+      "category": "database-transactions",
+      "sha256": "5b3d20c556e963b540471eb8bc632f71392fe82b52fe66592d404ec895a40da7"
+    },
+    {
+      "source": "chapters/08-锁并发与死锁.md",
+      "path": "content/notes/database-08-locks-deadlocks.md",
+      "slug": "database-08-locks-deadlocks",
+      "category": "database-transactions",
+      "sha256": "c780170528b1e327c590d97c7706fa4e0cff68ebbec7ee67ceea42486f1ce667"
+    },
+    {
+      "source": "chapters/09-订单库存幂等与对账.md",
+      "path": "content/notes/database-09-orders-idempotency.md",
+      "slug": "database-09-orders-idempotency",
+      "category": "database-transactions",
+      "sha256": "a81fde457efdab9859f8de0b19a3b8c611ea31bf3ab02f4d1df5f011d286d30e"
+    },
+    {
+      "source": "chapters/10-连接池参数化与应用事务.md",
+      "path": "content/notes/database-10-connections-application.md",
+      "slug": "database-10-connections-application",
+      "category": "database-transactions",
+      "sha256": "1e3341b9f5e8aabcc5392f4c5383531c78e50063051cbdca3bdc8ef81c86f089"
+    },
+    {
+      "source": "chapters/11-索引原理与设计.md",
+      "path": "content/notes/database-11-indexes.md",
+      "slug": "database-11-indexes",
+      "category": "database-performance",
+      "sha256": "8c17bb23b28c191370c117be9493de3522a6586d06a19bce551aab6ccddcdcbe"
+    },
+    {
+      "source": "chapters/12-执行计划与慢查询优化.md",
+      "path": "content/notes/database-12-query-plans.md",
+      "slug": "database-12-query-plans",
+      "category": "database-performance",
+      "sha256": "7b80b371a6e7239bd11d44ab516ff65d476831e077e3f485c271bdfa2eb528a5"
+    },
+    {
+      "source": "chapters/13-VACUUM膨胀与分区.md",
+      "path": "content/notes/database-13-vacuum-partitions.md",
+      "slug": "database-13-vacuum-partitions",
+      "category": "database-performance",
+      "sha256": "fa3b94d626806800e3f58ded8ec041954344f6bc190fda6e1f372333361465e0"
+    },
+    {
+      "source": "chapters/14-身份权限与数据安全.md",
+      "path": "content/notes/database-14-security.md",
+      "slug": "database-14-security",
+      "category": "database-recovery",
+      "sha256": "777d6ee6490c26c46ae689c0aee9ef484d1794a1aaff155c5fa1074fcc181292"
+    },
+    {
+      "source": "chapters/15-逻辑备份与恢复验收.md",
+      "path": "content/notes/database-15-backup-restore.md",
+      "slug": "database-15-backup-restore",
+      "category": "database-recovery",
+      "sha256": "372acd2b5eefe3072f19c47fe566e3ae9d5d07262e29b9996351a822d0e32d54"
+    },
+    {
+      "source": "chapters/16-WAL归档与时间点恢复.md",
+      "path": "content/notes/database-16-wal-pitr.md",
+      "slug": "database-16-wal-pitr",
+      "category": "database-recovery",
+      "sha256": "08d306b3f21261701e93fcb89fcf07855ba073825989f4074ff10dd643559d6f"
+    },
+    {
+      "source": "chapters/17-复制高可用与容灾.md",
+      "path": "content/notes/database-17-replication-ha.md",
+      "slug": "database-17-replication-ha",
+      "category": "database-recovery",
+      "sha256": "f8e31204dc81b43f4f397e3f4d948f3fc967ee0cd8de348b35452fc9ba84f732"
+    },
+    {
+      "source": "chapters/18-监控配置与容量规划.md",
+      "path": "content/notes/database-18-monitoring-capacity.md",
+      "slug": "database-18-monitoring-capacity",
+      "category": "database-operations",
+      "sha256": "4bc0327b70f55eccbe530d62b1cb058f0a393d913e8ff5e9efa8a59cb928b2c0"
+    },
+    {
+      "source": "chapters/19-生产故障排查.md",
+      "path": "content/notes/database-19-troubleshooting.md",
+      "slug": "database-19-troubleshooting",
+      "category": "database-operations",
+      "sha256": "b3c3c992557190651cce8952561ccb4e3b1d196d04cecb97f1020c6c5d187e22"
+    },
+    {
+      "source": "chapters/20-迁移发布与数据变更.md",
+      "path": "content/notes/database-20-migrations.md",
+      "slug": "database-20-migrations",
+      "category": "database-operations",
+      "sha256": "5e0fbedce19fdf12b661f3cd15cba3a8f41c7837bbe4147820cbd302cedd1866"
+    },
+    {
+      "source": "chapters/21-MySQL对照与操作.md",
+      "path": "content/notes/database-21-mysql.md",
+      "slug": "database-21-mysql",
+      "category": "database-choices",
+      "sha256": "051a4da0baf0247ba864f3f7c851962610258bbe8e620bb7819354b13aea8897"
+    },
+    {
+      "source": "chapters/22-缓存分析与分布式选型.md",
+      "path": "content/notes/database-22-cache-distribution.md",
+      "slug": "database-22-cache-distribution",
+      "category": "database-choices",
+      "sha256": "103442d69d793ff509289f272c7ed7696a996546f3ccb827b207bf9f0ad3895c"
+    },
+    {
+      "source": "chapters/23-常用数据库优缺点与适用场景.md",
+      "path": "content/notes/database-23-product-comparison.md",
+      "slug": "database-23-product-comparison",
+      "category": "database-choices",
+      "sha256": "2b721f5073b42ac3c3ef45d7ce802312b3b342baf61d7a555cb84143fd4744c1"
+    },
+    {
+      "source": "exercises.md",
+      "path": "content/notes/database-exercises.md",
+      "slug": "database-exercises",
+      "category": "database-resources",
+      "sha256": "e4df25cc3c24b61d4b220c08904f9cde378a315d0ba19970e9ae1be347db5bbf"
+    },
+    {
+      "source": "glossary.md",
+      "path": "content/notes/database-glossary.md",
+      "slug": "database-glossary",
+      "category": "database-resources",
+      "sha256": "e0d862e2319d71af45e780510de207ecfaab98d02822b3b9a9f6383ae0b7a422"
+    },
+    {
+      "source": "labs/README.md",
+      "path": "content/notes/database-lab-guide.md",
+      "slug": "database-lab-guide",
+      "category": "database-labs",
+      "sha256": "0ec2c7b5592572f502f6960cb5900c1b8d2f4dfd465e5ba49f27ad51840d3756"
+    },
+    {
+      "source": "labs/验证记录.md",
+      "path": "content/notes/database-lab-results.md",
+      "slug": "database-lab-results",
+      "category": "database-labs",
+      "sha256": "7f1ead99494dc1e1de6a162dca55d7921ed19ca193fa42ea7d48611e66967b63"
+    },
+    {
+      "source": "references.md",
+      "path": "content/notes/database-references.md",
+      "slug": "database-references",
+      "category": "database-resources",
+      "sha256": "5314e22fe677160d7d676cea1d0d51192edbf10bb03dbe5858f44f16ea8e3ef4"
+    },
+    {
+      "source": "runbooks.md",
+      "path": "content/notes/database-runbooks.md",
+      "slug": "database-runbooks",
+      "category": "database-operations",
+      "sha256": "be1e3b74d1db80276c61e8e2335f2441e0e1652a8e0bcfbad6ae3a217056eda3"
+    },
+    {
+      "source": "学习记录模板.md",
+      "path": "content/notes/database-learning-template.md",
+      "slug": "database-learning-template",
+      "category": "database-resources",
+      "sha256": "ca895f1dfb87ccd801789c37508b18c710df330d1341fbaf542af8fa8f48a3bc"
+    }
+  ],
+  "categories": [
+    {
+      "id": "database",
+      "name": "数据库"
+    },
+    {
+      "id": "database-sql",
+      "name": "基础与 SQL",
+      "parentId": "database"
+    },
+    {
+      "id": "database-transactions",
+      "name": "事务与应用",
+      "parentId": "database"
+    },
+    {
+      "id": "database-performance",
+      "name": "性能与维护",
+      "parentId": "database"
+    },
+    {
+      "id": "database-recovery",
+      "name": "安全与恢复",
+      "parentId": "database"
+    },
+    {
+      "id": "database-operations",
+      "name": "运维与变更",
+      "parentId": "database"
+    },
+    {
+      "id": "database-choices",
+      "name": "对照与选型",
+      "parentId": "database"
+    },
+    {
+      "id": "database-resources",
+      "name": "练习与资料",
+      "parentId": "database"
+    },
+    {
+      "id": "database-labs",
+      "name": "实验与实作",
+      "parentId": "database"
+    }
+  ],
+  "attachments": [
+    {
+      "path": "labs/.gitignore",
+      "sha256": "f1eefba1be7b8bd4928c96421673cadc73a1af3ad501a94f42171e45c3c22d4d",
+      "bytes": 20,
+      "mtime": 1794581036.5620623,
+      "destination": "/downloads/database-labs.zip",
+      "archiveEntry": "database-labs/.gitignore"
+    },
+    {
+      "path": "labs/compose.recovery.yaml",
+      "sha256": "08b560b00f4f92083af2b8a41d523318ebe6ebfd0482b8eded822b88c1ca27b2",
+      "bytes": 651,
+      "mtime": 1794582457.5838044,
+      "destination": "/downloads/database-labs/compose.recovery.yaml",
+      "archiveEntry": "database-labs/compose.recovery.yaml"
+    },
+    {
+      "path": "labs/compose.yaml",
+      "sha256": "9b59e3f6f4824611cabb53b76a1c1bfc2aebb5b0f6bf97b9f4b2e9b96b8cfd23",
+      "bytes": 864,
+      "mtime": 1794582457.5828042,
+      "destination": "/downloads/database-labs/compose.yaml",
+      "archiveEntry": "database-labs/compose.yaml"
+    },
+    {
+      "path": "labs/sql/00-schema.sql",
+      "sha256": "b1a4aaf244cd811b677d4cbf666315f02012b960678949eb541b4940ddae887e",
+      "bytes": 3185,
+      "mtime": 1794581036.5620623,
+      "destination": "/downloads/database-labs/sql/00-schema.sql",
+      "archiveEntry": "database-labs/sql/00-schema.sql"
+    },
+    {
+      "path": "labs/sql/01-seed.sql",
+      "sha256": "8acdeb03aa4d6c0bc3b27fa5d9c953c046854fa85e7bb58c804f5d824cd4e980",
+      "bytes": 1447,
+      "mtime": 1794581036.5620623,
+      "destination": "/downloads/database-labs/sql/01-seed.sql",
+      "archiveEntry": "database-labs/sql/01-seed.sql"
+    },
+    {
+      "path": "labs/sql/02-checks.sql",
+      "sha256": "3e59c9c2d2bb30da7f042342fea372ad3579cf14b2c090d40deb3079bfa5d070",
+      "bytes": 1899,
+      "mtime": 1794582205.5727766,
+      "destination": "/downloads/database-labs/sql/02-checks.sql",
+      "archiveEntry": "database-labs/sql/02-checks.sql"
+    },
+    {
+      "path": "labs/sql/03-place-order.sql",
+      "sha256": "92fcdce215b13980daa2f499941db97ab8c88bbd9a2e1b07eab58eb206f55b57",
+      "bytes": 2657,
+      "mtime": 1794581502.716617,
+      "destination": "/downloads/database-labs/sql/03-place-order.sql",
+      "archiveEntry": "database-labs/sql/03-place-order.sql"
+    },
+    {
+      "path": "labs/sql/04-order-checks.sql",
+      "sha256": "bc8b790bf0e421fa59b31960d54ca3c23cacf481741fb8e56e3852b56b4cc358",
+      "bytes": 2006,
+      "mtime": 1794581036.5620623,
+      "destination": "/downloads/database-labs/sql/04-order-checks.sql",
+      "archiveEntry": "database-labs/sql/04-order-checks.sql"
+    },
+    {
+      "path": "labs/sql/05-performance.sql",
+      "sha256": "2c306e543e24a401d4a13a170320f7451bfc7bda4cb72c1a92606df37607f08c",
+      "bytes": 1423,
+      "mtime": 1794581036.5620623,
+      "destination": "/downloads/database-labs/sql/05-performance.sql",
+      "archiveEntry": "database-labs/sql/05-performance.sql"
+    },
+    {
+      "path": "labs/sql/06-security-checks.sql",
+      "sha256": "60cd4d5569ac147d2b059a0592dde8216c52b4e73e8b625047bf4cb1d76fbb7a",
+      "bytes": 1184,
+      "mtime": 1794581457.2188232,
+      "destination": "/downloads/database-labs/sql/06-security-checks.sql",
+      "archiveEntry": "database-labs/sql/06-security-checks.sql"
+    }
+  ],
+  "archive": {
+    "path": "public/downloads/database-labs.zip",
+    "sha256": "e7dd3451ed113856428c74e89f8fbfaea79c4d63de7903e7c6d008ac97130c5c",
+    "entries": 11
+  },
+  "adjustments": [
+    "仅适配实验手册中本机绝对目录为解压后的 database-labs，并同步正文引用；SQL、YAML 与其他代码块保持原文。",
+    "简化授课式开场、预计用时和评分措辞，保留实验、练习、参考答案、产品对照表和实测限制。",
+    "实测数字来自原资料的实验记录，本次迁移没有重新执行数据库实验。"
+  ],
+  "checks": {
+    "sourceFiles": 250,
+    "sourceMarkdown": 240,
+    "sourceFilesUnchanged": true,
+    "articles": 192,
+    "categoryCounts": {
+      "python": 45,
+      "go": 53,
+      "typescript": 61,
+      "database": 33
+    },
+    "categories": 36,
+    "database": {
+      "sourceFiles": 43,
+      "articles": 33,
+      "internalLinks": 158,
+      "externalLinks": 111,
+      "downloadLinks": 13,
+      "codeBlocks": 78,
+      "originalAttachments": 10
+    },
+    "unchangedFirstBatch": true
+  }
+}

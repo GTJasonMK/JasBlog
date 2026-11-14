@@ -1,0 +1,115 @@
+---
+title: "数据库操作速查：连接、等待、空间和恢复"
+date: "2026-11-13"
+excerpt: "我把排查时常用的查询和执行前后要核对的内容放在一起。先确认目标库、身份和业务范围，再看会话、等待与空间；具体处置仍要由现场证据决定。"
+tags: [ "数据库", "PostgreSQL" ]
+category: "database-operations"
+publication: "published"
+display: { "toc": true }
+publishedAt: 2026-11-13
+---
+
+我把排查时常用的查询和执行前后要核对的内容放在一起。先确认目标库、身份和业务范围，再看会话、等待与空间；具体处置仍要由现场证据决定。
+
+查询以 PostgreSQL 16 为准，需要相应监控权限。应用身份、数据分类、审批和服务目标要按实际环境补全。
+
+## 每次接入先核对目标
+
+```sql
+SELECT current_database(), current_user, inet_server_addr(), inet_server_port(),
+       pg_is_in_recovery(), version();
+SHOW transaction_isolation;
+SHOW TimeZone;
+```
+
+确认主库或备库、数据库和身份符合任务。检查客户端自动提交状态。修改前保存对象定义、候选主键与原值，任何超出预期的对象或行数都停止该次操作并查明原因。
+
+## 请求变慢或连接耗尽
+
+```sql
+SELECT state, wait_event_type, count(*) AS sessions
+FROM pg_stat_activity WHERE datname = current_database()
+GROUP BY state, wait_event_type ORDER BY sessions DESC;
+
+SELECT pid, usename, application_name, client_addr, state,
+       now() - xact_start AS transaction_age,
+       now() - query_start AS query_age,
+       wait_event_type, wait_event, pg_blocking_pids(pid) AS blockers, query
+FROM pg_stat_activity
+WHERE datname = current_database() AND pid <> pg_backend_pid()
+ORDER BY xact_start NULLS LAST;
+```
+
+先区分客户端池等待和服务端耗时。`idle in transaction` 会话的 `query` 可能是上一条语句，不代表它仍在执行该查询。保存事务开始时间、身份和阻塞链，联系责任方结束事务。
+
+确需管理取消时，先核实具体 PID 及其业务操作。`pg_cancel_backend` 取消当前语句，`pg_terminate_backend` 断开会话并触发事务清理。不要按模糊查询文本批量终止，也不要认为函数返回后所有回滚和业务补偿已经完成。
+
+## 慢 SQL 与计划
+
+```sql
+SELECT queryid, calls, total_exec_time, mean_exec_time, rows,
+       shared_blks_hit, shared_blks_read, query
+FROM pg_stat_statements ORDER BY total_exec_time DESC LIMIT 10;
+```
+
+确定采样区间、典型参数和返回量；先取 `EXPLAIN`，确认可接受后再对受控读取执行 `EXPLAIN ANALYZE`。完整分析与实验方法见[第 12 章](/notes/database-12-query-plans)。不要因出现 Seq Scan 直接建索引。
+
+## 磁盘与 WAL 增长
+
+```sql
+SELECT pg_size_pretty(pg_database_size(current_database())) AS database_size;
+SELECT schemaname, relname,
+       pg_size_pretty(pg_total_relation_size(relid)) AS total
+FROM pg_stat_user_tables
+ORDER BY pg_total_relation_size(relid) DESC LIMIT 15;
+
+SELECT archived_count, failed_count, last_archived_wal,
+       last_archived_time, last_failed_wal, last_failed_time
+FROM pg_stat_archiver;
+
+SELECT slot_name, active, restart_lsn, wal_status,
+       pg_wal_lsn_diff(pg_current_wal_lsn(), restart_lsn) AS retained_bytes
+FROM pg_replication_slots;
+```
+
+在示例宿主机用 `docker compose exec -T db df -h /var/lib/postgresql` 查看文件系统可用空间。判断数据、索引、WAL、临时文件、归档与备份哪个增长，记录速率和预计耗尽时间。
+
+修复归档先查目标存储和权限；失活复制槽先确认所属消费者与重建后果；磁盘扩容先确认挂载和实际可用空间。禁止手工删除 `pg_wal` 或关系文件。槽的删除可能使消费者无法继续，不能当作无影响清理。
+
+## 维护与长事务
+
+```sql
+SELECT relname, n_live_tup, n_dead_tup, last_autovacuum, last_autoanalyze
+FROM pg_stat_user_tables ORDER BY n_dead_tup DESC;
+SELECT datname, age(datfrozenxid) AS xid_age FROM pg_database;
+SELECT * FROM pg_stat_progress_vacuum;
+```
+
+结合长事务、写入量和磁盘判断。普通 VACUUM 与 VACUUM FULL 的锁、空间和作用不同，详见[第 13 章](/notes/database-13-vacuum-partitions)。不要关闭 autovacuum 来隐藏告警。
+
+## 数据变更与迁移
+
+执行[第 20 章](/notes/database-20-migrations)的规范，变更单至少包含：
+
+- 目标环境、业务目的、责任人、窗口、读写调用方和数据范围。
+- SQL、预期行数、候选主键与原值保存位置、锁等待与总执行上限。
+- 结构、数据、业务不变量和应用冒烟检查。
+- 提交条件、中止条件、回填进度、恢复依据和观察窗口。
+
+DDL 与数据回滚能力逐项确认。数据库事务无法撤销已完成的外部支付、已发送消息或删除列后丢失的数据。
+
+## 备份恢复与误删
+
+先保留现场与现有备份，确认错误发生范围、最早错误事务、期望恢复点与可接受损失。按照[逻辑恢复](/notes/database-15-backup-restore)或 [PITR](/notes/database-16-wal-pitr)恢复到隔离目标，核对后再制定切换。
+
+恢复记录包括：源版本、备份时间和范围、日志连续性、密钥和扩展、目标实例、恢复点、开始与完成时间、业务核对、应用接入和最终 RPO/RTO。不要直接在仍有合法写入的原库上覆盖恢复。
+
+## 故障结束与复盘模板
+
+记录发现时间、业务影响、变更背景、假设与排除证据、确认原因、处置动作、数据影响、恢复指标、未决订单和后续责任项。关键输出需脱敏，避免完整参数或凭据扩散。
+
+结束标准包含业务错误率和延迟恢复、数据库等待下降、连接归还正常、积压可消化、数据核对完成，以及不确定结果有明确处理人。完整讲解见[第 19 章](/notes/database-19-troubleshooting)。
+
+---
+
+[数据库目录](/notes/database-00-learning-guide)

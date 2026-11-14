@@ -1,0 +1,64 @@
+---
+title: "Python 32：asyncio：await 在什么地方让出执行权"
+date: "2026-11-12"
+excerpt: "写上 async 并不会让函数自动变快。我理解异步时，关注的是等待期间能不能把执行机会交给其他任务；如果里面调用的仍是阻塞函数，事件循环照样会被占住。"
+tags: [ "Python", "运行机制与并发" ]
+category: "python-part4"
+publication: "published"
+display: { "toc": true }
+publishedAt: 2026-11-12
+---
+
+写上 async 并不会让函数自动变快。我理解异步时，关注的是等待期间能不能把执行机会交给其他任务；如果里面调用的仍是阻塞函数，事件循环照样会被占住。
+
+`async def` 定义协程函数，调用后得到协程对象；`await` 在等待异步 I/O 时挂起当前协程，让事件循环运行其他任务。异步适合大量并发 I/O，不会自动加速 CPU 密集计算。
+
+```python
+import asyncio
+
+async def job(name):
+    await asyncio.sleep(0.1)
+    return name
+
+async def main():
+    async with asyncio.TaskGroup() as group:
+        first = group.create_task(job("A"))
+        second = group.create_task(job("B"))
+    print(first.result(), second.result())
+
+asyncio.run(main())
+```
+
+从同步代码调用协程常用 `asyncio.run`；已有事件循环（如 Notebook 或异步 Web 框架）中应 `await`，不要再次嵌套 `asyncio.run`。异步函数内部要使用兼容的异步 I/O 库。
+
+Python 3.11+ 的 `TaskGroup` 将相关任务放在同一生命周期内；一个任务失败时，组会取消其他任务并汇总异常。用 `asyncio.timeout` 限制等待时间：
+
+```python
+async def main_with_timeout():
+    try:
+        async with asyncio.timeout(1):
+            async with asyncio.TaskGroup() as group:
+                group.create_task(job("A"))
+                group.create_task(job("B"))
+    except TimeoutError:
+        print("任务超时")
+```
+
+`asyncio.gather` 仍适合简单地等待一组协程并收集结果；`TaskGroup` 更适合需要共同管理生命周期的任务，异常传播和取消行为也不同。
+
+任务取消是协作式的。需要清理资源时用 `try/finally`；捕获 `asyncio.CancelledError` 后通常应继续抛出，避免调用方无法停止任务。
+
+## 同步阻塞不会因为放进协程就消失
+
+协程中直接调用耗时同步网络请求会阻塞事件循环。遇到阻塞操作时使用异步版本或受控的线程池。
+
+## 动手验证
+
+**练习：**为什么把 `time.sleep(1)` 放进协程会影响其他任务？
+
+**答案：**它阻塞了事件循环线程；改用 `await asyncio.sleep(1)` 才会让出控制权。
+
+---
+
+[上一篇：线程、进程与 GIL：从任务在等什么说起](/notes/python-31-concurrency) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：自动化脚本：先让任务能安全重跑](/notes/python-33-automation)
+

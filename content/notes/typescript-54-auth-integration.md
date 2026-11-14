@@ -1,0 +1,39 @@
+---
+title: "TypeScript 54：注册、登录、刷新与退出的完整流程"
+date: "2026-11-12"
+excerpt: "登录流程不能只验证一次表单提交。我会继续刷新页面、退出、删除 Cookie，确认浏览器显示的状态与服务端会话一致，再检查会话的过期与持久化方式。"
+tags: [ "TypeScript", "全栈整合与发布" ]
+category: "typescript-12-delivery"
+publication: "published"
+display: { "toc": true }
+publishedAt: 2026-11-12
+---
+
+登录流程不能只验证一次表单提交。我会继续刷新页面、退出、删除 Cookie，确认浏览器显示的状态与服务端会话一致，再检查会话的过期与持久化方式。
+
+注册时校验邮箱与密码，使用 Argon2id 等密码哈希算法保存结果。邮箱唯一性由数据库 UNIQUE 约束保护；提前查询可以改善提示，但仍要处理并发写入产生的唯一键冲突。登录时比较密码哈希，登录成功后更新会话标识并写入 HttpOnly Cookie。当前用户接口从会话恢复身份；退出时销毁服务端会话并清 Cookie。
+
+开发阶段可使用内存会话存储；这组笔记生产默认使用 PostgreSQL 持久化会话存储，Redis 可作为扩展方案。设置会话签名密钥、空闲与绝对过期时间。不要使用 express-session 默认的 MemoryStore 部署生产环境。
+
+会话 Cookie 至少设置 HttpOnly、Path=/ 和 SameSite=Lax；生产 HTTPS 设置 Secure。若确需跨站 Cookie，使用 SameSite=None; Secure 并配合 CSRF Token 与严格 Origin 校验。响应中只返回公开用户字段，不返回 passwordHash。
+
+同源 Vite 代理下，浏览器请求 /api 即可使用同源 Cookie。对写入请求检查 Origin；跨站部署时还需精确配置允许来源、credentials、SameSite 与 CSRF Token，不能用任意来源搭配凭证。
+
+用户界面要处理加载、无会话、登录失败、过期和退出中的状态。
+
+## 凭证只留在合适的边界内
+
+- 注册时不能保存明文密码。
+- 登录失败消息避免暴露邮箱是否存在等不必要信息。
+- Cookie 会话不应由前端 JavaScript 读取。
+
+## 动手验证
+
+按注册、登录、刷新页面、退出顺序测试；关闭浏览器会话或删除 Cookie 后确认当前用户接口返回未登录。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：任务 API：把会话、校验和持久化连起来](/notes/typescript-53-task-api) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：单元和组件测试：把用户能观察到的行为写下来](/notes/typescript-55-unit-component-tests)
+

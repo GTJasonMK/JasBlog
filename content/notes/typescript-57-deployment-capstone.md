@@ -1,0 +1,91 @@
+---
+title: "TypeScript 57：构建与部署：把本机能跑变成可重复交付"
+date: "2026-11-12"
+excerpt: "我会用干净环境从安装开始走一遍，检查配置、迁移、启动和构建是否都有明确步骤。发布时还要能把代码、数据库变化和运行结果对应起来，才知道出问题后能退到哪里。"
+tags: [ "TypeScript", "全栈整合与发布" ]
+category: "typescript-12-delivery"
+publication: "published"
+display: { "toc": true }
+publishedAt: 2026-11-12
+---
+
+我会用干净环境从安装开始走一遍，检查配置、迁移、启动和构建是否都有明确步骤。发布时还要能把代码、数据库变化和运行结果对应起来，才知道出问题后能退到哪里。
+
+生产构建使用锁定依赖；构建前执行类型检查和测试。部署时提供数据库连接、会话密钥等环境变量，执行已审核迁移，再启动 API 和静态前端。Docker Compose 可用于本地启动 PostgreSQL 和应用依赖；VPS 通过反向代理提供 HTTPS。
+
+发布前确认健康检查、日志、数据库备份和恢复方式。不要把 .env、数据库快照或密钥提交到 Git。
+
+## 本地 PostgreSQL：Compose 示例
+
+将以下内容保存为仓库根目录的 compose.yaml。数据库容器只从根目录的 .env.db 读取密码；不要提交 .env.db：
+
+~~~yaml
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    env_file:
+      - .env.db
+    environment:
+      POSTGRES_DB: task_app
+      POSTGRES_USER: task_app
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U task_app -d task_app"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres-data:
+~~~
+
+在根目录的 .env.db 中设置仅供本地开发的 POSTGRES_PASSWORD；在 apps/api/.env 中设置 DATABASE_URL，连接串中的密码必须与容器密码相同，特殊字符要按 URL 规则编码。确保这两个文件在 .gitignore 中，再从仓库根目录启动数据库：
+
+~~~sh
+docker compose up -d db
+~~~
+
+然后进入 apps/api，首次运行时创建初始迁移并启动 API：
+
+~~~sh
+cd apps/api
+npx prisma migrate dev --name init
+npm run dev
+~~~
+
+后续 Schema 改动使用描述该改动的迁移名。API 进程也必须能读取 DATABASE_URL。生产环境不得使用示例密码或向公网开放数据库端口。
+
+apps/api 的开发脚本必须显式加载 apps/api/.env，或由 shell 注入 DATABASE_URL；不要假设 Node.js 会自动读取 .env。
+
+## 发布顺序
+
+1. CI 安装锁定依赖，运行类型检查、Lint、测试和生产构建。
+2. 发布 API 与前端静态资源；通过反向代理让 /api 转发给 API，其余路径服务前端。
+3. 配置 HTTPS、生产数据库和持久化会话存储；确认数据库仅对应用网络开放。
+4. 在 API package 目录运行生产迁移命令 npx prisma migrate deploy，检查健康端点和日志，再切换流量。migrate dev 只用于本地开发。
+5. 验证备份可恢复，并记录回滚应用版本与数据库迁移的方案。
+
+生产迁移应采用向前兼容的 expand/contract 流程：先增加兼容字段并发布读写兼容版本，再迁移数据，最后移除旧字段。只依赖“回滚应用镜像”无法撤销破坏性数据库变更。
+
+## 项目验收
+
+- 注册、登录、退出和当前用户查询可用。
+- 未登录和越权访问均被 API 拒绝。
+- 任务 CRUD、校验、空状态和失败反馈完整。
+- 单元、API、端到端测试和生产构建通过。
+- README 写明安装、环境变量、数据库迁移、启动和部署流程。
+
+## 动手验证
+
+在干净环境按 README 从零启动项目；记录所有缺少的步骤并修复文档。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：API 与端到端测试：确认整条路径能走通](/notes/typescript-56-api-e2e-tests) · [TypeScript 目录](/notes/typescript-00-learning-guide)
+
