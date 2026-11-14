@@ -1,17 +1,17 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-7:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-8:"$Sreact.suspense"
-3:T1171,
-理解隔离级别，我会直接看两个连接交错执行时能读到什么、能提交什么。MVCC 可以提供稳定快照，但两个事务修改不同记录时，仍可能一起破坏跨行规则。
+b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+e:"$Sreact.suspense"
+3:T15bf,
+两名医生各自看到两人在值班，于是都把自己改成离开。他们读到的快照稳定，修改的也不是同一行，最后却没有任何人值班。隔离级别要从实际允许的过程理解，不能只凭名字推断业务一定安全。
 
 并发实验需要两个独立连接，单会话顺序执行无法证明并发行为。
 
 ## 事务保护一个完整业务动作
 
-原子性表示事务整体提交或撤销；一致性依赖约束和正确业务逻辑共同维护；隔离性约束并发可见性；持久性依赖日志、刷盘设置和可靠存储。ACID 不会自动识别“客户余额与付款金额必须相等”这样的业务含义。
+事务先把必须共同成立的变化圈成一个提交单位。原子性负责一起提交或撤销，隔离性限制并发观察，持久性依赖日志与存储；“至少一人值班”这项一致性仍需要规则进入约束或事务设计。数据库不会从两行boolean猜到排班政策。
 
 ```sql
 BEGIN;
@@ -23,6 +23,8 @@ COMMIT;
 ```
 
 保存点允许撤销局部操作，但不能用来吞掉未知错误继续成功返回。PostgreSQL 事务中语句报错后，后续语句通常会收到“事务已中止”，必须回滚到错误之前的保存点或回滚整个事务。
+
+示例先改价再回到保存点，最后提交的是撤销后的状态。保存点没有把外部邮件、支付或已经返回给用户的结果一并倒带，事务原子边界仍然只覆盖它实际管理的数据库变化。
 
 ## MVCC 决定你看到哪个版本
 
@@ -36,6 +38,8 @@ COMMIT;
 | Serializable | 使用可串行化快照隔离检查依赖 | 可能以 `40001` 终止事务，应用须完整重试 |
 
 这里描述的是 PostgreSQL 实现，不是所有数据库的通用行为表。锁定读取和写入还涉及锁等待与更新后的条件重检。
+
+Read Committed的两次SELECT可能取得不同快照；Repeatable Read把普通读保持在事务快照上，却不意味着它自动锁住所有读过的业务条件。先区分看见什么，再问允许提交什么，这两个问题不能合成一个“隔离更强所以都没问题”。
 
 ## 实验一：两次读取为什么不同
 
@@ -60,6 +64,8 @@ INSERT INTO practice.isolation_demo VALUES (1, 100), (2, 100);
 
 再次执行，把第 1 步改为 `BEGIN ISOLATION LEVEL REPEATABLE READ`，B 将余额改为 300。A 两次都看到 200，结束事务后新查询才看到 300。保存每一步的输出与隔离级别。
 
+第二轮开始时余额已经是200，所以不是再次期待100。实验保留前一次提交状态，预测输出时先核对前置数据；否则把错误的起点当答案，会误判隔离行为。
+
 ## 实验二：稳定快照仍可能破坏跨行规则
 
 业务要求两名医生至少一人值班：
@@ -76,6 +82,8 @@ INSERT INTO practice.on_call VALUES (1, true), (2, true);
 
 另一种方案是所有相关事务锁定同一条排班控制记录，串行维护该不变量。选择取决于竞争程度和事务范围，不能只把隔离级别名字写进设计文档。
 
+Serializable发现无法等价为某个串行顺序时，可以让一方失败。重试时重新读取人数，才能发现另一人已离开；只把最后的UPDATE重发，会继续使用过期判断。较强隔离把某些错误变成可检测失败，应用还要完成正确恢复。
+
 ## 动手验证
 
 解释脏读、不可重复读、幻读、写偏斜分别对应什么现象。提交两个实验的时间顺序和结果，说明为什么重试最后一条 `UPDATE` 不能替代重试整个事务。
@@ -85,6 +93,12 @@ INSERT INTO practice.on_call VALUES (1, true), (2, true);
 ---
 
 [上一篇：用窗口函数做排名、累计和报表](/notes/database-06-windows-reports) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：找到谁在等谁，再处理锁和死锁](/notes/database-08-locks-deadlocks)
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-07-transactions-mvcc","title":"数据库 07：快照稳定了，业务规则就一定正确吗","date":"2026-11-13","excerpt":"理解隔离级别，我会直接看两个连接交错执行时能读到什么、能提交什么。MVCC 可以提供稳定快照，但两个事务修改不同记录时，仍可能一起破坏跨行规则。","tags":["数据库","PostgreSQL"],"category":"database-transactions","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-transactions","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],"$L6"]}],"loading":null,"isPartial":false}
-6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
-9:null
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-07-transactions-mvcc","title":"数据库 07：快照稳定了，业务规则就一定正确吗","date":"2026-11-13","excerpt":"两名医生都确认还有别人值班，各自离开，最后却无人值班。用两个连接的交错过程解释稳定快照为何仍可能发生写偏斜，以及Serializable失败后该重试什么。","tags":["数据库","PostgreSQL"],"category":"database-transactions","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+4:["$","$Lb",null,{"href":"/notes?category=database-transactions","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
+5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]
+7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
+8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
+9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]
+a:["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
+f:null

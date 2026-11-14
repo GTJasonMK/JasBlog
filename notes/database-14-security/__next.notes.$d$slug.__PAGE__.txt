@@ -4,8 +4,8 @@
 5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-3:T1119,
-设置了密码，并不意味着权限已经收好。我会分别检查谁能连进来、连接者是谁、能访问哪些对象，以及客户端是否验证了服务端身份，再用应该失败的操作验证边界。
+3:T14fa,
+账号有密码，连进去以后却能删表，这说明认证成功了，权限仍过大。反过来，表授权正确也不能修复客户端连接到错误服务器的问题。把连接、身份、授权与TLS拆开，每项才能找到对应的验证。
 
 ## 四个独立问题
 
@@ -25,6 +25,8 @@ docker compose exec -T db psql -X -v ON_ERROR_STOP=1 -U lab_admin -d db_lab < sq
 
 脚本会检查读取成功，同时确认修改商品、读取客户原表和创建业务表都失败。它保留权限组与视图，不修改业务数据。权限拒绝是预期结果，测试只捕获 `insufficient_privilege`，其他错误直接失败。
 
+视图只暴露id与名称，避免为了查显示名顺带开放邮箱。读取成功证明允许的路径可用，修改失败证明拒绝边界存在；两种方向都测，才能区分权限收紧正确与账号实际上什么也做不了。
+
 需要练习真实登录时，再在交互 `psql` 中执行：
 
 ```sql
@@ -43,6 +45,8 @@ GRANT shop_reader TO analyst_login;
 
 默认权限作用于未来由指定创建者新建的对象，不会自动修改现有表，也不会跟随其他创建者。批量给未来所有表开放读取之前，确认 schema 中的数据分类一致，避免新建敏感表时自动暴露。
 
+一个新表突然不能查，不一定是旧GRANT失效，也可能它由另一创建者建立，没有落在预设默认权限范围。先确认对象所有者和生效规则，再修改授权，不把所有表统一开放来消除报错。
+
 示例下单函数默认是 invoker 权限，不自动提升调用者权限。仅给它 `EXECUTE` 不代表调用者就拥有底层写表能力。若组织采用 `SECURITY DEFINER` 封装写入口，必须固定安全 `search_path`、校验调用身份、最小化所有者权限并限制函数可调用者，不能随手加一个关键词解决权限错误。
 
 ## 数据分级与审计
@@ -51,7 +55,11 @@ GRANT shop_reader TO analyst_login;
 
 行级安全 RLS 可以限制租户可见行，但策略、表所有者、`BYPASSRLS` 角色、连接池租户上下文都要验证。多租户不能只在应用里约定“每条查询记得加 tenant_id”。完整方案需要直接数据库访问测试和跨租户失败测试。
 
+连接复用尤其要确认租户身份按事务设置与清理，否则上一位用户的上下文可能留给下一次借用。RLS提供数据库检查位置，应用仍负责给出正确身份与权限；不能只看到策略创建成功就推断隔离成立。
+
 审计至少关联操作身份、时间、对象、变更单和结果。全量记录 SQL 可能泄露参数并增加负载，要依据数据分类和组织要求设计采集与保留。备份加密密钥也必须可恢复，只有密文没有密钥等于没有可用备份。
+
+同样的敏感字段会出现在备份、WAL和导出里，页面隐藏并没有改变底层访问风险。安全范围跟随真实数据副本，而不是跟随当前能看见的某一张页面。
 
 ## 动手验证
 
@@ -62,5 +70,5 @@ GRANT shop_reader TO analyst_login;
 ---
 
 [上一篇：删除后文件为什么没变小，分区又能解决什么](/notes/database-13-vacuum-partitions) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：有备份文件之后，还要证明能恢复](/notes/database-15-backup-restore)
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-14-security","title":"数据库 14：把连接身份、对象权限和数据安全分开检查","date":"2026-11-13","excerpt":"设置了密码，并不意味着权限已经收好。我会分别检查谁能连进来、连接者是谁、能访问哪些对象，以及客户端是否验证了服务端身份，再用应该失败的操作验证边界。","tags":["数据库","PostgreSQL"],"category":"database-recovery","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-recovery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-14-security","title":"数据库 14：把连接身份、对象权限和数据安全分开检查","date":"2026-11-13","excerpt":"只读账号能查订单，却不能查客户邮箱，是哪一项权限在起作用？分开验证连接、身份、对象授权与TLS，再用真实拒绝测试确认边界。","tags":["数据库","PostgreSQL"],"category":"database-recovery","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-recovery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
 8:null

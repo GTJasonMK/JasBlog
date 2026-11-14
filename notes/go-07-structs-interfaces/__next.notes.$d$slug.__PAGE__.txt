@@ -1,8 +1,78 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-07-structs-interfaces","title":"Go 07：结构体、接口与泛型：先表达业务关系","date":"2026-11-12","excerpt":"我会先用结构体描述数据，再从调用者需要的行为里找接口。泛型适合保留通用算法中的类型关系，但业务规则各不相同时，专用函数通常更清楚。","tags":["Go","语言与工具链"],"category":"go-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n我会先用结构体描述数据，再从调用者需要的行为里找接口。泛型适合保留通用算法中的类型关系，但业务规则各不相同时，专用函数通常更清楚。\n\n## 结构体与组合\n\n结构体把有关联的字段放在一起。Go 常通过嵌入和组合复用行为，而不是建立深层继承树。\n\n~~~go\ntype Product struct {\n\tID    int64\n\tName  string\n\tPrice int64 // 以分为单位\n}\n~~~\n\n真实 API 中还要考虑字段校验、数据库模型和对外响应是否应该使用不同类型，避免把内部字段意外暴露。\n\n## 接口\n\n接口由方法集合定义，类型无需显式声明“实现了接口”。依赖方通常定义小接口，只暴露自己需要的能力。\n\n~~~go\ntype PriceReader interface {\n\tPriceByID(ctx context.Context, id int64) (int64, error)\n}\n~~~\n\n如果接口只有一个实现且没有测试或边界需求，不要过早抽象。接口的价值在于明确调用者需要什么，并允许替换外部依赖。\n\n接口值同时包含动态类型和值。把一个 nil 指针赋给接口后，接口本身通常不等于 nil；这类 typed nil 是常见陷阱。判断接口错误时应直接用 err == nil、errors.Is 或 errors.As，而不是自行比较内部值。\n\n## 泛型\n\n泛型适合编写对多种类型都成立的通用算法和容器。若业务类型有不同规则，普通接口和专用函数通常更容易读。不要为了“泛型化”而把简单逻辑变复杂。\n\n## 动手验证\n\n定义 Notifier 接口和邮件、短信两种实现。再解释为什么下单服务只依赖 Notifier 的发送方法，而不依赖具体实现。\n\n---\n\n[上一篇：函数、方法与指针接收者怎么选](/notes/go-06-functions-methods) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：错误处理：让失败沿调用链说清楚](/notes/go-08-errors)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Te53,
+商品有编号、名称和价格，分散成三个数组，很容易在增删时失去对应关系。结构体先解决的是“这些字段共同描述一个对象”。至于价格来自数据库还是测试数据，则是另一个变化点。
+
+## 结构体与组合
+
+结构体把有关联的字段放在一起。Go 常通过嵌入和组合复用行为，而不是建立深层继承树。
+
+~~~go
+type Product struct {
+	ID    int64
+	Name  string
+	Price int64 // 以分为单位
+}
+~~~
+
+真实 API 中还要考虑字段校验、数据库模型和对外响应是否应该使用不同类型，避免把内部字段意外暴露。
+
+Price以分为单位，但字面量仍能填负数。结构体组织字段，不会自动建立业务不变量；需要时用构造函数和修改方法检查规则，并收紧内部字段的可见范围。
+
+组合让对象持有另一个对象；嵌入还会提升部分字段与方法，但不等同于类继承。嵌入很大的外部类型，可能意外公开许多方法，普通命名字段通常更容易控制API范围。
+
+## 接口
+
+接口由方法集合定义，类型无需显式声明“实现了接口”。依赖方通常定义小接口，只暴露自己需要的能力。
+
+~~~go
+type PriceReader interface {
+	PriceByID(ctx context.Context, id int64) (int64, error)
+}
+~~~
+
+如果接口只有一个实现且没有测试或边界需求，不要过早抽象。接口的价值在于明确调用者需要什么，并允许替换外部依赖。
+
+PriceReader可以定义在消费价格能力的包里，只要求一个方法。数据库实现有再多管理功能，订单业务也只看这一项能力；测试则提供固定价格或明确失败的实现，不必先启动数据库。
+
+接口只检查签名，不检查语义。返回负价格、忽略context或吞掉查询错误的实现，即使编译通过，也可能违背调用方约定。替身必须保留相同的成功、缺失和失败含义。
+
+接口值同时包含动态类型和值。把一个 nil 指针赋给接口后，接口本身通常不等于 nil；这类 typed nil 是常见陷阱。判断接口错误时应直接用 err == nil、errors.Is 或 errors.As，而不是自行比较内部值。
+
+因此返回error时，成功分支直接 `return nil`，不要把值为nil的自定义错误指针装进接口。调用方看到非nil接口会认为失败，与内部指针是否为空不同。
+
+## 泛型
+
+泛型适合编写对多种类型都成立的通用算法和容器。若业务类型有不同规则，普通接口和专用函数通常更容易读。不要为了“泛型化”而把简单逻辑变复杂。
+
+例如位置查找只依赖相等比较，可以保留元素类型：
+
+~~~go
+func Index[T comparable](values []T, target T) int {
+	for index, value := range values {
+		if value == target {
+			return index
+		}
+	}
+	return -1
+}
+~~~
+
+`comparable` 允许相等比较，-1表示没找到。整数与字符串可用同一算法；元素本身不可比较时则不能套用。标准库已有相应切片查找工具，项目中先复用，这段用于理解约束。
+
+接口描述运行时需要的行为，泛型保留编译时类型关系。两者可以配合，但不必把商品价格和用户积分仅因为都含数字就合成一个泛型业务函数。
+
+## 动手验证
+
+定义 Notifier 接口和邮件、短信两种实现。再解释为什么下单服务只依赖 Notifier 的发送方法，而不依赖具体实现。
+
+---
+
+[上一篇：函数、方法与指针接收者怎么选](/notes/go-06-functions-methods) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：错误处理：让失败沿调用链说清楚](/notes/go-08-errors)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-07-structs-interfaces","title":"Go 07：结构体、接口与泛型：先表达业务关系","date":"2026-11-12","excerpt":"商品数据、查价格的能力和通用查找算法，为什么需要不同表达方式？从结构体到小接口，再到保留类型关系的泛型，说明每种工具在约束什么。","tags":["Go","语言与工具链"],"category":"go-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

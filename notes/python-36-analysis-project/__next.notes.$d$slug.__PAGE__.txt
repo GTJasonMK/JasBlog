@@ -1,15 +1,17 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-7:"$Sreact.suspense"
-3:Taaa,
-下面这份小数据有明确的订单、客户和地区关系。我会按读取、检查、连接、汇总和画图的顺序处理，并把预期汇总值列出来，方便判断分析过程有没有跑偏。
+b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+e:"$Sreact.suspense"
+3:T1567,
+有五笔订单和一张客户地区表，要回答两个问题：各地区收入分别多少，1月与2月收入各是多少。这个任务足够小，可以先手工核对总额，再检查代码的每一步有没有改变统计口径。
 
-示例数据直接写在程序里，便于离线复现。换成真实 CSV 时，还要确认字段含义和缺失值的处理规则。
+这里每行表示一笔订单，同一币种下收入等于数量乘以单价，没有退货、折扣和税费。数据直接嵌在程序中，安装依赖后可以离线运行；换成自己的CSV时，必须先核对这些前提。
 
 安装依赖：`python -m pip install numpy pandas matplotlib`。
+
+把下面内容保存为一个分析脚本。先读入两张表，再检查订单编号和缺失值，随后连接地区并汇总：
 
 ```python
 from io import StringIO
@@ -54,24 +56,49 @@ plt.tight_layout()
 plt.savefig("sales_by_region.png", dpi=150)
 ```
 
-结果应为 North `39.0`、South `22.5`；月度合计为 January `41.0`、February `20.5`。把分析代码保存成脚本或 Notebook，并记录数据来源、字段含义、清理规则和结论，保证他人能重跑。
+## 先手算一遍，再对照分组结果
 
-## 动手验证
+O1收入25，O2收入10，O3收入6，O4收入12.5，O5收入8，总计61.5。C1与C3属于North，合计39；C2属于South，合计22.5。1月包含O1到O3，合计41；2月包含O4和O5，合计20.5。
 
-**练习：**筛出产品名包含 `book` 的订单。
+这些值来自输入本身，不是模型预测或性能指标。程序输出应该与它们一致，地区汇总的总和与月份汇总的总和也应重新等于61.5。若连接后多了一行，或者某笔订单没有地区而在分组时被省掉，这种总量核对就有机会发现问题。
+
+真实项目不一定能手算所有记录，但仍然可以选择可靠的基线、边界样本和勾稽关系验证。图表已经生成，只能证明绘图步骤完成，不能证明前面的订单没有被重复计算。
+
+## 为什么连接要声明多对一
+
+订单可以重复使用客户编号，客户地区表中的客户编号却应该唯一，所以使用 `validate="many_to_one"`。若同一个客户意外有两条地区记录，连接会明确失败，不让同一笔收入进入两个分组。
+
+左连接保留所有订单，随后检查 `region` 是否缺失，避免未登记客户的订单在分组时悄悄消失。输入检查分别维护订单唯一性、必要字段和客户匹配，它们不是一个 `dropna` 就能替代的动作。
+
+当前脚本主要服务于这份已知样例，只检查重复和缺失还不足以接受任意外部数据。负数量、非法价格、无效日期和字符串混入数值列，都需要在扩大输入范围前明确验证。演示中的数值适合展示聚合；严格财务结算则应采用明确的金额表示、币种和舍入规则。
+
+## 输出表格与图片，各自承担什么用途
+
+`summary` 适合查看地区总额，透视表适合比较地区与商品的组合，`monthly` 体现月份变化。它们不是互相替代的三份装饰，而是在相同订单口径上回答不同问题。
+
+输出CSV时，地区已经是普通列，因此使用 `index=False`；透视表中的地区是有含义的行索引，输出时则保留。条形图用于比较地区总收入，纵轴注明Revenue，实际报告还需要明确币种、期间和口径。
+
+同样的输入重复运行会重新生成同样内容的汇总文件，当前文件名存在时会覆盖。正式交付要明确输出目录、覆盖策略和任务标识，图片也不能作为唯一可追查的数据来源。脚本或Notebook应随数据来源、依赖版本和清理规则一起保存。
+
+最后按商品名精确取出Book订单，忽略大小写，检查细节能否对应回输入：
 
 ```python
-books = df["product"].str.contains("book", case=False, na=False)
+books = df["product"].str.casefold().eq("book")
 print(df.loc[books, ["order_id", "product", "revenue"]])
 ```
 
-**易错点：**汇总前先确认数量和价格的类型、币种和缺失值；相关性或平均值不能自动证明因果关系。
-
-**练习答案：**`books` 是布尔掩码；`df.loc[books, ...]` 返回 O1 和 O4 两条订单。
+`books` 是布尔掩码，选中O1和O4，两笔合计37.5。如果使用包含子串的contains，Notebook也会被选中，总额变成45.5；筛选方法必须对应实际类别含义。地区差异在这份数据里只是观测结果，没有随机实验或其他识别条件，不能据此认定某地区导致更高消费。分析完整到可以复查输入、转换、结果和适用解释，才算交付了一份可以继续使用的结论。
 
 ---
 
 [上一篇：NumPy、pandas 与图表：从数据形状开始分析](/notes/python-35-data-analysis) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：机器学习流程：先分数据，再比较模型](/notes/python-37-machine-learning)
 
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-36-analysis-project","title":"Python 36：把订单 CSV 整理成能重跑的销售分析","date":"2026-11-12","excerpt":"下面这份小数据有明确的订单、客户和地区关系。我会按读取、检查、连接、汇总和画图的顺序处理，并把预期汇总值列出来，方便判断分析过程有没有跑偏。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
-8:null
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-36-analysis-project","title":"Python 36：把订单 CSV 整理成能重跑的销售分析","date":"2026-11-12","excerpt":"五笔订单总共卖了多少钱，分地区和分月份汇总以后还能对上吗？通过一份内置CSV把读取、连接、收入计算和画图连起来，解释如何用已知总额核查分析，而不只看有没有生成图片。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+4:["$","$Lb",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
+5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]
+7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
+8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
+9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]
+a:["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
+f:null

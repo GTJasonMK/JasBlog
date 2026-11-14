@@ -1,8 +1,111 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-02-objects","title":"Python 02：变量、对象与赋值：改的是名字，还是对象","date":"2026-11-12","excerpt":"我理解 Python 变量时，习惯先画出名称与对象之间的指向关系。给变量重新赋值，和通过变量修改一个列表，是两件不同的事。下面这组对照能直接看出区别。","tags":["Python","语言基础"],"category":"python-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n我理解 Python 变量时，习惯先画出名称与对象之间的指向关系。给变量重新赋值，和通过变量修改一个列表，是两件不同的事。下面这组对照能直接看出区别。\n\n```python\ncount = 3\nother = count\ncount = 4\nprint(other)  # 3\n\nitems = [\"a\"]\nalias = items\nalias.append(\"b\")\nprint(items)  # ['a', 'b']\n```\n\n整数重新绑定后，`other` 仍指向原来的整数对象；列表是可变对象，两个名称指向同一个列表，所以通过任一名称修改都会看到变化。`type(x)` 查看类型，`id(x)` 可用于观察对象身份，但不应把 `id` 当作持久标识。\n\n## 值相等，不代表是同一个对象\n\n`a == b` 比较值，`a is b` 比较是否为同一个对象。通常用 `is None` 检查空值；比较字符串或数字的值应使用 `==`。\n\n## 动手验证\n\n**练习：**预测下面打印什么。\n\n```python\na = [1]\nb = a\nb = b + [2]\nprint(a, b)\n```\n\n**答案：**`[1] [1, 2]`。`b + [2]` 创建新列表，再把 `b` 绑定到新对象；原列表没有被原地修改。\n\n---\n\n[上一篇：先把解释器和运行方式弄清楚](/notes/python-01-environment) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：数字、真假值与类型转换](/notes/python-03-basic-types)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=python-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+7:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+3:T137f,
+先看两段很像的代码。它们都把一个变量赋给另一个变量，后面的结果却不同：
+
+```python
+count = 3
+other = count
+count = 4
+print(other)  # 3
+
+items = ["a"]
+alias = items
+alias.append("b")
+print(items)  # ['a', 'b']
+```
+
+如果把赋值理解成“复制了一份值”，第二段就不好解释了。`alias` 明明已经赋好值，为什么它添加元素以后，`items` 也跟着变化？
+
+Python 中的赋值把名称绑定到对象。`other = count` 执行以后，两个名称都指向值为 `3` 的那个整数对象。接着执行 `count = 4`，改变的是 `count` 的绑定，`other` 仍指向原来的对象。它不会持续追踪 `count` 后来指向了谁。
+
+列表那段则没有给 `alias` 重新赋值。`append` 修改了两个名称共同指向的列表，所以从 `items` 读取时也会看到新增元素。这里发生的事情是“改了同一个对象”，并没有在两个独立的列表之间同步数据。
+
+## 可变说的是对象，类型也属于对象
+
+整数、字符串、元组等对象不支持改变自身已有的内容。列表、字典、集合则提供了修改内容的操作。这就是可变与不可变的区别。
+
+不过，变量名没有被限定为只能绑定某一种类型：
+
+```python
+value = 3
+print(type(value))  # <class 'int'>
+value = "three"
+print(type(value))  # <class 'str'>
+```
+
+第二次赋值让 `value` 指向字符串，不是把原来的整数对象变成了字符串。理解这一点，才不会把“Python 不要求提前声明变量类型”误解为“对象没有类型”。函数能不能接收一个对象、对象支持什么操作，仍然受它的类型影响。
+
+## 值相等，不代表是同一个对象
+
+另一个容易混在一起的问题是：内容一样，算不算同一个？
+
+```python
+a = [1, 2]
+b = [1, 2]
+c = a
+
+print(a == b)  # True
+print(a is b)  # False
+print(a is c)  # True
+```
+
+`==` 比较两个对象的值是否相等，具体规则由类型定义；`is` 比较它们是不是同一个对象。这里创建了两个列表，它们内容相同、身份不同。修改 `a` 会影响 `c`，却不会影响 `b`。
+
+检查 `None` 时使用 `value is None`，因为这里想确认的就是这个特定对象。比较数字或字符串的内容则用 `==`。某些解释器会复用部分整数和字符串对象，碰巧出现的身份相同不能成为业务判断依据。
+
+`id(obj)` 可以帮助观察对象身份，在对象存活期间保持不变；它不是业务ID，也不保证对象被回收以后这个值不再被使用。要给订单或用户编号，仍然需要自己的标识。
+
+## 一次赋值会不会改原数据，要看右边做了什么
+
+回到列表，再看下面这段：
+
+```python
+a = [1]
+b = a
+b = b + [2]
+print(a, b)
+```
+
+这次得到的是 `[1] [1, 2]`。右边的 `b + [2]` 先生成一个新列表，随后 `b` 指向这个新对象，`a` 仍指向原来的 `[1]`。
+
+如果把那一行写成 `b += [2]`，对于内置列表，增强赋值会原地扩展列表，两个名称看到的就都是 `[1, 2]`。因此不能把所有 `+=` 都机械地理解为先计算 `b + ...` 再赋值；对象类型可以定义不同的原地操作。
+
+这也是读代码时值得停一下的地方。看到一个调用或运算，问清楚它是返回新对象，还是修改已有对象，很多“数据怎么突然变了”的问题就有了线索。
+
+## 把对象传给函数，共享关系还在
+
+函数参数同样会绑定到传入的对象：
+
+```python
+def add_tag(tags):
+    tags.append("python")
+
+def replace_tags(tags):
+    tags = ["new"]
+    return tags
+
+original = ["study"]
+add_tag(original)
+print(original)                # ['study', 'python']
+print(replace_tags(original))  # ['new']
+print(original)                # ['study', 'python']
+```
+
+`add_tag` 通过参数修改了那个列表，调用者当然能看到变化。`replace_tags` 只让局部名称指向另一个列表，调用者的 `original` 不会随之改绑。这种调用规则常称为对象共享，或者按赋值传参。
+
+它什么时候有用？写数据清洗函数、维护一份公共配置，或者把缓存中的字典传给其他函数时，都需要明确谁可以修改对象。如果调用者希望原数据保留，就让函数返回新结果，或在合适的层次创建副本。具体复制到哪一层，会在[浅拷贝与深拷贝](/notes/python-27-references-copy)里展开；先确定共享关系，再考虑复制方法。
+
+可以把上面函数里的列表换成整数试试。让函数执行一次 `count += 1`，观察调用者的变量是否变化，再用“修改对象”和“重新绑定”分别解释结果。能解释清楚这两种情况，比背一个“可变类型会变”的结论更可靠。
+
+---
+
+[上一篇：先把解释器和运行方式弄清楚](/notes/python-01-environment) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：数字、真假值与类型转换](/notes/python-03-basic-types)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-02-objects","title":"Python 02：变量、对象与赋值：改的是名字，还是对象","date":"2026-11-12","excerpt":"两个变量装着一样的值，为什么有时改一个会影响另一个，有时又不会？从重新赋值和修改列表的区别开始，理解名称绑定、对象身份，以及函数为什么可能改动传入的数据。","tags":["Python","语言基础"],"category":"python-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],"$L6"]}],"loading":null,"isPartial":false}
+6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
+9:null

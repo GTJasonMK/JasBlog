@@ -1,8 +1,60 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-03-program-basics","title":"Go 03：读懂 Go 程序：包、声明与入口","date":"2026-11-12","excerpt":"打开一个 Go 文件，我通常先看 package 和 import，再找类型声明与入口。这个顺序能先确定文件属于谁、依赖什么，再去读它具体做了什么。","tags":["Go","语言与工具链"],"category":"go-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n打开一个 Go 文件，我通常先看 package 和 import，再找类型声明与入口。这个顺序能先确定文件属于谁、依赖什么，再去读它具体做了什么。\n\n同一个目录下的 Go 源文件通常属于同一个包。可执行程序使用 package main，并由 func main() 作为入口。包名是源码中的名字，模块路径是其他包导入它时使用的路径，两者相关但不是一回事。\n\n~~~go\npackage main\n\nimport \"fmt\"\n\nconst serviceName = \"order-api\"\n\nfunc main() {\n\tmessage := \"启动 \" + serviceName\n\tfmt.Println(message)\n}\n~~~\n\n短变量声明 := 只能用于函数内部；包级变量和常量使用 var、const。标识符首字母大写表示对其他包可见，小写表示仅包内可见。Go 没有类继承式的访问修饰符。\n\n声明变量但不显式赋值时会获得类型零值：数字为 0、bool 为 false、string 为空字符串，指针、map、slice、channel、函数和接口为 nil。零值可用性是 Go API 设计的重要部分；使用 nil 前要确认该类型的操作是否允许 nil。\n\n## 阅读代码的顺序\n\n先看 package 与 import，再看类型和常量声明，然后找入口函数或被测试的导出函数。理解导入路径能帮助定位模块边界，也能发现不必要的循环依赖。\n\n## 声明、赋值和换行各有规则\n\n- Go 的分号通常由编译器自动插入；不要把换行任意放在表达式中间。\n- 未使用的局部变量和导入会导致编译失败，这是有意设计的反馈。\n- := 如果左侧没有新变量，会报错；它不是赋值运算符 = 的通用替代。\n\n## 动手验证\n\n定义模块名、服务名称和端口常量，在 main 中打印服务启动信息。尝试把常量移到函数外，再将变量声明移到函数内，观察 := 的作用域限制。\n\n---\n\n[上一篇：Go 工具链与 Modules：先把运行环境对齐](/notes/go-02-toolchain) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：类型与流程控制：先明确数据能取什么值](/notes/go-04-types-control)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Teb9,
+同一段代码放进函数可以编译，移到文件最外层却不行，常见原因就是用了 `:=`。Go把声明放在哪里、名称在哪个范围内有效，都作为语言规则处理，不是换一种排版而已。
+
+同一个目录下的 Go 源文件通常属于同一个包。可执行程序使用 package main，并由 func main() 作为入口。包名是源码中的名字，模块路径是其他包导入它时使用的路径，两者相关但不是一回事。
+
+~~~go
+package main
+
+import "fmt"
+
+const serviceName = "order-api"
+
+func main() {
+	message := "启动 " + serviceName
+	fmt.Println(message)
+}
+~~~
+
+短变量声明 := 只能用于函数内部；包级变量和常量使用 var、const。标识符首字母大写表示对其他包可见，小写表示仅包内可见。Go 没有类继承式的访问修饰符。
+
+程序先初始化依赖包，再初始化当前包的包级状态，最后进入main。不要把连接数据库、读取大量文件等不可控动作随意放进包初始化，否则调用方一导入包就承担副作用，测试也难以选择何时启动。需要失败处理与资源关闭的动作通常在入口显式完成。
+
+## 名字的范围会改变赋值对象
+
+`value := 1` 在当前块创建变量，之后用 `value = 2` 修改已有变量。同一块里再次单独写 `value := 2` 会失败，因为没有新变量；`value, err := load()` 则可能成立，前提是左侧至少一个非空名称在当前块中是新声明。
+
+若进入新的if块，再写 `value := 2`，会创建内层同名变量。块结束以后，外层值仍然是1。处理 `err` 时尤其要留心这个遮蔽现象：以为更新了外层错误，实际修改的是短暂的内层变量。判断作用域要看块和声明位置，不只看拼写是否相同。
+
+声明变量但不显式赋值时会获得类型零值：数字为 0、bool 为 false、string 为空字符串，指针、map、slice、channel、函数和接口为 nil。零值可用性是 Go API 设计的重要部分；使用 nil 前要确认该类型的操作是否允许 nil。
+
+例如nil切片可以追加，nil map可以读取但不能直接写入，nil channel上的发送与接收会一直阻塞。它们都叫nil，并不具有同一套可操作规则。一个字段的零值若与业务上的“未设置”不同，也要单独表达，例如用指针区分省略的数量与明确传入的0。
+
+## 阅读代码的顺序
+
+先确定文件所属包，再找入口或被调用的导出函数，沿参数和返回值跟踪状态。一个包可以分散在同目录多个文件中，读取业务逻辑时不必只盯着当前文件；导出与否按包边界判断，文件之间通常不需要再声明公开关系。
+
+## 声明、赋值和换行各有规则
+
+- Go 的分号通常由编译器自动插入；不要把换行任意放在表达式中间。
+- 未使用的局部变量和导入会导致编译失败，这是有意设计的反馈。
+- := 如果左侧没有新变量，会报错；它不是赋值运算符 = 的通用替代。
+
+多行字面量在结束前通常要保留尾逗号，左花括号也应遵守Go的换行约定。编译器会自动插入部分分号，任意移动换行可能改变解析。先让gofmt处理格式，剩余时间用来检查名称指向哪个值和调用是否有副作用。
+
+## 动手验证
+
+定义模块名、服务名称和端口常量，在 main 中打印服务启动信息。尝试把常量移到函数外，再将变量声明移到函数内，观察 := 的作用域限制。
+
+---
+
+[上一篇：Go 工具链与 Modules：先把运行环境对齐](/notes/go-02-toolchain) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：类型与流程控制：先明确数据能取什么值](/notes/go-04-types-control)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-03-program-basics","title":"Go 03：读懂 Go 程序：包、声明与入口","date":"2026-11-12","excerpt":"声明一个变量、给旧变量赋值、在内层创建同名变量，看起来只差一个符号，结果可能不同。沿着最小程序看包、入口与作用域，解释零值和短变量声明的实际行为。","tags":["Go","语言与工具链"],"category":"go-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

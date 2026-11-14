@@ -4,8 +4,8 @@
 5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-3:T907,
-语言和组件的行为与具体版本有关。我把常用官方资料集中在这里，查接口、确认事务或部署约束时，可以沿这些入口继续读。
+3:Tb79,
+遇到错误先确定它属于哪层。包找不到，看模块路径与工具链；HTTP超时，看客户端、服务器和context的具体范围；库存并发错误，继续看SQL、锁与事务。只搜索一段错误文字可能找到线索，最终要核对当前版本的正式合同。
 
 ## Go 与 Web
 
@@ -21,6 +21,8 @@
 - [Go database/sql](https://pkg.go.dev/database/sql)
 
 ## 数据与消息
+
+Go标准库说明调用接口，数据库和消息系统文档说明外部状态怎样变化。驱动方法返回nil，不代表你设想的跨系统事务成立；阅读时同时检查默认配置、确认边界与故障恢复。
 
 - [MySQL 官方文档](https://dev.mysql.com/doc/)
 - [GORM 官方文档](https://gorm.io/docs/)
@@ -54,5 +56,7 @@
 
 版本提示：依赖、数据库和 Kubernetes 行为会随版本变化。开始项目实现时，应读取各组件官方兼容矩阵，固定明确版本，再运行章节中的示例和验证流程。
 
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-reference","title":"Go 后端资料索引与术语","date":"2026-11-11","excerpt":"语言和组件的行为与具体版本有关。我把常用官方资料集中在这里，查接口、确认事务或部署约束时，可以沿这些入口继续读。","tags":["Go"],"category":"go","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+术语也要带边界。幂等针对同一个业务身份，P99依赖统计窗口，最终一致依赖持续传播和修复。能把定义放回一次实际请求，解释中途崩溃后仍留下什么状态，才算理解它在当前设计里提供了什么保证。
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-reference","title":"Go 后端资料索引与术语","date":"2026-11-11","excerpt":"导入失败该查Modules，goroutine退出该查context，事务问题则要回到数据库。按问题整理官方资料与术语，说明各类文档能验证哪一层行为。","tags":["Go"],"category":"go","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
 8:null

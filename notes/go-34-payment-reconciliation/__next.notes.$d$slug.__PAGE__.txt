@@ -1,8 +1,43 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-34-payment-reconciliation","title":"Go 34：支付回调、通知与对账：重复和迟到都要处理","date":"2026-11-12","excerpt":"支付回调可能重复到达，通知服务也可能暂时不可用。我会让订单状态的变化、通知重试和对账各自有记录，避免一个后续动作失败就把已经确认的支付结果改掉。","tags":["Go","促销订单项目"],"category":"go-part4","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n支付回调可能重复到达，通知服务也可能暂时不可用。我会让订单状态的变化、通知重试和对账各自有记录，避免一个后续动作失败就把已经确认的支付结果改掉。\n\n## 模拟支付回调\n\n这个示例只实现本地模拟回调，不连接真实支付平台。回调处理应验证模拟签名或使用仅本地的固定测试密钥，按支付流水号设置唯一约束，并校验订单金额、当前状态和回调事件时间。\n\n重复的成功回调应返回可识别的成功结果，不重复扣款或重复发通知。迟到的失败回调不能把已确认支付的订单改回未支付。真实支付接入还要遵循服务商签名、证书、退款和对账规范，不能直接复用教学回调。\n\n## 异步通知\n\n邮件或站内通知失败不应回滚已支付订单。把通知作为可重试任务，记录尝试次数和最终状态；重试应有上限与退避。\n\n## 对账与补偿\n\n对账任务比较活动预留、订单状态和支付流水，输出差异记录并告警。补偿必须是幂等业务操作，且保留审计信息。不能通过直接改数据库绕过订单状态机。\n\n## 动手验证\n\n模拟同一支付成功回调被发送三次、回调早于订单落库、通知服务不可用三种情况，定义每种情况的结果和日志字段。\n\n---\n\n[上一篇：异步抢购：从库存预留到订单落库](/notes/go-33-flash-sale) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：项目测试：按业务风险选择验证层次](/notes/go-35-test-strategy)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part4","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tbeb,
+支付成功以后，平台可能没收到商户确认，于是再次回调。重复消息并不异常，异常的是每次都增加一次收入、释放一次状态或生成一份通知。处理规则要以支付身份与订单当前状态为依据，不能以“这是本次新到的HTTP请求”为依据。
+
+## 模拟支付回调
+
+这个示例只实现本地模拟回调，不连接真实支付平台。回调处理应验证模拟签名或使用仅本地的固定测试密钥，按支付流水号设置唯一约束，并校验订单金额、当前状态和回调事件时间。
+
+重复的成功回调应返回可识别的成功结果，不重复扣款或重复发通知。迟到的失败回调不能把已确认支付的订单改回未支付。真实支付接入还要遵循服务商签名、证书、退款和对账规范，不能直接复用教学回调。
+
+验证回调先确认来源与内容完整性，再检查商户、订单、币种、金额和支付流水。签名正确只代表内容来源符合协议，不代表金额一定对应这张订单；记录事件时间也不能单凭时间新旧覆盖已经确认的资金事实。
+
+流水去重与订单转换放进同一数据库事务，通知事件也可以一并写Outbox。回调到达时订单尚未落库，保留待匹配事件或按平台协议要求重试，不返回虚假的“已支付订单”。同一流水关联到另一张订单则明确冲突并进入排查。
+
+## 异步通知
+
+邮件或站内通知失败不应回滚已支付订单。把通知作为可重试任务，记录尝试次数和最终状态；重试应有上限与退避。
+
+通知任务本身也可能重复投递，需要业务通知标识去重。外部邮件服务已发送却响应超时，若没有幂等接口，就不能绝对保证只投递一封；要明确该边界，避免用数据库任务去重冒充外部发送恰好一次。
+
+## 对账与补偿
+
+对账任务比较活动预留、订单状态和支付流水，输出差异记录并告警。补偿必须是幂等业务操作，且保留审计信息。不能通过直接改数据库绕过订单状态机。
+
+对账不是把两张表不同的行直接改成一样。平台已扣款而本地订单取消，涉及退款或人工处理；本地显示支付而平台没有相应流水，则先确认查询范围、延迟与标识。先记录差异证据，再通过受控业务动作处理，每次动作都关联原订单与支付流水。
+
+通知失败不会改变付款事实，付款成功也不会证明库存结算和履约已经完成。把这些状态分开保存，才能说明用户的钱、订单与交付各自进行到哪里。
+
+## 动手验证
+
+模拟同一支付成功回调被发送三次、回调早于订单落库、通知服务不可用三种情况，定义每种情况的结果和日志字段。
+
+---
+
+[上一篇：异步抢购：从库存预留到订单落库](/notes/go-33-flash-sale) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：项目测试：按业务风险选择验证层次](/notes/go-35-test-strategy)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-34-payment-reconciliation","title":"Go 34：支付回调、通知与对账：重复和迟到都要处理","date":"2026-11-12","excerpt":"同一成功回调来了三次，订单只支付一次，通知也只发一次吗？沿支付事实、订单转换和后续通知拆开幂等边界，再处理迟到回调与主动对账。","tags":["Go","促销订单项目"],"category":"go-part4","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part4","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

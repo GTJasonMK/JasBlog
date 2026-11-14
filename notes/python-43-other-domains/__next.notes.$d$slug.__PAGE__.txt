@@ -1,13 +1,13 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-9:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-a:"$Sreact.suspense"
-3:T1031,
-学完语言基础后，工具不必一次全装上。我会从手头要处理的输入和输出反推需要什么：网页、Excel、桌面交互或数值计算，各有一套更合适的入口。
+b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+e:"$Sreact.suspense"
+3:T1a2c,
+如果目标只是把一张表按地区汇总，不需要先学习桌面框架；如果希望别人点一下按钮就完成任务，只有一个分析函数又不够。语言基础相同，应用方向的差别常常在输入由谁提供、任务怎样启动、结果交给谁。
 
-五条主路线之外，Python 也常用于网页采集、办公文件、桌面工具和科学计算。这里给出最小可操作示例；这些例子是入口，完整业务仍需按场景补上数据校验、测试和错误处理。
+这一篇不再按库名挨个背功能，分别拿网页标题、Excel行、按钮点击和曲线拟合看它们怎样进入程序。例子只覆盖各自写明的输入，不把几个片段拼成一个通用自动化系统。
 
 ## 网页采集
 
@@ -24,6 +24,10 @@ print(soup.title.get_text(strip=True) if soup.title else "无标题")
 ```
 
 安装：`python -m pip install httpx beautifulsoup4`。如果页面内容由 JavaScript 渲染，静态 HTML 可能不含目标内容；先检查 API，再考虑浏览器自动化工具。
+
+HTTPX拿到的是服务器返回的文本，Beautiful Soup负责把文本解析成可查找的树。`soup.title` 可能不存在，所以先检查；存在时 `get_text(strip=True)` 提取内容并去掉两端空白。标题不存在是一种明确的数据状态，不能与网络失败、服务器500混成同一个“空结果”。
+
+采集多页时还需要页码或游标规则、频率限制和恢复位置。网页样式或结构改变会让选择器失效，应该保留少量固定HTML样本测试解析，不让每次测试都依赖远程站点。内容由脚本生成时，浏览器自动化才会涉及真实渲染和等待条件。
 
 ## Excel 办公文件
 
@@ -43,6 +47,10 @@ finally:
 
 安装：`python -m pip install openpyxl`。读取 `data_only=True` 时，公式结果取决于文件是否由电子表格软件重新计算并保存。
 
+`values_only=True` 只返回单元格值，适合逐行转换；需要格式、坐标或公式文本时，则要读取单元格对象。`min_row=2` 假定第一行是表头，这也是输入合同的一部分。真实表格可能有合并单元格、空行、隐藏工作表，不能仅凭扩展名就认为每行结构一致。
+
+openpyxl不会代替Excel运行公式。没有缓存结果时，data_only可能读到None，不能直接按0累计。改写工作簿还要选择新文件名或明确覆盖策略；读取与写入是不同风险的动作，演示里只读取并在finally关闭文件。
+
 ## 桌面 GUI
 
 小型桌面工具可从标准库 Tkinter 入门。GUI 事件循环负责响应点击；事件回调应快速结束，长任务需放到工作线程并把界面更新交回主线程。
@@ -57,6 +65,10 @@ tk.Label(root, textvariable=count).pack(padx=16, pady=8)
 tk.Button(root, text="加一", command=lambda: count.set(count.get() + 1)).pack()
 root.mainloop()
 ```
+
+`mainloop` 持续取出窗口事件，按钮的 `command` 保存一个以后才调用的函数。若写成 `command=count.set(...)`，就会在创建按钮时执行，而不是点击时执行。`IntVar` 把状态与Label关联，修改变量后界面才能显示新值。
+
+如果按钮回调直接下载一个大文件，事件循环得不到处理机会，窗口就像卡死了一样。后台工作应与界面状态分开，通过主线程接收结果和更新控件。Tkinter还依赖系统Tk支持与图形显示环境，服务器上能导入模块不等于能打开窗口。
 
 ## 科学计算
 
@@ -74,6 +86,10 @@ print(parameters)  # 拟合得到斜率和截距
 ```
 
 安装：`python -m pip install numpy scipy`。分析结果还应检查残差和模型假设，不能只看拟合参数。
+
+这里的模型是 `y = slope × x + intercept`，`curve_fit` 选择参数，使预测与观测之间的平方误差尽量小。斜率的单位是y单位除以x单位，截距与y同单位；拟合得到参数，不代表已经证明x造成y变化。
+
+可以再计算 `y - line(x, *parameters)` 查看残差。若残差随x有系统变化，直线可能没抓住结构；若只是想在训练点之间插值，也不应把直线无限外推。算法完成优化，与模型是否符合问题，是两次判断。
 
 ## LLM 服务调用
 
@@ -97,22 +113,20 @@ result = response.json()
 
 不要把密钥写进源码或 Notebook。对模型输出仍要按应用要求验证；输出文本不能直接当作可信指令或 SQL 执行。
 
-## 外部系统的格式和状态都可能变化
+这段只演示HTTP调用的形状，不承诺任何服务都接受 `input` 或使用Bearer认证。实际客户端应固定服务合同，校验返回字段，再把应用需要的内容交出去。生成任务发生超时，也不能直接推断服务没执行；重试是否重复扣费或重复生成，要按服务提供的请求标识与幂等机制处理。
 
-这些例子依赖外部系统和库：网页结构可能改变，Excel 公式值可能过期，GUI 回调不能阻塞事件循环，模型服务响应也必须按实际 schema 校验。先隔离外部调用，再测试转换和业务逻辑。
-
-## 动手验证
-
-**练习：**以上方向中，哪些任务适合线程或异步 I/O？
-
-**答案：**HTTP 请求通常受网络等待影响，可考虑线程或异步客户端；Excel 解析和科学计算则要测量 CPU/内存瓶颈，再决定批处理、向量化或进程并行。
+这些方向最后都会回到相似的问题：外部状态怎样进入程序，纯计算怎样独立验证，什么时候产生副作用。网络等待多时可以考虑线程或异步客户端，数组计算先看向量化，Excel解析则先测量CPU与内存。选择跟着实际任务走，不需要为了“学完整个生态”先安装所有库。
 
 ---
 
 [上一篇：用 FastAPI 和 SQLite 做一个任务 API](/notes/python-42-backend-project) · [Python 目录](/notes/python-00-learning-guide)
 
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-43-other-domains","title":"Python 43：采集、办公、GUI 与科学计算：Python 的几条延伸方向","date":"2026-11-12","excerpt":"学完语言基础后，工具不必一次全装上。我会从手头要处理的输入和输出反推需要什么：网页、Excel、桌面交互或数值计算，各有一套更合适的入口。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],"$L6","$L7"],"$L8"]}],"loading":null,"isPartial":false}
-6:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
-7:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]
-8:["$","$L9",null,{"children":["$","$a",null,{"name":"Next.MetadataOutlet","children":"$@b"}]}]
-b:null
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-43-other-domains","title":"Python 43：采集、办公、GUI 与科学计算：Python 的几条延伸方向","date":"2026-11-12","excerpt":"同样是把数据交给Python，网页、Excel与桌面按钮带来的问题并不一样。借助几个小例子说明这些方向的输入、输出和运行机制，判断什么时候需要解析器、事件循环或数值算法。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+4:["$","$Lb",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
+5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]
+7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
+8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
+9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]
+a:["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
+f:null

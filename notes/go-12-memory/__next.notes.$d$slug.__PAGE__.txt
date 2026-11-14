@@ -1,8 +1,50 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-12-memory","title":"Go 12：值、引用、逃逸与垃圾回收","date":"2026-11-12","excerpt":"讨论分配和复制成本时，我会先列出对象有多大、被谁持有，再用基准和 profile 验证。单凭看到指针、切片或 new，还不能判断一段代码实际用了多少堆内存。","tags":["Go","语言与工具链"],"category":"go-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n讨论分配和复制成本时，我会先列出对象有多大、被谁持有，再用基准和 profile 验证。单凭看到指针、切片或 new，还不能判断一段代码实际用了多少堆内存。\n\n## 值与引用\n\n数组、结构体等赋值通常会复制值；切片、映射、指针、channel 和函数值带有对运行时数据的引用语义。把一个结构体传给函数是否昂贵，取决于大小和编译器优化，先用基准测试确认。\n\nGo 编译器会决定变量是否逃逸到堆上。可以使用 go build -gcflags=-m 查看优化与逃逸诊断。不要为了“避免堆分配”随意使用全局变量或复杂对象池；这会增加共享状态和维护成本。\n\n## 垃圾回收\n\nGo 的垃圾回收器自动回收不可达对象，但仍需控制对象分配率和长期持有引用。常见内存问题包括无界缓存、切片长期引用大数组、goroutine 泄漏持有请求数据。\n\n## 诊断步骤\n\n1. 用真实或接近真实的输入建立基准。\n2. 用 CPU 或内存 profile 找热点。\n3. 一次只改一个主要因素。\n4. 重新压测并比较延迟、吞吐和内存。\n\n性能剖析会在[第 36 章](/notes/go-36-performance)展开。这里重点是：先测量，再决定是否优化。\n\n## 动手验证\n\n对一个循环拼接字符串的实现与 strings.Builder 实现做基准比较。解释输入规模变化时结果为什么可能不同。\n\n---\n\n[上一篇：锁与 context：保护状态，传递取消](/notes/go-11-sync-context) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：后端常用标准库：I/O、JSON、时间与 HTTP](/notes/go-13-stdlib)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Td66,
+读入一个大文件，只留下前十个字节，为什么整个大数组还占着内存？如果留下的是原切片的一小段，它仍然引用原来的底层数组。垃圾回收看的是对象是否还可达，不按“业务只需要十个字节”自动切碎数组。
+
+## 值与引用
+
+数组、结构体等赋值通常会复制值；切片、映射、指针、channel 和函数值带有对运行时数据的引用语义。把一个结构体传给函数是否昂贵，取决于大小和编译器优化，先用基准测试确认。
+
+Go的赋值与传参始终复制相应值。切片复制的是描述信息，里面的数组引用仍指向同一对象；结构体若含切片字段，也只复制这一层描述。需要保留很小一段且释放大数组时，可以复制这段元素到独立存储，让原引用离开存活范围。复制有成本，却可能缩短大对象生命周期。
+
+Go 编译器会决定变量是否逃逸到堆上。可以使用 go build -gcflags=-m 查看优化与逃逸诊断。不要为了“避免堆分配”随意使用全局变量或复杂对象池；这会增加共享状态和维护成本。
+
+返回局部变量的地址在Go中是合法的，编译器会让对象存活足够久，不能套用其他语言里“局部地址返回必然悬空”的规则。反过来，出现new或取地址也不能单凭语法确定最终堆分配，优化结果随调用方式、内联与版本变化。
+
+值传递可能复制较多数据，指针则可能增加别名、逃逸和垃圾回收跟踪。选择应先看语义与对象大小，热点处再测量，不能把所有参数改成指针就声称优化完成。
+
+## 垃圾回收
+
+Go 的垃圾回收器自动回收不可达对象，但仍需控制对象分配率和长期持有引用。常见内存问题包括无界缓存、切片长期引用大数组、goroutine 泄漏持有请求数据。
+
+GC无法回收仍被全局map持有的旧缓存，也不会替你关闭文件、连接或停止等待中的goroutine。内存持续增长可能来自保留关系，GC频繁则可能来自短命对象分配太多；二者需要不同处理。进程RSS还包含运行时、栈和其他映射，也不等于当前活跃Go堆大小。
+
+对象池适合已经测出明显分配成本、且生命周期能够严格管理的场景。sync.Pool中的对象可以随时被清理，不能当永久缓存；放回前也要处理旧状态和大缓冲保留，避免一次大请求让长期内存预算改变。
+
+## 诊断步骤
+
+1. 用真实或接近真实的输入建立基准。
+2. 用 CPU 或内存 profile 找热点。
+3. 一次只改一个主要因素。
+4. 重新压测并比较延迟、吞吐和内存。
+
+性能剖析会在[第 36 章](/notes/go-36-performance)展开。这里重点是：先测量，再决定是否优化。
+
+比较时记录输入规模、Go版本、运行参数和重复结果。一次改动同时更换算法、并发数和缓存，很难知道收益来自哪里。基准中也要消费结果，避免测到被优化器消除的空工作。
+
+## 动手验证
+
+对一个循环拼接字符串的实现与 strings.Builder 实现做基准比较。解释输入规模变化时结果为什么可能不同。
+
+---
+
+[上一篇：锁与 context：保护状态，传递取消](/notes/go-11-sync-context) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：后端常用标准库：I/O、JSON、时间与 HTTP](/notes/go-13-stdlib)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-12-memory","title":"Go 12：值、引用、逃逸与垃圾回收","date":"2026-11-12","excerpt":"只留下一个很短的切片，内存为什么仍然降不下来？从底层数组的引用关系解释复制与保留，再区分逃逸、分配率和垃圾回收能够解决的问题。","tags":["Go","语言与工具链"],"category":"go-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

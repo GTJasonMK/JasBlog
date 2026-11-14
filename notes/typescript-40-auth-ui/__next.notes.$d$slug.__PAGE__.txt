@@ -1,8 +1,43 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-40-auth-ui","title":"TypeScript 40：登录页面与受保护路由","date":"2026-11-12","excerpt":"页面刚打开时，内存里的用户状态还不能说明是否已经登录。我会先向当前用户接口确认会话，再决定显示内容或引导登录，避免刷新时短暂跳错页面。","tags":["TypeScript","前端应用"],"category":"typescript-09-frontend-app","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n页面刚打开时，内存里的用户状态还不能说明是否已经登录。我会先向当前用户接口确认会话，再决定显示内容或引导登录，避免刷新时短暂跳错页面。\n\n页面打开时调用当前用户 API，得到已登录或未登录状态。登录成功后刷新用户状态并导航到任务页；退出时清除 UI 状态并调用服务端退出接口。使用 Cookie 会话时，浏览器在同源请求中自动发送 Cookie。\n\n受保护路由只改善体验：未登录时引导去登录页。真正的权限仍必须由 API 验证。\n\n## 会话状态需要从服务端恢复\n\n- 不要把密码或会话秘密存入 localStorage。\n- 页面刷新后不能只靠 React 内存状态判断登录。\n- 加载当前用户期间，不要闪现受保护页面或错误重定向。\n\n## 动手验证\n\n实现登录、刷新页面保持会话、退出三条流程；手动访问任务 API 验证服务端仍会检查身份。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：前端状态与缓存：谁拥有数据，何时更新](/notes/typescript-39-state-cache) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：Node.js 服务：配置、入口与进程生命周期](/notes/typescript-41-node-runtime)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-09-frontend-app","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Ta87,
+React内存里初始user为null，不代表浏览器没有有效会话。立刻重定向登录，随后me接口又确认已登录，就会产生来回跳转。初始化先表达“尚未确认”，再根据服务端结果决定下一步。
+
+页面打开时调用当前用户 API，得到已登录或未登录状态。登录成功后刷新用户状态并导航到任务页；退出时清除 UI 状态并调用服务端退出接口。使用 Cookie 会话时，浏览器在同源请求中自动发送 Cookie。
+
+受保护路由只改善体验：未登录时引导去登录页。真正的权限仍必须由 API 验证。
+
+会话检查至少区分等待、匿名、已登录与失败。me返回401可以按合同进入匿名；网络断开或500则是检查失败，不能静默当未登录，否则会误导用户重复输入凭据。受保护内容在确认前不呈现，同时给等待与重试留下明确位置。
+
+登录成功后从服务端获得当前身份，刷新相关数据与缓存，再跳到允许的目标路径。保存返回地址时限制为应用内合法位置，不能直接把外部returnTo当成跳转目标。密码仅在提交所需范围使用，不写日志与持久本地存储。
+
+## 退出到底退出了哪里
+
+清空前端user只能改变界面，服务端会话仍可能有效。退出接口销毁或撤销会话并按相同Cookie属性清理凭据，客户端确认后清理身份相关缓存。退出失败要保留明确反馈，不能显示已退出却仍留可用会话。
+
+HttpOnly Cookie不能由JavaScript读取，但浏览器仍按域、路径、SameSite与Secure等规则发送。同源fetch通常自动携带，跨源则需要credentials与服务端明确CORS配置；这不替代CSRF防护与资源授权。
+
+## 会话状态需要从服务端恢复
+
+- 不要把密码或会话秘密存入 localStorage。
+- 页面刷新后不能只靠 React 内存状态判断登录。
+- 加载当前用户期间，不要闪现受保护页面或错误重定向。
+
+测试登录、刷新恢复、过期会话、me失败、退出与直接访问API。用户A的有效会话仍不能访问B的任务，这项限制在服务端查询里验证，而不是通过前端隐藏页面证明。
+
+## 动手验证
+
+实现登录、刷新页面保持会话、退出三条流程；手动访问任务 API 验证服务端仍会检查身份。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：前端状态与缓存：谁拥有数据，何时更新](/notes/typescript-39-state-cache) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：Node.js 服务：配置、入口与进程生命周期](/notes/typescript-41-node-runtime)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-40-auth-ui","title":"TypeScript 40：登录页面与受保护路由","date":"2026-11-12","excerpt":"刷新后先跳登录又跳回来，为什么会闪一下？把会话未确认、匿名、已登录与检查失败分开，再安排登录恢复、退出与受保护页面。","tags":["TypeScript","前端应用"],"category":"typescript-09-frontend-app","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-09-frontend-app","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

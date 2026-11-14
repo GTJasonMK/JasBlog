@@ -1,8 +1,82 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-24-debugging-logging","title":"Python 24：调试、日志与配置：留下能解释问题的信息","date":"2026-11-12","excerpt":"调试时，我会先找到数据从哪一步开始不符合预期，再决定往哪里加日志。比起到处打印“执行到了这里”，输入范围、处理数量和异常堆栈更能解释发生了什么。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n调试时，我会先找到数据从哪一步开始不符合预期，再决定往哪里加日志。比起到处打印“执行到了这里”，输入范围、处理数量和异常堆栈更能解释发生了什么。\n\n调试从复现问题开始：缩小输入、检查变量、定位第一个错误状态。短脚本可用 `breakpoint()`；长期运行的程序要用日志记录事件和错误上下文。\n\n```python\nimport logging\n\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(__name__)\nlogger.info(\"已处理 %d 条记录\", 12)\n```\n\n将配置与代码分开；敏感值从环境变量或安全配置服务读取。日志使用参数化格式，避免不必要的字符串拼接，也不要记录密码、令牌或完整个人信息。\n\n## 日志要保留上下文，也要避开敏感信息\n\n不要用大量 `print` 代替分级日志；也不要捕获异常后只打印“失败”，却丢失 traceback。需要记录异常时用 `logger.exception(...)`。\n\n## 动手验证\n\n**练习：**记录当前异常并保留堆栈。\n\n```python\ntry:\n    risky_operation()\nexcept OSError:\n    logger.exception(\"读取文件失败\")\n```\n\n---\n\n[上一篇：用 pytest 把预期行为留下来](/notes/python-23-testing) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：用 pyproject.toml 把项目变成可安装的包](/notes/python-25-packaging)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=python-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T130d,
+一份文件有100条记录，报告却只有97条。到最后输出的位置加一句“生成成功”，不能解释少掉的三条去了哪里。更有用的问题是：读取后有多少条，过滤后有多少条，分组后又有多少条？沿处理过程找到数量第一次不符合预期的位置，才能把范围缩到具体步骤。
+
+调试先需要可以重复的输入。保留一份去掉敏感信息的最小样本，确认每次都能出现同样差异，再检查中间状态。还没确定复现条件，就同时修改编码、排序和过滤逻辑，即使结果变对了，也很难知道真正原因。
+
+## 断点看当前状态，日志保存发生过程
+
+本地调试时，可以在可疑位置加入 `breakpoint()`，暂停后查看变量、调用栈，逐步执行。它适合观察一份具体输入怎样走到错误状态。放到无人值守的定时任务里，却可能让程序一直等交互，所以临时断点应在排查结束后移除。
+
+长期运行的程序更需要日志：错误已经发生，人不在现场，也能根据当时记录还原过程。标准日志模块提供级别、输出目标和格式：
+
+```python
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s %(message)s",
+)
+logger = logging.getLogger(__name__)
+logger.info("已处理 %d 条记录", 12)
+```
+
+`INFO` 可以记录任务开始、结束和处理数量，`WARNING` 表示值得注意但当前仍可处理的情况，`ERROR` 表示某项操作失败。`DEBUG` 留给更细的诊断信息。级别的作用是让使用者选择关心的细节，不是把所有内容都标为最高级别。
+
+`logger.info("已处理 %d 条记录", count)` 把格式和参数分开，消息被级别过滤时可以避免字符串格式化。不过传入的参数表达式仍会先求值，昂贵的调试计算不能因为用了 `%s` 就认为没有成本。
+
+## 日志要保留上下文，也要避开敏感信息
+
+处理失败只记录“读文件失败”，仍然不知道是文件缺失、没有权限还是路径指向目录。可以在异常处理块中使用 `logger.exception`，保留调用栈：
+
+```python
+from pathlib import Path
+
+def load_source(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError:
+        logger.exception("读取输入失败：%s", path.name)
+        raise
+```
+
+这里记录文件名，并让原异常继续传播。它不会在失败时返回空文本，因此调用者不会把“读失败”误认为“文件确实没有内容”。项目若已在外层统一记录同一异常，就不必每层都再记一次，避免一件事产生许多重复错误日志。
+
+对100条变97条的问题，日志应记录输入数量、过滤条件和每个阶段的结果数量，需要逐条定位时再使用合适的记录标识。整份用户资料、请求头和凭证不必跟着打出来。诊断需要的信息越明确，越不需要无差别保留所有输入。
+
+多任务同时执行时，还可以带任务ID或请求ID，将属于同一次处理的记录关联起来。日志保存多久、写到哪里和磁盘是否会写满，也要在实际运行环境里管理；单靠终端上能看到输出，不等于有了可靠的长期记录。
+
+## 配置读进来后，先变成确定的数据
+
+环境变量提供的是字符串。`BATCH_SIZE="100"` 要作为批量大小使用，就需要解析并检查范围；缺失值能否采用默认值，也应由配置合同决定：
+
+```python
+import os
+
+def read_batch_size():
+    raw = os.environ.get("BATCH_SIZE", "100")
+    try:
+        value = int(raw)
+    except ValueError as exc:
+        raise ValueError("BATCH_SIZE必须是整数") from exc
+    if not 1 <= value <= 10000:
+        raise ValueError("BATCH_SIZE必须在1到10000之间")
+    return value
+```
+
+这里明确允许缺失时用100；提供了非法值就直接报错，不会把它偷偷替换成默认值。数据库地址、必要凭证等不能缺少的配置，则应在启动时明确要求存在。把解析集中完成，后面的处理函数只接收已确认的整数，排查时也不用猜某个字符串从哪里来的。
+
+凭证应从既有安全配置或环境读取，而不写进源码和可公开日志。环境变量也不是自动保密保险箱，运行平台的权限、进程信息和日志处理同样需要注意。
+
+找到那三条记录以后，把对应的失败输入留成一个能稳定复现的测试，再清理临时断点和无贡献的打印。日志帮助还原已经发生的事情，测试则用来防止同一种错误在下一次修改中重新出现。
+---
+
+[上一篇：用 pytest 把预期行为留下来](/notes/python-23-testing) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：用 pyproject.toml 把项目变成可安装的包](/notes/python-25-packaging)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-24-debugging-logging","title":"Python 24：调试、日志与配置：留下能解释问题的信息","date":"2026-11-12","excerpt":"结果少了几行数据，应该从哪里查起？沿着输入、转换和输出定位第一个异常状态，再说明断点、分级日志和配置校验怎样提供证据，避免只留下“失败了”却找不到原因。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

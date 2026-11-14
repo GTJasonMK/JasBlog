@@ -4,8 +4,8 @@
 5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-3:Tfd0,
-排查故障时，我会先记下影响范围和最近变化，再逐个检验假设。重启后恢复只能说明现象改变了，原因仍要靠等待链、查询计划或资源变化解释。
+3:T13ed,
+重启让连接清空、锁释放、缓存变化，很多现象可能同时消失。它可以是缓解动作，却无法单独说明哪一个过程出了问题。要定位原因，先保存影响范围与等待证据，再选能检验具体假设的下一步。
 
 现场查询集中在[操作手册](/notes/database-runbooks)，便于按同一份查询核对。
 
@@ -14,6 +14,8 @@
 记录发生时间、受影响业务、错误率、最近变更、是否全部用户受影响、读写是否同样受影响。用客户端时间线与数据库会话证据关联，先判断应用排队、数据库等待、资源耗尽还是连接故障。
 
 不要在证据不足时连续重启、清缓存、加连接、改内存。这些操作会改变现场状态，也可能放大负载。先保存关键指标、等待链、语句身份和必要日志，再选择与原因对应的最小处置。
+
+例如只有写请求超时、读请求仍快，优先看写锁与提交路径；所有新连接失败却已有连接正常，则继续查连接预算、认证与网络。症状先缩小范围，不把每种故障都套进同一份调参清单。
 
 ## 常见故障的因果链
 
@@ -33,6 +35,8 @@
 
 这里优先用正常结束事务释放锁。另在独立练习连接验证取消与终止行为，记录客户端错误和事务是否结束，不把测试动作套用到未知生产 PID。
 
+A回滚以后B继续，说明这次等待由A的事务持锁造成；若B仍慢，再看新的等待事件，而不是坚持原先判断。每个处置都有预期观察，结果不符就更新假设，避免在错误原因上持续加补丁。
+
 ## 演练二：安全测试超时
 
 ```sql
@@ -44,11 +48,15 @@ ROLLBACK;
 
 语句应被取消，事务需回滚。不要用填满磁盘或压垮整机的方式演示事故；容量问题用受限测试目录与趋势数据分析，示例不提供破坏主机资源的脚本。
 
+超时证明当前语句被取消，不证明整笔业务已按应用期望收尾。连接仍需恢复到可用事务状态，客户端也要知道结果；提交确认丢失则另行按幂等键查询，不能和这个明确取消实验混在一起。
+
 ## 恢复后验证业务
 
 检查错误率、尾延迟、等待数、连接归还和复制积压是否恢复，核对受影响订单与支付是否需要确认或补偿。接口恢复可用不代表所有不确定结果已经处理完。
 
 事故记录包含时间线、触发变更、因果证据、处置、数据影响、恢复证据和后续责任项。把“运气不好”换成可复现机制，把“增加监控”换成明确指标与响应步骤。
+
+复盘区分观察与推测。错误率何时上升是记录，某次发布造成它需要计划、日志或复现支持；改进也应有验证方式，例如相同竞争场景下事务能按时退出，而不只写“以后注意”。
 
 ## 动手验证
 
@@ -59,5 +67,5 @@ ROLLBACK;
 ---
 
 [上一篇：从业务延迟追到资源，再算容量预算](/notes/database-18-monitoring-capacity) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：从调用方到历史数据，完成一次可核对的迁移](/notes/database-20-migrations)
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-19-troubleshooting","title":"数据库 19：用等待链、计划和存储证据定位故障","date":"2026-11-13","excerpt":"排查故障时，我会先记下影响范围和最近变化，再逐个检验假设。重启后恢复只能说明现象改变了，原因仍要靠等待链、查询计划或资源变化解释。","tags":["数据库","PostgreSQL"],"category":"database-operations","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-operations","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-19-troubleshooting","title":"数据库 19：用等待链、计划和存储证据定位故障","date":"2026-11-13","excerpt":"重启以后恢复了，能说明根因是什么吗？沿连接、锁、存储与计划逐项检验假设，保存改变前后的证据，再确认未完成订单怎样收尾。","tags":["数据库","PostgreSQL"],"category":"database-operations","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-operations","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
 8:null

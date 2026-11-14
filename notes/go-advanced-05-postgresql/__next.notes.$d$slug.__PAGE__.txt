@@ -1,8 +1,41 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-advanced-05-postgresql","title":"Go 专题 05：比较 MySQL 与 PostgreSQL，我会看哪些问题","date":"2026-11-12","excerpt":"比较数据库时，我更愿意拿出实际查询、数据类型和运维要求逐项看。一个脱离版本和数据分布的性能数字，很难回答当前项目应该选哪一个。","tags":["Go","进阶专题"],"category":"go-advanced","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n比较数据库时，我更愿意拿出实际查询、数据类型和运维要求逐项看。一个脱离版本和数据分布的性能数字，很难回答当前项目应该选哪一个。\n\n## 比较方式\n\nMySQL 与 PostgreSQL 都是成熟关系数据库。按团队熟悉度、SQL 功能、扩展机制、JSON 需求、索引类型、云平台支持和运维能力比较，不以单一性能数字决定。\n\nPostgreSQL 常见能力包括丰富的数据类型、表达式/部分索引、扩展和强大的 SQL 功能；MySQL 在许多 Web 服务中部署广泛且生态成熟。具体版本、隔离行为和驱动支持要以官方文档与实测为准。\n\n## 动手验证\n\n将一条这些笔记中的订单与库存查询分别在 MySQL、PostgreSQL 上实现，比较执行计划、迁移和连接池配置差异。\n\n---\n\n[上一篇：配置中心和服务网格：先确认平台还缺什么](/notes/go-advanced-04-service-discovery-mesh) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：请求慢在哪里：DNS、TCP、TLS 与 Linux 网络](/notes/go-advanced-06-networking-linux)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-advanced","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tb02,
+“哪个数据库更快”如果没有查询、数据量和一致性要求，通常没有可用答案。一条简单主键查询与一份多表分析报表面对的工作不同，团队能否正确备份、升级和恢复，也会影响最终选择。
+
+## 比较方式
+
+MySQL 与 PostgreSQL 都是成熟关系数据库。按团队熟悉度、SQL 功能、扩展机制、JSON 需求、索引类型、云平台支持和运维能力比较，不以单一性能数字决定。
+
+PostgreSQL 常见能力包括丰富的数据类型、表达式/部分索引、扩展和强大的 SQL 功能；MySQL 在许多 Web 服务中部署广泛且生态成熟。具体版本、隔离行为和驱动支持要以官方文档与实测为准。
+
+先列当前确实需要的能力。只做常规订单与库存，两者都能提供事务与约束；需要复杂SQL、数组、范围、特定索引或扩展时，再针对具体操作比较。支持JSON也不表示把所有字段放进JSON就省掉建模，查询、约束与更新成本仍然存在。
+
+## 迁移不只改连接字符串
+
+MySQL常见参数占位符是问号，PostgreSQL驱动常见 `$1` 等形式；自增主键、返回新行、冲突处理、大小写与时间类型也有差异。ORM可能隐藏部分语法，但不能保证隔离、锁等待和错误码完全一致。
+
+例如PostgreSQL常见默认隔离为Read Committed，InnoDB常见默认为Repeatable Read；相同的多次读取在两边未必观察相同快照。条件更新仍是重要工具，但死锁重试、唯一冲突与事务错误后的恢复要按各自规则验证。
+
+金额选择整数最小单位或明确精度的十进制类型，两边都要限制范围。时间则先确定保存瞬间还是本地日历值，再看具体类型与连接时区，不把名称里都有timestamp当作完全相同语义。
+
+## 拿代表性工作负载做比较
+
+使用相同规模与分布的订单，测试用户列表、库存竞争和历史汇总，读取执行计划、扫描行数、延迟与写放大。保持事务保证、硬件与连接预算接近，才好解释差异；不要把一边热缓存、另一边冷缓存的单次耗时当结论。
+
+最后做备份恢复和版本升级演练，检查驱动、迁移工具、监控与团队支持。一次迁移要验证数据、约束、查询及恢复路径，不能仅以应用启动成功作为完成标准。
+
+## 动手验证
+
+将一条这些笔记中的订单与库存查询分别在 MySQL、PostgreSQL 上实现，比较执行计划、迁移和连接池配置差异。
+
+---
+
+[上一篇：配置中心和服务网格：先确认平台还缺什么](/notes/go-advanced-04-service-discovery-mesh) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：请求慢在哪里：DNS、TCP、TLS 与 Linux 网络](/notes/go-advanced-06-networking-linux)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-advanced-05-postgresql","title":"Go 专题 05：比较 MySQL 与 PostgreSQL，我会看哪些问题","date":"2026-11-12","excerpt":"同一条扣库存SQL换到另一种数据库，行为和驱动合同会一起迁过去吗？从订单查询、数据类型、隔离与恢复要求比较MySQL和PostgreSQL。","tags":["Go","进阶专题"],"category":"go-advanced","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-advanced","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

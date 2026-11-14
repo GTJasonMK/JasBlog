@@ -2,14 +2,14 @@
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
 4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
 5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-7:"$Sreact.suspense"
-3:Te2f,
-订单关联支付记录后，一笔订单可能变成多行。金额算多时，我会先检查关联基数，而不是马上加 DISTINCT。先把每一行的含义说清楚，才能决定在哪里连接、在哪里汇总。
+7:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+3:T1141,
+种子里已支付订单总额59700分，关联支付以后却得到99500分。没有新增订单，也没改金额，多出来的是同一订单在结果里出现了两次。先追踪行数怎样变化，才能知道该修连接还是修统计。
 
 ## 先推导关联基数
 
-一个客户可以有多个订单，所以客户关联订单后，一位客户可能出现多行。`INNER JOIN` 保留匹配，`LEFT JOIN` 还保留左侧无匹配的行，右侧列补 `NULL`。
+连接按条件组合匹配行，不会替我们维持“每客户一行”。一个客户有两单，连接后就有两行；LEFT JOIN对没有匹配的客户补一行NULL，后续聚合再把它们折回客户粒度。
 
 ```sql
 SELECT c.id, c.display_name, count(o.id) AS order_count,
@@ -34,7 +34,7 @@ LEFT JOIN shop.orders o
 GROUP BY c.id ORDER BY c.id;
 ```
 
-若把 `o.status = 'paid'` 放入 `WHERE`，无订单客户的补空行会被过滤。你得到的客户集合就变了。
+ON决定什么订单能匹配，WHERE决定连接结果哪些行保留。把右侧状态要求移到WHERE，补出的NULL行不满足条件，原本想保留的客户就消失。两种SQL都能执行，但回答的是不同集合的问题。
 
 ## 多个一对多关联会放大金额
 
@@ -47,7 +47,7 @@ JOIN shop.payments p ON p.order_id = o.id
 WHERE o.status = 'paid';
 ```
 
-它返回 99500 分，因为订单 1 的 39800 分计算了两次。`SUM(DISTINCT total_cents)` 也不可靠，两笔不同订单可以有相同金额。
+订单1有失败与成功两条支付，39800因此进入两行，再加订单3的19900，就得到99500。SUM(DISTINCT total_cents)只是按金额去重，两张不同订单若恰好同价也会被合并，修好了当前数字却引入另一种漏算。
 
 只需要判断存在成功支付时，使用 `EXISTS`，不会复制订单行：
 
@@ -62,6 +62,8 @@ WHERE o.status = 'paid'
 ```
 
 结果为 59700 分。如果需要支付汇总字段，先按 `order_id` 聚合支付表，再把每单一行的结果关联到订单。先说明报表粒度，再选择聚合位置。
+
+EXISTS只问当前订单有没有满足条件的支付，不把支付行复制进外层。若要同时展示成功支付金额，则先让支付子结果每订单一行，恢复一对一的汇总关系。这两种选择由需要输出什么决定，不是谁的语法看起来更短。
 
 ## 子查询和集合运算
 
@@ -78,6 +80,8 @@ WHERE NOT EXISTS (
 
 CTE 即 `WITH` 子查询可以命名中间结果，提高可读性。PostgreSQL 对部分 CTE 会内联，`MATERIALIZED` 会改变优化边界；不要假设所有 CTE 都一定物化或一定更快。
 
+查询变慢再用计划观察扫描与连接，不能仅因写成相关子查询就认定逐行执行。先保证行粒度与结果正确，优化才是在减少同一项业务工作的成本，而非靠丢行把查询变快。
+
 ## 动手验证
 
 写出“没有订单的客户”“每单成功支付金额”“已支付但支付金额不等于订单金额的异常”。先手算预期，再运行。解释为何单纯关联支付表后求和会出现 99500 分。
@@ -87,5 +91,6 @@ CTE 即 `WITH` 子查询可以命名中间结果，提高可读性。PostgreSQL 
 ---
 
 [上一篇：把筛选、NULL 和修改范围写准确](/notes/database-04-sql-basics) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：用窗口函数做排名、累计和报表](/notes/database-06-windows-reports)
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-05-joins-subqueries","title":"数据库 05：关联之后，为什么金额会多算","date":"2026-11-13","excerpt":"订单关联支付记录后，一笔订单可能变成多行。金额算多时，我会先检查关联基数，而不是马上加 DISTINCT。先把每一行的含义说清楚，才能决定在哪里连接、在哪里汇总。","tags":["数据库","PostgreSQL"],"category":"database-sql","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-sql","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
-8:null
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-05-joins-subqueries","title":"数据库 05：关联之后，为什么金额会多算","date":"2026-11-13","excerpt":"已支付订单明明合计59700分，关联支付表却算成99500分，多出来的钱在哪一行？沿失败与成功两次支付追踪行数，选择EXISTS或先聚合，而不是随手去重。","tags":["数据库","PostgreSQL"],"category":"database-sql","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-sql","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],"$L6"]}],"loading":null,"isPartial":false}
+6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
+9:null

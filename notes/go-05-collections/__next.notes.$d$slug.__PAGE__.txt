@@ -1,8 +1,66 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-05-collections","title":"Go 05：数组、切片、map 和字符串的边界","date":"2026-11-12","excerpt":"切片赋值之后改了元素，另一个切片为什么也变了？我会先看它们是否共用底层数组，再看长度和容量。map 与字符串也有各自的边界，不能只按表面语法判断。","tags":["Go","语言与工具链"],"category":"go-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n切片赋值之后改了元素，另一个切片为什么也变了？我会先看它们是否共用底层数组，再看长度和容量。map 与字符串也有各自的边界，不能只按表面语法判断。\n\n## 切片\n\n切片包含指向底层数组的引用、长度和容量。复制切片变量并不一定复制元素；两个切片可能共享底层数组。需要独立数据时使用 slices.Clone（Go 1.21 起）或显式复制。\n\n~~~go\nvalues := []int{10, 20, 30}\nview := values[:2]\nview[0] = 99 // values[0] 也变为 99\ncopyOfValues := append([]int(nil), values...)\n~~~\n\n追加时如果容量不足，运行时会分配新数组，因此不要依赖扩容后的底层地址。\n\n## 映射\n\n~~~go\ncounts := map[string]int{\"ok\": 2}\ncounts[\"failed\"]++\n\nvalue, exists := counts[\"missing\"]\nif !exists {\n\tfmt.Println(\"没有该键\", value)\n}\n~~~\n\n读取不存在的键会得到零值，所以需要用逗号 ok 判断键是否存在。普通 map 不能被多个 goroutine 同时读写；并发场景需要互斥锁或适当的并发结构。\n\nnil map 可以安全读取，但不能写入；写入前要用 make 或 map 字面量初始化。map 的遍历顺序未定义，测试和业务逻辑不能依赖某次迭代顺序。\n\n## 字符串\n\n字符串是字节序列，UTF-8 下一个汉字通常占多个字节。按字符处理时要使用 range 或 []rune；按协议长度或网络数据处理时往往要按字节。\n\n## 动手验证\n\n统计一段文本中每个 Unicode 字符的出现次数。再尝试用 len(text) 统计汉字数量，解释为什么结果与字符数不同。\n\n---\n\n[上一篇：类型与流程控制：先明确数据能取什么值](/notes/go-04-types-control) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：函数、方法与指针接收者怎么选](/notes/go-06-functions-methods)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tedd,
+把 `a` 赋给 `b`，并不能统一理解成“所有内容都复制了一份”。Go始终传递值，但这个值有时是数组本身，有时是描述一片共享存储的信息。集合使用中的意外，往往就藏在这一步。
+
+## 切片
+
+切片包含指向底层数组的引用、长度和容量。复制切片变量并不一定复制元素；两个切片可能共享底层数组。需要独立数据时使用 slices.Clone（Go 1.21 起）或显式复制。
+
+数组的长度属于类型，`[3]int` 与 `[4]int` 不同，赋值会复制数组元素；`[]int` 则是切片，长度可变，复制描述信息以后仍可能指向同一个数组。切片常用于数量变化的一组记录，数组适合固定长度的数据。
+
+~~~go
+values := []int{10, 20, 30}
+view := values[:2]
+view[0] = 99 // values[0] 也变为 99
+copyOfValues := append([]int(nil), values...)
+~~~
+
+追加时如果容量不足，运行时会分配新数组，因此不要依赖扩容后的底层地址。
+
+例子中的view只暴露前两个元素，但还有容量时，向它append可能直接写到原数组的第三个位置。`append` 总会返回新的切片描述，应该接住返回值；底层数组是否更换由容量等条件决定，不应把某次扩容规律当成业务保证。
+
+显式复制或 `slices.Clone` 只复制当前元素。如果元素本身是指针、map或另一个切片，内部对象仍可能共享。要不要深复制，取决于调用方需要隔离哪一层状态，不能看到Clone就认为整张对象关系都隔离了。
+
+## 映射
+
+~~~go
+counts := map[string]int{"ok": 2}
+counts["failed"]++
+
+value, exists := counts["missing"]
+if !exists {
+	fmt.Println("没有该键", value)
+}
+~~~
+
+读取不存在的键会得到零值，所以需要用逗号 ok 判断键是否存在。普通 map 不能被多个 goroutine 同时读写；并发场景需要互斥锁或适当的并发结构。
+
+nil map 可以安全读取，但不能写入；写入前要用 make 或 map 字面量初始化。map 的遍历顺序未定义，测试和业务逻辑不能依赖某次迭代顺序。
+
+counts中明确保存0与根本没有这个键，单值读取都得到0；只有第二个exists能区分。缓存也常有相同问题：找不到记录与查到一个空值不是一回事。map按键查找适合索引与计数，需要有序展示时把键收集后排序，不靠某次迭代刚好稳定。
+
+并发保护要覆盖共同读写同一份map的全部路径。给写函数加锁，而读函数直接读取，依然存在数据竞争；每个goroutine分别创建自己的map则是另一种隔离方式。
+
+## 字符串
+
+字符串是字节序列，UTF-8 下一个汉字通常占多个字节。按字符处理时要使用 range 或 []rune；按协议长度或网络数据处理时往往要按字节。
+
+`len("你好")` 是6个字节，range遍历得到两个Unicode码点，索引值是各码点的起始字节位置。rune是码点，不一定等于用户眼中的一个完整字符，组合音标与部分emoji可能包含多个码点。要实现编辑器里的光标移动或按可见字符截断，还需要字素簇规则。
+
+字符串不可修改；转成 `[]byte` 或 `[]rune` 再处理，会涉及另一份可变表示。按字节截断UTF-8可能切到一个编码中间，适合协议长度的操作不一定适合用户界面。先说明“长度”到底指什么，再选择API。
+
+## 动手验证
+
+统计一段文本中每个 Unicode 字符的出现次数。再尝试用 len(text) 统计汉字数量，解释为什么结果与字符数不同。
+
+---
+
+[上一篇：类型与流程控制：先明确数据能取什么值](/notes/go-04-types-control) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：函数、方法与指针接收者怎么选](/notes/go-06-functions-methods)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-05-collections","title":"Go 05：数组、切片、map 和字符串的边界","date":"2026-11-12","excerpt":"复制切片变量后改元素，原切片为什么也变了，而追加后又可能互不影响？沿底层数组、长度和容量解释共享，再区分map的缺失键与字符串的字节、码点。","tags":["Go","语言与工具链"],"category":"go-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

@@ -1,8 +1,45 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-42-kubernetes-production","title":"Go 42：Kubernetes 发布：资源、探针和扩缩容","date":"2026-11-12","excerpt":"增加 Pod 不一定能增加系统容量。如果数据库连接已经耗尽，新副本反而会让等待更严重。我会把应用资源、下游预算和滚动退出一起检查。","tags":["Go","部署与运维"],"category":"go-part6","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n增加 Pod 不一定能增加系统容量。如果数据库连接已经耗尽，新副本反而会让等待更严重。我会把应用资源、下游预算和滚动退出一起检查。\n\n## 配置和安全\n\n镜像以不可变标签或 digest 部署，配置通过 ConfigMap/Secret 或外部密钥系统注入。使用最小权限 ServiceAccount、NetworkPolicy 和容器安全上下文；避免 privileged、宿主机网络和不必要的挂载。\n\n## 资源与探针\n\n根据压测设置 CPU、内存 requests/limits。内存限制过低会触发 OOMKilled；CPU 限制过紧会产生节流。探针只反映服务健康，不应在短暂依赖故障时让所有副本反复重启。\n\n## 发布与扩缩容\n\nDeployment 滚动更新需配合 maxSurge/maxUnavailable 和优雅退出。HPA 可按 CPU 或自定义指标扩容，但如果数据库连接、Redis 或 Kafka 消费能力先到上限，增加 Pod 只会放大下游压力。Helm values 应按环境拆分且不保存明文凭据。\n\n## 回滚\n\n回滚应用镜像不一定能回滚数据库结构。部署必须与兼容迁移配套，发布前检查数据库变更是否支持新旧版本共存。\n\n## 动手验证\n\n模拟一个版本滚动更新，观察 readiness、请求错误率和旧 Pod 退出过程；随后回滚应用版本。\n\n---\n\n[上一篇：Kubernetes 入门：Pod、Deployment 与流量入口](/notes/go-41-kubernetes-basics) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：日志、指标与 Trace：从异常找到调用链](/notes/go-43-observability)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part6","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tbd8,
+每个Pod最多开30个数据库连接，三个副本时上限90，扩到十个变成300。若数据库只为这项服务留了100个，应用副本变多反而增加等待与失败。Kubernetes扩容的对象是应用，不会同时扩出数据库的容量。
+
+## 配置和安全
+
+镜像以不可变标签或 digest 部署，配置通过 ConfigMap/Secret 或外部密钥系统注入。使用最小权限 ServiceAccount、NetworkPolicy 和容器安全上下文；避免 privileged、宿主机网络和不必要的挂载。
+
+NetworkPolicy需要网络插件支持与正确选择器才生效；Secret也需要访问控制和存储加密策略，不能把base64当成保护。容器可设为非root、只读根文件系统与最小能力，仍要为确实需要的临时目录提供可写空间。
+
+## 资源与探针
+
+根据压测设置 CPU、内存 requests/limits。内存限制过低会触发 OOMKilled；CPU 限制过紧会产生节流。探针只反映服务健康，不应在短暂依赖故障时让所有副本反复重启。
+
+requests参与调度容量判断，limits限制使用上界，二者不是同一个数字的别名。内存预算要容纳堆、栈、运行时与连接缓冲，不能只按业务对象估算；CPU节流可能抬高尾延迟，看平均CPU不高也不能直接排除。
+
+## 发布与扩缩容
+
+Deployment 滚动更新需配合 maxSurge/maxUnavailable 和优雅退出。HPA 可按 CPU 或自定义指标扩容，但如果数据库连接、Redis 或 Kafka 消费能力先到上限，增加 Pod 只会放大下游压力。Helm values 应按环境拆分且不保存明文凭据。
+
+maxSurge允许新旧副本暂时共存，连接预算要把这部分额外实例算进去。旧Pod终止时，端点传播与应用关闭不是瞬间完成，需停止接新任务、为在途请求留出时间，并让terminationGracePeriod覆盖清理上限。长连接与消费者还需要自己的退出协议。
+
+HPA的指标应对应瓶颈。消费者积压可以作为扩容线索，但超过分区数或数据库写入能力，继续加副本无益；缩容也要考虑正在处理的任务与重放。扩缩容策略通过压测和实际指标调整，不靠一个CPU百分比包办所有服务。
+
+## 回滚
+
+回滚应用镜像不一定能回滚数据库结构。部署必须与兼容迁移配套，发布前检查数据库变更是否支持新旧版本共存。
+
+一次发布验证要持续发送可识别请求，观察新Pod就绪、旧Pod退出、错误率与未完成任务。回滚后再读取新版本已经写出的数据，确认旧代码仍能理解；仅看到Deployment显示Available，尚未验证业务恢复。
+
+## 动手验证
+
+模拟一个版本滚动更新，观察 readiness、请求错误率和旧 Pod 退出过程；随后回滚应用版本。
+
+---
+
+[上一篇：Kubernetes 入门：Pod、Deployment 与流量入口](/notes/go-41-kubernetes-basics) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：日志、指标与 Trace：从异常找到调用链](/notes/go-43-observability)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-42-kubernetes-production","title":"Go 42：Kubernetes 发布：资源、探针和扩缩容","date":"2026-11-12","excerpt":"应用扩到十个副本，数据库却开始拒绝连接，扩容为什么适得其反？把单Pod资源、全局连接预算与滚动更新放在一起计算，再验证旧版本如何退出。","tags":["Go","部署与运维"],"category":"go-part6","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part6","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

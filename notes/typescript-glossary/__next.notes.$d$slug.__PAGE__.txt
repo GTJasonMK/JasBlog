@@ -1,8 +1,42 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-glossary","title":"TypeScript 与全栈开发术语速查","date":"2026-11-11","excerpt":"这些词分别属于语言、浏览器、构建工具或服务端。我把它们分清楚之后，读报错和工具文档会更容易定位到同一层的问题。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"\n这些词分别属于语言、浏览器、构建工具或服务端。我把它们分清楚之后，读报错和工具文档会更容易定位到同一层的问题。\n\n| 术语 | 含义 |\n| --- | --- |\n| API | 程序之间交换数据的接口；这些示例主要使用 HTTP API。 |\n| Async / await | JavaScript 中编写异步流程的语法，底层仍基于 Promise。 |\n| 编译 | 将源代码转换成目标代码；转译工具不一定执行类型检查，TypeScript 项目仍需单独运行类型检查。 |\n| Cookie | 浏览器按域名和策略保存、随请求发送的小段数据。 |\n| DOM | 浏览器对 HTML 文档的对象表示，供脚本读取和操作。 |\n| 泛型 | 编写可复用代码时保留类型信息的一种参数化方式。 |\n| HTTP | 浏览器与服务器常用的请求/响应协议。 |\n| Middleware | Express 请求处理链中的函数，可检查或修改请求、响应并继续传递。 |\n| npm | Node.js 常用的包管理器。 |\n| Prisma | 这些示例使用的数据库 Schema、迁移和查询工具。 |\n| React | 用组件构建浏览器用户界面的 JavaScript 库。 |\n| REST | 以资源和 HTTP 方法组织 API 的常见设计风格。 |\n| Schema | 对数据结构及其约束的描述；Zod Schema 还可以在运行时校验数据。 |\n| Type inference | 编译器根据上下文推导类型，减少手工标注。 |\n| Type narrowing | 根据条件检查把宽泛类型缩小到更具体的类型。 |\n| TypeScript | 为 JavaScript 增加静态类型检查的语言；类型会在运行前擦除。 |\n| Vite | 这些示例用于开发和构建 React 前端的工具。 |\n| Workspace | 一个仓库中由包管理器统一管理的多个相关项目。 |\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tb6e,
+报错说模块解析失败，应该查运行工具还是数据库？同一个项目里的术语分属不同层，先放回它实际发生的位置，才能选对文档与验证方式。这份速查用于定位，不把一句定义当成完整行为保证。
+
+| 术语 | 含义 |
+| --- | --- |
+| API | 程序之间交换数据的接口；这些示例主要使用 HTTP API。 |
+| Async / await | JavaScript 中编写异步流程的语法，底层仍基于 Promise。 |
+| 编译 | 将源代码转换成目标代码；转译工具不一定执行类型检查，TypeScript 项目仍需单独运行类型检查。 |
+| Cookie | 浏览器按域名和策略保存、随请求发送的小段数据。 |
+| DOM | 浏览器对 HTML 文档的对象表示，供脚本读取和操作。 |
+| 泛型 | 编写可复用代码时保留类型信息的一种参数化方式。 |
+| HTTP | 浏览器与服务器常用的请求/响应协议。 |
+| Middleware | Express 请求处理链中的函数，可检查或修改请求、响应并继续传递。 |
+| npm | Node.js 常用的包管理器。 |
+| Prisma | 这些示例使用的数据库 Schema、迁移和查询工具。 |
+| React | 用组件构建浏览器用户界面的 JavaScript 库。 |
+| REST | 以资源和 HTTP 方法组织 API 的常见设计风格。 |
+| Schema | 对数据结构及其约束的描述；Zod Schema 还可以在运行时校验数据。 |
+| Type inference | 编译器根据上下文推导类型，减少手工标注。 |
+| Type narrowing | 根据条件检查把宽泛类型缩小到更具体的类型。 |
+| TypeScript | 为JavaScript增加静态检查；接口与类型注解通常在运行前移除，不自动验证外部数据。 |
+| Vite | 这些示例用于开发和构建 React 前端的工具。 |
+| Workspace | 一个仓库中由包管理器统一管理的多个相关项目。 |
+
+## 几组容易连错的关系
+
+Promise描述异步结果，await让当前函数在等待后继续，不自动建立线程；React把状态变成界面，DOM则是浏览器实际操作的文档树。它们组合工作，但不能用“异步页面”笼统代替执行机制。
+
+TypeScript类型与Zod Schema都描述结构，前者主要检查已知代码关系，后者可以读取真实值并执行规范化。Prisma再把数据库模型变成查询接口，仍不决定用户能访问哪行。三者都出现了Task，也没有任何一个能单独替代另外两层。
+
+Cookie是浏览器携带的数据，服务端会话是服务器据此恢复身份的状态；HttpOnly、Secure与SameSite分别限制不同访问条件，不等同于资源授权。API认证用户后，查询还要限制ownerId。
+
+构建生成制品，类型检查与行为测试提供不同证据，部署让制品按配置运行。遇到“本机能跑”，继续追问使用了哪个命令、读了哪份配置、是否真执行过迁移与生产入口，问题就能从模糊术语缩到具体过程。
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-glossary","title":"TypeScript 与全栈开发术语速查","date":"2026-11-11","excerpt":"编译通过、Schema通过和接口成功，分别确认了什么？按全栈任务中的实际位置解释术语，让查词能接着定位当前问题。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

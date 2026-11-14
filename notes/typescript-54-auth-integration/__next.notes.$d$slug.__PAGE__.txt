@@ -4,8 +4,8 @@
 5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-3:T87c,
-登录流程不能只验证一次表单提交。我会继续刷新页面、退出、删除 Cookie，确认浏览器显示的状态与服务端会话一致，再检查会话的过期与持久化方式。
+3:Tdb7,
+登录响应200，只证明这一请求返回成功。若会话没保存、Cookie属性不匹配或代理没有转发，刷新后的me仍会匿名。把成功响应、浏览器持有凭据与服务器恢复身份分开验证，才能知道故障在哪一段。
 
 注册时校验邮箱与密码，使用 Argon2id 等密码哈希算法保存结果。邮箱唯一性由数据库 UNIQUE 约束保护；提前查询可以改善提示，但仍要处理并发写入产生的唯一键冲突。登录时比较密码哈希，登录成功后更新会话标识并写入 HttpOnly Cookie。当前用户接口从会话恢复身份；退出时销毁服务端会话并清 Cookie。
 
@@ -17,6 +17,16 @@
 
 用户界面要处理加载、无会话、登录失败、过期和退出中的状态。
 
+注册与登录中的密码哈希属于昂贵操作，输入长度与频率应有合理边界；查到用户后使用成熟库验证，不自行比较普通哈希字符串。登录失败采用稳定提示，服务端保留受控诊断，避免向请求方暴露账号存在性。
+
+会话创建后确认存储完成再交付需要的结果，登录更新会话身份，me只返回公开用户字段。应用多副本使用共同持久化存储，否则某个实例建立的会话，下一次换实例就可能失效；前端重试无法修好这个共享状态问题。
+
+## 在浏览器实际核对凭据路径
+
+观察Set-Cookie是否被接受，后续同源请求是否携带，域、Path、SameSite与Secure是否符合访问方式。HTTPS代理后也要按可信代理配置识别协议；不要为临时通过就取消Secure或允许任意来源凭据。
+
+退出先销毁服务端会话并清理对应Cookie，页面再清理身份缓存。删Cookie只能让当前浏览器不再提供凭据，不等于服务器撤销了已复制的会话；关闭浏览器也可能被会话恢复功能保留，不能把关窗口当可靠退出机制。
+
 ## 凭证只留在合适的边界内
 
 - 注册时不能保存明文密码。
@@ -25,7 +35,7 @@
 
 ## 动手验证
 
-按注册、登录、刷新页面、退出顺序测试；关闭浏览器会话或删除 Cookie 后确认当前用户接口返回未登录。
+按注册、登录、刷新页面、退出顺序测试；显式删除Cookie后检查me未登录，再用已退出会话的原凭据请求，确认服务端也已拒绝。过期时间用受控测试时钟或短期隔离配置验证，不靠等待真实生产会话碰巧过期。
 
 [这一节的练习参考](/notes/typescript-exercise-answers)。
 
@@ -33,5 +43,5 @@
 
 [上一篇：任务 API：把会话、校验和持久化连起来](/notes/typescript-53-task-api) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：单元和组件测试：把用户能观察到的行为写下来](/notes/typescript-55-unit-component-tests)
 
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-54-auth-integration","title":"TypeScript 54：注册、登录、刷新与退出的完整流程","date":"2026-11-12","excerpt":"登录流程不能只验证一次表单提交。我会继续刷新页面、退出、删除 Cookie，确认浏览器显示的状态与服务端会话一致，再检查会话的过期与持久化方式。","tags":["TypeScript","全栈整合与发布"],"category":"typescript-12-delivery","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-12-delivery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-54-auth-integration","title":"TypeScript 54：注册、登录、刷新与退出的完整流程","date":"2026-11-12","excerpt":"登录接口成功了，刷新为什么又变匿名？沿密码验证、会话保存、Cookie发送和me恢复检查完整链路，再确认退出真正销毁服务端身份。","tags":["TypeScript","全栈整合与发布"],"category":"typescript-12-delivery","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-12-delivery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
 8:null

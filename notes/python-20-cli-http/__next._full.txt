@@ -8,7 +8,7 @@ c:I[168027,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e
 :HL["/_next/static/chunks/773957f472007a6e.css","style"]
 :HC["/",""]
 2:[["$","source",null,{"media":"(max-width: 767px)","srcSet":"/backgrounds/lake-mobile.webp","type":"image/webp"}],["$","$L3",null,{"src":"/backgrounds/lake.webp","alt":"","width":2400,"height":1600,"loading":"eager","fetchPriority":"high","unoptimized":true}]]
-0:{"P":null,"b":"Lce4hgqZcvwFwf7yktvnD","c":["","notes","python-20-cli-http"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","python-20-cli-http","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
+0:{"P":null,"b":"VX31ZvEYwE_KPHAUN8uNe","c":["","notes","python-20-cli-http"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","python-20-cli-http","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
 d:I[339756,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
 e:I[837457,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
 f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
@@ -23,9 +23,123 @@ f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e
 a:["$","$1","c",{"children":["$L10",[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true,"nonce":"$undefined"}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}]
 b:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]
 18:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-19:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-10:["$","$L18",null,{"note":{"slug":"python-20-cli-http","title":"Python 20：命令行、子进程和 HTTP：处理外部输入","date":"2026-11-12","excerpt":"脚本一旦要接收参数、调用程序或访问接口，就开始和外部环境打交道。我会把超时、返回状态和输入校验放在调用边界，后面的转换函数只处理已经确认的数据。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"error":"$undefined","content":"\n脚本一旦要接收参数、调用程序或访问接口，就开始和外部环境打交道。我会把超时、返回状态和输入校验放在调用边界，后面的转换函数只处理已经确认的数据。\n\n`argparse` 生成命令行接口；`subprocess.run` 可调用外部程序；HTTP 客户端负责与 Web API 通信。外部输入和远程响应都是不可信边界，需设置超时、检查状态并验证数据。\n\n```python\nimport argparse\n\nparser = argparse.ArgumentParser()\nparser.add_argument(\"name\")\nargs = parser.parse_args()\nprint(f\"你好，{args.name}\")\n```\n\nHTTP 示例使用第三方 `httpx`：\n\n```python\nimport httpx\n\nresponse = httpx.get(\"https://example.com\", timeout=10)\nresponse.raise_for_status()\nprint(response.status_code)\n```\n\n## 参数和命令不能直接拼接\n\n不要把用户输入拼接成 shell 命令；调用子进程时优先传参数列表并保持 `shell=False`。不要在代码中写入 API 密钥。\n\n## 动手验证\n\n**练习：**为什么 HTTP 请求必须设置超时？\n\n**答案：**网络可能永远无响应；超时让程序能及时失败、重试或向用户报告，而不会无限挂起。\n\n---\n\n[上一篇：正则、日期与时间：格式之外还有语义](/notes/python-19-regex-datetime) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：虚拟环境与项目结构：让依赖跟着项目走](/notes/python-21-environments-projects)\n\n"},"back":["$","$Lf",null,{"href":"/notes?category=python-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L19",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}]
+19:T159d,
+脚本刚开始只有几行时，直接修改变量就能换输入。等到要让另一个人使用，或者放进定时任务，输入应该从命令行进入，而不是要求每次打开代码改值。命令行参数、子进程和HTTP，都是程序与外部协作的方式，只是协作对象和失败规则不同。
+
+## 把命令写成一个可说明的接口
+
+将下面内容保存为 `greet.py`：
+
+```python
+import argparse
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description="按指定次数输出问候")
+    parser.add_argument("name", help="称呼")
+    parser.add_argument("--repeat", type=int, default=1)
+    args = parser.parse_args(argv)
+    if not 1 <= args.repeat <= 10:
+        parser.error("--repeat 必须在1到10之间")
+    for _ in range(args.repeat):
+        print(f"你好，{args.name}")
+
+if __name__ == "__main__":
+    main()
+```
+
+执行 `python greet.py Ada --repeat 2` 会输出两次问候，`python greet.py --help` 会显示使用说明。`argparse` 处理参数位置、名称和基本类型转换，程序再检查次数范围。`type=int` 不代表负数也可以接受，业务条件仍需补上。
+
+`main(argv=None)` 默认读取真正的命令行，测试时也能传入 `main(["Ada", "--repeat", "2"])`。输入解析独立出来后，后面的处理不必到处读取全局 `sys.argv`。
+
+## 子进程是另一个执行结果，不是一次普通函数调用
+
+调用系统中的其他程序，可以使用 `subprocess.run`。下面启动同一个Python解释器做一个最小计算：
+
+```python
+import subprocess
+import sys
+
+result = subprocess.run(
+    [sys.executable, "-c", "print(2 + 3)"],
+    check=True,
+    capture_output=True,
+    text=True,
+    encoding="utf-8",
+    timeout=5,
+)
+print(result.stdout.strip())  # 5
+```
+
+参数列表把程序和各个参数分开，默认不经过shell解释。`check=True` 在退出码非零时抛出 `CalledProcessError`，`timeout` 则限制这次等待，不能只看“进程启动成功”就认为任务完成。错误信息也可能写在标准错误流，需要按目标工具的约定检查。
+
+`capture_output=True` 会把输出收进内存，适合有边界的小输出。可能产生大量内容的任务，应使用文件或流式读取，避免因为抓取输出而耗尽内存。
+
+外部输入不能直接拼进shell命令。即使不使用shell，某些程序仍会把以 `-` 开头的输入当成选项，所以也要根据目标程序规则区分选项和数据，必要时使用它支持的 `--`。参数列表解决shell解释问题，不会替目标程序完成全部输入校验。
+
+## HTTP有三次不同的检查
+
+网络请求需要分别确认：是否连接并得到响应，HTTP状态是否符合预期，响应内容是否符合业务结构。服务器返回404时，连接本身往往已经成功；返回200也可能带来错误字段。
+
+下面使用第三方库HTTPX，先安装到当前项目环境：
+
+```console
+python -m pip install httpx
+```
+
+请求一个网页并检查HTTP状态，可以这样写：
+
+```python
+import httpx
+
+response = httpx.get("https://example.com", timeout=10)
+response.raise_for_status()
+print(response.status_code)
+```
+
+这段例子只检查状态，不把网页HTML当作JSON解析。访问真实JSON接口时，还要对 `response.json()` 的结果检查字段和类型，具体方法见[数据格式](/notes/python-12-data-formats)。
+
+为了单独验证这段边界处理，也可以用HTTPX的测试传输提供确定的响应，不连接真实网络：
+
+```python
+import httpx
+
+def read_count(client):
+    response = client.get("https://example.test/count")
+    response.raise_for_status()
+    data = response.json()
+    if not isinstance(data, dict) or type(data.get("count")) is not int:
+        raise ValueError("响应缺少整数count")
+    return data["count"]
+
+def respond(request):
+    return httpx.Response(200, json={"count": 3})
+
+transport = httpx.MockTransport(respond)
+with httpx.Client(transport=transport, timeout=5) as client:
+    print(read_count(client))  # 3
+```
+
+将响应改成500、改成无效JSON、或者把 `count` 改成字符串，会分别走到不同的失败处。这样能证明代码确实检查了每一层，而不必等外部服务器碰巧出错。
+
+## 超时和重试也有范围
+
+HTTPX可以分别控制连接、读取、写入和连接池等待的超时；单个超时值不应被理解为整个业务流程绝不会超过这个总时长。多次请求和重试还需要一个共同的时间预算。
+
+网络错误、HTTP失败、字段校验失败，应该保留足够信息供调用者判断。重试只针对确有机会恢复的情况，还要考虑重复执行的后果；一次创建订单请求超时，不足以证明订单没有创建成功。
+
+程序需要鉴权时，凭证从环境或项目既有安全配置读取，不写进示例地址，也不把完整请求头记录到日志。多次访问同一服务时，客户端对象可以复用连接；用 `with` 明确关闭客户端，让连接生命周期与当前任务一致。
+
+这三种协作方式都应把外部结果转成清楚的成功或失败，再交给内部逻辑。传入的数据是哪一种、等待多久、怎样确认完成，每个接口都需要自己的答案。
+
+---
+
+[上一篇：正则、日期与时间：格式之外还有语义](/notes/python-19-regex-datetime) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：虚拟环境与项目结构：让依赖跟着项目走](/notes/python-21-environments-projects)
+
+10:["$","$L18",null,{"note":{"slug":"python-20-cli-http","title":"Python 20：命令行、子进程和 HTTP：处理外部输入","date":"2026-11-12","excerpt":"脚本接收参数、调用另一个程序、请求远程接口时，失败方式各不相同。用可运行的命令行和子进程例子，说明参数如何解析、返回码如何检查，以及 HTTP 状态、响应结构和超时各自负责什么。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"error":"$undefined","content":"$19"},"back":"$L1a","comments":"$L1b"}]
+1c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+1a:["$","$Lf",null,{"href":"/notes?category=python-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
+1b:["$","$L1c",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]
-1a:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+1d:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
 13:null
-17:[["$","title","0",{"children":"Python 20：命令行、子进程和 HTTP：处理外部输入 | JasBlog"}],["$","meta","1",{"name":"description","content":"脚本一旦要接收参数、调用程序或访问接口，就开始和外部环境打交道。我会把超时、返回状态和输入校验放在调用边界，后面的转换函数只处理已经确认的数据。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1a","3",{}]]
+17:[["$","title","0",{"children":"Python 20：命令行、子进程和 HTTP：处理外部输入 | JasBlog"}],["$","meta","1",{"name":"description","content":"脚本接收参数、调用另一个程序、请求远程接口时，失败方式各不相同。用可运行的命令行和子进程例子，说明参数如何解析、返回码如何检查，以及 HTTP 状态、响应结构和超时各自负责什么。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1d","3",{}]]

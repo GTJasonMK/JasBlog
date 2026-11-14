@@ -1,8 +1,88 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-10-exceptions","title":"Python 10：异常处理：在哪里接住失败","date":"2026-11-12","excerpt":"异常处理要回答的是：这一层能不能对失败做出有意义的处理。能给出输入提示就转换成清楚的错误，不能恢复就保留原因往外抛，别用一个空的 except 把失败藏起来。","tags":["Python","函数与程序组织"],"category":"python-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n异常处理要回答的是：这一层能不能对失败做出有意义的处理。能给出输入提示就转换成清楚的错误，不能恢复就保留原因往外抛，别用一个空的 except 把失败藏起来。\n\n异常表示操作没有按预期完成。`try/except` 应围绕可预期的失败边界，捕获具体异常并给出有用处理；`raise` 用于拒绝无效状态，`finally` 用于无论结果如何都要执行的清理。\n\n```python\ndef parse_age(text):\n    try:\n        age = int(text)\n    except ValueError as exc:\n        raise ValueError(\"年龄必须是整数\") from exc\n    if age < 0:\n        raise ValueError(\"年龄不能为负数\")\n    return age\n```\n\n使用 `with` 管理文件等资源，比手动写 `try/finally` 更安全。错误信息应包含可行动的信息，但不要泄露密码、令牌或个人数据。\n\n## 捕获异常后要有明确动作\n\n裸 `except:` 会捕获 `KeyboardInterrupt` 等非业务异常，也会隐藏错误。不要用 `except Exception: pass` 制造假成功。\n\n## 动手验证\n\n**练习：**调用 `parse_age(\"abc\")` 会发生什么？\n\n**答案：**抛出 `ValueError(\"年龄必须是整数\")`，并保留原始转换错误作为异常原因。\n\n---\n\n[上一篇：参数、闭包与函数式工具](/notes/python-09-functions-advanced) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：文件、路径与编码：先确认读写的对象](/notes/python-11-files-paths)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=python-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T1402,
+用户在年龄输入框填了 `abc`，程序当然没办法把它当作整数。直接崩溃，用户不知道该改什么；把它偷偷变成0，后面的业务又会以为拿到了一个合法年龄。异常处理要保留“这一步没有完成”的事实，同时让有能力处理它的地方决定下一步。
+
+先把解析过程写成一个只接收文本的函数：
+
+```python
+def parse_age(text):
+    try:
+        age = int(text)
+    except ValueError as exc:
+        raise ValueError("年龄必须是整数") from exc
+    if age < 0:
+        raise ValueError("年龄不能为负数")
+    return age
+```
+
+`int("abc")` 抛出 `ValueError`，执行流程立刻离开 `try`，进入匹配的 `except`。函数在这里把底层转换错误解释成更贴近输入字段的信息，再用 `raise` 交给调用者。输入 `"-1"` 时，转换本身成功，后面的业务检查仍然会拒绝负数。
+
+因此“格式可以解析”和“数值符合规则”是两个检查。`try` 只包住可能出现对应解析失败的操作，能避免把后面其他地方偶然出现的 `ValueError` 也误报成年龄格式错误。
+
+## 谁能处理，谁来捕获
+
+解析函数不知道界面长什么样，也不应该自己关闭程序。一个终端输入界面可以接住错误，给出提示：
+
+```python
+for text in ["18", "abc", "-1"]:
+    try:
+        age = parse_age(text)
+    except ValueError as exc:
+        print(f"输入无效：{exc}")
+    else:
+        print(f"已接收年龄：{age}")
+```
+
+这里的 `else` 只在 `try` 中没有抛出异常时执行。成功动作放在外面，可以避免把它内部的错误也归给解析过程。网页接口可能把同一个异常转换为字段校验响应，测试则直接断言它应当失败。
+
+异常如果没有在当前函数被接住，会沿调用栈向外传播，直到找到处理它的 `except`；一路都没有人处理，程序就会报告异常及调用栈。下层不能恢复时，让错误继续传播本来就是正常做法，不需要为了“处理过了”而每层都打印一次。
+
+前面的 `from exc` 保存了原因链。对用户可以显示“年龄必须是整数”，排查问题时仍能看到原始转换失败。重新抛出当前异常使用单独的 `raise`，也能保留原来的调用信息。
+
+## 捕获异常后要有明确动作
+
+可以提示用户改输入，可以将已知异常转换为业务异常，也可以记录必要上下文后继续向外抛。`except Exception: pass` 则让调用者误以为操作完成，原本的失败就难以追查了。
+
+裸 `except:` 的范围更大，还会捕获 `KeyboardInterrupt` 等异常。用户按下中断快捷键，本来想停止程序，结果循环接住以后又继续执行，这通常不符合意图。一般业务错误从具体类型开始捕获，程序入口确实需要统一记录未知错误时，也要明确报告失败。
+
+错误信息需要能定位问题，例如哪个文件、哪条记录、哪个操作失败。但日志不应该顺手输出整个请求对象，把密码、令牌或个人数据一起写进去。保留错误原因与保留所有输入，是两件不同的事。
+
+## 失败以后，已经打开的资源怎么办
+
+假如文件已经打开，处理到一半报错，文件仍然需要关闭。`finally` 的作用是让清理动作在正常结束和异常退出时都能执行。文件更常见的写法是使用上下文管理器：
+
+```python
+from io import StringIO
+
+stream = StringIO("18\nabc\n")
+try:
+    with stream:
+        for line in stream:
+            print(parse_age(line))
+except ValueError:
+    print("输入中有非法年龄")
+
+print(stream.closed)  # True
+```
+
+第二行输入失败后，执行流程离开 `with`，流被关闭，异常继续交给外层处理。真实文件、锁等资源也有类似的管理方式。清理资源并不等于操作成功，所以不能在清理完以后再返回一份看似正常的结果。
+
+尤其不要在 `finally` 中用 `return` 覆盖正在传播的异常。那样外面得到一个返回值，真正的处理错误却消失了。数据库事务还需要分别考虑提交与回滚，关闭连接也不能代替回滚规则，具体取决于连接库的接口。
+
+## 能重试的错误，要再看操作有没有发生
+
+网络超时可能只是暂时故障，但也可能是服务端已经完成操作、响应没有到达。给读取请求做有限次重试，和对支付请求直接再发一次，后果完全不同。异常类型告诉我们哪一步出现问题，是否可以重试还取决于操作的幂等性、剩余时间和状态核对能力。
+
+相反，`parse_age("abc")` 重试一百次也不会变成合法整数，应该让用户修改输入。先判断错误属于输入、依赖故障还是程序缺陷，再决定提示、重试或终止，异常处理才真正改变了失败后的行为。
+
+---
+
+[上一篇：参数、闭包与函数式工具](/notes/python-09-functions-advanced) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：文件、路径与编码：先确认读写的对象](/notes/python-11-files-paths)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-10-exceptions","title":"Python 10：异常处理：在哪里接住失败","date":"2026-11-12","excerpt":"输入不合法、文件不存在和程序写错了，都可能抛出异常，但处理方法不该一样。从年龄解析的失败路径出发，说明异常传播、原因链和资源清理，决定应该在哪一层接住错误。","tags":["Python","函数与程序组织"],"category":"python-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

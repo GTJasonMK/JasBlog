@@ -1,11 +1,11 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
 4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-7:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-8:"$Sreact.suspense"
-3:T1317,
-副本存在，不代表主库故障时一定不丢数据。需要看提交等到了哪个阶段、副本实际追到哪里，以及切换时怎样隔离旧主。复制、备份和高可用分别承担不同的恢复责任。
+b:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+c:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+d:"$Sreact.suspense"
+3:T16f8,
+监控连不上主库，就把副本提升为新主，原来的主库却可能只是与监控断网，仍在接受用户写入。两边各自成功以后，数据就分叉了。高可用首先要回答怎么确认与隔离旧主，再讨论新主何时接流量。
 
 下面的架构推演不能代替跨主机高可用验证。
 
@@ -16,6 +16,8 @@ PostgreSQL 物理流复制传递 WAL，备库重放后形成与主库接近的�
 物理备库通常不能独立写入。异步复制允许主库在备库收到日志前返回成功，所以主库永久丢失时可能丢失已确认事务。同步复制可以等待特定备库达到指定阶段，但会增加延迟，并可能在同步备库不可用时阻塞提交。
 
 `synchronous_commit=on` 本身不代表已部署同步备库，还要配置 `synchronous_standby_names` 等。等待远端写入、刷盘与回放是不同承诺；需要读后立即见的业务还要明确在哪个节点读取及等待什么位置。
+
+副本收到日志不等于已回放成可查询的行。提交等待哪一阶段、查询送到哪个节点，共同决定用户刚写完能否读到；增加副本数量也不会自动增强这条语义。
 
 ## 创建物理备库的机制
 
@@ -28,6 +30,8 @@ pg_basebackup -h PRIMARY_HOST -U replicator -D /srv/postgresql/standby -R -X str
 `-R` 写入备用模式所需文件与连接配置；`-C -S` 创建并使用命名复制槽。密码使用受控凭据文件或组织 secret 方案，不写命令行。槽必须有监控和生命周期，备库永久丢失却保留槽会持续占用 WAL。
 
 本命令不自动配置主库访问规则、操作系统权限、TLS、服务管理、选主或隔离旧主。第 16 章验证了物理恢复链，流复制和跨机故障仍需另建环境演练。
+
+基础备份像提供共同起点，流复制持续把后续日志送来，复制槽保留尚需材料。槽解决恢复连续性，也产生磁盘保留责任；备库永久下线后如果无人处理槽，源库空间可能持续增长。
 
 ## 如何判断复制健康
 
@@ -48,6 +52,8 @@ FROM pg_replication_slots;
 
 LSN 差是字节差，不直接等于多少秒业务延迟。转换为时间需要结合实际 WAL 生成和重放速率。同步状态正常也不能证明所有应用读请求都路由到了合适节点。
 
+主库没新事务时，最后一次回放时间自然越来越旧，副本仍可能完全追平。先看有没有新日志与位置差，再解释时间指标，避免把空闲状态误报为复制故障。
+
 ## 高可用还需要选主与隔离
 
 主库无法被监控访问，可能只是网络分区，不代表主库已经停止写入。如果此时提升备库，而旧主仍接受请求，会形成双主分叉。
@@ -55,6 +61,8 @@ LSN 差是字节差，不直接等于多少秒业务延迟。转换为时间需�
 可靠切换需要判断和选举、隔离旧主的写入能力、确认候选备库进度、提升、切换入口、业务核对和旧主重建。连接池中的旧连接也要处理，DNS 更新不保证现有连接立即失效。
 
 使用 Patroni 等成熟体系时，要理解其一致性存储、租约与 fencing 条件。引入自动化不会消除这些条件。托管数据库也需要核对服务商明确提供的 RPO、RTO、维护方式和故障切换语义。
+
+切换完成以后，旧连接仍可能指向原地址，客户端也可能因超时重试。入口、连接池和幂等结果一起核对，新主可写只是其中一步。误删已经复制到副本时，则回到历史备份与PITR，不通过提升另一份同样错误的数据解决。
 
 ## 不同故障需要不同方案
 
@@ -74,6 +82,11 @@ LSN 差是字节差，不直接等于多少秒业务延迟。转换为时间需�
 ---
 
 [上一篇：用基础备份和连续 WAL 回到误删之前](/notes/database-16-wal-pitr) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：从业务延迟追到资源，再算容量预算](/notes/database-18-monitoring-capacity)
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-17-replication-ha","title":"数据库 17：副本有多新，切换时怎样避免两个主库","date":"2026-11-13","excerpt":"副本存在，不代表主库故障时一定不丢数据。需要看提交等到了哪个阶段、副本实际追到哪里，以及切换时怎样隔离旧主。复制、备份和高可用分别承担不同的恢复责任。","tags":["数据库","PostgreSQL"],"category":"database-recovery","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-recovery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],"$L6"]}],"loading":null,"isPartial":false}
-6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
-9:null
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-17-replication-ha","title":"数据库 17：副本有多新，切换时怎样避免两个主库","date":"2026-11-13","excerpt":"监控连不上主库，直接提升副本会发生什么？先看日志复制到了哪一步，再区分主机故障与网络分区，把隔离旧主、切换入口与业务核对接成完整过程。","tags":["数据库","PostgreSQL"],"category":"database-recovery","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-recovery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+5:["$","$Lb",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]
+7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
+8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
+9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]
+a:["$","$Lc",null,{"children":["$","$d",null,{"name":"Next.MetadataOutlet","children":"$@e"}]}]
+e:null

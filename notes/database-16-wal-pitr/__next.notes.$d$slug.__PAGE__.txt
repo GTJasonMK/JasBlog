@@ -4,8 +4,8 @@ b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e
 c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
-3:T1cd9,
-误删以后，恢复目标通常是错误发生之前的状态。这里用命名恢复点把位置说清楚，再把基础备份与连续 WAL 恢复到独立数据卷，通过两边不同的标记确认停在了哪里。
+3:T21c1,
+误删是十分钟前发生的，现在恢复到“刚发现问题”已经晚了。PITR要有明确目标，不能只启动一台从旧备份恢复的数据库就认定完成。这个实验先在删除前留下命名恢复点，再用前后不同记录证明回放停在哪。
 
 L7 使用独立容器和恢复数据卷，不覆盖原库。归档与基础备份仍和源库共用源数据卷，源卷丢失时它们也会丢失；这里验证本机恢复机制，异地容灾需要独立存储和另外的演练。
 
@@ -14,6 +14,8 @@ L7 使用独立容器和恢复数据卷，不覆盖原库。归档与基础备�
 PITR 需要一个可用的基础物理备份，以及从备份所需起点到目标点之间完整连续的 WAL。少一个必需日志段，恢复可能无法到达目标。过期删除策略必须同时理解基础备份和日志依赖，不能只保留“最近一天 WAL”。
 
 恢复点可以按时间、事务或命名恢复点指定。误删发生时间不一定等于你发现问题的时间；本实验使用命名恢复点，避免时间输入和时区歧义。恢复目标必须晚于基础备份能达到一致状态的时刻。
+
+基础备份提供起点，连续日志描述之后变化，目标控制回放终点。缺任何一段必需WAL，就像步骤中间断开，不能靠最后一个日志文件补全；因此归档验证在模拟误删之前，而不是删完再找日志。
 
 ## 1. 开启归档并确认成功
 
@@ -54,6 +56,8 @@ SELECT archived_count, failed_count, last_archived_wal,
 
 教学归档命令拒绝覆盖同名文件；极少数重新归档同一文件的情况会失败并重试。生产归档工具应确认已有文件内容相同且已持久化时才返回成功，内容不同必须报错。不能通过删原 WAL 或假成功处理归档故障。
 
+pg_switch_wal只推动日志段切换，不等待归档命令可靠交付。查看目录与归档状态，是确认恢复材料已经到位；命令返回与后续异步完成各有时刻，不能合并成一次成功。
+
 ## 2. 制作物理备份
 
 仍在 `psql` 中创建标记后退出：
@@ -74,6 +78,8 @@ docker compose exec -T -u postgres db pg_verifybackup /var/lib/postgresql/baseba
 目录必须为空，重复演练应保存旧成果后选择新的实验环境。这里用本机 socket 与示例管理员取得复制能力，生产应使用最小复制权限和受控认证。
 
 `-X stream` 同时取得备份所需 WAL，不表示备份之后的日志会自动永远保留。`pg_verifybackup` 检查清单等完整性，也不能替代真正恢复。
+
+标记1在基础备份之前，标记2在恢复点之前，删除2与新增3在恢复点之后。预期恢复结果不是“有记录即可”，而是恰好保留1与2、没有3，这样才能排除恢复过早或回放过头。
 
 ## 3. 建立恢复目标并模拟误删
 
@@ -118,11 +124,15 @@ SELECT * FROM practice.recovery_marks ORDER BY id;
 
 预期仍在 recovery，回放状态为 `paused`，只有 1、2 两行。第 2 行恢复，第 3 行不存在，证明停在误删之前。日志也应说明到达指定恢复点。
 
+能连接只表示达到某个可读状态，暂停字段与标记再确认目标。若仍等日志，首先修复恢复链；删掉目标参数虽然可能让服务启动，却把原本“回到误删前”的任务改成了另一件事。
+
 如果未到达目标、仍在等待日志、或服务报目标无法到达，应检查归档连续性、目标名称、基础备份和日志。不能删掉目标参数让实例“先启动算成功”。
 
 ## 5. 核对、切换与保留
 
 本实验保持恢复实例只读以便核对，不自动切换应用。真实事件中，应先确认业务完整性、权限、序列与允许的数据损失，围绕明确切换点停止原主写入、防止双写，再按组织流程提升和接入新实例。
+
+恢复目标之后的合法写入也可能没有出现在新实例，需要按业务证据决定如何处理，不能直接把两边内容盲目合并。先确认保留范围，再安排切换，历史恢复才不会变成第二次数据冲突。
 
 保存证据后可停止恢复容器，不删除恢复数据卷：
 
@@ -141,7 +151,7 @@ docker compose -f compose.yaml -f compose.recovery.yaml stop recovery
 ---
 
 [上一篇：有备份文件之后，还要证明能恢复](/notes/database-15-backup-restore) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：副本有多新，切换时怎样避免两个主库](/notes/database-17-replication-ha)
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-16-wal-pitr","title":"数据库 16：用基础备份和连续 WAL 回到误删之前","date":"2026-11-13","excerpt":"误删以后，恢复目标通常是错误发生之前的状态。这里用命名恢复点把位置说清楚，再把基础备份与连续 WAL 恢复到独立数据卷，通过两边不同的标记确认停在了哪里。","tags":["数据库","PostgreSQL"],"category":"database-recovery","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-16-wal-pitr","title":"数据库 16：用基础备份和连续 WAL 回到误删之前","date":"2026-11-13","excerpt":"发现误删的时间往往晚于真正删除，恢复该停在哪里？用命名恢复点与三条标记追踪基础备份、WAL和暂停状态，在独立数据卷确认回到了目标位置。","tags":["数据库","PostgreSQL"],"category":"database-recovery","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-recovery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]

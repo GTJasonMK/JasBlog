@@ -1,8 +1,44 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-26-declarations","title":"TypeScript 26：声明文件：编译器从哪里认识一个 JavaScript 包","date":"2026-11-12","excerpt":"调用第三方包时能看到参数提示，是因为编译器找到了类型声明。我会先定位声明入口，再对照实际导出，确认它描述的是当前安装版本真正提供的能力。","tags":["TypeScript","进阶类型"],"category":"typescript-06-typescript-advanced","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n调用第三方包时能看到参数提示，是因为编译器找到了类型声明。我会先定位声明入口，再对照实际导出，确认它描述的是当前安装版本真正提供的能力。\n\nTypeScript 包可携带声明文件，也可通过 DefinitelyTyped 的类型包补充。d.ts 描述已有 JavaScript API，不包含实现。环境声明用于描述全局变量或构建工具注入的值；模块扩展和声明合并用于补充已有模块或接口类型。使用 import type 只导入类型，避免不必要的运行时导入。\n\n使用第三方包时先查其官方类型是否已内置，避免安装重复或过时的类型包。若自己维护 JavaScript API，可为公开入口提供准确声明。\n\n## 声明存在不等于运行时能力存在\n\n- 声明文件写错可能让编译器相信不存在的能力。\n- 不要用宽泛的全局声明掩盖未知类型。\n- 声明只影响检查；运行时依赖仍必须实际存在。\n- 模块扩展只影响编译器理解的类型，不会真的给运行时对象添加属性。\n\n## 动手验证\n\n查找一个已安装 npm 包的类型定义位置，并确认一个导出函数的参数和返回类型。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：TypeScript 类：接口、抽象类与私有字段](/notes/typescript-25-typescript-classes) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：tsconfig 与 strict：每个检查选项在管什么](/notes/typescript-27-tsconfig-strict)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-06-typescript-advanced","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tb8e,
+缺少某个全局变量的类型，补一行declare，编辑器就不报错了；运行时却仍然ReferenceError。声明告诉检查器“它应该存在”，不会创建变量，也不会加载提供它的脚本。写声明相当于承诺，必须有实际实现支撑。
+
+TypeScript 包可携带声明文件，也可通过 DefinitelyTyped 的类型包补充。d.ts 描述已有 JavaScript API，不包含实现。环境声明用于描述全局变量或构建工具注入的值；模块扩展和声明合并用于补充已有模块或接口类型。使用 import type 只导入类型，避免不必要的运行时导入。
+
+使用第三方包时先查其官方类型是否已内置，避免安装重复或过时的类型包。若自己维护 JavaScript API，可为公开入口提供准确声明。
+
+先看包的package.json，核对exports与types等入口，再通过编辑器跳转到实际d.ts。某些包按导入方式选择不同入口，ESM与CommonJS的声明也可能不同；只找到一个同名文件，不一定就是当前调用采用的合同。
+
+内置声明跟包版本一起发布，独立的@types包则要检查适配版本。类型描述新版函数、运行却安装旧版实现，就可能编译通过仍找不到方法。skipLibCheck也不会修复这份版本不一致，只是跳过部分声明检查。
+
+## 类型导入不等于加载实现
+
+`import type` 在运行产物中不保留对应类型导入，适合只使用接口或别名的地方。若依赖模块初始化副作用，就需要明确的运行时导入，不能指望纯类型导入执行它。类型层依赖与运行时依赖要分别核对。
+
+## 声明存在不等于运行时能力存在
+
+- 声明文件写错可能让编译器相信不存在的能力。
+- 不要用宽泛的全局声明掩盖未知类型。
+- 声明只影响检查；运行时依赖仍必须实际存在。
+- 模块扩展只影响编译器理解的类型，不会真的给运行时对象添加属性。
+
+例如给Express请求声明currentUser，只让后续代码认识字段；认证中间件仍必须验证会话并在正确路径赋值。还要表达未认证时可能不存在，而不是通过全局必填声明假定每个请求都已经登录。
+
+自己维护声明时，用小调用验证参数、返回值与导出名称，非法调用应失败，合法调用还要实际运行。把整个包声明为any能快速消除提示，却同时失去检查价值；只为有依据的公开API补准确合同。
+
+## 动手验证
+
+查找一个已安装 npm 包的类型定义位置，并确认一个导出函数的参数和返回类型。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：TypeScript 类：接口、抽象类与私有字段](/notes/typescript-25-typescript-classes) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：tsconfig 与 strict：每个检查选项在管什么](/notes/typescript-27-tsconfig-strict)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-26-declarations","title":"TypeScript 26：声明文件：编译器从哪里认识一个 JavaScript 包","date":"2026-11-12","excerpt":"补一行declare就消除了报错，运行却说函数不存在，声明究竟做了什么？从包入口和d.ts说明编译器的知识来源，再核对它与真实JavaScript版本是否一致。","tags":["TypeScript","进阶类型"],"category":"typescript-06-typescript-advanced","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-06-typescript-advanced","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

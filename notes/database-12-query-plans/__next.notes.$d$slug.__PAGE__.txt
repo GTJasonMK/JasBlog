@@ -2,10 +2,10 @@
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
 4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
 5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-7:"$Sreact.suspense"
-3:T11b4,
-接口慢时，我会先分清时间花在连接池、锁等待，还是 SQL 执行上。确定语句和参数之后，再沿执行计划找工作量开始放大的位置，用同一查询的前后结果验证判断。
+7:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+3:T1512,
+看到Index Scan就结束排查，可能漏掉内层执行几万次、回表很多或上层排序溢出。执行计划不是“有没有索引”的检查单，它描述数据怎样流过一组节点。先找到哪一步处理量开始偏离预期，再判断原因。
 
 ## 从业务症状缩小到具体 SQL
 
@@ -39,7 +39,7 @@ SELECT id FROM shop.orders WHERE customer_id = 1;
 | Sort Method / Disk | 排序算法与是否使用临时磁盘 |
 | Heap Fetches | 覆盖扫描仍要回表验证可见性的次数 |
 
-从叶子向上读数据流，比较估计与实际行数，寻找工作量开始放大的地方。节点时间通常包含子节点，不要把整棵树的时间机械相加；每循环平均值也不能当成总工作量。
+从叶子向上看输入、输出与循环次数。actual rows为10、loops为1000，表示反复处理后的工作量不能只看那个10；节点时间又常包含子节点，整棵树直接相加会重复计算。先确认数字的口径，才谈热点在哪。
 
 ## 理解常见节点
 
@@ -47,11 +47,15 @@ SELECT id FROM shop.orders WHERE customer_id = 1;
 
 出现 Seq Scan 不直接等于缺索引，出现 Index Scan 也不等于高效。三行订单表选择顺序扫描很合理。
 
+估计只来几行，实际来了几十万行，原本便宜的Nested Loop可能变得昂贵。先查统计与参数分布，再考虑索引或连接策略；强制关闭某种扫描让计划好看，没有解释优化器为什么判断错。
+
 ## L4：20 万行前后对比
 
 按[实验手册](/notes/database-lab-guide)执行 `05-performance.sql`。它用确定性数据建立练习表，先分析无目标索引计划，再建立联合覆盖索引并重跑完全相同的查询。
 
 保存前后访问方式、扫描与过滤行数、缓冲区访问、排序、执行时间和索引大小。再独立运行同一查询至少 5 次，报告中位数与范围。先后的缓存状态不同，因此不能只用第一遍和第二遍的耗时计算“加速倍数”。
+
+前后查询结果也要一致。若少取了状态或漏了排序，速度改善可能来自问题已经变了；比较先固定语义，再看索引是否把扫描与排序缩到合理范围。首次运行还承担更多读取，重复测量才帮助区分结构收益与缓存差异。
 
 本实验每客户固定 200 条记录，部分客户状态与编号相关，这种规则分布便于核对结果，也限制了对真实倾斜数据的代表性。线上优化要包含大客户、小客户、空结果和热点状态。
 
@@ -60,6 +64,8 @@ SELECT id FROM shop.orders WHERE customer_id = 1;
 估计偏差先检查统计更新、列相关性和参数分布，必要时评估扩展统计。扫描太多时检查筛选和索引。关联放大先修正结果粒度。排序溢出先减少排序输入、检查索引，再评估内存；不能直接把全局 `work_mem` 放大，因为单查询多个节点、多个并发连接会同时使用它。
 
 修复后核对结果一致、读写延迟、WAL、空间、复制延迟与并发。只降低单条查询耗时而明显拖慢写入，不一定满足业务目标。
+
+接口慢如果实际发生在池等待或锁等待，就回到相应路径，不继续在计划上找不存在的CPU热点。计划是一段执行证据，需要和请求时间线、参数与负载连接，才能解释用户的等待。
 
 ## 动手验证
 
@@ -70,5 +76,6 @@ SELECT id FROM shop.orders WHERE customer_id = 1;
 ---
 
 [上一篇：按查询设计索引，也把写入代价算进去](/notes/database-11-indexes) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：删除后文件为什么没变小，分区又能解决什么](/notes/database-13-vacuum-partitions)
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-12-query-plans","title":"数据库 12：从执行计划解释查询为什么慢","date":"2026-11-13","excerpt":"接口慢时，我会先分清时间花在连接池、锁等待，还是 SQL 执行上。确定语句和参数之后，再沿执行计划找工作量开始放大的位置，用同一查询的前后结果验证判断。","tags":["数据库","PostgreSQL"],"category":"database-performance","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-performance","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
-8:null
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-12-query-plans","title":"数据库 12：从执行计划解释查询为什么慢","date":"2026-11-13","excerpt":"计划写着用了索引，查询还是慢，应该继续看哪项数字？从实际行数、loops与缓冲访问找到工作量放大的位置，再用20万行练习检验索引判断。","tags":["数据库","PostgreSQL"],"category":"database-performance","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-performance","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],"$L6"]}],"loading":null,"isPartial":false}
+6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
+9:null

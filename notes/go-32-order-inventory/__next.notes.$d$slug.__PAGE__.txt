@@ -1,8 +1,39 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-32-order-inventory","title":"Go 32：普通下单：库存与订单要一起提交","date":"2026-11-12","excerpt":"我先把普通下单做正确，再讨论削峰。正数量校验、条件扣库存、订单快照和幂等键共同决定结果，不能只靠某一个锁或某一次库存查询。","tags":["Go","促销订单项目"],"category":"go-part4","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n我先把普通下单做正确，再讨论削峰。正数量校验、条件扣库存、订单快照和幂等键共同决定结果，不能只靠某一个锁或某一次库存查询。\n\n## 条件扣减\n\n先校验 quantity > 0，再对库存执行 available >= quantity 的条件更新，并检查受影响行数。库存表要对业务键（例如 product_id，或 (campaign_id, product_id)）建立唯一约束。成功后在同一个 MySQL 事务中创建订单和订单明细；任何一步失败都回滚。不要先查库存、在应用中判断后再无条件扣减，因为两个请求可能同时读到同一份库存。\n\n订单行保留商品名和单价快照。订单总金额使用整数分，计算时检查数量和乘法溢出。状态变更由领域函数校验，例如只有 pending_payment 可以转为 paid 或 cancelled。\n\n## 幂等创建\n\n对普通创建接口，数据库唯一索引可以保证同一用户的幂等键只能成功一次。发生重复键时读取先前结果返回，而不是创建第二张订单。请求体相同校验可防止客户端错误地复用 key 购买不同内容。\n\n## 动手验证\n\n在本地数据库中创建库存为 1 的商品，发起两个并发下单请求，验证只有一个订单成功。再故意让订单写入失败，确认库存更新回滚。\n\n---\n\n[上一篇：商品和促销：时间、价格与资格由谁确认](/notes/go-31-catalog-campaign) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：异步抢购：从库存预留到订单落库](/notes/go-33-flash-sale)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part4","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tb9f,
+普通同步下单的好处是边界比较清楚：数据库提交以后，订单与库存就应该一起成立。先把这条路径做对，后续增加异步组件时才知道多出来的状态在替代哪一步。
+
+## 条件扣减
+
+先校验 quantity > 0，再对库存执行 available >= quantity 的条件更新，并检查受影响行数。库存表要对业务键（例如 product_id，或 (campaign_id, product_id)）建立唯一约束。成功后在同一个 MySQL 事务中创建订单和订单明细；任何一步失败都回滚。不要先查库存、在应用中判断后再无条件扣减，因为两个请求可能同时读到同一份库存。
+
+订单行保留商品名和单价快照。订单总金额使用整数分，计算时检查数量和乘法溢出。状态变更由领域函数校验，例如只有 pending_payment 可以转为 paid 或 cancelled。
+
+正价格与正数量相乘前，检查价格不超过最大金额除以数量；多项金额相加也要检查上限。整数分避免二进制小数误差，但并不消除溢出。商品快照与活动规则来自可信服务端输入，不能按客户端传来的总额直接保存。
+
+事务内的顺序应保持一致，避免多个商品锁顺序交叉。订单插入、明细插入或幂等记录写入任一步失败都回滚；返回成功以前检查Commit。若提交结果因网络失败未知，先按业务键查询，不把“没收到确认”直接解释成数据库已经回滚。
+
+## 幂等创建
+
+对普通创建接口，数据库唯一索引可以保证同一用户的幂等键只能成功一次。发生重复键时读取先前结果返回，而不是创建第二张订单。请求体相同校验可防止客户端错误地复用 key 购买不同内容。
+
+幂等结果与订单一起提交，才能让“已处理”代表订单确实存在。重复键发生后只识别相应约束，不把商品名唯一冲突或其他数据错误一律当作重复成功；需要先结束失败事务，再按数据库规则读取已有结果。
+
+两个请求使用同一键、相同内容时，应最终拿到同一订单编号；同一键不同内容应明确冲突。库存不足也是一次确定结果时，是否保留它及保留多久要固定，否则相同请求过一会儿可能改变含义。
+
+同步路径不在持锁期间发送邮件或调用支付，外部动作不能随数据库回滚。需要在创建后可靠通知，可以在同一事务写Outbox，由后台发布，避免把另一个系统的失败混进本地提交承诺。
+
+## 动手验证
+
+在本地数据库中创建库存为 1 的商品，发起两个并发下单请求，验证只有一个订单成功。再故意让订单写入失败，确认库存更新回滚。
+
+---
+
+[上一篇：商品和促销：时间、价格与资格由谁确认](/notes/go-31-catalog-campaign) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：异步抢购：从库存预留到订单落库](/notes/go-33-flash-sale)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-32-order-inventory","title":"Go 32：普通下单：库存与订单要一起提交","date":"2026-11-12","excerpt":"第一次下单超时，再发一次怎样拿回同一张订单？将数量、库存、金额快照与幂等结果放进一次本地事务，检查失败与并发下是否仍只有一份业务结果。","tags":["Go","促销订单项目"],"category":"go-part4","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part4","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

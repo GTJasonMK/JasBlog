@@ -1,8 +1,105 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-07-control-flow","title":"Python 07：条件、循环与推导式：把处理过程写清楚","date":"2026-11-12","excerpt":"推导式能把一段过滤或转换写得很短，但短不一定好读。我通常先用普通循环把处理顺序写清楚，确认只是简单映射或筛选后，再考虑改成推导式。","tags":["Python","语言基础"],"category":"python-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n推导式能把一段过滤或转换写得很短，但短不一定好读。我通常先用普通循环把处理顺序写清楚，确认只是简单映射或筛选后，再考虑改成推导式。\n\n`if/elif/else` 表达分支，`for` 遍历可迭代对象，`while` 在条件为真时重复。`break` 结束循环，`continue` 跳过本轮。优先让循环直接表达业务意图。\n\n```python\nvalues = [3, 8, 11, 14]\nfor value in values:\n    if value % 2:\n        continue\n    print(value)\n\nnames = [\"Ada\", \"Linus\", \"Grace\"]\nlong_names = [name for name in names if len(name) > 3]\n```\n\n循环的 `else` 在循环没有被 `break` 中断时执行，常用于“搜索后未找到”；若读者不熟悉该语义，普通标志变量往往更直观。推导式适合短小映射或过滤，不适合塞入多层复杂逻辑。\n\n## 不要一边遍历一边删原列表\n\n`for` 遍历列表时直接删除当前元素，可能跳过后续元素；先用列表推导式构造结果，或遍历副本。\n\n## 动手验证\n\n**练习：**找到第一个大于 10 的数；若没有，打印提示。\n\n```python\nfor value in values:\n    if value > 10:\n        print(value)\n        break\nelse:\n    print(\"未找到\")\n```\n\n---\n\n[上一篇：字典与集合：查找、去重和成员判断](/notes/python-06-mappings-sets) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：函数、返回值与作用域](/notes/python-08-functions)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=python-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+9:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+a:"$Sreact.suspense"
+3:T13f0,
+拿到一组数，有时要把所有偶数打印出来，有时只想找到第一个大于10的数。两者都要遍历，但停止条件不同：前者需要看完整组数据，后者找到一个结果就可以结束。流程控制决定的，正是程序接下来还要不要做、要做哪一部分。
+
+先看过滤偶数的过程：
+
+```python
+values = [3, 8, 11, 14]
+for value in values:
+    if value % 2:
+        continue
+    print(value)
+```
+
+`for` 逐个取出可迭代对象中的值，`if` 判断当前值是否满足条件。`value % 2` 对奇数得到1，条件成立后执行 `continue`，本轮后面的 `print` 就会被跳过。偶数则继续走到打印那一步，最终输出8和14。
+
+这里也可以直接写 `if value % 2 == 0: print(value)`。判断很简单时，正面表达条件往往更好读；当一条记录需要依次检查很多前提时，先用 `continue` 跳过不合格的项，可以减少后面层层缩进。
+
+## 分支顺序也是规则的一部分
+
+`if/elif/else` 适合一组互斥选择，一旦命中某个分支，后面的 `elif` 就不再判断。比如按分数划分等级，应先检查较高门槛：
+
+```python
+score = 92
+if score >= 90:
+    level = "优秀"
+elif score >= 60:
+    level = "通过"
+else:
+    level = "未通过"
+print(level)  # 优秀
+```
+
+如果先写 `score >= 60`，92会提前进入这个分支，永远走不到后面的90分判断。多个独立 `if` 则会分别执行；一个值可能命中多个分支。这两种写法适合不同的业务关系，别因为缩进看起来相近就混着用。
+
+边界也要试。上面的例子检查60和90，可以确认比较符号是否包含临界值；如果输入可能小于0或大于100，应在分级前验证。分支写得再完整，也不能代替输入范围的约定。
+
+## 找到一个就结束，与跳过一个继续找
+
+下面这段搜索需要遇到结果就停止：
+
+```python
+values = [3, 8, 11, 14]
+for value in values:
+    if value > 10:
+        print(value)  # 11
+        break
+else:
+    print("未找到")
+```
+
+`break` 结束当前这层循环，`continue` 则只跳过本轮。把这里的 `break` 改为 `continue`，11和14都会打印出来，问题的含义就变了。嵌套循环里的 `break` 也只结束最近的一层，不会直接跳出整个函数。
+
+循环的 `else` 比较特殊：循环正常耗尽，或 `while` 条件变为假时，会进入 `else`；通过 `break` 中断则不进入。它不依附于里面那条 `if`，缩进已经说明了归属。搜索空列表也会进入循环 `else`，因为一次都没找到并中断。
+
+这里的写法适合“搜索全部失败后做另一件事”。如果团队不熟悉这个语义，用一个结果变量，循环结束后检查，也完全可以。选择的标准是读者能否顺着代码确认什么时候会执行那段处理。
+
+`while` 适合下一步是否继续取决于动态条件的场景。例如不断读取输入，直到用户输入结束标记。它要求循环体中确实有机会改变条件；忘记推进状态，就可能变成无限循环。任务次数已经确定时，`for range(...)` 往往更直接。
+
+## 推导式是构造结果的另一种写法
+
+如果目的只是从名字列表生成另一个名字列表，可以把简单的筛选收进推导式：
+
+```python
+names = ["Ada", "Linus", "Grace"]
+long_names = [name for name in names if len(name) > 3]
+print(long_names)  # ['Linus', 'Grace']
+
+lengths = {name: len(name) for name in names}
+print(lengths["Ada"])  # 3
+```
+
+读列表推导式时，先看 `for` 从哪里取值，再看后面的 `if` 保留哪些项，最后看最前面的表达式把一项变成什么。字典推导式则为每一项生成键和值。它们适合短小的映射、筛选，不适合顺便写日志、发送请求和处理复杂异常。
+
+列表推导式会立即构造完整列表。若只需要把结果逐项交给后续计算，可以考虑生成器表达式，例如 `sum(score for score in scores if score >= 60)`。这能避免额外存一份中间列表，但它并没有省掉逐项检查的工作。
+
+## 不要一边遍历一边删原列表
+
+列表迭代器向前移动时，删掉当前位置会让后面的元素左移，下一次迭代可能跳过其中一项。结果取决于删除过程，调试时很难一眼看出来。
+
+若想留下所有达标项，另建结果通常更清楚：
+
+```python
+scores = [40, 50, 80, 90]
+passed = [score for score in scores if score >= 60]
+print(scores)  # [40, 50, 80, 90]
+print(passed)  # [80, 90]
+```
+
+如果需要所有持有原列表的地方都看到修改，可以再用 `scores[:] = passed` 原地替换内容。`scores = passed` 则只改变当前名称的绑定，这又回到了[变量与对象](/notes/python-02-objects)的区别。先确定是否要保留原对象，循环的实现才不会悄悄改变其他代码的行为。
+
+---
+
+[上一篇：字典与集合：查找、去重和成员判断](/notes/python-06-mappings-sets) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：函数、返回值与作用域](/notes/python-08-functions)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-07-control-flow","title":"Python 07：条件、循环与推导式：把处理过程写清楚","date":"2026-11-12","excerpt":"从一份数据里跳过坏记录、找到第一个结果，再到构造新列表，程序走的路线并不相同。通过具体处理过程理解条件、循环和推导式，说明 break、continue 与循环 else 改变了哪一步。","tags":["Python","语言基础"],"category":"python-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],"$L6","$L7"],"$L8"]}],"loading":null,"isPartial":false}
+6:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
+7:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]
+8:["$","$L9",null,{"children":["$","$a",null,{"name":"Next.MetadataOutlet","children":"$@b"}]}]
+b:null

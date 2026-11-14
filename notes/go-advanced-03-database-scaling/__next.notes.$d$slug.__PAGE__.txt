@@ -1,8 +1,39 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-advanced-03-database-scaling","title":"Go 专题 03：读写分离与分片：扩展数据库之前先看约束","date":"2026-11-12","excerpt":"读副本可能暂时看不到刚写入的数据，分片则会改变查询和唯一约束的范围。我会先说明业务可以接受什么，再决定扩展方式，而不是先选拓扑再补解释。","tags":["Go","进阶专题"],"category":"go-advanced","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n读副本可能暂时看不到刚写入的数据，分片则会改变查询和唯一约束的范围。我会先说明业务可以接受什么，再决定扩展方式，而不是先选拓扑再补解释。\n\n## 读写分离\n\n副本适合承载可容忍复制延迟的读取。关键写后读取可以路由到主库，或由业务接受明确的最终一致性。监控复制延迟并设置降级行为。\n\n## 分库分表\n\n按容量和工作负载证明单库到达瓶颈后再分片。分片键影响查询路由、热点和数据迁移；跨分片唯一约束和事务要提前设计。迁移应有回填校验、双读/双写窗口与回滚方法。\n\n## 动手验证\n\n比较按 user_id 与 order_id 分片对用户订单列表、商家汇总和全局订单号查找的影响。\n\n---\n\n[上一篇：RabbitMQ 与 Kafka：从消息要怎么用来选型](/notes/go-advanced-02-messaging-choice) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：配置中心和服务网格：先确认平台还缺什么](/notes/go-advanced-04-service-discovery-mesh)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-advanced","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Taa1,
+主库成功创建订单，下一次查询被路由到副本，返回不存在。数据可能没有丢，只是副本还没应用到那次提交。读写分离改变的是读到哪份进度，并不会自动保留单库时的写后读取体验。
+
+## 读写分离
+
+副本适合承载可容忍复制延迟的读取。关键写后读取可以路由到主库，或由业务接受明确的最终一致性。监控复制延迟并设置降级行为。
+
+固定“写后五秒读主库”是经验窗口，不是复制追上的证明。需要确定保证时，要依据提交位置与副本应用进度等待，或直接读取主库；超时后的行为也应明确。历史报表通常更能接受延迟，支付确认与刚创建订单则可能要求更强语义。
+
+副本能分担读取，也会接收与应用写入，不会扩大主库写事务能力。副本故障转为读主库时，还要计算主库能承受多少额外流量；不能把全部副本请求无条件压回唯一主库。
+
+## 分库分表
+
+按容量和工作负载证明单库到达瓶颈后再分片。分片键影响查询路由、热点和数据迁移；跨分片唯一约束和事务要提前设计。迁移应有回填校验、双读/双写窗口与回滚方法。
+
+按user_id路由，个人订单列表常能落到一片；按order_id散列，编号点查直接，但用户列表可能跨所有片。商家汇总与全局时间排序又有另一种访问模式，没有一个键能免费满足全部查询，必要的读模型要明确维护成本。
+
+每片的唯一索引只约束本片。全局订单编号可以使用有明确碰撞与时序规则的生成方式，业务唯一约束则要确保同一业务键路由到同片或交给独立协调机制。把表名拆成十份并没有自动解决这些问题。
+
+迁移过程先记录路由版本与数据水位，回填后校验行数、金额与抽样内容，再按范围切流；双写必须处理一边成功、一边失败，不能长期维持两份互相冲突的真相。完成后删除旧读写路径，恢复时也有明确应回到哪份数据的依据。
+
+若瓶颈只是一个缺失索引或无界列表，分片可能只是把同样的低效复制到多台机器。先修访问模式并测量容量，再承担分布式约束，通常更容易得到可解释的收益。
+
+## 动手验证
+
+比较按 user_id 与 order_id 分片对用户订单列表、商家汇总和全局订单号查找的影响。
+
+---
+
+[上一篇：RabbitMQ 与 Kafka：从消息要怎么用来选型](/notes/go-advanced-02-messaging-choice) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：配置中心和服务网格：先确认平台还缺什么](/notes/go-advanced-04-service-discovery-mesh)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-advanced-03-database-scaling","title":"Go 专题 03：读写分离与分片：扩展数据库之前先看约束","date":"2026-11-12","excerpt":"刚创建的订单查询不到，加了副本为什么反而出现这个问题？沿复制进度解释写后读取，再比较按用户和按订单分片对查询与唯一约束的影响。","tags":["Go","进阶专题"],"category":"go-advanced","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-advanced","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

@@ -1,8 +1,43 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-13-debugging","title":"TypeScript 13：调试时，先找实际数据第一次变错的位置","date":"2026-11-12","excerpt":"看到错误后，我会先保存复现输入和预期结果，再沿调用栈或网络请求往回找。一次只改一个因素，才知道某个修改究竟有没有解决根因。","tags":["TypeScript","JavaScript 异步与工具"],"category":"typescript-03-js-engineering","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n看到错误后，我会先保存复现输入和预期结果，再沿调用栈或网络请求往回找。一次只改一个因素，才知道某个修改究竟有没有解决根因。\n\n遇到报错先记录复现步骤、输入和预期结果。阅读调用栈，查看第一处属于自己代码的帧；在关键变量上设断点，逐步检查实际值。浏览器开发者工具适合检查 DOM、网络请求和前端状态；Node 调试器适合检查服务端执行流程。\n\n缩小问题时一次只改一个因素，并保留失败信息。可用小函数和小输入建立最小复现。\n\n## 排查顺序\n\n1. 错误发生在浏览器、API 还是数据库？\n2. 请求是否发出？状态码和响应体是什么？\n3. 实际数据与预期结构在哪一步首次不同？\n\n## 动手验证\n\n故意把 API 路径改错，使用 Network 面板找到请求、状态码和响应；再恢复并验证。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：fetch 的失败：网络、HTTP 和业务要分开处理](/notes/typescript-12-fetch-errors) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：TypeScript 的检查发生在什么时候](/notes/typescript-14-typescript-compiler)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-03-js-engineering","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tb08,
+输入ab，列表却显示a的结果。先别同时改缓存、依赖数组和接口地址，记录输入顺序、预期列表与实际请求。若两个响应各自内容正确，只是旧请求更晚返回，根因就在结果应用顺序，而不是后端搜索算法。
+
+遇到报错先记录复现步骤、输入和预期结果。阅读调用栈，查看第一处属于自己代码的帧；在关键变量上设断点，逐步检查实际值。浏览器开发者工具适合检查 DOM、网络请求和前端状态；Node 调试器适合检查服务端执行流程。
+
+缩小问题时一次只改一个因素，并保留失败信息。可用小函数和小输入建立最小复现。
+
+Network检查请求URL、方法、参数、状态与响应正文，确认前端实际发出了什么。看到404继续核对代理和服务入口；看到200也继续检查内容，不因为状态成功就停止。响应若正确，再在解析与setState附近打断点，查看哪次请求更新了当前状态。
+
+调用栈里的第一条自有代码提供切入点，不一定就是根因。某个字段在这里为undefined，可能早在解析边界就丢了；沿来源追踪，找到第一次与合同不一致的位置。source map帮助对应源码，但生产构建、缓存与当前提交也要一致。
+
+## 排查顺序
+
+1. 错误发生在浏览器、API 还是数据库？
+2. 请求是否发出？状态码和响应体是什么？
+3. 实际数据与预期结构在哪一步首次不同？
+
+断点适合看当时值与分支，带请求标识的日志适合跨异步阶段追踪。日志记录阶段、标识与数量，避免整段认证头或用户输入无差别输出。没有证据时先增加针对性观察，不反复猜测后叠加兜底。
+
+## 修复以后重新验证触发条件
+
+让旧请求故意晚返回，再检查新结果是否保持；普通顺序成功只能证明正常路径。若缺字段触发崩溃，用缺字段输入回归，而不只用一份完整样本。测试验证观察到的错误行为，避免通过匹配某行源码来锁住当前写法。
+
+一次修改应有明确假设，例如“旧响应覆盖了新状态，所以应用前核对请求身份”。运行后观察这个假设是否成立，不把错误提示消失等同于数据正确。隐藏异常、改成默认空数组，只会让根因更难追踪。
+
+## 动手验证
+
+故意把 API 路径改错，使用 Network 面板找到请求、状态码和响应；再恢复并验证。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：fetch 的失败：网络、HTTP 和业务要分开处理](/notes/typescript-12-fetch-errors) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：TypeScript 的检查发生在什么时候](/notes/typescript-14-typescript-compiler)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-13-debugging","title":"TypeScript 13：调试时，先找实际数据第一次变错的位置","date":"2026-11-12","excerpt":"列表显示旧搜索结果，问题在接口、缓存还是响应顺序？从一份可复现输入开始，在Network和状态更新之间找第一次偏离预期的位置。","tags":["TypeScript","JavaScript 异步与工具"],"category":"typescript-03-js-engineering","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-03-js-engineering","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

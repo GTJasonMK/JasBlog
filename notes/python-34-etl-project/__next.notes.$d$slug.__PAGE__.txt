@@ -4,10 +4,10 @@ b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e
 c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
-3:Tfb3,
-这里我用订单 JSON 转 CSV，把一个脚本拆成几个能单独验证的步骤。先确认输入格式和金额规则，再做计算和输出，这样出错时就知道失败发生在哪一层。
+3:T1e25,
+收到两条订单，要交付一张订单总额表。表面上像是把JSON改写成CSV，实际上还要决定：一条记录长什么样，数量能否为小数，价格怎样表示，以及某条记录坏了以后是否仍然输出部分结果。
 
-金额使用 `Decimal`，避免二进制浮点表示造成的小数误差。
+ETL对应提取、转换和加载。这里从文件读取记录是提取，字段检查和金额计算属于转换，写成CSV则是输出到下一种存储表示。这个例子选择整批验证通过才开始写出，便于区分“没有结果”与“有一份完整结果”。
 
 ## 输入
 
@@ -20,14 +20,22 @@ e:"$Sreact.suspense"
 ]
 ```
 
+订单编号和客户名必须是非空文本，数量是正整数，单价表示有限且非负的十进制金额。示例把单价写成字符串，是为了保留十进制输入，而不是先由JSON解析成近似的二进制浮点数。所有金额假定使用同一币种和两位小数的输出规则。
+
+这张表没有把多条相同订单号合并，也没有实现订单去重，调用者不应默认它具备那些行为。若业务需要唯一编号，应在转换阶段明确拒绝重复或定义聚合规则。
+
 ## 实现 etl.py
+
+先阅读 `transform`。它只接收解析后的记录并返回行数据，不负责找文件和写磁盘，因此可以独立验证转换规则：
 
 ```python
 import argparse
 import csv
 import json
+import os
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 
 
 def transform(records):
@@ -58,15 +66,29 @@ def transform(records):
 
 
 def run(source, destination):
+    if source.resolve() == destination.resolve() or (
+        destination.exists() and source.samefile(destination)
+    ):
+        raise ValueError("输入和输出不能是同一个文件")
     records = json.loads(source.read_text(encoding="utf-8"))
     if not isinstance(records, list):
         raise ValueError("JSON 根节点必须是订单列表")
     rows = transform(records)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    with destination.open("w", newline="", encoding="utf-8") as file:
-        writer = csv.DictWriter(file, fieldnames=["order_id", "customer", "quantity", "total"])
-        writer.writeheader()
-        writer.writerows(rows)
+    temporary = None
+    try:
+        with NamedTemporaryFile(
+            mode="w", newline="", encoding="utf-8", delete=False,
+            dir=destination.parent, prefix=".orders-", suffix=".tmp",
+        ) as file:
+            temporary = Path(file.name)
+            writer = csv.DictWriter(file, fieldnames=["order_id", "customer", "quantity", "total"])
+            writer.writeheader()
+            writer.writerows(rows)
+        os.replace(temporary, destination)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def main():
@@ -81,7 +103,17 @@ if __name__ == "__main__":
     main()
 ```
 
-运行：`python etl.py orders.json output/orders.csv`。相同输入每次生成相同输出，便于重跑；输出文件会被覆盖，正式任务应先确认目标文件策略。
+运行 `python etl.py orders.json output/orders.csv` 后，A-1应得到 `25.00`，A-2应得到 `8.00`。CSV表头顺序由 `fieldnames` 明确给出，读取方不必根据字典碰巧的构造次序猜列含义。
+
+## 沿着一条订单看失败发生在哪里
+
+先由 `json.loads` 确认语法合法，再由 `run` 确认根节点是列表。进入 `transform` 后，字段缺失、类型不合适和无法解析的价格都会被拒绝；随后再检查空文本、非正数量与无穷或负金额。
+
+数量特别排除了布尔值，因为Python的 `bool` 是整数子类，仅用 `isinstance(quantity, int)` 会接纳 `True`。价格在比较大小之前先检查 `is_finite()`，避免把 `NaN` 或无穷大当成合法金额。
+
+`Decimal(str(...))` 允许转换一些已有的数值对象，但若上游已经把价格变成有误差的浮点数，这一步无法证明最初金额已无损恢复。因此输入合同最好坚持使用十进制字符串。示例按两位小数格式化，实际业务还需要明确最大位数、精度上下文和舍入规则，不能仅凭一个格式化操作决定税务或结算政策。
+
+异常在示例中包含坏记录，方便离线排查。处理真实客户数据时，应改为记录订单位置或可公开标识，不把整条个人信息和金额内容无差别输出到日志。保留错误原因链，仍然可以追踪是字段访问还是数值转换失败。
 
 ## 最小测试
 
@@ -101,19 +133,23 @@ def test_transform_calculates_total():
 
 ## 覆盖策略和数值边界要提前确定
 
-订单编号与客户名必须是非空文本，数量必须是正整数，金额必须是有限且非负的十进制数。输出路径存在时当前实现会覆盖文件；生产流程应明确是否覆盖、追加或原子替换。
+当前 `run` 会先构造完整行列表，再打开目标文件。因此输入校验失败时，不会因为提前打开 `w` 模式而截断目标文件。相同输入重复运行，通常会产生同样的CSV，不会不断追加同一批订单。
 
-## 动手验证
+代码还会拒绝输入与输出指向同一个文件，并在目标目录写临时文件，完整写入并关闭后再替换目标。这样生成CSV的过程失败时，旧目标不会先被截断；临时文件也会清理。这里的同目录替换不等于已经实现断电持久性、并发写入版本检查或目标原权限保留，进一步交付时仍应根据环境补齐要求。
 
-**练习：**在转换结果中增加每个订单的含税价，税率固定为 5%。
+文件规模很大时，全部载入JSON和中间结果也会占内存。逐行输入格式与流式输出可以降低存储需求，却会让“后面一条坏了，前面已经写出”成为新的问题。这种改造必须同时定义失败和恢复规则，不能只把列表换成生成器就宣称等价。
 
-**答案：**在 `transform` 中计算 `taxed_total = price * quantity * Decimal("1.05")`，再用 `f"{taxed_total:.2f}"` 保存。真实业务应把税率作为显式配置并按适用规则处理。
+## 加一个计算字段，规则会怎样变化
+
+若演示中固定税率为5%，可在 `transform` 中用 `price * quantity * Decimal("1.05")` 计算含税金额，再把新字段加入CSV列定义。公式、输出结构和测试都要一起调整，漏掉 `fieldnames` 就不能得到完整交付。
+
+真实税率可能随商品、地区与时间变化，需要显式输入和适用规则。这也说明ETL的核心不是把字段从一处搬到另一处，而是让每项转换的含义、前提和失败后果都能追查。
 
 ---
 
 [上一篇：自动化脚本：先让任务能安全重跑](/notes/python-33-automation) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：NumPy、pandas 与图表：从数据形状开始分析](/notes/python-35-data-analysis)
 
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-34-etl-project","title":"Python 34：写一个订单 ETL 工具：读取、校验、转换和输出","date":"2026-11-12","excerpt":"这里我用订单 JSON 转 CSV，把一个脚本拆成几个能单独验证的步骤。先确认输入格式和金额规则，再做计算和输出，这样出错时就知道失败发生在哪一层。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-34-etl-project","title":"Python 34：写一个订单 ETL 工具：读取、校验、转换和输出","date":"2026-11-12","excerpt":"把订单 JSON 转成 CSV，真正容易出问题的是金额含义、坏记录和覆盖策略。用一份可运行的小数据说明ETL各阶段的职责，沿着具体订单追踪校验、Decimal计算和表格输出。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]

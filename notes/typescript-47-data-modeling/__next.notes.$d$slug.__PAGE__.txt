@@ -1,8 +1,45 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-47-data-modeling","title":"TypeScript 47：用户与任务的数据关系怎么设计","date":"2026-11-12","excerpt":"一个用户可以有很多任务，但每条任务都得有明确的所有者。我会同时设计主键、外键和唯一约束，再拿实际查询检查索引，让数据规则不只存在于前端表单里。","tags":["TypeScript","数据库与安全"],"category":"typescript-11-database-security","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n一个用户可以有很多任务，但每条任务都得有明确的所有者。我会同时设计主键、外键和唯一约束，再拿实际查询检查索引，让数据规则不只存在于前端表单里。\n\nUser 与 Task 是一对多关系：每条任务有一个 ownerId 外键。主键唯一标识记录；NOT NULL、UNIQUE、CHECK 和外键约束能在数据库层阻止无效状态。索引可加速常见过滤和排序，但会增加写入与存储成本。\n\n任务列表常按 owner_id 与 created_at 查询，可考虑组合索引。索引要基于查询模式和执行计划决定，不能无目的添加。\n\n事务把多条相关变更作为整体提交或回滚。使用 EXPLAIN 或 EXPLAIN ANALYZE 检查查询计划；后者会实际执行查询，不要对有副作用的语句随意运行。\n\n## 并发情况下仍需要数据库约束\n\n- 前端校验不能保护数据库完整性。\n- 只用应用代码检查唯一值会遇到并发竞争，数据库仍需 UNIQUE 约束。\n- 外键和删除策略应符合业务需要，避免意外级联删除。\n\n## 动手验证\n\n设计 User 与 Task 的表字段、唯一约束和外键；解释删除用户时任务该如何处理。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：关系数据库与 SQL：从持久化到关联查询](/notes/typescript-46-sql) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：Prisma 建模与查询：类型之外仍有访问规则](/notes/typescript-48-prisma)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-11-database-security","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tb8f,
+两个注册请求同时查邮箱，都没找到，然后都插入。应用里的先查后写没有把唯一规则串行化，数据库唯一约束才是共同写入边界。建模需要把可由数据库维护的不变量落实，而不只在表单里提示。
+
+User 与 Task 是一对多关系：每条任务有一个 ownerId 外键。主键唯一标识记录；NOT NULL、UNIQUE、CHECK 和外键约束能在数据库层阻止无效状态。索引可加速常见过滤和排序，但会增加写入与存储成本。
+
+任务列表常按 owner_id 与 created_at 查询，可考虑组合索引。索引要基于查询模式和执行计划决定，不能无目的添加。
+
+每项任务的owner_id非空且引用有效用户，外键阻止孤儿记录，但不证明当前请求就是这个用户。主键标识一行，邮箱唯一约束表达业务身份规则，授权则在API里绑定已认证身份，三者不能互相替代。
+
+title非空与title不是空白也不同，需要长度和规范化合同。status限定为已知值，due_at可空代表未设截止时间，created_at与updated_at各自记录不同事实。若数据库和API都使用时间，明确保存瞬间还是日历日期，避免展示转换改变含义。
+
+## 用户删除时发生什么
+
+可以限制删除仍有任务的用户，也可以明确级联删除个人任务。选择取决于是否有审计、恢复和保留要求，不能用ORM默认值决定。软删除也需要列表过滤、唯一键复用与数据清理规则，复杂度不会因为加一个字段消失。
+
+事务把多条相关变更作为整体提交或回滚。使用 EXPLAIN 或 EXPLAIN ANALYZE 检查查询计划；后者会实际执行查询，不要对有副作用的语句随意运行。
+
+索引(user_id或owner_id, created_at, id)能否服务具体查询，要结合表结构与计划；索引增加写入和存储成本。主外键约束与查询索引职责不同，PostgreSQL不会自动为所有外键引用列建立查询索引，按实际访问补齐。
+
+## 并发情况下仍需要数据库约束
+
+- 前端校验不能保护数据库完整性。
+- 只用应用代码检查唯一值会遇到并发竞争，数据库仍需 UNIQUE 约束。
+- 外键和删除策略应符合业务需要，避免意外级联删除。
+
+验证时直接向隔离数据库写入重复邮箱、无效owner和非法状态，确认约束有效，再测试用户删除后任务结果。只通过API跑合法输入，会绕开这些约束真正要拦截的路径。
+
+## 动手验证
+
+设计 User 与 Task 的表字段、唯一约束和外键；解释删除用户时任务该如何处理。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：关系数据库与 SQL：从持久化到关联查询](/notes/typescript-46-sql) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：Prisma 建模与查询：类型之外仍有访问规则](/notes/typescript-48-prisma)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-47-data-modeling","title":"TypeScript 47：用户与任务的数据关系怎么设计","date":"2026-11-12","excerpt":"先查询邮箱未注册，再插入，两个请求为什么仍能注册同一邮箱？把用户与任务的关系落到主键、外键和唯一约束，再按查询评估索引与删除行为。","tags":["TypeScript","数据库与安全"],"category":"typescript-11-database-security","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-11-database-security","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

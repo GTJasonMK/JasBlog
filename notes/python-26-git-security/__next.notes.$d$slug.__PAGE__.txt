@@ -1,8 +1,63 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-26-git-security","title":"Python 26：Git、依赖与安全：守住几条输入边界","date":"2026-11-12","excerpt":"安全检查可以从很具体的地方开始：SQL 有没有绑定参数，路径能不能走出允许目录，凭证会不会被提交或打印。这些规则应该跟着实际输入边界走。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n安全检查可以从很具体的地方开始：SQL 有没有绑定参数，路径能不能走出允许目录，凭证会不会被提交或打印。这些规则应该跟着实际输入边界走。\n\nGit 记录源码变化，适合保存代码、文档和配置模板；生成文件、虚拟环境和密钥不应提交。每次提交聚焦一个可解释的变化。\n\n安全重点从输入边界开始：校验格式和范围；参数化数据库查询；限制路径访问；不执行不可信反序列化数据；保护凭证；保持依赖更新。\n\n```python\n# SQLite 参数化查询，避免拼接 SQL\ncursor.execute(\"SELECT name FROM users WHERE id = ?\", (user_id,))\n```\n\n## 删掉工作区文件不等于撤销已泄露的密钥\n\n删除工作区中的密钥不一定能从 Git 历史消除；如果密钥曾提交，应立即撤销并轮换。对 shell、SQL、文件路径、HTML 等不同边界使用各自适当的安全处理。\n\n## 动手验证\n\n**练习：**下面写法有什么问题？`query = \"SELECT * FROM users WHERE name='\" + name + \"'\"`\n\n**答案：**用户输入被拼进 SQL，可能造成注入；改用参数化查询。\n\n---\n\n[上一篇：用 pyproject.toml 把项目变成可安装的包](/notes/python-25-packaging) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：浅拷贝与深拷贝：到底复制到了哪一层](/notes/python-27-references-copy)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=python-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T118b,
+查询一个叫 `O'Reilly` 的用户，若把名字直接接进SQL字符串，那个单引号就会与SQL语法发生冲突。更危险的输入还可能改变查询条件。问题不在于这个名字本身“不干净”，而在于程序把本该作为数据的值拼进了指令结构。
+
+数据库驱动提供参数化接口，就是为了让语句结构和值分别传递：
+
+```python
+import sqlite3
+from contextlib import closing
+
+with closing(sqlite3.connect(":memory:")) as connection:
+    with connection:
+        connection.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT)")
+        connection.execute("INSERT INTO users (id, name) VALUES (?, ?)", (1, "O'Reilly"))
+        cursor = connection.execute("SELECT name FROM users WHERE id = ?", (1,))
+        print(cursor.fetchone()[0])  # O'Reilly
+```
+
+`?` 是SQLite的占位符，值通过参数元组传给驱动，名字里的引号不会被当成新的SQL语法。只有一个参数也保留 `(1,)` 的逗号，它表示单元素元组。
+
+这个例子用内存数据库，不修改外部文件。连接对象的 `with` 主要管理事务提交或回滚，不代表退出后连接一定关闭；外层 `contextlib.closing` 再负责关闭连接。资源与事务各自的生命周期应分别核对。
+
+## 参数绑定只负责它支持的那部分语法
+
+真实代码可以把示例中的1替换成已校验的 `user_id`，仍通过参数元组传递，不能换回字符串插值。
+
+其他数据库驱动的占位形式可能不同，应按实际驱动文档使用，不能把SQLite示例原样复制到所有数据库。参数绑定通常用于值，不用于表名、列名或排序方向。允许用户选择排序字段时，应把可选值映射到代码里明确允许的标识符，不能再回到任意拼接。
+
+输入范围检查仍然有用。参数化可以阻止输入值改变SQL结构，却不会判断用户是否有权读取这条记录，也不会让不存在的用户ID自动合法。格式、权限和业务约束都需要各自的处理位置。
+
+## 不同边界用不同的接口
+
+调用子进程时使用参数列表，避免让外部文本经过shell解释，详见[命令行与HTTP](/notes/python-20-cli-http)。访问文件时检查允许的根目录和目标类型，不能把路径字符串拼接当成权限控制。向网页输出文字时，还要按HTML上下文正确转义。
+
+这些工具没有一个通用的“清理字符串”可以替代。一个输入作为SQL值是安全的，不意味着它可以直接作为文件路径或HTML使用。检查应发生在数据进入相应解释环境的位置。
+
+同样，`pickle`反序列化和 `eval` 可能执行代码，不适合作为处理外部数据的便利工具。JSON也不是无需限制的万能容器，解析后仍要检查结构、大小和范围。
+
+## Git保存过的内容，不只存在工作目录里
+
+代码、说明文档和可公开配置模板应当进入版本记录；虚拟环境、生成缓存、本机凭证不应提交。`.gitignore` 能阻止未跟踪文件被通常的添加操作纳入，却不会自动取消一个已经被跟踪的文件。
+
+提交前查看实际差异，比仅看文件名更可靠。配置示例可以列出需要的变量名称和公开默认值，真实令牌从运行环境或既有secret管理方式提供，不放进说明、截图和测试记录。
+
+## 删掉工作区文件不等于撤销已泄露的密钥
+
+如果密钥已经提交或公开，删除当前文件后，旧提交、远端缓存和他人的克隆仍可能保留它。应先撤销和轮换凭证，再根据仓库情况处理历史及访问范围；改写历史本身不能让已泄露的密钥恢复安全。
+
+依赖也属于程序执行的一部分。安装前核对项目来源和名称，保留合适的版本记录，更新时检查相关行为。精确锁定有助于复现，不代表被锁住的版本永远安全；发现明确漏洞后仍需评估影响并更新。
+
+安全检查最终要能落到实际行为：用带引号的名字查询仍只返回对应记录，越界路径被拒绝，必要配置缺失时明确失败，日志不包含凭证。只有一份“注意输入安全”的清单，还无法说明这些边界真的存在。
+
+---
+
+[上一篇：用 pyproject.toml 把项目变成可安装的包](/notes/python-25-packaging) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：浅拷贝与深拷贝：到底复制到了哪一层](/notes/python-27-references-copy)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-26-git-security","title":"Python 26：Git、依赖与安全：守住几条输入边界","date":"2026-11-12","excerpt":"SQL里的一个引号、命令行里的一个选项，为什么会改变程序行为？用SQLite参数化查询展示数据与指令的边界，再把同样的检查落实到文件、依赖和Git中的凭证管理。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

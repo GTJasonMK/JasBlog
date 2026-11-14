@@ -8,7 +8,7 @@ c:I[168027,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e
 :HL["/_next/static/chunks/773957f472007a6e.css","style"]
 :HC["/",""]
 2:[["$","source",null,{"media":"(max-width: 767px)","srcSet":"/backgrounds/lake-mobile.webp","type":"image/webp"}],["$","$L3",null,{"src":"/backgrounds/lake.webp","alt":"","width":2400,"height":1600,"loading":"eager","fetchPriority":"high","unoptimized":true}]]
-0:{"P":null,"b":"Lce4hgqZcvwFwf7yktvnD","c":["","notes","python-28-data-model"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","python-28-data-model","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
+0:{"P":null,"b":"VX31ZvEYwE_KPHAUN8uNe","c":["","notes","python-28-data-model"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","python-28-data-model","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
 d:I[339756,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
 e:I[837457,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
 f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
@@ -23,9 +23,99 @@ f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e
 a:["$","$1","c",{"children":["$L10",[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true,"nonce":"$undefined"}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}]
 b:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]
 18:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-19:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-10:["$","$L18",null,{"note":{"slug":"python-28-data-model","title":"Python 28：特殊方法：让自定义对象用起来像 Python 对象","date":"2026-11-12","excerpt":"一个自定义集合如果能直接交给 len 和 for，调用处就不需要记住另一套方法名。我只会实现这个对象确实需要的协议，让语法和对象的含义对得上。","tags":["Python","运行机制与并发"],"category":"python-part4","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"error":"$undefined","content":"\n一个自定义集合如果能直接交给 len 和 for，调用处就不需要记住另一套方法名。我只会实现这个对象确实需要的协议，让语法和对象的含义对得上。\n\nPython 的许多语法通过对象的数据模型工作：`len(x)` 调用 `x.__len__()`，`a + b` 可能调用 `a.__add__(b)`，`for` 使用迭代协议。特殊方法主要由语言调用，通常通过内置语法使用，而不是直接调用。\n\n```python\nclass Playlist:\n    def __init__(self, songs):\n        self._songs = list(songs)\n\n    def __len__(self):\n        return len(self._songs)\n\n    def __iter__(self):\n        return iter(self._songs)\n\n\nplaylist = Playlist([\"A\", \"B\"])\nprint(len(playlist))\n```\n\n实现常见协议能让自定义对象自然融入 Python。只实现调用者需要的行为，不要为了“完整”堆砌特殊方法。\n\n## 相等比较和哈希要遵守同一套规则\n\n`__repr__` 面向调试，`__str__` 面向展示。特殊方法行为应符合预期，例如 `__eq__` 相等时哈希规则也必须一致。\n\n## 动手验证\n\n**练习：**让 `Playlist` 支持 `\"A\" in playlist`。\n\n**答案：**实现 `__contains__`，或让 Python 通过迭代协议逐项检查；只有性能或语义需要时才显式实现。\n\n---\n\n[上一篇：浅拷贝与深拷贝：到底复制到了哪一层](/notes/python-27-references-copy) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：描述符与元类：先看它们介入了哪一步](/notes/python-29-descriptors-metaclasses)\n\n"},"back":["$","$Lf",null,{"href":"/notes?category=python-part4","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L19",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}]
+1a:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+19:T12c9,
+列表能交给 `len`、能用 `for` 遍历，自定义的播放列表是否也能这样用？如果对象确实表达“一组歌曲”，让它接入Python已有的操作方式，比再提供一套含义相同的 `get_song_count` 和 `get_all_songs` 更方便使用。
+
+这种接入由数据模型中的特殊方法完成。它们通常以双下划线开头和结束，语言的内置操作会按约定查找它们：
+
+```python
+class Playlist:
+    def __init__(self, songs):
+        self._songs = list(songs)
+
+    def __len__(self):
+        return len(self._songs)
+
+    def __iter__(self):
+        return iter(self._songs)
+
+
+playlist = Playlist(["A", "B"])
+print(len(playlist))       # 2
+print(list(playlist))      # ['A', 'B']
+print("A" in playlist)    # True
+```
+
+`__len__` 提供元素数量，`__iter__` 返回一个迭代器。`for` 和 `list(...)` 可以据此取得歌曲；没有专门的 `__contains__` 时，`in` 也可以逐项查找。这说明不用为了接入所有相关操作而先把全部特殊方法写一遍。
+
+这里在初始化时复制了外层列表，所以外部原列表的增删不会直接改变播放列表。若歌曲对象本身可变，它们仍可能共享，复制的边界见[上一篇](/notes/python-27-references-copy)。
+
+## 调用形式相似，语义也要配得上
+
+`len(obj)` 使用长度协议，但不能简单认为所有场景都只是普通地执行一次 `obj.__len__()`。许多特殊操作会从对象类型上查找相应方法，而不按普通实例属性查找的全部方式处理。通常通过 `len`、`for` 等公开语法使用它们，不在业务代码里反复直接调用双下划线方法。
+
+`__len__` 应返回非负整数；如果一个“长度”方法每次都访问远程接口，也会让使用者难以判断成本。对象支持某个语法，不只有方法名字对上，还要符合这种操作常见的含义和使用预期。
+
+若常常按歌曲ID查找，可以维护适合查询的结构，或者实现有明确含义的 `__contains__`。当前对象只有两首歌，迭代已经够用，不需要为一个不存在的性能问题增加另一份同步状态。
+
+`__getitem__` 可以让对象支持下标或切片，`__enter__`、`__exit__` 支持上下文管理。各个协议各有用途，不必因为“这是一个完整的类”就实现并不需要的能力。
+
+## 打印出来给谁看
+
+`__repr__` 提供便于调试的表示，`__str__` 提供面向展示的文本。例如：
+
+```python
+class Label:
+    def __init__(self, text):
+        self.text = text
+
+    def __repr__(self):
+        return f"Label({self.text!r})"
+
+    def __str__(self):
+        return self.text
+
+label = Label("Python")
+print(label)        # Python
+print(repr(label))  # Label('Python')
+```
+
+`!r` 使用内部值的调试表示，保留引号等线索。调试表示应尽量可辨认，但并不要求所有对象都能通过 `eval(repr(obj))` 恢复，更不应为了调试显示泄露凭证或用户隐私。
+
+## 相等比较和哈希要遵守同一套规则
+
+普通自定义对象默认的相等判断与身份相关。若要让两个坐标只要分量相同就算相等，可以使用数据类生成值比较：
+
+```python
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Point:
+    x: int
+    y: int
+
+first = Point(3, 5)
+second = Point(3, 5)
+print(first == second)             # True
+print(hash(first) == hash(second)) # True
+print(len({first, second}))        # 1
+```
+
+相等的可哈希对象必须具有相同哈希值，反过来则不成立，哈希冲突是允许的。作为字典键或集合成员期间，影响相等和哈希的字段也应保持稳定，不能插入以后再改变它们。
+
+这也是重写 `__eq__` 却不正确处理 `__hash__` 容易出问题的原因。Python对许多这种类默认禁用哈希，避免把可变值比较对象当作稳定的键。是否应该可哈希，要从对象用途决定，而不只是为了消除一次“unhashable”报错。
+
+运算符方法也应遵守对应约定。实现 `__add__` 时遇到不支持的另一类型，返回 `NotImplemented` 可以让解释器继续尝试其他比较或运算路径；它与主动抛出的 `NotImplementedError` 不是同一用途。日常业务没有自定义加法含义，就不需要让一个对象支持 `+`。
+
+数据模型让自定义对象与语言协作。最实用的做法是从调用者实际需要的操作开始，确认含义、成本和失败方式，再实现对应协议，而不是先为类列一张双下划线方法清单。
+
+---
+
+[上一篇：浅拷贝与深拷贝：到底复制到了哪一层](/notes/python-27-references-copy) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：描述符与元类：先看它们介入了哪一步](/notes/python-29-descriptors-metaclasses)
+
+10:["$","$L18",null,{"note":{"slug":"python-28-data-model","title":"Python 28：特殊方法：让自定义对象用起来像 Python 对象","date":"2026-11-12","excerpt":"len、for、in 为什么能直接用于某些自定义类？用一份播放列表说明特殊方法怎样接入语言协议，再看调试显示、相等与哈希的约定，避免做出看起来支持某个操作却含义不同的对象。","tags":["Python","运行机制与并发"],"category":"python-part4","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"error":"$undefined","content":"$19"},"back":["$","$Lf",null,{"href":"/notes?category=python-part4","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L1a",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}]
 15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]
-1a:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+1b:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
 13:null
-17:[["$","title","0",{"children":"Python 28：特殊方法：让自定义对象用起来像 Python 对象 | JasBlog"}],["$","meta","1",{"name":"description","content":"一个自定义集合如果能直接交给 len 和 for，调用处就不需要记住另一套方法名。我只会实现这个对象确实需要的协议，让语法和对象的含义对得上。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1a","3",{}]]
+17:[["$","title","0",{"children":"Python 28：特殊方法：让自定义对象用起来像 Python 对象 | JasBlog"}],["$","meta","1",{"name":"description","content":"len、for、in 为什么能直接用于某些自定义类？用一份播放列表说明特殊方法怎样接入语言协议，再看调试显示、相等与哈希的约定，避免做出看起来支持某个操作却含义不同的对象。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1b","3",{}]]

@@ -1,8 +1,91 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-15-composition-inheritance","title":"Python 15：组合、继承与协议：依赖需要的行为","date":"2026-11-12","excerpt":"通知功能需要的是“能发送消息”，不一定要知道发送者属于哪个继承体系。我更愿意先把需要的行为说清楚，再决定用组合、协议还是继承来表达。","tags":["Python","函数与程序组织"],"category":"python-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n通知功能需要的是“能发送消息”，不一定要知道发送者属于哪个继承体系。我更愿意先把需要的行为说清楚，再决定用组合、协议还是继承来表达。\n\n组合是让一个对象持有另一个对象并委托工作；继承表达“是一种”的关系。优先组合，只有子类确实能替代父类并遵守相同约定时才继承。协议描述对象需要提供哪些行为，不要求共享某个父类。\n\n```python\nclass EmailSender:\n    def send(self, message: str) -> None:\n        print(f\"发送邮件：{message}\")\n\n\nclass Notifier:\n    def __init__(self, sender):\n        self.sender = sender\n\n    def notify(self, message: str) -> None:\n        self.sender.send(message)\n```\n\n`Notifier` 依赖 `send` 行为，而非特定供应商类；测试时可传入简单替身。\n\n## 继承层次深了，行为也更难追踪\n\n深层继承链会让行为难以追踪。若子类必须覆盖父类很多方法才能工作，通常说明抽象边界不合适。\n\n## 动手验证\n\n**练习：**如何测试 `Notifier` 而不发送真实邮件？\n\n**答案：**传入一个带 `send` 方法的假对象，记录收到的消息，再断言消息内容。\n\n---\n\n[上一篇：类、属性与数据类：什么时候需要一个对象](/notes/python-14-classes) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：迭代器与生成器：数据不必一次准备好](/notes/python-16-iterators-generators)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=python-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T136e,
+订单完成后要通知用户，最直接的做法是在通知代码里创建邮件客户端并发送。等到需要改成短信，通知逻辑也要跟着修改；测试这段逻辑时，还可能真的发出邮件。变化的发送方式和相对稳定的通知流程被写在一起，才是问题所在。
+
+可以先把它们分开。发送器只负责发送，通知对象接收一个发送器，再把消息交给它：
+
+```python
+class EmailSender:
+    def send(self, message: str) -> None:
+        print(f"发送邮件：{message}")
+
+
+class Notifier:
+    def __init__(self, sender):
+        self.sender = sender
+
+    def notify(self, message: str) -> None:
+        self.sender.send(message)
+```
+
+这个 `EmailSender` 用打印代替真实邮件，展示对象之间的调用关系。`Notifier` 持有另一个对象，并把一部分工作委托给它，这叫组合。传入哪个对象，可以由创建 `Notifier` 的位置决定，而不必写死在通知方法里。
+
+例如测试时传入一个只记录消息的发送器：
+
+```python
+class RecordingSender:
+    def __init__(self):
+        self.messages = []
+
+    def send(self, message: str) -> None:
+        self.messages.append(message)
+
+sender = RecordingSender()
+notifier = Notifier(sender)
+notifier.notify("订单已完成")
+print(sender.messages)  # ['订单已完成']
+```
+
+这段验证不连接外部邮件服务，却能确认通知对象传出了什么消息。真正邮件客户端的连接、重试和投递结果，需要另外检查；替身只证明当前调用关系，没有证明邮件一定能到达。
+
+## 既然可以替换，究竟要替换成什么
+
+从运行时看，`Notifier` 只需要传入对象有一个可调用的 `send`。这种按对象实际行为使用它的方式，常被称为鸭子类型。但代码一多，单靠调用者自己猜测方法签名不够清楚，可以用 `Protocol` 写出要求：
+
+```python
+from typing import Protocol
+
+class Sender(Protocol):
+    def send(self, message: str) -> None: ...
+
+class Notifier:
+    def __init__(self, sender: Sender):
+        self.sender = sender
+
+    def notify(self, message: str) -> None:
+        self.sender.send(message)
+```
+
+符合这个结构的类，不用先声明继承 `Sender`，静态类型检查器也能检查它是否可以作为这个参数。协议描述的是使用方需要的行为，方便不同实现接入同一流程。
+
+这也不会自动完成运行时校验。函数名相同，却要求不同参数，仍可能在实际调用时失败。即使用运行时可检查协议，通常也不能靠一次检查证明参数类型和业务语义全部符合约定。
+
+更容易被忽略的是失败含义。一个发送器失败时抛出异常，另一个把错误吃掉、照常返回 `None`，它们就算签名相同，通知流程也无法把它们视为可靠替代。调用时机、返回值、副作用和失败行为，都属于接口约定。
+
+## 继承层次深了，行为也更难追踪
+
+继承让子类取得父类的属性和方法，并可重写部分行为。它适合子类型确实遵守父类型承诺，且共享实现相对稳定的情况，例如框架要求实现某个抽象基类，或一组明确的同类对象共享基础行为。
+
+“代码相似”还不足以证明应该继承。如果父类的 `send` 承诺调用后立即完成发送，子类却只是把消息放进稍后执行的队列，调用者就需要重新理解“完成”的含义。子类缩窄输入范围、增加调用前提、改变失败方式，也可能破坏替换关系。
+
+深层继承还会使一个方法的实际行为分散在许多父类中。修改父类看起来只改了一处，却会影响多个子类；子类如果不得不重写大半父类方法，通常需要重新检查它们是否真的属于同一个抽象。
+
+组合把变化放在协作对象上，可以只替换发送器、存储器或时钟。代价是需要明确创建和传递这些对象，不能靠继承自动拿到所有能力。这种传递也不一定需要一个复杂的依赖注入框架，像示例一样通过构造函数传入就已经足够。
+
+## 选择跟着变化的位置走
+
+如果只需要一次处理，一段函数加回调可能比两个类更简单。发送器需要保存连接或配置，通知流程又要反复调用它时，对象组合才更合适。多个实现要接受同一类型检查，可以增加协议；确有稳定的父子替换关系，再使用继承。
+
+把 `RecordingSender` 改成会明确抛出异常的发送器，再调用 `notify`，可以检查错误是否按约定传播。仅验证“换一个对象还能调用”不够，还需要验证调用者依赖的结果和失败规则没有随之改变。
+
+---
+
+[上一篇：类、属性与数据类：什么时候需要一个对象](/notes/python-14-classes) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：迭代器与生成器：数据不必一次准备好](/notes/python-16-iterators-generators)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-15-composition-inheritance","title":"Python 15：组合、继承与协议：依赖需要的行为","date":"2026-11-12","excerpt":"通知功能今天发邮件，明天改成站内消息，为什么不必重写通知流程？沿着一个可替换的发送器，说明组合如何组织协作、协议如何表达需要的行为，以及继承什么时候才真的能减少重复。","tags":["Python","函数与程序组织"],"category":"python-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

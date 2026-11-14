@@ -1,8 +1,49 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-15-http-rest","title":"Go 15：HTTP 与 REST：状态码也是接口的一部分","date":"2026-11-12","excerpt":"设计接口时，我会把方法、路径和状态码一起看。客户端收到 202、201 或 500，接下来该做的事情不同，不能指望一个统一的 JSON 外壳替代这些语义。","tags":["Go","HTTP 与服务设计"],"category":"go-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n设计接口时，我会把方法、路径和状态码一起看。客户端收到 202、201 或 500，接下来该做的事情不同，不能指望一个统一的 JSON 外壳替代这些语义。\n\n## 请求与响应\n\nHTTP 请求由方法、路径、Header 和可选请求体组成；响应包含状态码、Header 和可选响应体。状态码表达协议层结果：2xx 表示成功，4xx 通常表示请求或权限问题，5xx 表示服务端失败。客户端不能只看 JSON 中的业务字段而忽略状态码。\n\n方法有语义约定：GET 读取，POST 通常创建或执行命令，PUT 替换，PATCH 局部修改，DELETE 删除。GET 应保持安全，不应暗中扣库存或改变订单状态。幂等表示同一请求重复执行，效果与执行一次相同；PUT 和 DELETE 通常设计为幂等，POST 则需要额外设计。\n\n## REST 资源\n\n资源以名词命名，例如 GET /api/v1/orders/42 查询订单、POST /api/v1/orders 创建订单。动作不适合映射成资源时，可用清晰的子路径表达命令，例如 POST /api/v1/campaigns/7/claims 表示参与活动。\n\n## HTTP 成功与业务完成不能混在一起\n\n- 用 200 表示所有结果，会让监控和客户端错误处理变得含糊。\n- 把业务失败和系统故障混为一谈；库存不足与数据库不可用不是同一类错误。\n- 没有幂等保护的创建请求在客户端重试时可能生成重复订单。\n\n## 动手验证\n\n为“查询商品、参与促销、查询订单、取消未支付订单”设计方法、路径和主要状态码，并说明哪些操作需要幂等键。\n\n---\n\n[上一篇：表驱动测试与 Go 开发检查](/notes/go-14-testing-tools) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：net/http：请求处理、超时与优雅关闭](/notes/go-16-net-http)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Te5a,
+客户端收到201，可以按合同理解为新资源已经创建；收到202，只能确定请求被接受，后续仍可能失败。若两者都显示“下单成功”，即使服务端JSON格式完全正确，用户看到的状态也可能是假的。
+
+## 请求与响应
+
+HTTP 请求由方法、路径、Header 和可选请求体组成；响应包含状态码、Header 和可选响应体。状态码表达协议层结果：2xx 表示成功，4xx 通常表示请求或权限问题，5xx 表示服务端失败。客户端不能只看 JSON 中的业务字段而忽略状态码。
+
+方法有语义约定：GET 读取，POST 通常创建或执行命令，PUT 替换，PATCH 局部修改，DELETE 删除。GET 应保持安全，不应暗中扣库存或改变订单状态。幂等表示同一请求重复执行，效果与执行一次相同；PUT 和 DELETE 通常设计为幂等，POST 则需要额外设计。
+
+幂等关注对目标状态的预期效果，不要求每次响应字节相同。第一次DELETE删除成功，第二次可能返回404，但都没有把资源再删除一次之外的额外副作用。PATCH也不天然幂等：“把done设为true”可以重复，“数量增加1”则会继续累加。
+
+## 超时没有告诉你提交结果
+
+服务端可能已经创建订单，响应却在网络中丢失。客户端看到超时，不知道是没执行还是已执行，所以不能仅靠重发POST解决。创建接口可以接收绑定当前用户和请求内容的幂等键，重复键返回已记录的结果；还要拒绝同一个键对应另一份请求内容。
+
+异步受理可以返回请求编号和状态查询地址，让客户端区分等待、成功与失败。仅返回“已收到”却没有可追踪标识，会把不确定性留给用户。服务重启后也要能恢复受理状态，不能只存在某个进程内存里。
+
+## REST 资源
+
+资源以名词命名，例如 GET /api/v1/orders/42 查询订单、POST /api/v1/orders 创建订单。动作不适合映射成资源时，可用清晰的子路径表达命令，例如 POST /api/v1/campaigns/7/claims 表示参与活动。
+
+路径表达资源定位，权限仍根据当前身份判断。能猜出订单42的地址，不代表有权查看；列表过滤到自己的订单，也不能替代单项查询的归属检查。
+
+取消订单还要检查当前状态。已支付订单收到取消请求，可能按合同返回409冲突，而不是悄悄改成取消；缺失订单返回404，输入结构错误返回400或约定的422，临时依赖不可用则使用对应5xx。选择要稳定，并让客户端能据此决定纠正输入、查询状态还是稍后重试。
+
+## HTTP 成功与业务完成不能混在一起
+
+- 用 200 表示所有结果，会让监控和客户端错误处理变得含糊。
+- 把业务失败和系统故障混为一谈；库存不足与数据库不可用不是同一类错误。
+- 没有幂等保护的创建请求在客户端重试时可能生成重复订单。
+
+响应体里的机器错误码可以进一步说明“库存不足”或“状态不允许”，用户文案则用于展示。错误码不要用会随文案变化的中文句子替代，HTTP状态也不要统一抹成200，否则代理、监控与通用客户端都失去了一部分判断依据。
+
+## 动手验证
+
+为“查询商品、参与促销、查询订单、取消未支付订单”设计方法、路径和主要状态码，并说明哪些操作需要幂等键。
+
+---
+
+[上一篇：表驱动测试与 Go 开发检查](/notes/go-14-testing-tools) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：net/http：请求处理、超时与优雅关闭](/notes/go-16-net-http)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-15-http-rest","title":"Go 15：HTTP 与 REST：状态码也是接口的一部分","date":"2026-11-12","excerpt":"下单接口返回202，订单是不是已经存在？从创建、受理与查询的区别说明HTTP语义，再看重复请求为何需要业务幂等，而不仅是换一个方法名。","tags":["Go","HTTP 与服务设计"],"category":"go-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

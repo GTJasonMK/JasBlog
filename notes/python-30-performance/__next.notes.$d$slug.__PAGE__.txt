@@ -1,8 +1,77 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-30-performance","title":"Python 30：性能与内存：先找到真正耗时的地方","date":"2026-11-12","excerpt":"看到循环多，我不会直接断定它就是瓶颈。程序可能大部分时间在等 I/O，也可能只是某个输入特别慢。先测出耗时和分配来自哪里，优化才有可以对照的结果。","tags":["Python","运行机制与并发"],"category":"python-part4","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n看到循环多，我不会直接断定它就是瓶颈。程序可能大部分时间在等 I/O，也可能只是某个输入特别慢。先测出耗时和分配来自哪里，优化才有可以对照的结果。\n\n先测量，再优化。用 `timeit` 比较短表达式，`cProfile` 找程序级热点，`tracemalloc` 观察 Python 分配的内存。算法复杂度和 I/O 等待通常比微调语法更重要。\n\n```python\nfrom timeit import timeit\n\nloop_time = timeit(\"sum(range(1000))\", number=10_000)\nprint(loop_time)\n```\n\n常见做法：用内置操作和向量化库处理批量数据；对可迭代数据用生成器降低峰值内存；缓存纯函数的重复计算；减少无意义的网络往返。\n\n## 缓存带来的状态成本也要计算\n\n过早缓存会增加状态、内存和一致性问题。测试环境的微小差异也会影响计时；比较方案时保持输入和环境一致。\n\n## 动手验证\n\n**练习：**某函数整体很慢，下一步是先重写循环还是先采样分析？\n\n**答案：**先用 profiler 找出实际耗时热点，再针对热点优化并重新测量。\n\n---\n\n[上一篇：描述符与元类：先看它们介入了哪一步](/notes/python-29-descriptors-metaclasses) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：线程、进程与 GIL：从任务在等什么说起](/notes/python-31-concurrency)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=python-part4","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T11e1,
+一个脚本运行十秒，里面有个看着很长的循环。把循环改成推导式以后少了几行，运行时间却几乎没变，因为大部分时间都在等接口响应。性能优化需要先确定什么指标不够好，以及时间究竟花在哪个阶段，不能从代码长短推测瓶颈。
+
+先保存可重复的工作负载：输入规模、运行环境、冷启动还是已经有缓存，以及要比较的耗时或内存。结果必须正确，输入也应一致，否则“快了”可能只是少处理了一部分数据。
+
+## 整体慢，先看调用路径
+
+`cProfile` 可以记录函数调用次数和各层耗时。已有入口脚本 `app.py` 时，可以执行：
+
+```console
+python -m cProfile -s cumulative app.py
+```
+
+按累计耗时排序，有助于找到哪些调用链占用了大量时间；函数自身耗时则帮助判断时间是否主要花在它内部。一个函数累计很慢，可能是它频繁调用了慢依赖，不代表重写函数外面的循环就能改善。
+
+分析器本身也有开销，短小函数特别多时更应谨慎解释。网络等待、锁等待和CPU计算对性能的影响不同，还要结合阶段计时、依赖状态等证据。调用报告告诉我们去哪一段继续看，不能自动决定怎样修改。
+
+## 短操作的比较，要明确准备成本
+
+反复查询一个编号是否在集合里，列表要逐项查找，集合通常可以按哈希定位。可以用 `timeit` 比较这两种操作：
+
+```python
+from timeit import timeit
+
+values = list(range(10_000))
+lookup = set(values)
+list_time = timeit(lambda: 9999 in values, number=1000)
+set_time = timeit(lambda: 9999 in lookup, number=1000)
+print(list_time, set_time)
+```
+
+这段把数据准备放在计时外，比较的是“已准备好容器后，重复查找”的成本，不能据此宣称任何一次查询都值得先建集合。若只查一次，还要把遍历输入、构造集合和额外内存算进来。待查值位于开头、结尾或不存在，也会改变列表的工作量。
+
+可以多次重复测量，观察波动，避免把一两次偶然差异当成稳定提升。不同机器、版本和输入会得到不同数字，文章里的示例只给出测量方法，不预先指定一个必须达到的倍数。
+
+当成本主要来自重复扫描或多余网络往返时，减少工作量通常比微调语法更有空间。把每条记录一次请求改成有约束的批量请求，需要同时保留错误定位和依赖限额；否则时间省了，失败语义也可能被改坏。
+
+## 进程占用很多内存，先确认测量对象
+
+`tracemalloc` 可以观察由Python分配跟踪器记录的内存，例如：
+
+```python
+import tracemalloc
+
+tracemalloc.start()
+rows = [str(index) for index in range(10_000)]
+current, peak = tracemalloc.get_traced_memory()
+snapshot = tracemalloc.take_snapshot()
+print(current, peak)
+print(snapshot.statistics("lineno")[0])
+tracemalloc.stop()
+```
+
+当前值和峰值回答的是不同问题，快照按分配位置汇总，帮助找到哪里保留了大量对象。它并不等于操作系统看到的整个进程内存，一些原生库缓冲、解释器和分配器行为还需要其他工具观察。
+
+读取大文件时，用生成器逐项消费可以避免保存整份中间结果，但下游若最终收集成列表，峰值仍可能很大。改完应再次测量完整路径，而不是只看生成器函数内部用了几个变量。
+
+## 缓存带来的状态成本也要计算
+
+缓存通过保留结果减少重复计算，也把成本变成了内存、失效策略和一致性管理。如果输入几乎不重复，维护缓存可能得不偿失；结果依赖权限或外部状态，却没有正确失效，就会变成正确性问题。
+
+使用原生批量计算库、并发I/O或多进程时，也要计入数据转换、传输和任务调度。一个小任务在进程池里运行，可能大部分时间都花在启动和序列化上。只有实际工作量足够覆盖这些额外成本，方案才有意义。
+
+改动后保留原来的结果检查，再用相同负载比较目标指标，记录有没有把成本转移到别处。这样下一次数据规模变化时，还能根据先前证据判断方案是否仍然合适，而不用重新猜哪一种写法“看起来更快”。
+
+---
+
+[上一篇：描述符与元类：先看它们介入了哪一步](/notes/python-29-descriptors-metaclasses) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：线程、进程与 GIL：从任务在等什么说起](/notes/python-31-concurrency)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-30-performance","title":"Python 30：性能与内存：先找到真正耗时的地方","date":"2026-11-12","excerpt":"把循环改短以后，程序为什么还是慢？从整体耗时、数据结构选择和内存分配分别取证，用 timeit、cProfile 与 tracemalloc 区分该测量的问题，也说明缓存和生成器会把成本转移到哪里。","tags":["Python","运行机制与并发"],"category":"python-part4","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part4","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

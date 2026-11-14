@@ -1,8 +1,57 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-18-alias-interface-unions","title":"TypeScript 18：type、interface 与联合类型怎么配合","date":"2026-11-12","excerpt":"我会按要表达的关系来选声明方式。对象有哪些字段是一类问题，结果只可能是成功或失败又是另一类问题，联合类型很适合把这种状态区别留在类型里。","tags":["TypeScript","TypeScript 类型基础"],"category":"typescript-04-typescript-core","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n我会按要表达的关系来选声明方式。对象有哪些字段是一类问题，结果只可能是成功或失败又是另一类问题，联合类型很适合把这种状态区别留在类型里。\n\ninterface 适合描述可扩展的对象形状；type 可以表示联合、交叉、原始值别名、元组和映射结果。二者都支持描述对象契约，团队应保持一致用法。\n\n~~~ts\ntype TaskStatus = \"todo\" | \"in_progress\" | \"done\";\n\ninterface TaskSummary {\n  id: string;\n  title: string;\n  status: TaskStatus;\n}\n\ntype ApiResult<T> =\n  | { ok: true; data: T }\n  | { ok: false; message: string };\n~~~\n\n联合类型表示多种可能中的一种；交叉类型组合多份要求。枚举会生成运行时代码；字符串字面量联合常更轻量且适合 JSON API。\n\n## 联合类型不能当作所有字段同时存在\n\n- 联合类型的值不一定同时拥有各个成员的所有属性。\n- 不要为了区别一个状态而强制使用数字枚举。\n- 类型别名和接口不是完全可互换，组合语法不同。\n\n## 动手验证\n\n为任务 API 定义 todo、in_progress 和 done 三种状态，并定义成功/失败两种响应。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：函数类型：回调的输入、输出和异步性](/notes/typescript-17-function-types) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：类型收窄：检查怎样影响后面的代码](/notes/typescript-19-narrowing)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-04-typescript-core","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tb6b,
+响应里data可选、message也可选，类型会允许两者都没有，也允许失败却带成功数据。真正要表达的通常是二选一：成功一定有数据，失败一定有原因。联合类型把这种关系写出来，比不断补可选字段更准确。
+
+interface 适合描述可扩展的对象形状；type 可以表示联合、交叉、原始值别名、元组和映射结果。二者都支持描述对象契约，团队应保持一致用法。
+
+~~~ts
+type TaskStatus = "todo" | "in_progress" | "done";
+
+interface TaskSummary {
+  id: string;
+  title: string;
+  status: TaskStatus;
+}
+
+type ApiResult<T> =
+  | { ok: true; data: T }
+  | { ok: false; message: string };
+~~~
+
+联合类型表示多种可能中的一种；交叉类型组合多份要求。枚举会生成运行时代码；字符串字面量联合常更轻量且适合 JSON API。
+
+检查 `result.ok` 为true后，检查器知道当前成员含data；为false时才读取message。共同字段ok作为判别，避免调用方自己猜“data存在就算成功”。T还保留了成功数据的具体形状，任务列表与用户信息可以复用相同结果结构。
+
+TaskStatus限制静态代码使用三个字符串，但不在运行时拦截任意请求。解析外部状态时仍要检查名单，不能只把文本as TaskStatus。字面量联合适合已有明确文本协议，不必为了类型检查再引入一个有运行时表示的枚举。
+
+## 对象声明与组合规则
+
+interface可以描述对象并扩展，也支持某些声明合并场景；type可以给联合、元组和映射结果命名。普通对象用哪种通常按项目约定统一，避免把命名风格争论当作业务设计。
+
+交叉类型要求同时满足两份约束。若一边把id写成string，另一边写成number，不会得到“二者任选”，反而可能得到不可满足的字段。组合后检查实际结果，别把交叉符号当作无条件拼接。
+
+建模时优先减少不可能状态：加载中没有结果，成功有数据，失败有错误。后面的收窄与穷尽检查才能沿这些关系帮助发现遗漏；如果一开始全写成可选字段，编译器也无法替你还原隐藏的状态规则。
+
+## 联合类型不能当作所有字段同时存在
+
+- 联合类型的值不一定同时拥有各个成员的所有属性。
+- 不要为了区别一个状态而强制使用数字枚举。
+- 类型别名和接口不是完全可互换，组合语法不同。
+
+## 动手验证
+
+为任务 API 定义 todo、in_progress 和 done 三种状态，并定义成功/失败两种响应。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：函数类型：回调的输入、输出和异步性](/notes/typescript-17-function-types) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：类型收窄：检查怎样影响后面的代码](/notes/typescript-19-narrowing)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-18-alias-interface-unions","title":"TypeScript 18：type、interface 与联合类型怎么配合","date":"2026-11-12","excerpt":"data和message都设成可选，为什么会允许既不成功也不失败的结果？用判别联合保存状态之间的关系，再判断type、interface与交叉类型各适合什么。","tags":["TypeScript","TypeScript 类型基础"],"category":"typescript-04-typescript-core","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-04-typescript-core","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

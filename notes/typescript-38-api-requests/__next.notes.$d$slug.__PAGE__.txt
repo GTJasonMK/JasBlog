@@ -1,8 +1,52 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-38-api-requests","title":"TypeScript 38：请求状态：空列表和加载失败不能混在一起","date":"2026-11-12","excerpt":"页面没有显示任务时，我希望能明确知道是还在加载、确实为空，还是请求失败。用一组互斥状态描述这些情况，比维护几个容易矛盾的布尔值更清楚。","tags":["TypeScript","前端应用"],"category":"typescript-09-frontend-app","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n页面没有显示任务时，我希望能明确知道是还在加载、确实为空，还是请求失败。用一组互斥状态描述这些情况，比维护几个容易矛盾的布尔值更清楚。\n\n请求函数负责协议细节，页面负责展示状态。请求结果应使用明确的联合类型，避免用多个布尔值组合出不可能状态。\n\n~~~ts\ntype LoadState<T> =\n  | { kind: \"loading\" }\n  | { kind: \"ready\"; data: T }\n  | { kind: \"error\"; message: string };\n~~~\n\n检查 response.ok，解析错误结构；处理取消请求和组件卸载。用一个小型 API client 统一 base path、credentials 和错误解析，但不要隐藏关键失败。\n\n## 保留失败，才能决定下一步怎么做\n\n- fetch 不会因为 404 自动抛错。\n- 服务端返回结构要在边界验证，不能假定 JSON 一定符合类型。\n- 不要把请求错误静默改成空列表，避免假成功界面。\n\n## 动手验证\n\n实现任务列表加载状态，区分空数据和加载失败，并提供重试按钮。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：路由与页面：URL 怎样对应到组件](/notes/typescript-37-routing) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：前端状态与缓存：谁拥有数据，何时更新](/notes/typescript-39-state-cache)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-09-frontend-app","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tbf3,
+请求失败后返回空数组，页面显示暂无任务，用户会以为之前的数据没了。失败被改写成正常数据，连重试入口也失去依据。状态首先要保留真实含义，再决定怎样显示。
+
+请求函数负责协议细节，页面负责展示状态。请求结果应使用明确的联合类型，避免用多个布尔值组合出不可能状态。
+
+~~~ts
+type LoadState<T> =
+  | { kind: "loading" }
+  | { kind: "ready"; data: T }
+  | { kind: "error"; message: string };
+~~~
+
+检查 response.ok，解析错误结构；处理取消请求和组件卸载。用一个小型 API client 统一 base path、credentials 和错误解析，但不要隐藏关键失败。
+
+loading没有当前结果，ready一定有data，error一定有message。对于任务数组，空与非空都属于ready，只是data.length不同；不能把error也塞成ready空数组。switch按kind呈现以后，检查器能帮助避免在loading时读取尚不存在的数据。
+
+35章的Hook负责执行这个转换，请求函数负责HTTP与Schema解析，页面只看状态。API client集中已有共同协议，不必为每条接口再造一层同形包装，也不能把404、坏JSON与网络失败统一吞掉。
+
+## 刷新时是否保留旧内容
+
+初次加载没有数据，可以显示等待；刷新已有列表时，有时希望旧结果继续可见，同时提示正在更新。那应明确增加“已有数据且刷新中”的状态关系，而不是任意组合loading、hasData、error三个布尔值，最后出现相互矛盾的界面。
+
+相同资源的请求要识别当前版本。参数改变或用户重试时，前一次响应可能晚到，取消与身份核对保证旧结果不会覆盖新页面。取消是当前交互不再需要结果，通常不应作为需要用户处理的错误弹窗；真正失败则保留可重试信息。
+
+错误文案按原因帮助下一步：未登录引导重新确认会话，无权限说明访问受限，暂时不可用提供重试。内部堆栈留在受控日志，不能把数据库异常原文直接展示。重试是否安全，尤其写入请求，要由接口合同决定。
+
+## 保留失败，才能决定下一步怎么做
+
+- fetch 不会因为 404 自动抛错。
+- 服务端返回结构要在边界验证，不能假定 JSON 一定符合类型。
+- 不要把请求错误静默改成空列表，避免假成功界面。
+
+测试至少覆盖延迟响应、成功空列表、成功有数据、HTTP失败、结构错误和旧响应晚到。每一份输入对应明确页面状态，才能证明用户看到的内容与请求实际结果一致。
+
+## 动手验证
+
+实现任务列表加载状态，区分空数据和加载失败，并提供重试按钮。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：路由与页面：URL 怎样对应到组件](/notes/typescript-37-routing) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：前端状态与缓存：谁拥有数据，何时更新](/notes/typescript-39-state-cache)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-38-api-requests","title":"TypeScript 38：请求状态：空列表和加载失败不能混在一起","date":"2026-11-12","excerpt":"空列表和加载失败都显示“暂无任务”，用户还能判断该不该重试吗？用互斥请求状态保留结果含义，再处理刷新、取消与旧响应。","tags":["TypeScript","前端应用"],"category":"typescript-09-frontend-app","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-09-frontend-app","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

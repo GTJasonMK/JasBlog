@@ -4,8 +4,8 @@ b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e
 c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
-3:T1604,
-新增一个必填字段，会同时影响旧数据和新的写入请求。我会先找齐调用方，再安排加列、更新写入、分批回填和收紧约束，每一步都要知道失败后保存了什么、从哪里继续。
+3:T1ab0,
+给订单新增来源字段，历史行补完以后又出现NULL，问题可能在旧版写入入口还在运行。数据迁移不是只扫一遍旧表，还要让新写入遵守新规则。先确认所有调用方，再安排各阶段，才能有真正结束条件。
 
 演示只操作 practice 表，不改变示例下单函数的接口。
 
@@ -16,6 +16,8 @@ e:"$Sreact.suspense"
 已确认可统一更新的开发系统可以直接修改 schema、调用方和测试，并保留创作与业务成果。生产滚动发布涉及不同应用版本时，需要明确的阶段顺序和结束条件，最终收敛到一份实现。
 
 迁移文件应有版本、校验和、执行状态和错误记录。已执行的迁移不要随意改写；恢复执行前核对当前状态，不通过一堆 `IF NOT EXISTS` 把部分失败伪装成完整成功。
+
+同名列已经存在，也可能类型或约束不对；只跳过存在对象会掩盖差异。恢复时检查已经完成的实际状态，只继续未完成部分，保留原数据与记录，而不是从头重放所有写入。
 
 ## L8：新增一个必填字段
 
@@ -28,6 +30,8 @@ ALTER TABLE practice.migration_orders ADD PRIMARY KEY (id);
 ```
 
 本练习明确把复制的历史虚构订单定义为来自 `web`。真实数据若来源未知，不允许为了通过非空约束虚构历史。
+
+web在这里是实验定义，能够被独立核对。真实历史没有来源证据时，应该建模未知或先补资料，不能由程序随便填一个常见值，再把非空检查通过当作数据准确。
 
 ### 第一步：增加可空列
 
@@ -61,6 +65,8 @@ COMMIT;
 
 持续有新空值说明写入入口没更新，不能只反复跑回填来掩盖。最终核对所有范围与异常值，不能把“最后一批零行”当成全部数据正确的唯一证据。
 
+按NULL筛选让已完成行不重复写，批次提交保存进度。若回填规则后来改变，还要记录规则或输入版本，重新识别受影响行；仅凭不为空，无法证明旧版本成果符合新要求。
+
 ### 第三步：约束新数据并验证历史
 
 ```sql
@@ -88,11 +94,15 @@ COMMIT;
 
 保留合法值 CHECK。验证新行缺字段、非法来源均失败，合法数据成功。需要索引时单独评估，`CREATE INDEX CONCURRENTLY` 不能放入上述事务块。
 
+NOT VALID把已有数据的全量验证推迟，却从现在开始约束新写入，正好把历史检查与新增保护分开。验证完成后收紧NOT NULL，最后删除辅助约束，阶段结束就回到一份明确合同，不长期留下新旧双写路径。
+
 ## 批量改数据要保存原值
 
 确认数据库、身份、审批对象和候选行；记录主键与旧值；核对候选数量；设定等待和执行预算；使用带旧值条件的更新；比较 `RETURNING` 与预期；核对业务不变量，再提交。
 
 需要撤销已提交变更时，原值记录是恢复依据。反向 SQL 同样要核对当前值，防止覆盖之后的合法修改。删除列、类型收窄和批量删除通常有数据损失，应用回滚并不能自动把数据找回来。
+
+更新后又被正常业务修改的行，不应被简单反向脚本覆盖。恢复和正向变更都要带当前条件与身份，保存冲突供核对，不能为了让回滚数字凑齐而抹掉后续成果。
 
 ## 导入与数据清洗
 
@@ -109,7 +119,7 @@ CSV 先导入 staging 表，显式规定编码、列、分隔符、日期和空�
 ---
 
 [上一篇：用等待链、计划和存储证据定位故障](/notes/database-19-troubleshooting) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：把 PostgreSQL 的经验迁到 MySQL 时，要重查哪些行为](/notes/database-21-mysql)
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-20-migrations","title":"数据库 20：从调用方到历史数据，完成一次可核对的迁移","date":"2026-11-13","excerpt":"新增一个必填字段，会同时影响旧数据和新的写入请求。我会先找齐调用方，再安排加列、更新写入、分批回填和收紧约束，每一步都要知道失败后保存了什么、从哪里继续。","tags":["数据库","PostgreSQL"],"category":"database-operations","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-20-migrations","title":"数据库 20：从调用方到历史数据，完成一次可核对的迁移","date":"2026-11-13","excerpt":"历史行补齐了，新请求却继续写NULL，回填为什么永远跑不完？用来源字段串起调用方更新、分批迁移与约束验证，并明确每一阶段的继续条件。","tags":["数据库","PostgreSQL"],"category":"database-operations","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-operations","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]

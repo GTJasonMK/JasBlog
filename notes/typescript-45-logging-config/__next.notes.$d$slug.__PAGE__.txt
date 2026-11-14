@@ -1,8 +1,45 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-45-logging-config","title":"TypeScript 45：日志与环境配置：启动就把问题暴露出来","date":"2026-11-12","excerpt":"数据库地址或会话密钥缺失时，我宁愿服务启动就失败，也不想等到某次请求才报一个含糊的错误。日志则负责补上上下文，同时避开凭证和敏感请求数据。","tags":["TypeScript","Node.js 与 Express"],"category":"typescript-10-backend","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n数据库地址或会话密钥缺失时，我宁愿服务启动就失败，也不想等到某次请求才报一个含糊的错误。日志则负责补上上下文，同时避开凭证和敏感请求数据。\n\n启动时校验必需环境变量，例如数据库连接串、端口和会话密钥；缺少配置时直接报出变量名并停止启动。开发、测试和生产配置分开管理。\n\nNode.js 进程不会因为存在 .env 文件就自动加载它。开发脚本要明确使用 Node 的 --env-file 参数或 dotenv 等加载方式；生产通常由进程管理或部署平台注入环境变量。\n\n请求日志应含时间、方法、路径、状态码和耗时，可用请求 id 关联前后端排查。不要记录密码、Cookie、Authorization 头或完整敏感请求体。\n\n生产日志输出到标准输出，由进程管理或平台收集。日志级别应能区分调试、一般信息、警告和错误。\n\n## 必需配置不能悄悄换成空值\n\n- 配置解析不要默默使用空字符串或不安全默认密钥。\n- 日志不能代替用户可见错误响应，也不能记录秘密。\n- 记录请求路径前应避免把敏感查询参数写入日志。\n\n## 动手验证\n\n列出任务项目启动所需环境变量；缺少 DATABASE_URL 时让进程明确失败。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：输入校验与错误响应：在边界拒绝无效数据](/notes/typescript-44-validation-errors) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：关系数据库与 SQL：从持久化到关联查询](/notes/typescript-46-sql)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-10-backend","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tbc3,
+目录里存在.env，只说明有一个文本文件。进程是否读取它、从哪个工作目录查找、是否在模块初始化前加载，取决于启动方式。配置问题先核对实际命令与加载时机，不靠业务函数里不断补空值解决。
+
+启动时校验必需环境变量，例如数据库连接串、端口和会话密钥；缺少配置时直接报出变量名并停止启动。开发、测试和生产配置分开管理。
+
+Node.js 进程不会因为存在 .env 文件就自动加载它。开发脚本要明确使用 Node 的 --env-file 参数或 dotenv 等加载方式；生产通常由进程管理或部署平台注入环境变量。
+
+选择一种清楚的加载方式，并在读取配置之前执行；Node版本支持的功能按当前工具核对。环境变量先解析成端口、布尔、URL等明确类型，再检查范围，集中返回不可随意修改的配置对象，业务不再各自读取process.env。
+
+必需密钥缺失直接停止，允许省略的超时使用明确默认。开发、测试与生产数据地址分开，测试启动确认连到隔离库，不用开发地址回退。报错可写DATABASE_URL缺失，不能输出其完整秘密内容。
+
+请求日志应含时间、方法、路径、状态码和耗时，可用请求 id 关联前后端排查。不要记录密码、Cookie、Authorization 头或完整敏感请求体。
+
+生产日志输出到标准输出，由进程管理或平台收集。日志级别应能区分调试、一般信息、警告和错误。
+
+同一请求通过request_id关联解析、业务与系统错误；状态码与耗时帮助定位受影响路由。URL里也可能有重置令牌或个人参数，记录模板与必要白名单字段比完整原始URL更安全，也减少高基数噪声。
+
+错误在有足够上下文的位置记录一次，底层补充原因后返回。每层都打印相同堆栈，会把一次失败看成多次；只有“失败了”又没有原因，则无法继续排查。日志与用户响应各自保留需要的信息，不互相替代。
+
+## 必需配置不能悄悄换成空值
+
+- 配置解析不要默默使用空字符串或不安全默认密钥。
+- 日志不能代替用户可见错误响应，也不能记录秘密。
+- 记录请求路径前应避免把敏感查询参数写入日志。
+
+验收启动分别缺少端口、数据库地址和会话密钥，确认进程明确失败；提供非法值也应失败，而不是悄悄套默认。正常请求与失败请求再检查日志字段，确保敏感头与正文未泄露。
+
+## 动手验证
+
+列出任务项目启动所需环境变量；缺少 DATABASE_URL 时让进程明确失败。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：输入校验与错误响应：在边界拒绝无效数据](/notes/typescript-44-validation-errors) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：关系数据库与 SQL：从持久化到关联查询](/notes/typescript-46-sql)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-45-logging-config","title":"TypeScript 45：日志与环境配置：启动就把问题暴露出来","date":"2026-11-12","excerpt":"项目放了.env，为什么进程仍读不到DATABASE_URL？明确加载时机、配置解析与部署注入，再用请求标识记录失败，而不把凭据一起打进日志。","tags":["TypeScript","Node.js 与 Express"],"category":"typescript-10-backend","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-10-backend","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

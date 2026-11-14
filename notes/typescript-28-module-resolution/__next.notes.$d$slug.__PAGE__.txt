@@ -1,8 +1,43 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-28-module-resolution","title":"TypeScript 28：模块解析：编译通过之后为什么还会导入失败","date":"2026-11-12","excerpt":"导入语句会先经过类型解析，运行时或打包工具还要再次找到真实模块。我会把这两条路径分别核对，尤其检查文件扩展名、导出入口和路径别名。","tags":["TypeScript","TypeScript 工程实践"],"category":"typescript-07-typescript-engineering","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n导入语句会先经过类型解析，运行时或打包工具还要再次找到真实模块。我会把这两条路径分别核对，尤其检查文件扩展名、导出入口和路径别名。\n\n模块解析受 package.json、文件扩展名、运行时和打包工具影响。浏览器代码通常由 Vite 打包；Node 服务可以使用原生 ESM。package.json 的 type 字段会影响 Node 对 JavaScript 文件的解释。\n\n选择工具链的默认模块模式，并让开发、测试和生产构建保持一致。不要为了消除解析报错而随意增加路径别名。\n\n## 所有工具都需要理解同一套路径\n\n- 编译器能找到类型，不代表运行时一定能找到对应模块。\n- 路径别名要同时配置给编译器、测试工具和打包工具。\n- ESM 与 CommonJS 混用时要检查依赖的导出方式。\n\n## 动手验证\n\n建立一个小模块，在浏览器项目和 Node 项目各导入一次，记录配置和路径解析差异。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：tsconfig 与 strict：每个检查选项在管什么](/notes/typescript-27-tsconfig-strict) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：用 Zod 守住运行时输入边界](/notes/typescript-29-runtime-validation)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-07-typescript-engineering","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Ta8e,
+在tsconfig里写paths，编辑器能跳转，编译后Node却说找不到@/utils。paths帮助检查器定位源码，通常不会把输出导入自动重写成Node认识的地址。两套解析需要分别成立，不能只验证其中一套。
+
+模块解析受 package.json、文件扩展名、运行时和打包工具影响。浏览器代码通常由 Vite 打包；Node 服务可以使用原生 ESM。package.json 的 type 字段会影响 Node 对 JavaScript 文件的解释。
+
+选择工具链的默认模块模式，并让开发、测试和生产构建保持一致。不要为了消除解析报错而随意增加路径别名。
+
+Node原生ESM根据文件扩展名与最近package.json的type等规则解释文件，相对导入通常写运行产物的.js扩展名；TypeScript在NodeNext下可以把这项导入对应到源码.ts。打包器可能允许省略扩展名，但那是打包过程提供的能力。
+
+包的exports定义公开入口，某个node_modules内部文件真实存在，也未必允许直接深导入。条件导出还可能为浏览器、import与require选择不同文件，类型入口也要与对应实现匹配。混用模式出错时，先查实际选中了哪个入口。
+
+## 沿产物查一次，而不只读源码
+
+先确认tsc检查采用的配置，再看生成JavaScript保留了什么导入，最后用生产启动命令执行。若开发使用tsx或Vite处理别名，生产直接node运行，就必须确认别名已经打包、重写或有明确运行时支持。
+
+## 所有工具都需要理解同一套路径
+
+- 编译器能找到类型，不代表运行时一定能找到对应模块。
+- 路径别名要同时配置给编译器、测试工具和打包工具。
+- ESM 与 CommonJS 混用时要检查依赖的导出方式。
+
+测试工具也可能有自己的解析配置，单测通过不能证明生产入口可加载。建立一个最小模块并从构建目录启动，往往比同时更改module、moduleResolution与多个别名更快定位根因。
+
+如果只是邻近文件，清楚的相对路径通常足够；公共包通过稳定exports暴露能力，不跨进兄弟应用的源码目录。模块边界清楚以后，移动内部实现才不必让全部调用方跟着改路径。
+
+## 动手验证
+
+建立一个小模块，在浏览器项目和 Node 项目各导入一次，记录配置和路径解析差异。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：tsconfig 与 strict：每个检查选项在管什么](/notes/typescript-27-tsconfig-strict) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：用 Zod 守住运行时输入边界](/notes/typescript-29-runtime-validation)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-28-module-resolution","title":"TypeScript 28：模块解析：编译通过之后为什么还会导入失败","date":"2026-11-12","excerpt":"paths配置后编辑器不报错，Node仍找不到@/模块，哪一步没有发生？分别追踪类型解析、产物导入与包导出条件，找到开发和生产的规则差异。","tags":["TypeScript","TypeScript 工程实践"],"category":"typescript-07-typescript-engineering","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-07-typescript-engineering","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

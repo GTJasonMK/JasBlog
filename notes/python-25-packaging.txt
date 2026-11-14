@@ -8,7 +8,7 @@ c:I[168027,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e
 :HL["/_next/static/chunks/773957f472007a6e.css","style"]
 :HC["/",""]
 2:[["$","source",null,{"media":"(max-width: 767px)","srcSet":"/backgrounds/lake-mobile.webp","type":"image/webp"}],["$","$L3",null,{"src":"/backgrounds/lake.webp","alt":"","width":2400,"height":1600,"loading":"eager","fetchPriority":"high","unoptimized":true}]]
-0:{"P":null,"b":"Lce4hgqZcvwFwf7yktvnD","c":["","notes","python-25-packaging"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","python-25-packaging","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
+0:{"P":null,"b":"VX31ZvEYwE_KPHAUN8uNe","c":["","notes","python-25-packaging"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","python-25-packaging","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
 d:I[339756,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
 e:I[837457,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
 f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
@@ -23,9 +23,98 @@ f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e
 a:["$","$1","c",{"children":["$L10",[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true,"nonce":"$undefined"}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}]
 b:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]
 18:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-19:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-10:["$","$L18",null,{"note":{"slug":"python-25-packaging","title":"Python 25：用 pyproject.toml 把项目变成可安装的包","date":"2026-11-12","excerpt":"从源码目录运行成功，还不能说明别人安装后也能用。我会把包发现规则、最低 Python 版本和依赖写进配置，再到干净环境里确认安装后的入口和导入是否正常。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"error":"$undefined","content":"\n从源码目录运行成功，还不能说明别人安装后也能用。我会把包发现规则、最低 Python 版本和依赖写进配置，再到干净环境里确认安装后的入口和导入是否正常。\n\n可安装项目需要明确名称、版本、依赖和包内容。`pyproject.toml` 是现代 Python 项目的标准配置入口；实际发布时应查看目标构建工具和 PyPI 的最新说明。\n\n与[第 21 章](/notes/python-21-environments-projects)的 `src/my_project/` 目录结构配套的最小可安装配置：\n\n```toml\n[build-system]\nrequires = [\"setuptools>=64\"]\nbuild-backend = \"setuptools.build_meta\"\n\n[project]\nname = \"example-tools\"\nversion = \"0.1.0\"\nrequires-python = \">=3.12\"\ndependencies = []\n\n[tool.setuptools.packages.find]\nwhere = [\"src\"]\n```\n\n本地开发时可编辑安装，使代码修改无需重复复制：\n\n```console\npython -m pip install -e .\n```\n\n## 源码运行和安装包运行要分别检查\n\n导入包名和发行包名可能不同。`[build-system]` 声明构建后端及构建依赖；`where = [\"src\"]` 让 setuptools 在 `src/` 中发现包。不要假设从源码目录运行成功就代表安装包正确；从干净环境安装并运行才是更可靠的交付检查。\n\n## 动手验证\n\n**练习：**为什么项目要声明最低 Python 版本？\n\n**答案：**使用者和工具能提前判断解释器是否兼容，避免运行到新语法或 API 时才失败。\n\n---\n\n[上一篇：调试、日志与配置：留下能解释问题的信息](/notes/python-24-debugging-logging) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：Git、依赖与安全：守住几条输入边界](/notes/python-26-git-security)\n\n"},"back":["$","$Lf",null,{"href":"/notes?category=python-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L19",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}]
+1a:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+19:T1264,
+项目在自己的源码目录能运行，换一台机器却导入失败，常常是因为“源码刚好在当前路径”掩盖了安装问题。打包要明确告诉工具：项目叫什么、依赖哪些东西、哪些文件属于它，安装以后怎样找到入口。
+
+这不是每个临时脚本都需要做的事情。代码要被其他项目导入、通过命令行长期使用，或作为版本化产物部署时，可安装的包才让交付边界更清楚。
+
+## 先准备一个确实可以安装的结构
+
+沿用[项目结构](/notes/python-21-environments-projects)中的 `src` 布局：
+
+```text
+example-tools/
+  pyproject.toml
+  src/
+    my_project/
+      __init__.py
+      cli.py
+```
+
+`__init__.py` 可以先留空，`cli.py` 提供一个没有外部服务依赖的命令：
+
+```python
+# src/my_project/cli.py
+def main():
+    print("工具已运行")
+```
+
+在项目根目录添加 `pyproject.toml`：
+
+```toml
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "example-tools"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+example-tools = "my_project.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+```
+
+`[build-system]` 声明构建后端及构建时需要的工具，这里选择Setuptools。`[project]` 描述交付项目本身的名称、版本、解释器范围和运行依赖。构建依赖与运行依赖用途不同，不应因为本机装过构建工具，就把它写成使用者运行时必需的依赖。
+
+`where = ["src"]` 让后端从 `src` 发现包。`[project.scripts]` 声明安装后生成的命令，入口写成“可导入模块:可调用对象”。工具启动时会导入模块并调用 `main`，所以模块本身也应避免导入即启动交互等副作用。
+
+这里的发行项目名是 `example-tools`，导入包名是 `my_project`。两者可以不同，安装时用前者，`import` 时用后者。它们不是靠把连字符改成下划线自动对应的，而由实际包目录和配置决定。
+
+## 开发安装方便修改，但不是最终产物
+
+进入项目根目录，在当前虚拟环境中执行：
+
+```console
+python -m pip install -e .
+```
+
+可编辑安装把环境与开发源码关联，修改普通Python代码后通常不需要再复制安装。更改入口、项目元数据或包发现规则时，可能仍需要重新安装。它适合本地开发，不代表已经检查了最终安装包里到底放进哪些文件。
+
+接着执行 `example-tools`，应看到“工具已运行”。也可以运行 `python -c "from my_project.cli import main; main()"` 验证导入。命令名称和Python模块是两个入口，都应符合这份配置的承诺。
+
+## 构建一次，再从源码目录之外安装
+
+用于正式分发的常见产物有源代码分发包和wheel。前者供构建使用，后者是可以直接安装的构建产物；包含原生扩展的wheel还可能与平台、架构和Python实现有关。可以通过构建前端运行后端：
+
+```console
+python -m pip install build
+python -m build
+```
+
+产物通常进入 `dist`。在另一个干净虚拟环境中安装生成的wheel，再切换到项目目录之外运行入口，就能检查是否真正依靠安装产物，而不是依靠当前目录里遗漏打包的源码。
+
+这里可以得到类似 `example_tools-0.1.0-py3-none-any.whl` 的文件名。文件名中的规范化不改变实际导入名；应安装实际生成的文件，不要凭项目显示名猜路径。
+
+如果包里还需要模板、静态数据或其他资源文件，也要检查它们是否包含在产物中。编辑模式能读到源码旁边的文件，不代表wheel已经携带了它们。不同构建后端有各自配置规则，实际项目按所选后端的文档声明并验证。
+
+## 版本要求需要真实验证
+
+`requires-python = ">=3.12"` 让安装工具提前判断解释器是否支持，但它只是声明，不能证明代码确实兼容所有满足条件的版本。最低支持版本需要实际测试；某个依赖有额外限制时，项目的兼容范围也要一起检查。
+
+准备公开上传还需核对包名、许可、说明文档及产物中没有本机凭证。示例项目在本地构建安装即可验证打包流程，不应随意把教程占位名称发布到包索引。正式分发步骤可查[PyPA打包指南](https://packaging.python.org/en/latest/tutorials/packaging-projects/)。
+
+---
+
+[上一篇：调试、日志与配置：留下能解释问题的信息](/notes/python-24-debugging-logging) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：Git、依赖与安全：守住几条输入边界](/notes/python-26-git-security)
+
+10:["$","$L18",null,{"note":{"slug":"python-25-packaging","title":"Python 25：用 pyproject.toml 把项目变成可安装的包","date":"2026-11-12","excerpt":"把源码发给别人，还缺哪一步才能像普通依赖一样安装和运行？用一个完整的小包串起 pyproject.toml、src 目录、命令行入口和 wheel，解释开发安装与最终交付分别需要验证什么。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"error":"$undefined","content":"$19"},"back":["$","$Lf",null,{"href":"/notes?category=python-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L1a",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}]
 15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]
-1a:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+1b:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
 13:null
-17:[["$","title","0",{"children":"Python 25：用 pyproject.toml 把项目变成可安装的包 | JasBlog"}],["$","meta","1",{"name":"description","content":"从源码目录运行成功，还不能说明别人安装后也能用。我会把包发现规则、最低 Python 版本和依赖写进配置，再到干净环境里确认安装后的入口和导入是否正常。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1a","3",{}]]
+17:[["$","title","0",{"children":"Python 25：用 pyproject.toml 把项目变成可安装的包 | JasBlog"}],["$","meta","1",{"name":"description","content":"把源码发给别人，还缺哪一步才能像普通依赖一样安装和运行？用一个完整的小包串起 pyproject.toml、src 目录、命令行入口和 wheel，解释开发安装与最终交付分别需要验证什么。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1b","3",{}]]

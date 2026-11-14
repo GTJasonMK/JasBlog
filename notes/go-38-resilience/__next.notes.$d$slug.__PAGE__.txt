@@ -1,8 +1,45 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-38-resilience","title":"Go 38：超时、重试、限流与熔断怎么配合","date":"2026-11-12","excerpt":"下游变慢时，上游一直等待或快速重试，都可能把故障放大。我会一起限定调用时间、并发数量和队列长度，再判断哪些请求可以重试。","tags":["Go","测试、性能与微服务"],"category":"go-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n下游变慢时，上游一直等待或快速重试，都可能把故障放大。我会一起限定调用时间、并发数量和队列长度，再判断哪些请求可以重试。\n\n## 超时和重试\n\n所有远程调用都应有 deadline，并把剩余时间传递给下游。重试只用于可重试错误，并限制次数、退避和总时间；对非幂等操作盲目重试会重复创建订单。\n\n## 限流与过载保护\n\n限流可以按用户、IP、活动或服务容量实施。入口限流返回明确的 429 和重试信息；服务内部还要限制并发任务数、队列长度和连接数。无限排队会把短时过载变成长时间内存和延迟问题。\n\n## 熔断与降级\n\n熔断器在依赖持续失败时暂时拒绝调用，给下游恢复空间。半开探测和恢复阈值需要监控验证。降级只能返回业务允许的替代结果；不能把支付失败降级成已支付，也不能把库存未知当成充足。\n\n## 服务发现与网关\n\nKubernetes Service 可提供集群内发现；网关负责外部入口、TLS、路由和部分限流。客户端还要处理 DNS、连接池、连接生命周期和服务端滚动发布。\n\n## 动手验证\n\n为“订单调用支付模拟服务”定义超时、重试和熔断策略。说明哪些错误可重试、重复回调如何去重。\n\n---\n\n[上一篇：从模块化单体到微服务：先说明拆分的收益](/notes/go-37-microservices-grpc) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：跨服务一致性与数据扩展的代价](/notes/go-39-distributed-data)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tc20,
+入口调用订单，订单调用支付，每层失败后最多尝试三次，下游最坏可能收到九次；继续叠层，次数还会相乘。下游本来已经慢，重试又增加负载，最终更多请求超时。可靠性措施需要共同预算，不能各层独立堆叠。
+
+## 超时和重试
+
+所有远程调用都应有 deadline，并把剩余时间传递给下游。重试只用于可重试错误，并限制次数、退避和总时间；对非幂等操作盲目重试会重复创建订单。
+
+用户整次请求预算两秒，下游不能每次都重新获得完整两秒。解析、排队与第一次调用已经耗时，重试只能使用剩余预算；必要时直接结束并提供状态查询。超时取消是协作式的，服务端若继续处理，仍需要幂等与最终状态。
+
+退避减少连续冲击，抖动避免所有客户端同一时刻恢复请求。参数无效、无权限与确定库存不足不会靠重试修好；临时连接失败也只有在操作可重复且预算允许时才重试。优先把重试放在能理解完整业务语义的一层。
+
+## 限流与过载保护
+
+限流可以按用户、IP、活动或服务容量实施。入口限流返回明确的 429 和重试信息；服务内部还要限制并发任务数、队列长度和连接数。无限排队会把短时过载变成长时间内存和延迟问题。
+
+限速控制单位时间到达数，并发限制控制同时在途数，两者在下游变慢时尤其不同。相同每秒请求数，处理时间从十毫秒变成一秒，在途量就大幅增加。队列还要有等待上限，过期请求退出，不能消耗后续已经没有价值的计算。
+
+## 熔断与降级
+
+熔断器在依赖持续失败时暂时拒绝调用，给下游恢复空间。半开探测和恢复阈值需要监控验证。降级只能返回业务允许的替代结果；不能把支付失败降级成已支付，也不能把库存未知当成充足。
+
+可以暂时不给商品推荐，不能给订单编一个成交结果。允许展示旧缓存时，应明确其陈旧含义与适用页面，交易路径仍读可信状态。熔断打开不是恢复完成，要限制半开探测量，避免刚恢复就被积压流量再次压垮。
+
+## 服务发现与网关
+
+Kubernetes Service 可提供集群内发现；网关负责外部入口、TLS、路由和部分限流。客户端还要处理 DNS、连接池、连接生命周期和服务端滚动发布。
+
+这些策略的有效性用故障场景验证：让下游固定变慢或失败，观察并发与队列是否保持上限、上游能否按时返回、恢复后是否收敛。只检查配置里出现了timeout和breaker，还没有证明运行行为。
+
+## 动手验证
+
+为“订单调用支付模拟服务”定义超时、重试和熔断策略。说明哪些错误可重试、重复回调如何去重。
+
+---
+
+[上一篇：从模块化单体到微服务：先说明拆分的收益](/notes/go-37-microservices-grpc) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：跨服务一致性与数据扩展的代价](/notes/go-39-distributed-data)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-38-resilience","title":"Go 38：超时、重试、限流与熔断怎么配合","date":"2026-11-12","excerpt":"每层都重试三次，为什么一次用户请求会变成几十次下游调用？从时间预算与压力放大解释超时、重试、限流和熔断怎样配合。","tags":["Go","测试、性能与微服务"],"category":"go-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

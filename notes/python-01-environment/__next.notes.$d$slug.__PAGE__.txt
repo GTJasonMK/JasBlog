@@ -1,8 +1,86 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-01-environment","title":"Python 01：先把解释器和运行方式弄清楚","date":"2026-11-12","excerpt":"开始写 Python 之前，我会先确认一件事：眼前这一行到底是在终端里执行，还是交给 Python 解释器执行。把这两层分开，环境问题就容易判断得多。","tags":["Python","语言基础"],"category":"python-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n开始写 Python 之前，我会先确认一件事：眼前这一行到底是在终端里执行，还是交给 Python 解释器执行。把这两层分开，环境问题就容易判断得多。\n\n终端负责启动程序；Python 解释器读取并执行 Python 代码。交互模式适合快速试验，脚本适合重复运行，Notebook 适合边写边看数据和图表。Windows 常用 `py` 启动器；macOS/Linux 常用 `python3`。具体命令取决于安装方式。\n\n```console\npython --version\npython hello.py\n```\n\n```python\n# hello.py\nname = \"Python\"\nprint(f\"Hello, {name}!\")\n```\n\n## 命令和代码要放对地方\n\n`python hello.py` 是终端命令，不能直接写在普通 `.py` 文件里。若系统里有多个 Python，安装依赖和运行程序必须使用同一个解释器。\n\n## 动手验证\n\n**练习：**写一个脚本，打印你的名字和 Python 版本。\n\n```python\nimport sys\n\nprint(\"我是小林\")\nprint(sys.version)\n```\n\n---\n\n[Python 目录](/notes/python-00-learning-guide) · [下一篇：变量、对象与赋值：改的是名字，还是对象](/notes/python-02-objects)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=python-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T1346,
+把代码写进文件以后，电脑并不知道应该怎样执行它。`.py` 是文件名的一部分，真正读懂这些语句的是 Python 解释器。终端里输入下面两行，第一行询问解释器的版本，第二行让它读取并运行 `hello.py`：
+
+```console
+python --version
+python hello.py
+```
+
+这里的 `python` 是一个启动命令。系统会根据安装方式和命令搜索路径找到对应的程序，所以它可能叫 `python3`；Windows 也常用 `py` 启动器选择版本。先看实际命令的输出，后面的操作都使用确认过的那个解释器。
+
+在当前目录创建 `hello.py`，写入：
+
+```python
+import sys
+
+print("我是小林")
+print(sys.version)
+```
+
+保存后回到终端执行 `python hello.py`，才会看到两行输出。这个过程中，终端负责启动程序，解释器负责执行代码，`print` 再把结果写到终端。把 `python hello.py` 写进 `.py` 文件，解释器收到的是一行不符合 Python 语法的内容，自然会报错。
+
+## 看到 `>>>`，已经进入另一个环境了
+
+直接输入 `python`，通常会进入交互式解释器，提示符变为 `>>>`。现在可以输入 `2 + 3`、创建变量、调用函数，立刻观察结果。它适合验证一个表达式，却不会自动把这段操作保存为可重复执行的程序。要退出，可以调用 `exit()`。
+
+脚本适合一整套固定操作，例如读取文件、整理数据、生成报告。每次启动脚本都从头执行，不会继承上一次运行留下的变量。需要查一个函数的返回值时用交互环境，需要明天还能重复完成同一件事时，就把代码保存为脚本。
+
+Notebook 则把代码分成单元格，常用于分析数据和观察图表。它方便的地方也是容易误判的地方：后面的单元格可能正在使用前面某次运行留下的变量。界面上从上到下摆放的顺序，未必就是实际执行顺序。如果重启内核以后从头运行就失败，先检查是否遗漏了定义变量或导入模块的单元格。
+
+## “找不到文件”和“找不到模块”是两条不同的线索
+
+`python hello.py` 中的相对路径，是从终端当前所在的目录开始查找的。终端不在文件所在的目录，就需要先切换目录，或者提供正确的文件路径。编辑器的运行按钮也会指定工作目录，它不一定等于当前打开文件的目录。
+
+可以在脚本里查看实际运行信息：
+
+```python
+import sys
+from pathlib import Path
+
+print("解释器：", sys.executable)
+print("工作目录：", Path.cwd())
+print("脚本位置：", Path(__file__).resolve())
+```
+
+`sys.executable` 回答正在用哪一个 Python，`Path.cwd()` 回答相对路径从哪里算起。最后一行使用脚本的 `__file__`，在普通交互环境或 Notebook 中可能没有这个变量，别把这段诊断代码的使用条件也忽略了。
+
+如果报的是 `ModuleNotFoundError`，解释器已经启动了，接下来应检查依赖是否装在它对应的环境中。机器上可以同时存在多个 Python，裸用 `pip install` 找到的安装工具，可能属于另一个解释器。用 `python -m pip`，可以明确让当前 Python 运行它自己的安装工具：
+
+```console
+python -m pip --version
+```
+
+如果这里提示没有 `pip`，先按当前 Python 发行版的安装说明补齐工具。不要因为一次导入失败，就反复向不同的全局环境安装同一个包。
+
+## 一个项目为什么要有自己的环境
+
+项目 A 和项目 B 可能需要不同版本的依赖。如果全部安装到同一个全局环境，修改 A 的依赖就可能影响 B。虚拟环境为项目提供独立的解释器入口和第三方包安装目录，让这些依赖各自管理。
+
+在项目目录执行 `python -m venv .venv` 可以创建环境。`venv` 属于标准库，部分系统发行版需要额外安装对应的系统组件。创建以后，即使不激活环境，也能直接调用里面的解释器：
+
+```console
+# macOS / Linux
+.venv/bin/python hello.py
+.venv/bin/python -m pip --version
+
+# Windows
+.venv\Scripts\python.exe hello.py
+.venv\Scripts\python.exe -m pip --version
+```
+
+这两组命令按自己的系统选择一组。激活环境只是让终端优先找到这套解释器，编辑器和 Notebook 仍可能使用另外的配置。终端能运行、编辑器却报错时，先比较两边的 `sys.executable`，比重新安装所有东西更容易找到问题。
+
+可以用这一点检查自己的环境是否配对：分别从终端和编辑器运行上面的诊断脚本，核对解释器路径，再运行最初的 `hello.py`。能够解释“代码由谁执行、从哪里读文件、去哪里找依赖”，后面遇到环境问题就有具体的排查方向了。
+
+---
+
+[Python 目录](/notes/python-00-learning-guide) · [下一篇：变量、对象与赋值：改的是名字，还是对象](/notes/python-02-objects)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-01-environment","title":"Python 01：先把解释器和运行方式弄清楚","date":"2026-11-12","excerpt":"同一份代码在终端里能运行，到了编辑器却说找不到模块，问题常常出在两个地方用了不同的 Python。从运行一个脚本开始，把终端、解释器、工作目录和项目环境的关系理清楚。","tags":["Python","语言基础"],"category":"python-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

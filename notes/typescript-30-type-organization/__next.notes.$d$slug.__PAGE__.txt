@@ -1,8 +1,43 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-30-type-organization","title":"TypeScript 30：类型放在哪里：领域、API 与页面的区别","date":"2026-11-12","excerpt":"数据库记录、创建请求和列表响应都可以叫 Task，但它们需要的字段并不相同。我会按归属分别定义，只把真正需要共享的接口规则放进 shared。","tags":["TypeScript","TypeScript 工程实践"],"category":"typescript-07-typescript-engineering","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n数据库记录、创建请求和列表响应都可以叫 Task，但它们需要的字段并不相同。我会按归属分别定义，只把真正需要共享的接口规则放进 shared。\n\n类型放在拥有它的领域模块附近；只在多个包需要同一个契约时才提升到 shared。数据库模型、API DTO 和页面视图模型目的不同，不应为了少写代码强行共用一个类型。\n\n共享 API Schema 可同时作为运行时校验和静态类型来源。内部实现类型不应通过公共入口全部导出。\n\n## 共享类型不能抹掉业务边界\n\n- 一个巨大 types.ts 会让领域边界消失。\n- 重复复制请求类型容易漂移；可从 Schema 推导。\n- 把 Prisma 数据模型直接返回给前端会暴露内部字段并耦合数据库结构。\n\n## 动手验证\n\n为 Task 划分数据库记录、创建请求和列表响应；列出三者不同的字段。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：用 Zod 守住运行时输入边界](/notes/typescript-29-runtime-validation) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：格式、Lint、类型检查和构建分别能证明什么](/notes/typescript-31-quality-tooling)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-07-typescript-engineering","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Ta3a,
+数据库Task有ownerId、内部备注与删除标记，页面列表只需要标题和状态。若为了少写类型直接返回整行，新增内部字段也可能随响应公开。相同实体名称不代表每一层都应使用完全相同结构。
+
+类型放在拥有它的领域模块附近；只在多个包需要同一个契约时才提升到 shared。数据库模型、API DTO 和页面视图模型目的不同，不应为了少写代码强行共用一个类型。
+
+共享 API Schema 可同时作为运行时校验和静态类型来源。内部实现类型不应通过公共入口全部导出。
+
+创建输入没有数据库生成的id，ownerId来自认证身份，时间由服务端确定；列表响应只选择公开字段，并把Date序列化为约定字符串；页面再计算展示文案。这些差异来自责任，不能用大量可选字段拼成一个“万能Task”。
+
+类型放在负责该规则的模块旁边。多个应用确实共同依赖API合同时，再由shared公开Schema与相应类型；Prisma客户端、连接配置和服务端密钥模块不能跟着导出给浏览器。
+
+## 复用什么，复制什么
+
+标题长度、状态名单与公开请求结构属于共同规则，维护一个来源。数据库字段与页面临时展开状态则各有归属，即使暂时形状接近也不必强行共享。只有当输入、输出与不变量相同，复用才减少维护，而非扩大耦合。
+
+## 共享类型不能抹掉业务边界
+
+- 一个巨大 types.ts 会让领域边界消失。
+- 重复复制请求类型容易漂移；可从 Schema 推导。
+- 把 Prisma 数据模型直接返回给前端会暴露内部字段并耦合数据库结构。
+
+返回类型写成TaskSummary不会自动裁掉对象额外字段，运行时仍要用select或显式映射构造公开对象。共享类型解决编译期一致，输出白名单解决真实数据范围，两者都要核对。
+
+修改合同后沿Schema、API解析、服务调用、客户端与测试追踪。若每次小改都触发无关模块变化，检查导出是否过宽、是否存在跨层源码导入；不要先增加新的公共types文件隐藏现有依赖。
+
+## 动手验证
+
+为 Task 划分数据库记录、创建请求和列表响应；列出三者不同的字段。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：用 Zod 守住运行时输入边界](/notes/typescript-29-runtime-validation) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：格式、Lint、类型检查和构建分别能证明什么](/notes/typescript-31-quality-tooling)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-30-type-organization","title":"TypeScript 30：类型放在哪里：领域、API 与页面的区别","date":"2026-11-12","excerpt":"数据库Task新增了内部备注，接口会不会顺手把它发给浏览器？按输入、存储与展示职责组织类型，让复用保持规则一致，同时保留明确的公开边界。","tags":["TypeScript","TypeScript 工程实践"],"category":"typescript-07-typescript-engineering","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-07-typescript-engineering","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

@@ -1,8 +1,51 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-07-arrays-objects","title":"TypeScript 07：数组与对象：选择、转换和浅拷贝","date":"2026-11-12","excerpt":"处理任务列表时，我会先区分这一步是在筛选、转换、查找还是汇总，再选 filter、map、find 或 reduce。需要保留原数据时，还要检查嵌套对象有没有被共同引用。","tags":["TypeScript","JavaScript 语法"],"category":"typescript-02-javascript","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n处理任务列表时，我会先区分这一步是在筛选、转换、查找还是汇总，再选 filter、map、find 或 reduce。需要保留原数据时，还要检查嵌套对象有没有被共同引用。\n\n对象适合表示有名字的字段，数组适合表示有序集合。解构读取属性，展开语法创建浅拷贝。map 转换每个元素，filter 选择元素，find 查找一个元素，reduce 汇总结果。Map 适合任意键值映射，Set 适合唯一值集合；Date 用于日期时间，但跨 API 通常应传 ISO 字符串。\n\n~~~js\nconst tasks = [\n  { id: \"a\", status: \"todo\" },\n  { id: \"b\", status: \"done\" },\n];\n\nconst openTasks = tasks.filter((task) => task.status !== \"done\");\nconst titles = openTasks.map((task) => task.id);\n~~~\n\n对象展开只复制一层。嵌套对象仍与原对象共享引用。日期在 JSON 中通常传 ISO 字符串，客户端收到后需要按需转换为 Date。\n\n## 浅拷贝只复制一层\n\n- 修改原数组可能影响其他调用者；React 状态更新时通常创建新数组或对象。\n- map 有返回值；仅做副作用时用 forEach 或普通循环更清楚。\n- 别把对象当作任意顺序的业务列表。\n\n## 动手验证\n\n写一个函数，返回所有未完成任务，并用新对象把每个任务标题加上前缀；不要改动原数组。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：判断、循环与默认值：0 和空字符串怎么办](/notes/typescript-06-control-flow) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：函数与闭包：函数记住了什么](/notes/typescript-08-functions-scope)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-02-javascript","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tc23,
+筛出未完成任务以后，给第一项加了标记，原列表中的同一项也变了。filter确实返回新数组，但数组里仍是原来的任务对象。“集合独立”与“元素独立”要分两层理解。
+
+对象适合表示有名字的字段，数组适合表示有序集合。解构读取属性，展开语法创建浅拷贝。map 转换每个元素，filter 选择元素，find 查找一个元素，reduce 汇总结果。Map 适合任意键值映射，Set 适合唯一值集合；Date 用于日期时间，但跨 API 通常应传 ISO 字符串。
+
+~~~js
+const tasks = [
+  { id: "a", status: "todo" },
+  { id: "b", status: "done" },
+];
+
+const openTasks = tasks.filter((task) => task.status !== "done");
+const titles = openTasks.map((task) => task.id);
+~~~
+
+对象展开只复制一层。嵌套对象仍与原对象共享引用。日期在 JSON 中通常传 ISO 字符串，客户端收到后需要按需转换为 Date。
+
+例子中openTasks只有编号a，titles得到 `["a"]`，变量名只是演示映射结果。filter决定保留哪些元素，map决定每个输出是什么，find返回首个匹配或undefined，reduce把多个元素累积为一个结果。没有复杂汇总时，普通循环也很清楚，不必把所有步骤压成链式表达式。
+
+要更改标题又保留旧数据，可以map出 `{ ...task, title: prefix + task.title }`；若还修改嵌套的meta，也要为那一层创建新对象。没有变化的任务可保留原引用，这既表达变化范围，也让依赖引用比较的更新更容易判断。
+
+sort会修改原数组，可以先复制再排序或使用适用环境中的toSorted。数值排序提供比较器，否则默认按字符串规则；需要稳定业务次序时，再加编号等并列规则。操作返回新结果还是修改原对象，应该逐个API核对。
+
+## 浅拷贝只复制一层
+
+- 修改原数组可能影响其他调用者；React 状态更新时通常创建新数组或对象。
+- map 有返回值；仅做副作用时用 forEach 或普通循环更清楚。
+- 别把对象当作任意顺序的业务列表。
+
+Map适合按键建立索引，键可以是对象；Set按值或对象身份判断成员，不能自动对内容相同的独立对象去重。要按任务编号去重，应明确选择保留第一次还是最后一次，再按编号组织结果。
+
+Date表示一个时间值，解析无时区文本与显示本地日期可能产生边界差异。接口传明确时区的字符串，纯日历日期则按日期合同处理，不随意加午夜时区转换。集合转换和日期解析一样，都必须保留原始含义。
+
+## 动手验证
+
+写一个函数，返回所有未完成任务，并用新对象把每个任务标题加上前缀；不要改动原数组。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：判断、循环与默认值：0 和空字符串怎么办](/notes/typescript-06-control-flow) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：函数与闭包：函数记住了什么](/notes/typescript-08-functions-scope)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-07-arrays-objects","title":"TypeScript 07：数组与对象：选择、转换和浅拷贝","date":"2026-11-12","excerpt":"filter返回了新数组，修改其中任务为什么仍改变原数据？沿集合与元素的两层引用解释筛选、映射和浅复制，再选择Map、Set与日期表示。","tags":["TypeScript","JavaScript 语法"],"category":"typescript-02-javascript","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-02-javascript","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

@@ -1,8 +1,37 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-advanced-02-messaging-choice","title":"Go 专题 02：RabbitMQ 与 Kafka：从消息要怎么用来选型","date":"2026-11-12","excerpt":"选择消息队列时，我会先列出是否需要回放、顺序和复杂路由，再比较吞吐与维护成本。名称和流行程度都不能替业务决定消息的确认、重试和幂等规则。","tags":["Go","进阶专题"],"category":"go-advanced","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n选择消息队列时，我会先列出是否需要回放、顺序和复杂路由，再比较吞吐与维护成本。名称和流行程度都不能替业务决定消息的确认、重试和幂等规则。\n\n## 选型维度\n\n比较吞吐、保留和回放能力、路由模式、顺序范围、消费模型、运维复杂度、生态和团队经验。Kafka 擅长持久化事件流、分区扩展与回放；RabbitMQ 擅长灵活路由和传统工作队列语义。具体能力还取决于拓扑、持久化和确认配置。\n\n## 设计重点\n\n无论选择哪种队列，都要说明投递确认、消费者确认、重试、死信、幂等和监控。换队列不能替代业务事件设计和失败补偿。\n\n## 动手验证\n\n为“订单事件回放”和“定向通知路由”分别比较 Kafka 与 RabbitMQ，并写出选择依据。\n\n---\n\n[上一篇：Elasticsearch：把搜索当作可重建的投影](/notes/go-advanced-01-elasticsearch) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：读写分离与分片：扩展数据库之前先看约束](/notes/go-advanced-03-database-scaling)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-advanced","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Ta5c,
+一条订单事件，统计、搜索与通知都想读取，而且统计逻辑修改后还想从昨天重放。另一类任务只希望交给一个空闲worker，处理完就结束。都叫“消息”，但保留方式和消费关系已经不同，选型先从这里开始。
+
+## 选型维度
+
+比较吞吐、保留和回放能力、路由模式、顺序范围、消费模型、运维复杂度、生态和团队经验。Kafka 擅长持久化事件流、分区扩展与回放；RabbitMQ 擅长灵活路由和传统工作队列语义。具体能力还取决于拓扑、持久化和确认配置。
+
+Kafka让不同消费组维护独立进度，日志按保留策略存在，天然适合多份独立读取与回放。顺序限定在分区内，需要根据业务键分区；并行度、热点与保留存储一起规划，不是所有消息都有全局顺序。
+
+RabbitMQ常见队列模型通过交换机与绑定路由到目标队列，消费者确认后释放对应待处理消息，适合工作分发与定向路由。它也有不同队列类型与Streams等能力，不能把产品名称简单等同于唯一消费模型；具体选择阅读对应版本和类型的文档。
+
+生产者确认与消费者确认作用不同。前者说明Broker是否接受到相应边界，后者说明消费端是否完成处理；消费者发出确认以前，仍要明确自己的数据库事务是否提交。两边都有重投与重复处理的可能，不能换队列后删掉业务幂等。
+
+## 设计重点
+
+无论选择哪种队列，都要说明投递确认、消费者确认、重试、死信、幂等和监控。换队列不能替代业务事件设计和失败补偿。
+
+顺序要求还会限制重试策略。把失败消息挪到另一条重试队列，后续消息继续处理，可能改变同一订单状态的应用顺序；严格顺序则可能让一条坏消息阻塞后续。需要根据状态版本、可跳过范围与人工处理规则决定取舍。
+
+比较时用同样的消息大小、确认级别、副本与故障场景测量。关闭持久化得到的吞吐不能拿来对比另一边的强确认配置，团队已经能运维的系统也有现实收益。最终写出需求与配置对应关系，而不只给一个“更快”的排名。
+
+## 动手验证
+
+为“订单事件回放”和“定向通知路由”分别比较 Kafka 与 RabbitMQ，并写出选择依据。
+
+---
+
+[上一篇：Elasticsearch：把搜索当作可重建的投影](/notes/go-advanced-01-elasticsearch) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：读写分离与分片：扩展数据库之前先看约束](/notes/go-advanced-03-database-scaling)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-advanced-02-messaging-choice","title":"Go 专题 02：RabbitMQ 与 Kafka：从消息要怎么用来选型","date":"2026-11-12","excerpt":"订单事件要给多个系统反复读取，通知任务则希望交给一个worker，两个需求怎样影响队列选择？按保留、确认、路由与顺序比较Kafka和RabbitMQ。","tags":["Go","进阶专题"],"category":"go-advanced","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-advanced","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

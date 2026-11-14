@@ -1,8 +1,53 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-02-web-architecture","title":"TypeScript 02：浏览器、API 与数据库之间发生了什么","date":"2026-11-12","excerpt":"我会从一次“新增任务”的点击开始看 Web：输入怎样变成请求，谁检查身份，谁真正写入数据库。沿着这条路径走，比先记一堆框架名称更容易分清职责。","tags":["TypeScript","Web 基础"],"category":"typescript-01-web","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n我会从一次“新增任务”的点击开始看 Web：输入怎样变成请求，谁检查身份，谁真正写入数据库。沿着这条路径走，比先记一堆框架名称更容易分清职责。\n\n浏览器负责展示页面并响应用户操作；服务端负责认证、业务规则和数据访问；数据库负责持久保存数据。浏览器不应直接连接生产数据库，也不能被当作可信环境。\n\n典型请求流程：\n\n1. 用户点击按钮。\n2. 前端把输入转换成 HTTP 请求。\n3. API 检查身份、权限和输入。\n4. API 调用数据库并构造响应。\n5. 前端根据响应更新界面。\n\n静态文件由 Web 服务器提供；API 通常以 JSON 交换数据。前端代码可以被用户查看，因此秘密和权限判断必须放在服务端。\n\n## Python 对照\n\n用 Python 写 Web 应用时，浏览器和服务器的边界依然存在。语言改变了，HTTP 请求、数据库和信任边界并没有改变。\n\n## 动手验证\n\n为“新增任务”画出从点击提交到页面出现新任务的 5 步数据流，并标出哪一步验证登录状态。\n\n## 运行后检查\n\n说明为什么隐藏一个按钮不能代替后端权限校验。\n\n[这一节的练习参考](/notes/typescript-exercise-answers)。\n\n---\n\n[上一篇：从 Python 转向 TypeScript，先分清运行环境](/notes/typescript-01-learning-route) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：HTML、CSS 与 DOM：React 下面仍然是浏览器](/notes/typescript-03-html-css-dom)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=typescript-01-web","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tc4a,
+点击新增，列表马上多一行，刷新却没了。可能只是改了浏览器内存，根本没有请求；也可能请求失败，界面仍提前显示成功。页面看得见，不等于数据已经持久保存，要沿实际数据流继续找。
+
+浏览器负责展示页面并响应用户操作；服务端负责认证、业务规则和数据访问；数据库负责持久保存数据。浏览器不应直接连接生产数据库，也不能被当作可信环境。
+
+典型请求流程：
+
+1. 用户点击按钮。
+2. 前端把输入转换成 HTTP 请求。
+3. API 检查身份、权限和输入。
+4. API 调用数据库并构造响应。
+5. 前端根据响应更新界面。
+
+静态文件由 Web 服务器提供；API 通常以 JSON 交换数据。前端代码可以被用户查看，因此秘密和权限判断必须放在服务端。
+
+浏览器先取得HTML、样式与脚本，再执行事件逻辑。表单输入此时只是客户端状态；发出POST后，API解析请求、验证身份、规范化字段，并在数据库事务完成后返回结果。前端以返回的正式编号与时间更新列表，而不是假设本地临时值就是最终记录。
+
+如果响应丢失，前端可能不知道数据库是否已提交。重复创建是否产生两份任务，由接口幂等合同决定；取消浏览器请求，也不会自动回滚服务器已经完成的提交。这些不是React状态管理库能单独解决的问题。
+
+## 为什么浏览器不直接连数据库
+
+浏览器代码与请求都可被用户修改，藏在脚本中的数据库密码最终也会交到用户手上。API把可信操作集中在服务端，按当前身份限制资源范围，数据库再用约束保护状态。前端检查空标题可以及时反馈，后端仍要拒绝绕过页面直接发来的非法请求。
+
+数据库连接、业务权限与外部服务密钥留在服务端；真正要公开给浏览器的只是受控接口和公开配置。即使前后端都使用TypeScript，两边也是独立运行环境，不能通过共享一个类型就共享内存或信任。
+
+## Python 对照
+
+用 Python 写 Web 应用时，浏览器和服务器的边界依然存在。语言改变了，HTTP 请求、数据库和信任边界并没有改变。
+
+一个全栈框架可能把页面和API放进同一个仓库，也可能在服务器生成HTML，但每段代码在哪里执行仍须分清。读文件、访问数据库的代码不能因为与组件同目录，就自然在浏览器里工作。遇到问题先确认执行位置，再核对输入和结果。
+
+## 动手验证
+
+为“新增任务”画出从点击提交到页面出现新任务的 5 步数据流，并标出哪一步验证登录状态。
+
+## 运行后检查
+
+说明为什么隐藏一个按钮不能代替后端权限校验。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：从 Python 转向 TypeScript，先分清运行环境](/notes/typescript-01-learning-route) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：HTML、CSS 与 DOM：React 下面仍然是浏览器](/notes/typescript-03-html-css-dom)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-02-web-architecture","title":"TypeScript 02：浏览器、API 与数据库之间发生了什么","date":"2026-11-12","excerpt":"任务已经出现在页面上，刷新却消失了，数据到底保存在哪里？沿一次新增请求追踪浏览器、API与数据库，区分界面状态、提交结果和可信边界。","tags":["TypeScript","Web 基础"],"category":"typescript-01-web","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-01-web","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

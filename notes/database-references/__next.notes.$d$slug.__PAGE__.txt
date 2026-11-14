@@ -4,12 +4,14 @@ b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e
 c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
-3:T23e8,
-需要确认隔离、索引、恢复或产品限制时，我会沿这里的官方入口查具体版本。主线使用 PostgreSQL 16，MySQL 对照限定 8.4 与 InnoDB，不能把不同版本的行为混成同一个结论。
+3:T2803,
+搜索到Repeatable Read，先看说的是PostgreSQL还是InnoDB；同名级别背后允许的过程可能不同。查资料先固定产品与版本，再读对应机制、命令参数和限制，最后用最小实验核对。这里按当前问题提供入口，不把所有链接当成同一种保证。
 
 原资料的核对日期为 2026-11-13，实验版本记录为 PostgreSQL 16.15。镜像标签会推进补丁版本，实际运行时仍要保存自己的版本和摘要；已有运行范围见[实验记录](/notes/database-lab-results)。
 
 ## PostgreSQL
+
+结果行数与金额问题先看查询和约束，竞争问题看隔离与显式锁，性能问题再接索引和计划。恢复需要读工具范围与连续归档条件，不能只复制一条pg_dump或pg_basebackup命令。
 
 | 资料 | 对应章节与用途 |
 |---|---|
@@ -40,6 +42,8 @@ e:"$Sreact.suspense"
 
 ## MySQL 与工具
 
+数据库手册解释引擎语义，驱动文档解释参数绑定，镜像与Compose文档解释进程和数据卷。环境连通以后仍要分别核对这三层，避免把一个工具的默认值推成另一层的业务承诺。
+
 | 资料 | 用途 |
 |---|---|
 | [MySQL 8.4 手册](https://dev.mysql.com/doc/refman/8.4/en/) | 对照版本入口 |
@@ -57,6 +61,8 @@ e:"$Sreact.suspense"
 ## 第 23 章：常用数据库选型资料
 
 以下资料用于核对产品定位、数据模型、事务与部署边界。PG 与 MySQL 沿用上面的版本资料；其余产品的版本、授权和商业功能应在正式选型时单独记录。
+
+先从目标负载挑候选，再查它实际使用的部署形态与接口。产品主页适合了解定位，事务、持久化与故障恢复还要继续读技术限制；“支持某能力”只是进入验证的起点，不是当前配置已经具备它。
 
 | 类别或产品 | 官方资料与阅读重点 |
 |---|---|
@@ -79,10 +85,12 @@ e:"$Sreact.suspense"
 
 示例中的时长和机器资源建议只用于安排练习，不能作为数据库产品的性能或服务承诺。
 
+保留访问日期、文档版本与实际命令，之后遇到变化就能确认是实现变了、配置变了还是原先理解有误。历史实验继续保留原条件，新版本验证单独记录，不用后来结果改写过去测量。
+
 ---
 
 [数据库目录](/notes/database-00-learning-guide)
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-references","title":"数据库官方资料：版本、主题与产品入口","date":"2026-11-13","excerpt":"需要确认隔离、索引、恢复或产品限制时，我会沿这里的官方入口查具体版本。主线使用 PostgreSQL 16，MySQL 对照限定 8.4 与 InnoDB，不能把不同版本的行为混成同一个结论。","tags":["数据库","PostgreSQL"],"category":"database-resources","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-references","title":"数据库官方资料：版本、主题与产品入口","date":"2026-11-13","excerpt":"查到一个隔离级别结论，先确认它属于哪种引擎与版本。按SQL、恢复和选型整理官方入口，说明从概念页怎样继续找到参数、限制与验证方法。","tags":["数据库","PostgreSQL"],"category":"database-resources","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-resources","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]

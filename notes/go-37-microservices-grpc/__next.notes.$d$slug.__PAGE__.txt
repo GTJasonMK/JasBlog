@@ -1,8 +1,43 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-37-microservices-grpc","title":"Go 37：从模块化单体到微服务：先说明拆分的收益","date":"2026-11-12","excerpt":"我会先用一个模块化单体观察职责和容量差异，再决定是否拆服务。gRPC 能让调用合同更明确，但网络失败、数据所有权和发布协调仍然是拆分后的新工作。","tags":["Go","测试、性能与微服务"],"category":"go-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n我会先用一个模块化单体观察职责和容量差异，再决定是否拆服务。gRPC 能让调用合同更明确，但网络失败、数据所有权和发布协调仍然是拆分后的新工作。\n\n## 先找拆分理由\n\n微服务适用于团队边界、独立扩缩容、隔离故障或独立发布确实有价值的场景。拆分会引入网络失败、部署协调、分布式数据和排障成本。先观察模块化单体中的真实变化频率、依赖方向和容量差异，再选边界。\n\n商品目录和订单生命周期可能有不同读写特征，适合作为讨论候选；用户与认证未必需要一开始单独拆分。拆分后避免多个服务共同写同一张表。\n\n## gRPC\n\n用 Protocol Buffers 定义请求、响应和服务，生成客户端与服务端代码。接口需要保持向后兼容：字段号不复用，删除字段时保留编号和名称。内部调用仍需 deadline、认证、限流和错误映射。\n\n## 数据所有权\n\n每个服务负责自己的数据写入。跨服务查询可以通过 API 组合、事件投影或读模型实现，代价不同。不要在每次请求中为了拼一个页面而串行调用大量服务。\n\n## 动手验证\n\n选择订单服务与目录服务的接口边界，设计一个查询商品价格的 protobuf RPC，并列出服务不可用时订单请求的行为。\n\n---\n\n[上一篇：压测与 pprof：解释吞吐和尾延迟](/notes/go-36-performance) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：超时、重试、限流与熔断怎么配合](/notes/go-38-resilience)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tbe3,
+原来查价格是一次函数调用，拆成服务后，它可能超时、连接中断、拿到旧版本响应。代码移动到另一个进程，并没有自动减少业务依赖；如果每次发布仍必须两边一起改，独立部署的收益也没有真正出现。
+
+## 先找拆分理由
+
+微服务适用于团队边界、独立扩缩容、隔离故障或独立发布确实有价值的场景。拆分会引入网络失败、部署协调、分布式数据和排障成本。先观察模块化单体中的真实变化频率、依赖方向和容量差异，再选边界。
+
+商品目录和订单生命周期可能有不同读写特征，适合作为讨论候选；用户与认证未必需要一开始单独拆分。拆分后避免多个服务共同写同一张表。
+
+边界优先贴近能独立维护的不变量。订单与明细在同一本地事务里很自然，硬拆成两个服务会把原子写入变成跨服务流程；目录查询与订单成交快照则可以有清楚合同。拆分前先在单体中整理依赖，通常能更早看出哪些关系不适合跨网络。
+
+## gRPC
+
+用 Protocol Buffers 定义请求、响应和服务，生成客户端与服务端代码。接口需要保持向后兼容：字段号不复用，删除字段时保留编号和名称。内部调用仍需 deadline、认证、限流和错误映射。
+
+protobuf固定字段编码，生成代码减少手写序列化，却不解释金额单位、空值或资源权限。默认值与字段存在性也要按使用的语法版本设计。删除字段后保留编号，避免未来把同一编号重新解释为另一含义。
+
+调用方按剩余请求预算设置deadline，服务端响应取消并区分NotFound、InvalidArgument和Unavailable等错误。重试只针对合同允许的操作；创建订单的RPC也需要幂等，换成二进制传输不会消除超时后的提交不确定性。
+
+## 数据所有权
+
+每个服务负责自己的数据写入。跨服务查询可以通过 API 组合、事件投影或读模型实现，代价不同。不要在每次请求中为了拼一个页面而串行调用大量服务。
+
+订单保存成交价与规则版本，目录更新不重写历史订单。需要订单列表里的商品展示时，可以选择保存展示快照、批量读取目录或维护读模型，各自有陈旧与通信成本。若直接跨服务连库JOIN，短期省一次接口，长期却把表结构和发布绑在一起。
+
+拆分后的验证至少包含依赖不可用、旧客户端与新服务共存，以及回滚后协议仍可读取。只有两边在本机同时运行成功，尚未验证独立部署真正面对的条件。
+
+## 动手验证
+
+选择订单服务与目录服务的接口边界，设计一个查询商品价格的 protobuf RPC，并列出服务不可用时订单请求的行为。
+
+---
+
+[上一篇：压测与 pprof：解释吞吐和尾延迟](/notes/go-36-performance) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：超时、重试、限流与熔断怎么配合](/notes/go-38-resilience)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-37-microservices-grpc","title":"Go 37：从模块化单体到微服务：先说明拆分的收益","date":"2026-11-12","excerpt":"把查商品价格从函数调用换成gRPC，订单服务就独立了吗？从发布、容量与数据所有权判断拆分边界，再处理网络失败和协议演进带来的新增责任。","tags":["Go","测试、性能与微服务"],"category":"go-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

@@ -1,8 +1,47 @@
 1:"$Sreact.fragment"
 2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-3:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-4:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
-5:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-20-security","title":"Go 20：认证、授权与 Web 安全的几条边界","date":"2026-11-12","excerpt":"登录成功只能说明身份得到确认。用户是否能查看某张订单，还得检查资源归属。我会把身份、权限、输入和凭据生命周期分开设计，逐条确认由哪里负责。","tags":["Go","HTTP 与服务设计"],"category":"go-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"\n登录成功只能说明身份得到确认。用户是否能查看某张订单，还得检查资源归属。我会把身份、权限、输入和凭据生命周期分开设计，逐条确认由哪里负责。\n\n## 认证与授权\n\n认证回答“你是谁”，授权回答“你能对这个资源做什么”。JWT 是一种令牌格式，不是加密方式；签名验证通过也不代表权限检查完成。验证时要检查签名算法、过期时间、签发方和受众，并设计密钥轮换。生产身份系统优先评估标准 OAuth 2.0 / OpenID Connect 服务，不自行发明密码协议。\n\n密码应使用专门的慢哈希算法（如 bcrypt 或 Argon2 的成熟实现）保存，不能明文或用普通 SHA 哈希。敏感操作还要校验用户是否拥有目标订单。\n\n还要定义令牌生命周期：访问令牌有效期、刷新令牌轮换、登出或泄露后的撤销方式，以及账号禁用后的生效时间。若用 Cookie 保存凭据，应设置 Secure、HttpOnly、合适的 SameSite，并评估 CSRF 防护；Bearer Token 放在 Authorization Header 时也要防止被日志和前端存储泄漏。TLS 应覆盖客户端到入口以及需要保护的内部链路。\n\n## 输入与访问边界\n\nSQL 使用参数化查询；URL 抓取等功能需防 SSRF；文件上传要限制大小和类型；登录和抢购需要按用户、IP 或资源做限流。跨域策略应使用允许列表，不能为图省事允许任意来源携带凭据。\n\nCORS 是浏览器的跨域访问策略，不是服务端授权机制，也不能阻止非浏览器客户端访问 API。\n\n## 机密管理\n\n本地开发可以使用未提交的环境配置；部署环境用平台密钥管理能力注入。Kubernetes Secret 默认只是 API 对象，不等价于完整密钥管理；还需限制 RBAC、启用集群加密并避免把值写进镜像或日志。\n\n## 动手验证\n\n列出抢购接口的认证、授权、限流、幂等和库存检查分别解决什么风险；说明其中任何一项都不能替代其他项。\n\n---\n\n[上一篇：配置、日志与服务的启动和关闭](/notes/go-19-config-logging) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：MySQL 建模与 SQL：从查询和业务状态出发](/notes/go-21-mysql-sql)\n\n"},"back":["$","$L3",null,{"href":"/notes?category=go-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L4",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"loading":null,"isPartial":false}
-7:null
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Teb8,
+用户A登录后访问自己的订单42，把地址改成43，如果服务只按编号查询，就可能拿到用户B的数据。登录检查确实成功了，但缺少资源授权。编号合法、令牌合法与允许访问这张订单，是三件不同的事。
+
+## 认证与授权
+
+认证回答“你是谁”，授权回答“你能对这个资源做什么”。JWT 是一种令牌格式，不是加密方式；签名验证通过也不代表权限检查完成。验证时要检查签名算法、过期时间、签发方和受众，并设计密钥轮换。生产身份系统优先评估标准 OAuth 2.0 / OpenID Connect 服务，不自行发明密码协议。
+
+密码应使用专门的慢哈希算法（如 bcrypt 或 Argon2 的成熟实现）保存，不能明文或用普通 SHA 哈希。敏感操作还要校验用户是否拥有目标订单。
+
+身份信息来自已经验证的会话或令牌，不从请求体里的user_id直接相信。普通用户查询可以把当前身份约束加入查询；管理操作则检查独立权限。隐藏按钮只能改善界面，直接发HTTP请求仍能到达后端，服务端必须覆盖每条入口。
+
+还要定义令牌生命周期：访问令牌有效期、刷新令牌轮换、登出或泄露后的撤销方式，以及账号禁用后的生效时间。若用 Cookie 保存凭据，应设置 Secure、HttpOnly、合适的 SameSite，并评估 CSRF 防护；Bearer Token 放在 Authorization Header 时也要防止被日志和前端存储泄漏。TLS 应覆盖客户端到入口以及需要保护的内部链路。
+
+常见签名JWT的载荷可以被读取，不能把身份证号或密钥放进去当作已加密。短有效期缩小泄露窗口，却不等于立即撤销；如果业务要求账号禁用马上生效，就需要相应的状态检查或撤销机制，并核算额外访问成本。
+
+## 输入与访问边界
+
+SQL 使用参数化查询；URL 抓取等功能需防 SSRF；文件上传要限制大小和类型；登录和抢购需要按用户、IP 或资源做限流。跨域策略应使用允许列表，不能为图省事允许任意来源携带凭据。
+
+CORS 是浏览器的跨域访问策略，不是服务端授权机制，也不能阻止非浏览器客户端访问 API。
+
+SQL参数化保护值的位置，动态排序列仍需要白名单。URL抓取要验证目标与实际连接，防止访问本地和内网资源，重定向与DNS变化也在边界内。上传不能只信文件名后缀，大小、实际内容和存放位置都影响后续处理风险。
+
+限流要考虑共享出口与被攻击资源。只按IP可能误伤同一网络的用户，也不能阻止多个IP攻击同一账号；登录按账号与来源组合观察，抢购还需活动容量与用户维度。限流减少资源消耗，不能替代库存条件更新或订单幂等。
+
+## 机密管理
+
+本地开发可以使用未提交的环境配置；部署环境用平台密钥管理能力注入。Kubernetes Secret 默认只是 API 对象，不等价于完整密钥管理；还需限制 RBAC、启用集群加密并避免把值写进镜像或日志。
+
+安全验证可以从明确的失败请求开始：匿名访问受限接口应被拒绝，A操作B的订单应被拒绝，过期或错误受众令牌应被拒绝。每项检查对应一个边界，不能只跑一次“登录成功”就推断权限链已经成立。
+
+## 动手验证
+
+列出抢购接口的认证、授权、限流、幂等和库存检查分别解决什么风险；说明其中任何一项都不能替代其他项。
+
+---
+
+[上一篇：配置、日志与服务的启动和关闭](/notes/go-19-config-logging) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：MySQL 建模与 SQL：从查询和业务状态出发](/notes/go-21-mysql-sql)
+
+0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-20-security","title":"Go 20：认证、授权与 Web 安全的几条边界","date":"2026-11-12","excerpt":"用户登录后把订单编号改成别人的，服务为什么还可能返回数据？从资源归属拆开认证、授权与输入校验，再讨论令牌、Cookie和外部访问的边界。","tags":["Go","HTTP 与服务设计"],"category":"go-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null
