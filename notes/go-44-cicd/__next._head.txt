@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"ViewportBoundary"]
+3:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Go 44：CI/CD：让每次发布有可追溯的结果 | JasBlog"}],["$","meta","1",{"name":"description","content":"一条流水线对我有用，前提是失败会停下来，成功产物可以追溯。源码版本、镜像 digest、迁移版本和部署记录应该能对应起来，而不是只留下一个“发布成功”。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L5","3",{}]]}]}]}],null]}],"loading":null,"isPartial":false}

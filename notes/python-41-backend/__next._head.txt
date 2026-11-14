@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"ViewportBoundary"]
+3:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Python 41：FastAPI：一次请求如何经过校验和业务处理 | JasBlog"}],["$","meta","1",{"name":"description","content":"理解一个 API 时，我会沿着请求往下看：输入在哪里解析，业务规则在哪里执行，结果又怎样变成 HTTP 响应。FastAPI 能处理其中一部分工作，权限和数据一致性仍然需要自己设计。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L5","3",{}]]}]}]}],null]}],"loading":null,"isPartial":false}

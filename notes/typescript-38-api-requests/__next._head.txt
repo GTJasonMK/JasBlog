@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"ViewportBoundary"]
+3:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"TypeScript 38：请求状态：空列表和加载失败不能混在一起 | JasBlog"}],["$","meta","1",{"name":"description","content":"页面没有显示任务时，我希望能明确知道是还在加载、确实为空，还是请求失败。用一组互斥状态描述这些情况，比维护几个容易矛盾的布尔值更清楚。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L5","3",{}]]}]}]}],null]}],"loading":null,"isPartial":false}

@@ -1,0 +1,43 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T9b6,
+只剩一件库存时，两个请求可能同时查到它。我会把“数量足够才扣减”交给同一条条件更新，再把订单创建放进同一个数据库事务，避免查询和修改之间留下空档。
+
+## 事务边界
+
+一个事务应覆盖必须一起提交或一起回滚的数据库变化。例如扣减库存并创建订单，如果任一步失败，就不应留下半个业务结果。事务尽量短；不要在持有数据库锁时调用外部 HTTP 或等待消息。
+
+先在业务层明确拒绝 quantity <= 0，再执行条件扣减。订单明细表应约束 quantity > 0，库存表应约束 available >= 0（具体 CHECK 约束行为要按所用 MySQL 版本确认）。库存行的业务键必须有唯一约束，避免一条更新命中多行。业务层校验不可省略，数据库约束用于防止其他写入路径破坏数据。常见库存扣减可以通过条件更新完成：
+
+~~~sql
+UPDATE inventory
+SET available = available - ?
+WHERE product_id = ? AND available >= ?;
+~~~
+
+应用检查受影响行数：为 1 表示扣减成功，为 0 表示库存不足或商品不存在。正数量校验不可省略，否则负数量会让减法变成加库存。相比先查库存再更新，这种写法避免了检查与更新之间的竞争窗口。
+
+## 锁与隔离
+
+事务隔离级别决定并发事务能看到哪些版本的数据。脏读、不可重复读和幻读是常见并发读现象；MySQL InnoDB 默认通常使用 REPEATABLE READ，但具体锁定读和范围查询行为要结合索引、语句与数据库版本理解。普通一致性读与 SELECT ... FOR UPDATE 等锁定读用途不同；库存扣减优先用带条件的原子 UPDATE。
+
+数据库锁保护并发事务，但也可能造成等待和死锁。死锁时数据库会回滚其中一个事务，应用应识别错误并在安全条件下重试整个事务。重试必须有次数上限，也必须确保操作幂等。
+
+## 连接池
+
+限制最大连接数、空闲连接数和连接寿命。连接池不是越大越好；数据库的总连接预算要按服务实例数分配。
+
+## 动手验证
+
+实现一次“条件扣库存 + 创建订单”的事务。模拟两个并发请求竞争最后一件库存，保证最多只有一个成功。
+
+---
+
+[上一篇：索引与查询优化：让执行计划给出依据](/notes/go-22-indexes) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：GORM 的作用与持久层的边界](/notes/go-24-gorm-repository)
+
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-23-transactions-locks","title":"Go 23：事务、锁与连接池：并发扣库存怎么保证正确","date":"2026-11-12","excerpt":"只剩一件库存时，两个请求可能同时查到它。我会把“数量足够才扣减”交给同一条条件更新，再把订单创建放进同一个数据库事务，避免查询和修改之间留下空档。","tags":["Go","数据库、缓存与消息"],"category":"go-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

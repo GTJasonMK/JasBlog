@@ -1,0 +1,69 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T102a,
+数据库中的事务写对了，应用仍可能在提交前返回成功，或者在断网后重复下单。我会把连接借出、执行、提交和归还放在同一条路径上看，分别处理明确失败与结果未知。
+
+驱动片段用于说明事务和参数绑定接口，不依赖额外的应用框架。
+
+## 参数是数据，SQL 结构由代码决定
+
+下面是 Psycopg 3 风格的 Python 片段，需要调用方已有连接池：
+
+```python
+with pool.connection() as conn:
+    with conn.transaction():
+        row = conn.execute(
+            "SELECT shop.place_order(%s, %s, %s, %s)",
+            (customer_id, product_id, quantity, request_key),
+        ).fetchone()
+        order_id = row[0]
+```
+
+事务块成功退出才提交，异常退出时回滚。不要先发成功响应再等提交。占位符写法随驱动变化，PostgreSQL 原生预备语句常用 `$1`，Psycopg 用 `%s`，不要把它们混用。
+
+用户值必须通过参数绑定，不用字符串拼接。表名、排序方向等 SQL 结构通常不能作为普通参数绑定，应从代码允许的固定集合选择，必要时使用驱动提供的标识符构造工具。
+
+## 连接池是一组有限资源
+
+每个数据库连接有内存和调度成本。应用副本数乘以每池最大连接数，再加上迁移、任务和运维连接，必须低于服务端可用预算，并留出故障处理余量。
+
+假设服务允许应用占用 120 个连接，部署 6 个实例，每池 15 个使用 90 个，剩余给后台任务与扩容。不能每台都配 100 后再把数据库最大连接数随意调大。
+
+在稳定状态下，可用“吞吐量 × 平均占用连接时长”估计平均并发连接需求。例如每秒 200 请求、每次占用 0.02 秒，平均约 4 个连接；峰值、尾延迟和事务波动仍需压测。增加连接可能增加数据库争用，使延迟更差。
+
+长时间持有连接等待网络、用户输入或 CPU 工作会占满池。记录获取连接耗时与 SQL 耗时，避免把池排队误判成数据库执行慢。
+
+## 连接归还必须清理状态
+
+未结束事务、改变的时区、临时表、会话锁和 `search_path` 可能污染下一个借用者。优先使用有明确事务管理和重置机制的连接池，设置事务内参数用 `SET LOCAL`。
+
+PgBouncer 的事务池模式会改变会话语义。会话状态、临时表和预备语句是否可用取决于模式与具体版本，接入前核对兼容性，不能仅以“能连上”为验收。
+
+ORM 同样需要检查生成 SQL、查询次数和事务范围。列表循环加载关联数据会形成 N+1 查询；一次性关联也可能形成巨大笛卡尔积。按访问模式使用明确投影、批量查询和分页。
+
+## 区分失败与结果未知
+
+| 情况 | 合理处理 |
+|---|---|
+| 输入错误、约束违反、权限不足 | 明确失败，修正请求或配置 |
+| `40001`、`40P01` | 回滚整个事务，有限次数、带退避地完整重试 |
+| 锁超时、池等待超时 | 查竞争与容量；不能无上限重试放大负载 |
+| 提交时网络断开 | 结果可能未知，用原幂等键查询确认，不能换键重新下单 |
+
+重试需要总时间预算、次数上限和指标。事务外的 HTTP 请求、邮件和消息不能在每次数据库重试中重复产生副作用。可靠发送交给 outbox 等机制。
+
+## 动手验证
+
+计算 8 个服务副本、每池 20 个连接、3 个后台任务各 10 个连接的总需求，并为运维预留预算。设计一次“提交已完成但响应丢失”的测试，说明如何确认订单身份。检查自己熟悉语言的驱动如何绑定参数、回滚和配置连接超时。
+
+参考：[Psycopg 参数绑定](https://www.psycopg.org/psycopg3/docs/basic/params.html)、[PostgreSQL 连接配置](https://www.postgresql.org/docs/16/runtime-config-connection.html)。
+
+---
+
+[上一篇：让订单、库存、幂等和流水一起成立](/notes/database-09-orders-idempotency) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：按查询设计索引，也把写入代价算进去](/notes/database-11-indexes)
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-10-connections-application","title":"数据库 10：事务接到应用里，还要管连接、超时和重试","date":"2026-11-13","excerpt":"数据库中的事务写对了，应用仍可能在提交前返回成功，或者在断网后重复下单。我会把连接借出、执行、提交和归还放在同一条路径上看，分别处理明确失败与结果未知。","tags":["数据库","PostgreSQL"],"category":"database-transactions","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-transactions","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

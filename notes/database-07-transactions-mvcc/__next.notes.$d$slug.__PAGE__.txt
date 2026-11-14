@@ -1,0 +1,90 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+7:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+3:T1171,
+理解隔离级别，我会直接看两个连接交错执行时能读到什么、能提交什么。MVCC 可以提供稳定快照，但两个事务修改不同记录时，仍可能一起破坏跨行规则。
+
+并发实验需要两个独立连接，单会话顺序执行无法证明并发行为。
+
+## 事务保护一个完整业务动作
+
+原子性表示事务整体提交或撤销；一致性依赖约束和正确业务逻辑共同维护；隔离性约束并发可见性；持久性依赖日志、刷盘设置和可靠存储。ACID 不会自动识别“客户余额与付款金额必须相等”这样的业务含义。
+
+```sql
+BEGIN;
+SELECT current_setting('transaction_isolation');
+SAVEPOINT before_change;
+UPDATE shop.products SET price_cents = 20900 WHERE id = 1;
+ROLLBACK TO SAVEPOINT before_change;
+COMMIT;
+```
+
+保存点允许撤销局部操作，但不能用来吞掉未知错误继续成功返回。PostgreSQL 事务中语句报错后，后续语句通常会收到“事务已中止”，必须回滚到错误之前的保存点或回滚整个事务。
+
+## MVCC 决定你看到哪个版本
+
+普通读取根据快照判断可见行，通常不阻塞普通写入。写写冲突仍要等待锁。长事务持有老快照，可能阻碍旧版本回收并造成膨胀。不要把“读取不阻塞写入”理解成数据库没有锁。
+
+| PostgreSQL 隔离级别 | 普通读取的快照 | 必须理解的限制 |
+|---|---|---|
+| Read Uncommitted | 按 Read Committed 实现 | PG 不提供真正的脏读模式 |
+| Read Committed，默认 | 通常每条语句重新取得快照 | 同一事务两次查询可看到不同已提交值 |
+| Repeatable Read | 首次需要快照时确定事务快照 | PG 可避免幻读，仍可能发生写偏斜 |
+| Serializable | 使用可串行化快照隔离检查依赖 | 可能以 `40001` 终止事务，应用须完整重试 |
+
+这里描述的是 PostgreSQL 实现，不是所有数据库的通用行为表。锁定读取和写入还涉及锁等待与更新后的条件重检。
+
+## 实验一：两次读取为什么不同
+
+管理员先创建专用练习数据，不修改订单基线：
+
+```sql
+CREATE TABLE practice.isolation_demo (
+    id integer PRIMARY KEY, balance integer NOT NULL CHECK (balance >= 0)
+);
+INSERT INTO practice.isolation_demo VALUES (1, 100), (2, 100);
+```
+
+严格按表格顺序执行，每格是一条会话操作：
+
+| 顺序 | 会话 A | 会话 B |
+|---|---|---|
+| 1 | `BEGIN ISOLATION LEVEL READ COMMITTED;` | |
+| 2 | `SELECT balance FROM practice.isolation_demo WHERE id=1;` 得到 100 | |
+| 3 | | `UPDATE practice.isolation_demo SET balance=200 WHERE id=1;` 自动提交 |
+| 4 | 再查同一行，得到 200 | |
+| 5 | `ROLLBACK;` | |
+
+再次执行，把第 1 步改为 `BEGIN ISOLATION LEVEL REPEATABLE READ`，B 将余额改为 300。A 两次都看到 200，结束事务后新查询才看到 300。保存每一步的输出与隔离级别。
+
+## 实验二：稳定快照仍可能破坏跨行规则
+
+业务要求两名医生至少一人值班：
+
+```sql
+CREATE TABLE practice.on_call (id integer PRIMARY KEY, available boolean NOT NULL);
+INSERT INTO practice.on_call VALUES (1, true), (2, true);
+```
+
+1. A、B 都以 Repeatable Read 开启事务，各自执行 `SELECT count(*) FROM practice.on_call WHERE available`，都得到 2。
+2. A 将 `id=1` 改为 `false`，B 将 `id=2` 改为 `false`。修改的是不同的行。
+3. 两边提交，最终无人值班。这就是写偏斜，单行非空约束和稳定快照无法保护该规则。
+4. 先恢复两行 `available=true`，改用 Serializable 并重复同样交错，应有一个事务以 `40001` 失败。失败方回滚整个事务，再重试时必须重新检查人数。
+
+另一种方案是所有相关事务锁定同一条排班控制记录，串行维护该不变量。选择取决于竞争程度和事务范围，不能只把隔离级别名字写进设计文档。
+
+## 动手验证
+
+解释脏读、不可重复读、幻读、写偏斜分别对应什么现象。提交两个实验的时间顺序和结果，说明为什么重试最后一条 `UPDATE` 不能替代重试整个事务。
+
+参考：[官方隔离级别说明](https://www.postgresql.org/docs/16/transaction-iso.html)。
+
+---
+
+[上一篇：用窗口函数做排名、累计和报表](/notes/database-06-windows-reports) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：找到谁在等谁，再处理锁和死锁](/notes/database-08-locks-deadlocks)
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-07-transactions-mvcc","title":"数据库 07：快照稳定了，业务规则就一定正确吗","date":"2026-11-13","excerpt":"理解隔离级别，我会直接看两个连接交错执行时能读到什么、能提交什么。MVCC 可以提供稳定快照，但两个事务修改不同记录时，仍可能一起破坏跨行规则。","tags":["数据库","PostgreSQL"],"category":"database-transactions","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-transactions","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],"$L6"]}],"loading":null,"isPartial":false}
+6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
+9:null

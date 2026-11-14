@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"ViewportBoundary"]
+3:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Go 13：后端常用标准库：I/O、JSON、时间与 HTTP | JasBlog"}],["$","meta","1",{"name":"description","content":"io.Reader 和 io.Writer 是我理解 Go I/O 的一个入口。文件、连接和编码器可以通过这两个小接口组合起来，而请求大小、超时和业务字段仍需要在边界单独控制。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L5","3",{}]]}]}]}],null]}],"loading":null,"isPartial":false}

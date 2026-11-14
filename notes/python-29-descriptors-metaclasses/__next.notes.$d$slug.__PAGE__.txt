@@ -1,0 +1,64 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T80e,
+描述符介入属性访问，元类介入类的创建。把介入的时机分开之后，这两个概念就没那么神秘了。不过普通业务用函数、property 或数据类已经足够时，我不会继续加这一层。
+
+描述符通过 `__get__`、`__set__` 或 `__delete__` 控制属性访问。`property` 本身就是描述符的常见应用。元类控制类对象的创建，框架或 ORM 有时会用它注册字段和方法。
+
+```python
+class Positive:
+    def __set_name__(self, owner, name):
+        self.name = name
+
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self
+        try:
+            return instance.__dict__[self.name]
+        except KeyError:
+            raise AttributeError(self.name) from None
+
+    def __set__(self, instance, value):
+        if value <= 0:
+            raise ValueError("值必须为正数")
+        instance.__dict__[self.name] = value
+```
+
+描述符要作为类属性使用：
+
+```python
+class Measurement:
+    weight = Positive()
+
+
+item = Measurement()
+item.weight = 2
+print(item.weight)  # 2
+```
+
+尚未赋值时抛出 `AttributeError`，符合 Python 属性访问语义；赋入非正数时由 `__set__` 拒绝。
+
+## 何时使用
+
+普通业务代码优先使用函数、属性、数据类和组合。只有当需要统一控制大量属性访问或动态构造类时，才考虑描述符或元类。
+
+## 先确认简单机制是否已经够用
+
+元类会改变类创建过程，调试成本高。若简单基类、装饰器或显式注册表已经能解决问题，就不需要元类。
+
+## 动手验证
+
+**练习：**上例中 `__get__` 为什么在 `instance is None` 时返回描述符本身？
+
+**答案：**类访问 `Class.attribute` 时没有实例；返回描述符可保留类级访问语义。
+
+---
+
+[上一篇：特殊方法：让自定义对象用起来像 Python 对象](/notes/python-28-data-model) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：性能与内存：先找到真正耗时的地方](/notes/python-30-performance)
+
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-29-descriptors-metaclasses","title":"Python 29：描述符与元类：先看它们介入了哪一步","date":"2026-11-12","excerpt":"描述符介入属性访问，元类介入类的创建。把介入的时机分开之后，这两个概念就没那么神秘了。不过普通业务用函数、property 或数据类已经足够时，我不会继续加这一层。","tags":["Python","运行机制与并发"],"category":"python-part4","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part4","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

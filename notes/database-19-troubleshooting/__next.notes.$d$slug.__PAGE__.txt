@@ -1,0 +1,63 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tfd0,
+排查故障时，我会先记下影响范围和最近变化，再逐个检验假设。重启后恢复只能说明现象改变了，原因仍要靠等待链、查询计划或资源变化解释。
+
+现场查询集中在[操作手册](/notes/database-runbooks)，便于按同一份查询核对。
+
+## 先确定范围与变化
+
+记录发生时间、受影响业务、错误率、最近变更、是否全部用户受影响、读写是否同样受影响。用客户端时间线与数据库会话证据关联，先判断应用排队、数据库等待、资源耗尽还是连接故障。
+
+不要在证据不足时连续重启、清缓存、加连接、改内存。这些操作会改变现场状态，也可能放大负载。先保存关键指标、等待链、语句身份和必要日志，再选择与原因对应的最小处置。
+
+## 常见故障的因果链
+
+**连接耗尽。** 长事务或连接泄漏让连接归还变慢，应用池排队，更多请求等待，重试又增加压力。先区分大量空闲连接、活动查询与 idle in transaction，再限制无效流量、修复连接生命周期；单纯增大上限可能耗尽内存。
+
+**锁阻塞。** 一个未提交事务持锁，后续写入和 DDL 排队。找最初阻塞者而非只看最慢受害者。取消语句不一定结束空闲事务；终止连接可能需要较长回滚，并导致调用方结果不确定。
+
+**磁盘接近满。** 数据增长、临时文件、归档失败或失活复制槽都可能造成空间增长。按目录和视图定位，再用经过审查的扩容、归档修复或保留调整释放空间。不能删除 `pg_wal` 或数据库关系文件。
+
+**慢查询突增。** 可能由数据倾斜、统计过期、参数变化、索引失效、I/O 或新计划触发。比较变更前后语句与计划，同时检查锁等待。不要对所有表一起维护或对所有 SQL 强制索引。
+
+**恢复或复制延迟。** 区分日志生成、传输、持久化与回放哪个阶段落后。查网络、存储、备库冲突、长查询与槽保留。恢复链缺失无法靠重启自动补齐。
+
+## 演练一：定位空闲事务
+
+在 A 开启事务，修改 `practice.isolation_demo` 后保持不动；B 尝试写同一行。第三个会话用操作手册定位阻塞链，指出 A 的状态、事务年龄和 B 的等待。联系模拟负责人，让 A 回滚，确认 B 恢复后也回滚。
+
+这里优先用正常结束事务释放锁。另在独立练习连接验证取消与终止行为，记录客户端错误和事务是否结束，不把测试动作套用到未知生产 PID。
+
+## 演练二：安全测试超时
+
+```sql
+BEGIN;
+SET LOCAL statement_timeout = '500ms';
+SELECT pg_sleep(2);
+ROLLBACK;
+```
+
+语句应被取消，事务需回滚。不要用填满磁盘或压垮整机的方式演示事故；容量问题用受限测试目录与趋势数据分析，示例不提供破坏主机资源的脚本。
+
+## 恢复后验证业务
+
+检查错误率、尾延迟、等待数、连接归还和复制积压是否恢复，核对受影响订单与支付是否需要确认或补偿。接口恢复可用不代表所有不确定结果已经处理完。
+
+事故记录包含时间线、触发变更、因果证据、处置、数据影响、恢复证据和后续责任项。把“运气不好”换成可复现机制，把“增加监控”换成明确指标与响应步骤。
+
+## 动手验证
+
+提交一个完整故障记录：至少一个最初假设被证据排除，最终原因可解释观察结果，处置后有业务与数据库两层确认。禁止把“重启后好了”当作已确认根因。
+
+参考：[活动与等待统计](https://www.postgresql.org/docs/16/monitoring-stats.html)、[管理信号](https://www.postgresql.org/docs/16/functions-admin.html)。
+
+---
+
+[上一篇：从业务延迟追到资源，再算容量预算](/notes/database-18-monitoring-capacity) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：从调用方到历史数据，完成一次可核对的迁移](/notes/database-20-migrations)
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-19-troubleshooting","title":"数据库 19：用等待链、计划和存储证据定位故障","date":"2026-11-13","excerpt":"排查故障时，我会先记下影响范围和最近变化，再逐个检验假设。重启后恢复只能说明现象改变了，原因仍要靠等待链、查询计划或资源变化解释。","tags":["数据库","PostgreSQL"],"category":"database-operations","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-operations","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

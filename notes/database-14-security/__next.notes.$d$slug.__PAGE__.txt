@@ -1,0 +1,66 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T1119,
+设置了密码，并不意味着权限已经收好。我会分别检查谁能连进来、连接者是谁、能访问哪些对象，以及客户端是否验证了服务端身份，再用应该失败的操作验证边界。
+
+## 四个独立问题
+
+谁能从哪里连入，由监听地址、网络策略和 `pg_hba.conf` 等决定；连接者是谁，由认证方式决定；能访问什么对象，由角色与授权决定；传输是否加密并验证服务端身份，由 TLS 配置与客户端验证决定。只设置数据库密码不能覆盖四个问题。
+
+生产常用 `sslmode=verify-full`，同时校验证书链和主机名。`require` 通常只要求加密，不能等同于完整身份验证。示例本机实验没有配置 TLS，不能直接作为远程生产接入模板。
+
+## 角色区分登录身份与权限组
+
+PostgreSQL 的角色可以登录，也可以只承担权限组功能。实验创建无登录的 `shop_reader`，授予有限查询权限。客户邮箱没有通过基础表开放，而是通过只含 id 和名称的视图提供。
+
+在 `database-labs` 目录运行一次：
+
+```bash
+docker compose exec -T db psql -X -v ON_ERROR_STOP=1 -U lab_admin -d db_lab < sql/06-security-checks.sql
+```
+
+脚本会检查读取成功，同时确认修改商品、读取客户原表和创建业务表都失败。它保留权限组与视图，不修改业务数据。权限拒绝是预期结果，测试只捕获 `insufficient_privilege`，其他错误直接失败。
+
+需要练习真实登录时，再在交互 `psql` 中执行：
+
+```sql
+CREATE ROLE analyst_login LOGIN;
+\password analyst_login
+GRANT shop_reader TO analyst_login;
+```
+
+从另一个客户端使用该账号连接验证。不要把密码写进 SQL 文件、连接串、命令历史或截图。
+
+## 对象权限与所有权
+
+访问 schema 中的表通常先需要 schema 的 `USAGE`，再需要表的 `SELECT` 等权限。使用 identity 或序列写入时还要核对相应权限；函数也有独立 `EXECUTE` 权限。
+
+对象所有者拥有改变对象和授权的能力，不适合当作普通应用角色。超级用户能绕过很多限制。`SET ROLE` 用于学习某组权限时，要检查测试实际身份，不能始终以管理员运行就宣布权限正确。
+
+默认权限作用于未来由指定创建者新建的对象，不会自动修改现有表，也不会跟随其他创建者。批量给未来所有表开放读取之前，确认 schema 中的数据分类一致，避免新建敏感表时自动暴露。
+
+示例下单函数默认是 invoker 权限，不自动提升调用者权限。仅给它 `EXECUTE` 不代表调用者就拥有底层写表能力。若组织采用 `SECURITY DEFINER` 封装写入口，必须固定安全 `search_path`、校验调用身份、最小化所有者权限并限制函数可调用者，不能随手加一个关键词解决权限错误。
+
+## 数据分级与审计
+
+生产数据进入开发环境前要脱敏，备份、WAL、日志和导出文件也按数据本身的敏感级别保护。删除网页上的手机号不会让数据库备份自动失去敏感性。
+
+行级安全 RLS 可以限制租户可见行，但策略、表所有者、`BYPASSRLS` 角色、连接池租户上下文都要验证。多租户不能只在应用里约定“每条查询记得加 tenant_id”。完整方案需要直接数据库访问测试和跨租户失败测试。
+
+审计至少关联操作身份、时间、对象、变更单和结果。全量记录 SQL 可能泄露参数并增加负载，要依据数据分类和组织要求设计采集与保留。备份加密密钥也必须可恢复，只有密文没有密钥等于没有可用备份。
+
+## 动手验证
+
+提交只读角色的正向和拒绝测试，解释为什么拒绝创建表与允许读取表是不同权限。设计应用、迁移、监控和备份四种角色的最小职责，说明哪类操作绝不能借应用账号完成。
+
+参考：[角色](https://www.postgresql.org/docs/16/user-manag.html)、[权限](https://www.postgresql.org/docs/16/ddl-priv.html)、[TLS](https://www.postgresql.org/docs/16/libpq-ssl.html)。
+
+---
+
+[上一篇：删除后文件为什么没变小，分区又能解决什么](/notes/database-13-vacuum-partitions) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：有备份文件之后，还要证明能恢复](/notes/database-15-backup-restore)
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-14-security","title":"数据库 14：把连接身份、对象权限和数据安全分开检查","date":"2026-11-13","excerpt":"设置了密码，并不意味着权限已经收好。我会分别检查谁能连进来、连接者是谁、能访问哪些对象，以及客户端是否验证了服务端身份，再用应该失败的操作验证边界。","tags":["数据库","PostgreSQL"],"category":"database-recovery","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-recovery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

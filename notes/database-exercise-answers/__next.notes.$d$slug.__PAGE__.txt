@@ -1,0 +1,131 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+e:"$Sreact.suspense"
+3:T27ee,
+我把练习的判断依据集中放在这里。SQL 写法可以不同，结果粒度、金额、事务边界和失败行为必须解释得通；涉及运行结果的部分，先确认仍然使用未改动的种子数据。
+
+先完成[练习](/notes/database-exercises)，再按题号核对。下面的金额和行数按未提交修改的种子数据计算。
+
+## E01 至 E08：查询与建模
+
+**E01。** `SELECT current_database(), current_user, version();`，再运行 `SHOW TimeZone; SHOW transaction_isolation;`。`psql` 默认自动提交，每条独立语句是自己的事务；显式 `BEGIN` 后直到提交或回滚才结束。
+
+**E02。** 联系人以独立 id 或客户内稳定键标识，客户外键必填，号码用文本。每客户最多一个主要号码可使用部分唯一索引。多仓库库存以 `(warehouse_id, product_id)` 为主键，两个字段分别引用仓库与商品，库存非空且不为负。唯一性约束与下单的并发扣减承担不同责任。
+
+**E03。**
+
+```sql
+SELECT id FROM shop.products WHERE stock = 0 ORDER BY id;
+SELECT id FROM shop.orders
+WHERE created_at >= timestamptz '2026-01-10 00:00:00+00'
+  AND created_at < timestamptz '2026-01-11 00:00:00+00'
+ORDER BY id;
+```
+
+**E04。** 第 5 章的 `customers LEFT JOIN orders`，用 `count(o.id)`，无订单金额用 `coalesce`。预期依次是 `(1,2,49700)`、`(2,1,19900)`、`(3,0,0)`。
+
+**E05。**
+
+```sql
+SELECT c.id FROM shop.customers c
+WHERE NOT EXISTS (SELECT 1 FROM shop.orders o WHERE o.customer_id = c.id);
+
+SELECT sum(o.total_cents) FROM shop.orders o
+WHERE o.status = 'paid' AND EXISTS (
+    SELECT 1 FROM shop.payments p
+    WHERE p.order_id = o.id AND p.status = 'succeeded'
+);
+```
+
+**E06。** 订单 1 关联两笔支付尝试后出现两行，39800 计算两次，再加订单 3 的 19900，得到 99500。正确结果 59700。金额相同的不同订单都应计入，因此不能按金额去重。
+
+**E07。** 使用第 6 章 `row_number` 和显式 `ROWS` 窗口。最新排序 `created_at DESC,id DESC`，累计排序 `created_at,id`。客户 1 累计为 39800、49700，客户 2 为 19900。
+
+**E08。**
+
+```sql
+WITH days AS (
+    SELECT date '2026-01-09' + n AS day FROM generate_series(0, 3) AS g(n)
+), daily AS (
+    SELECT (created_at AT TIME ZONE 'UTC')::date AS day,
+           sum(total_cents) AS amount
+    FROM shop.orders WHERE status = 'paid'
+    GROUP BY (created_at AT TIME ZONE 'UTC')::date
+)
+SELECT d.day, coalesce(s.amount, 0) AS amount_cents
+FROM days d LEFT JOIN daily s ON s.day = d.day ORDER BY d.day;
+```
+
+## E09 至 E14：并发与事务
+
+**E09。** RC 在 B 提交后，A 下一条普通读取能看到新值；RR 的 A 在已建立快照后仍读旧值。B 的未提交更新都不可见。事务外新读取能看到提交结果。
+
+**E10。** RR 下两事务读取相同快照但改不同医生行，没有同一行的写冲突，能共同破坏“至少一人在岗”。Serializable 会检测不允许的依赖环并以 `40001` 中止一方。重试必须包含人数检查，不能只重试置为离岗。
+
+**E11。** 用 `pg_blocking_pids` 从等待者找到阻塞者，再看事务年龄与状态。反向锁两行会形成环，报 `40P01`。最终双方回滚；按稳定顺序获取相同资源能解决该例，不能保证所有其他业务永不死锁。
+
+**E12。** 运行 `04-order-checks.sql`。换内容键冲突为 `22023`，缺货为 `P0001`，错误应撤销订单、库存和事件等全部效果。序列有空洞不算残留业务记录。
+
+**E13。** 初始库存 1，两个不同键各买 1：第一个持锁，另一个等待；前者提交后，后者条件重检不再满足，应整体失败。最终一单、库存 0、一条扣减流水、一条创建事件。同键竞争则两个调用得到同一订单身份，库存也只减少一次。对比原始夹具数据，不能只数返回成功的 HTTP 请求。
+
+**E14。** 8 个副本各 20 个连接，加 3 个任务各 10 个，总计 190，还需迁移、监控、管理员与扩容余量。提交断网可能发生在提交成功之后，因此不能直接断言失败；用原请求键确认。`40001`、`40P01` 可在预算内完整重试，普通约束错误不能盲重试。
+
+## E15 至 E18：性能与维护
+
+**E15。** 运行 L4，报告实际计划。合理预期是有目标索引后不必扫描大部分表和重新排序全部匹配项，但节点名称、耗时与 heap fetch 以本机结果为准。索引大小与写入开销也属于结论。不同运行的时间不要写死为标准答案。
+
+**E16。** 客户列表已有 `(customer_id,created_at DESC,id DESC)`，商品查明细已有 `order_items(product_id)`；先复用。未交付事件可评估 `ON shop.outbox(id) WHERE delivered_at IS NULL`，是否有效取决于未交付比例与领取方式。覆盖字段过多会增大索引；Index Only Scan 也受可见性影响。
+
+**E17。** 普通 VACUUM 清理可回收版本并维护可见性，不承诺文件缩小。长快照可能阻碍回收；ANALYZE 改变优化器统计。死元组计数是估计，观察不能只看一次瞬时值。
+
+**E18。** 第 13 章模板的范围下界包含、上界不包含，带时间约束可裁剪。不带分区键可能扫描所有相关分区。包含时间的复合主键不保证 id 在所有分区间单独唯一。
+
+## E19 至 E26：安全、恢复与发布
+
+**E19。** `06-security-checks.sql` 验证权限组；真实登录还要单独连接。读视图成功、读客户原表失败，表明邮箱未通过该角色暴露。管理员 `SET ROLE` 的测试不能替代网络认证与 TLS 测试。
+
+**E20。** 第 15 章命令恢复到 `db_lab_restore`，`02-checks.sql` 通过。还要核对支付、函数、权限等所需对象。不同实例先准备角色和扩展。记录实际恢复耗时，不从小样本承诺生产 RTO。
+
+**E21。** 基础备份完成后提交标记 2，创建恢复点，再误删 2 并插入 3。到目标暂停的恢复实例看到 1、2，源库看到 1、3。若恢复实例看到 3，说明越过目标；只有 1 也不足以证明到达目标。
+
+**E22。** 异步副本可能丢失尚未收到的已提交事务；同步等待什么阶段由完整配置决定。网络分区时必须防止旧主继续写。切换包括入口、连接池、业务核对与旧主重建；异地恢复能力必须在异地环境实测。
+
+**E23。** WAL 增长先查归档失败、复制槽保留、写入速率和检查点；连接耗尽查池预算、会话状态和长事务；复制延迟分辨传输和回放。主库空闲时回放时间戳老，不等于持续积压。
+
+**E24。** 主体数据每日 2 GB、索引约 50%，基本净增约 3 GB/天；再独立估算 WAL、备份、维护和临时空间。告警按剩余时间与异常增速设计，`max_wal_size` 不是硬限额。
+
+**E25。** 第 20 章按加列、更新写入方、分批回填、加约束、验证、收紧非空执行。每批条件只选未完成记录；中断后不用重写已完成数据。给旧订单填 `web` 仅在已定义事实的教学数据里成立。
+
+**E26。** 变更单包含候选主键与旧值、预期量、执行预算、核对、提交条件与恢复依据。复盘需能用等待链、计划或存储证据解释影响，不以“重启有效”代替根因。
+
+## E27 至 E33：迁移与系统设计
+
+**E27。** 在 MySQL 8.4 独立环境执行第 21 章实验，保留 InnoDB 与隔离证据。没有实例或未恢复时只能标未完成，PG 的实验结果无法替代。
+
+**E28。** 可从默认隔离、聚簇主键、undo 与堆版本、redo/binlog 与 WAL、隐式提交 DDL、部分索引中选择。每项至少给一个实际影响，如误以为 DDL 可回滚会使业务发布失败后无法恢复原数据。
+
+**E29。** 取消只允许约定状态（例如 pending）转 cancelled，条件更新确保首次转换成功后才返库存；所有步骤同一事务。当前 starter 流水唯一键 `(order_id,product_id)` 只支持一次扣减，新增返还必须先把动作纳入唯一性并更新 reason 约束、调用方和测试，不能复用同一行覆盖历史。支付回调按稳定网关流水号去重，并核对订单、金额、币种和状态；已支付订单取消通常应走退款流程。
+
+**E30。** 关系库作为订单事实来源，缓存允许明确时限的陈旧数据；分析副本要接受和监控延迟。分片前拿出单库瓶颈与容量测量，列出全局唯一性、跨片事务、迁移、备份切点和运维成本。没有这些证据时保留单库方案。
+
+**E31。** 以 PG 与 MySQL 为例：两者都可承载这组笔记事务，PG 便于沿用已验证的约束、SQL 和函数；已有 MySQL 团队可以优先比较其维护和迁移成本。至少验证数据类型与金额时间语义、DDL 与索引能力、隔离锁及重试、驱动与错误处理、备份复制和恢复五类影响。示例的 `RETURNING`、PL/pgSQL 与部分唯一索引等需要在 MySQL 下重新设计，不能只换连接串。选择依据应包含实际回归与恢复证据。
+
+**E32。** Redis 要核对 RDB/AOF 刷盘、故障切换、淘汰和跨槽边界，不能从“保存到磁盘”推出任何故障下都不丢已确认写入。MongoDB 需要适当部署，多文档事务语义受读写关注配置影响，还要测量事务成本。TiDB 兼容 MySQL 协议与部分语法，不等于实现相同的存储引擎、物理备份和全部 SQL 行为。OpenSearch 与 Elasticsearch 分别演进，迁移要核对客户端、插件、映射、查询和索引格式，并演练重建与追平。
+
+**E33。** 一个可接受方案是 PG 或 MySQL 维护订单、库存和流水，先在业务负载预算内运行汇总。全文需求出现后，评估异步更新 Elasticsearch 或 OpenSearch，定义并实测例如 5 秒的搜索延迟目标；分析影响交易目标后，再评估独立分析系统，例如允许报表延迟 5 分钟。搜索和报表都要处理重复、迟到、更正及删除，恢复后能够从权威来源重建并追平。若现有关系库已经满足查询、延迟和维护目标，保留较少组件的方案也能通过。
+
+---
+
+[数据库目录](/notes/database-00-learning-guide)
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-exercise-answers","title":"数据库练习参考：查询结果、并发顺序和判断依据","date":"2026-11-13","excerpt":"我把练习的判断依据集中放在这里。SQL 写法可以不同，结果粒度、金额、事务边界和失败行为必须解释得通；涉及运行结果的部分，先确认仍然使用未改动的种子数据。","tags":["数据库","PostgreSQL"],"category":"database-resources","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+4:["$","$Lb",null,{"href":"/notes?category=database-resources","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
+5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]
+7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
+8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
+9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]
+a:["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
+f:null

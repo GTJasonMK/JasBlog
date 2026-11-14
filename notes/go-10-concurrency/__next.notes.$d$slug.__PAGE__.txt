@@ -1,0 +1,43 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T848,
+写 go 启动一个任务很容易，我更关心它什么时候结束、失败怎么传回来，以及请求取消后谁来停掉它。先把这些责任说清楚，才好决定 channel 和 worker 的组织方式。
+
+## goroutine 与 channel
+
+goroutine 是 Go 运行时管理的轻量执行单元。创建 goroutine 很容易，但程序仍要负责等待它结束、传递错误和取消工作。channel 用于在 goroutine 间传递值；它不是自动保护所有共享状态的万能工具。
+
+~~~go
+func worker(jobs <-chan int, results chan<- int) {
+	for job := range jobs {
+		results <- job * 2
+	}
+}
+~~~
+
+接收方向和发送方向写在参数类型中，能让数据流更清晰。关闭 channel 的通常是发送方，因为发送方知道不再有新值；向已关闭 channel 发送会 panic。
+
+## select
+
+select 可等待多个 channel 操作之一，也可配合 default 做非阻塞尝试。若需要超时和取消，优先使用 context 的 Done channel，而不是在每个函数里自建计时器。
+
+## 设计并发任务
+
+并发适用于彼此独立且有足够工作量的任务。用 sync.WaitGroup 等待一组 goroutine 结束；任务需要错误传播和统一取消时，可使用 golang.org/x/sync/errgroup。请求量无限时不能无限创建 goroutine；应限制并发数、队列长度和等待时间。数据库、外部 API 等依赖本身也有限制。
+
+多个 goroutine 共同发送时，任何一个发送方都不能擅自关闭共享 channel；需要由协调者确认所有发送方退出后再关闭。阻塞发送和接收都应考虑 context 取消，否则上游退出后可能遗留 goroutine。
+
+## 动手验证
+
+实现一个有界 worker pool：最多启动 3 个 worker，处理 10 个整数任务，收集结果并在所有 worker 退出后结束。再让其中一个任务返回错误，确保其余任务能取消并正常退出。
+
+---
+
+[上一篇：包与依赖：让业务规则留在自己的位置](/notes/go-09-packages) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：锁与 context：保护状态，传递取消](/notes/go-11-sync-context)
+
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-10-concurrency","title":"Go 10：goroutine 与 channel：启动之外还要负责退出","date":"2026-11-12","excerpt":"写 go 启动一个任务很容易，我更关心它什么时候结束、失败怎么传回来，以及请求取消后谁来停掉它。先把这些责任说清楚，才好决定 channel 和 worker 的组织方式。","tags":["Go","语言与工具链"],"category":"go-part1","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part1","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

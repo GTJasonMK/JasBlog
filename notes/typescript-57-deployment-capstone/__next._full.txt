@@ -1,0 +1,112 @@
+1:"$Sreact.fragment"
+3:I[605500,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"Image"]
+4:I[402971,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+5:I[963310,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+c:I[168027,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+:HL["/_next/static/chunks/744deeb44d1d908f.css","style"]
+:HL["/_next/static/chunks/5418d8b7153252a1.css","style"]
+:HL["/_next/static/chunks/773957f472007a6e.css","style"]
+:HC["/",""]
+2:[["$","source",null,{"media":"(max-width: 767px)","srcSet":"/backgrounds/lake-mobile.webp","type":"image/webp"}],["$","$L3",null,{"src":"/backgrounds/lake.webp","alt":"","width":2400,"height":1600,"loading":"eager","fetchPriority":"high","unoptimized":true}]]
+0:{"P":null,"b":"Lce4hgqZcvwFwf7yktvnD","c":["","notes","typescript-57-deployment-capstone"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","typescript-57-deployment-capstone","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
+d:I[339756,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+e:I[837457,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+11:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+12:"$Sreact.suspense"
+14:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"ViewportBoundary"]
+16:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"MetadataBoundary"]
+6:["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","section",null,{"className":"site-message","children":[["$","p",null,{"className":"site-message-code","children":"404"}],["$","h1",null,{"children":"这一页暂时找不到"}],["$","p",null,{"children":"页面不存在，或暂未公开。"}],["$","$Lf",null,{"href":"/","className":"btn-primary","children":"返回首页"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]
+7:["$","footer",null,{"className":"site-footer","children":[["$","span",null,{"className":"footer-rule","aria-hidden":"true"}],["$","p",null,{"children":["© ",2026," ","JasBlog"]}],["$","span",null,{"className":"footer-rule","aria-hidden":"true"}]]}]
+8:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+9:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+a:["$","$1","c",{"children":["$L10",[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true,"nonce":"$undefined"}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}]
+b:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]
+18:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+1a:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+19:Tdc4,
+我会用干净环境从安装开始走一遍，检查配置、迁移、启动和构建是否都有明确步骤。发布时还要能把代码、数据库变化和运行结果对应起来，才知道出问题后能退到哪里。
+
+生产构建使用锁定依赖；构建前执行类型检查和测试。部署时提供数据库连接、会话密钥等环境变量，执行已审核迁移，再启动 API 和静态前端。Docker Compose 可用于本地启动 PostgreSQL 和应用依赖；VPS 通过反向代理提供 HTTPS。
+
+发布前确认健康检查、日志、数据库备份和恢复方式。不要把 .env、数据库快照或密钥提交到 Git。
+
+## 本地 PostgreSQL：Compose 示例
+
+将以下内容保存为仓库根目录的 compose.yaml。数据库容器只从根目录的 .env.db 读取密码；不要提交 .env.db：
+
+~~~yaml
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    env_file:
+      - .env.db
+    environment:
+      POSTGRES_DB: task_app
+      POSTGRES_USER: task_app
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U task_app -d task_app"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres-data:
+~~~
+
+在根目录的 .env.db 中设置仅供本地开发的 POSTGRES_PASSWORD；在 apps/api/.env 中设置 DATABASE_URL，连接串中的密码必须与容器密码相同，特殊字符要按 URL 规则编码。确保这两个文件在 .gitignore 中，再从仓库根目录启动数据库：
+
+~~~sh
+docker compose up -d db
+~~~
+
+然后进入 apps/api，首次运行时创建初始迁移并启动 API：
+
+~~~sh
+cd apps/api
+npx prisma migrate dev --name init
+npm run dev
+~~~
+
+后续 Schema 改动使用描述该改动的迁移名。API 进程也必须能读取 DATABASE_URL。生产环境不得使用示例密码或向公网开放数据库端口。
+
+apps/api 的开发脚本必须显式加载 apps/api/.env，或由 shell 注入 DATABASE_URL；不要假设 Node.js 会自动读取 .env。
+
+## 发布顺序
+
+1. CI 安装锁定依赖，运行类型检查、Lint、测试和生产构建。
+2. 发布 API 与前端静态资源；通过反向代理让 /api 转发给 API，其余路径服务前端。
+3. 配置 HTTPS、生产数据库和持久化会话存储；确认数据库仅对应用网络开放。
+4. 在 API package 目录运行生产迁移命令 npx prisma migrate deploy，检查健康端点和日志，再切换流量。migrate dev 只用于本地开发。
+5. 验证备份可恢复，并记录回滚应用版本与数据库迁移的方案。
+
+生产迁移应采用向前兼容的 expand/contract 流程：先增加兼容字段并发布读写兼容版本，再迁移数据，最后移除旧字段。只依赖“回滚应用镜像”无法撤销破坏性数据库变更。
+
+## 项目验收
+
+- 注册、登录、退出和当前用户查询可用。
+- 未登录和越权访问均被 API 拒绝。
+- 任务 CRUD、校验、空状态和失败反馈完整。
+- 单元、API、端到端测试和生产构建通过。
+- README 写明安装、环境变量、数据库迁移、启动和部署流程。
+
+## 动手验证
+
+在干净环境按 README 从零启动项目；记录所有缺少的步骤并修复文档。
+
+[这一节的练习参考](/notes/typescript-exercise-answers)。
+
+---
+
+[上一篇：API 与端到端测试：确认整条路径能走通](/notes/typescript-56-api-e2e-tests) · [TypeScript 目录](/notes/typescript-00-learning-guide)
+
+10:["$","$L18",null,{"note":{"slug":"typescript-57-deployment-capstone","title":"TypeScript 57：构建与部署：把本机能跑变成可重复交付","date":"2026-11-12","excerpt":"我会用干净环境从安装开始走一遍，检查配置、迁移、启动和构建是否都有明确步骤。发布时还要能把代码、数据库变化和运行结果对应起来，才知道出问题后能退到哪里。","tags":["TypeScript","全栈整合与发布"],"category":"typescript-12-delivery","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"error":"$undefined","content":"$19"},"back":["$","$Lf",null,{"href":"/notes?category=typescript-12-delivery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L1a",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}]
+15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]
+1b:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+13:null
+17:[["$","title","0",{"children":"TypeScript 57：构建与部署：把本机能跑变成可重复交付 | JasBlog"}],["$","meta","1",{"name":"description","content":"我会用干净环境从安装开始走一遍，检查配置、迁移、启动和构建是否都有明确步骤。发布时还要能把代码、数据库变化和运行结果对应起来，才知道出问题后能退到哪里。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1b","3",{}]]

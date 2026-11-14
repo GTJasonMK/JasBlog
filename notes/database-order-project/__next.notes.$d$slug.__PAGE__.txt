@@ -1,0 +1,88 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T133f,
+前面的知识点可以放进同一个订单数据库里核对。这里沿用唯一的 shop.place_order 实现，把建模、并发、性能、权限、恢复和发布整理成一套可以自己复查的练习。
+
+在隔离环境中完成这些练习即可，不要求增加网页、支付网关或微服务。
+
+## 环境与业务边界
+
+在独立学习库完成项目，保留原始示例数据库。可以先新建 `db_lab_capstone`，依次在该库执行 `00-schema.sql`、`01-seed.sql`、`03-place-order.sql`，命令中的 `-d` 改为目标库。首次初始化只运行一次，不用清空原库来重来。
+
+项目沿用单商品、单币种的下单规则，金额为整数分。支付只使用虚构记录，不调用真实支付系统。新增测试客户和商品使用明确的 `capstone` 标识并记录返回 id，不能假定后续 id 连续。
+
+## 我会检查的六件事
+
+### 1. 建模与 SQL
+
+交付关系图、数据字典和关键约束说明。独立完成 E03 至 E08 的查询，再完成订单头与明细、库存与流水、支付与订单的异常核对。每条查询说明一行代表什么，金额和日期采用什么口径。
+
+说明哪些规则由数据库约束保障，哪些由下单事务保障，哪些仍需要与外部系统对账。不得把 CHECK 当成跨表一致性的完整实现。
+
+### 2. 并发正确性
+
+在独立夹具上完成同键同内容、同键不同内容、不同键抢最后一件库存、缺货、非法数量和事务回滚。用两个连接记录执行顺序，检查订单、明细、库存、流水和 outbox。
+
+同键重复不得增加库存扣减或事件；缺货不得留订单；最终库存等于期初加变更合计。模拟“提交成功但客户端未收到结果”，使用原键确认订单身份。
+
+进一步提交取消与支付去重设计即可，不要求在 starter 外增加未测试的业务功能。若自行实现，必须统一修改相关约束、状态机、流水唯一性和测试，不保留两个下单实现。
+
+### 3. 性能
+
+在至少 20 万行练习数据上优化一条列表查询。交付原始与目标索引、前后相同 SQL 和参数、执行计划、返回结果核对、五轮以上测量及缓存限制说明。
+
+报告扫描行数、缓冲区访问、排序、索引大小与写入影响。不能强行规定所有环境达到某个毫秒数，结论要由本机证据支持。
+
+### 4. 权限
+
+建立只读身份，证明能查询需要的数据，不能修改、建表、读取受限原始字段或提升为管理员。提交角色关系和正向、拒绝测试。记录真实客户端登录验证；仅 `SET ROLE` 不覆盖认证测试。
+
+密码、令牌、实际业务备份与包含敏感参数的日志不进入交付。解释示例未覆盖生产 TLS 与组织密钥管理的部分。
+
+### 5. 备份恢复
+
+完成一次逻辑恢复和一次命名恢复点 PITR。交付备份版本与时间、清单或校验、恢复目标、数据核对、实际耗时、目标暂停状态及源恢复库标记差异。
+
+给出业务假设下的 RPO/RTO，并明确小规模实测不能直接证明企业数据规模目标。说明跨主机容灾还缺什么部署和演练。
+
+### 6. 发布与排障
+
+完成一次字段新增、回填中断续跑、约束验证和非法值拒绝。交付变更单、锁等待上限、影响范围、执行结果与恢复依据。
+
+复现一次锁阻塞或死锁，保存等待链、根因、处置和业务恢复验证。说明如果主库网络断开，如何避免旧主继续写入造成双主。
+
+## 建议的成果目录
+
+在自己的成果目录保存文件，不修改参考答案来伪造完成：
+
+```text
+我的数据库项目/
+  环境与数据字典.md
+  queries.sql
+  并发执行记录.md
+  性能前后对比.md
+  权限测试.md
+  备份恢复记录.md
+  变更单.md
+  故障复盘.md
+```
+
+SQL、终端输出和截图可作为附件，证据中必须能看出版本、连接目标与操作顺序。备份本体存受控位置，文档只记录位置、范围与验证结果。
+
+## 完成标准与能力边界
+
+六项都需要实际证据。出现以下任一情况，本次验收不通过：并发导致负库存或重复扣减；失败后残留半个业务动作；权限越界；恢复未实际执行；覆盖原数据却没有可恢复依据；把未知结果当成功。
+
+主线通过表示具备在规定边界内独立操作 PostgreSQL 实验库、编写可审查变更和参与企业值班的基础。继续完成 MySQL E27 和跨主机复制、切换、异地恢复演练后，分别记录这些能力，不用一个总分替代所有环境的验证。
+
+真实企业接手数据库时，还需阅读资产、版本、服务依赖、SLO、备份平台、权限与应急流程，并由熟悉系统的人审查首批操作。示例提供方法与练习，授权范围由企业实际制度决定。
+
+---
+
+[数据库目录](/notes/database-00-learning-guide)
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-order-project","title":"订单数据库实作：下单、并发、权限与恢复","date":"2026-11-13","excerpt":"前面的知识点可以放进同一个订单数据库里核对。这里沿用唯一的 shop.place_order 实现，把建模、并发、性能、权限、恢复和发布整理成一套可以自己复查的练习。","tags":["数据库","PostgreSQL"],"category":"database-labs","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-labs","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

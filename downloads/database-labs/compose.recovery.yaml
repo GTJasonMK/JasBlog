@@ -1,0 +1,28 @@
+services:
+  recovery:
+    image: postgres:16
+    environment:
+      PGDATA: /var/lib/postgresql/16/recovery
+    volumes:
+      - pgdata:/source:ro
+      - recoverydata:/var/lib/postgresql
+    command:
+      - postgres
+      - -c
+      - archive_mode=off
+      - -c
+      - shared_preload_libraries=pg_stat_statements
+      - -c
+      - restore_command=cp /source/wal_archive/%f %p
+      - -c
+      - recovery_target_name=db_lab_before_delete
+      - -c
+      - recovery_target_action=pause
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab_admin -d db_lab"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  recoverydata:

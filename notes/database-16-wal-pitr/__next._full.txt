@@ -1,0 +1,170 @@
+1:"$Sreact.fragment"
+3:I[605500,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"Image"]
+4:I[402971,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+5:I[963310,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+c:I[168027,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+:HL["/_next/static/chunks/744deeb44d1d908f.css","style"]
+:HL["/_next/static/chunks/5418d8b7153252a1.css","style"]
+:HL["/_next/static/chunks/773957f472007a6e.css","style"]
+:HC["/",""]
+2:[["$","source",null,{"media":"(max-width: 767px)","srcSet":"/backgrounds/lake-mobile.webp","type":"image/webp"}],["$","$L3",null,{"src":"/backgrounds/lake.webp","alt":"","width":2400,"height":1600,"loading":"eager","fetchPriority":"high","unoptimized":true}]]
+0:{"P":null,"b":"Lce4hgqZcvwFwf7yktvnD","c":["","notes","database-16-wal-pitr"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","database-16-wal-pitr","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
+d:I[339756,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+e:I[837457,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+11:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+12:"$Sreact.suspense"
+14:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"ViewportBoundary"]
+16:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"MetadataBoundary"]
+6:["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","section",null,{"className":"site-message","children":[["$","p",null,{"className":"site-message-code","children":"404"}],["$","h1",null,{"children":"这一页暂时找不到"}],["$","p",null,{"children":"页面不存在，或暂未公开。"}],["$","$Lf",null,{"href":"/","className":"btn-primary","children":"返回首页"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]
+7:["$","footer",null,{"className":"site-footer","children":[["$","span",null,{"className":"footer-rule","aria-hidden":"true"}],["$","p",null,{"children":["© ",2026," ","JasBlog"]}],["$","span",null,{"className":"footer-rule","aria-hidden":"true"}]]}]
+8:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+9:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+a:["$","$1","c",{"children":["$L10",[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true,"nonce":"$undefined"}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}]
+b:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]
+18:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+19:T1cd9,
+误删以后，恢复目标通常是错误发生之前的状态。这里用命名恢复点把位置说清楚，再把基础备份与连续 WAL 恢复到独立数据卷，通过两边不同的标记确认停在了哪里。
+
+L7 使用独立容器和恢复数据卷，不覆盖原库。归档与基础备份仍和源库共用源数据卷，源卷丢失时它们也会丢失；这里验证本机恢复机制，异地容灾需要独立存储和另外的演练。
+
+## 恢复链必须连续
+
+PITR 需要一个可用的基础物理备份，以及从备份所需起点到目标点之间完整连续的 WAL。少一个必需日志段，恢复可能无法到达目标。过期删除策略必须同时理解基础备份和日志依赖，不能只保留“最近一天 WAL”。
+
+恢复点可以按时间、事务或命名恢复点指定。误删发生时间不一定等于你发现问题的时间；本实验使用命名恢复点，避免时间输入和时区歧义。恢复目标必须晚于基础备份能达到一致状态的时刻。
+
+## 1. 开启归档并确认成功
+
+只在示例实例执行。先在 `database-labs` 目录创建归档和基础备份目录：
+
+```bash
+docker compose exec -T -u postgres db mkdir -m 700 /var/lib/postgresql/wal_archive
+docker compose exec -T -u postgres db mkdir -m 700 /var/lib/postgresql/basebackup
+docker compose exec db psql -X -U lab_admin -d db_lab
+```
+
+在交互 `psql` 中逐条执行，然后退出：
+
+```sql
+ALTER SYSTEM SET archive_mode = 'on';
+-- shortcut: 本机复制只演示机制，异地备份需使用有校验、持久化和保留管理的归档工具。
+ALTER SYSTEM SET archive_command =
+    'test ! -f /var/lib/postgresql/wal_archive/%f && cp %p /var/lib/postgresql/wal_archive/%f';
+\q
+```
+
+`archive_mode` 需要重启，不能只 reload。实验允许重启，生产先评估停机与可用性：
+
+```bash
+docker compose restart db
+docker compose exec db psql -X -U lab_admin -d db_lab
+```
+
+```sql
+SHOW archive_mode;
+SHOW archive_command;
+SELECT pg_switch_wal();
+SELECT archived_count, failed_count, last_archived_wal,
+       last_archived_time, last_failed_wal FROM pg_stat_archiver;
+```
+
+归档是异步的，确认归档计数增加、目录出现日志，再继续。不成功就查日志与目录权限，不能在失败状态下继续宣称备份链可用。
+
+教学归档命令拒绝覆盖同名文件；极少数重新归档同一文件的情况会失败并重试。生产归档工具应确认已有文件内容相同且已持久化时才返回成功，内容不同必须报错。不能通过删原 WAL 或假成功处理归档故障。
+
+## 2. 制作物理备份
+
+仍在 `psql` 中创建标记后退出：
+
+```sql
+CREATE TABLE practice.recovery_marks (id integer PRIMARY KEY, note text NOT NULL);
+INSERT INTO practice.recovery_marks VALUES (1, 'before base backup');
+\q
+```
+
+在终端运行：
+
+```bash
+docker compose exec -T -u postgres db pg_basebackup -h /var/run/postgresql -U lab_admin -D /var/lib/postgresql/basebackup -Fp -X stream --checkpoint=fast --no-password
+docker compose exec -T -u postgres db pg_verifybackup /var/lib/postgresql/basebackup
+```
+
+目录必须为空，重复演练应保存旧成果后选择新的实验环境。这里用本机 socket 与示例管理员取得复制能力，生产应使用最小复制权限和受控认证。
+
+`-X stream` 同时取得备份所需 WAL，不表示备份之后的日志会自动永远保留。`pg_verifybackup` 检查清单等完整性，也不能替代真正恢复。
+
+## 3. 建立恢复目标并模拟误删
+
+重新进入交互 `psql`，保持自动提交，逐条执行，不能放在同一个 `BEGIN` 中：
+
+```sql
+INSERT INTO practice.recovery_marks VALUES (2, 'keep this committed row');
+SELECT pg_walfile_name(pg_create_restore_point('db_lab_before_delete')) AS target_wal;
+DELETE FROM practice.recovery_marks WHERE id = 2;
+INSERT INTO practice.recovery_marks VALUES (3, 'after mistaken deletion');
+SELECT pg_switch_wal();
+SELECT * FROM practice.recovery_marks ORDER BY id;
+SELECT last_archived_wal, last_archived_time, failed_count FROM pg_stat_archiver;
+```
+
+源库应只剩 1、3 两行。记下 `target_wal` 文件名，并确认该文件已经出现在归档目录：
+
+```bash
+docker compose exec -T db ls -l /var/lib/postgresql/wal_archive
+```
+
+不要只根据 `pg_switch_wal` 已返回就启动恢复，它不保证归档复制已经完成。
+
+## 4. 在独立数据卷恢复
+
+退出源库客户端。在终端执行以下完整命令，把基础备份复制到独立卷；源数据卷只读挂载。重复执行时若恢复目录已有 `PG_VERSION`，命令会失败，保护已有恢复成果。
+
+```bash
+docker compose -f compose.yaml -f compose.recovery.yaml run --rm --no-deps --entrypoint sh recovery -ec 'test ! -e "$PGDATA/PG_VERSION"; install -d -o postgres -g postgres -m 700 "$PGDATA"; cp -a /source/basebackup/. "$PGDATA/"; touch "$PGDATA/recovery.signal"; chown -R postgres:postgres "$PGDATA"'
+docker compose -f compose.yaml -f compose.recovery.yaml up -d --wait recovery
+docker compose -f compose.yaml -f compose.recovery.yaml logs recovery
+docker compose -f compose.yaml -f compose.recovery.yaml exec recovery psql -X -U lab_admin -d db_lab
+```
+
+恢复配置通过 `restore_command` 读取已归档 WAL，并在命名目标暂停。服务端允许连接只表示达到可读状态，还要确认真正暂停在目标：
+
+```sql
+SELECT pg_is_in_recovery(), pg_get_wal_replay_pause_state(),
+       pg_last_wal_replay_lsn();
+SELECT * FROM practice.recovery_marks ORDER BY id;
+```
+
+预期仍在 recovery，回放状态为 `paused`，只有 1、2 两行。第 2 行恢复，第 3 行不存在，证明停在误删之前。日志也应说明到达指定恢复点。
+
+如果未到达目标、仍在等待日志、或服务报目标无法到达，应检查归档连续性、目标名称、基础备份和日志。不能删掉目标参数让实例“先启动算成功”。
+
+## 5. 核对、切换与保留
+
+本实验保持恢复实例只读以便核对，不自动切换应用。真实事件中，应先确认业务完整性、权限、序列与允许的数据损失，围绕明确切换点停止原主写入、防止双写，再按组织流程提升和接入新实例。
+
+保存证据后可停止恢复容器，不删除恢复数据卷：
+
+```bash
+docker compose -f compose.yaml -f compose.recovery.yaml stop recovery
+```
+
+归档开启后持续占用空间，需监控增长。实验结束若要关闭，在源库设置 `archive_mode='off'` 并重启，保留现有备份和日志直到完成验收。关闭后就不再拥有连续的新恢复链。
+
+## 动手验证
+
+提交基础备份校验输出、恢复点、目标 WAL 文件、源库与恢复库标记差异、暂停状态、恢复耗时。解释为什么同机两个卷不能抵御主机磁盘损毁，以及为什么 `pg_dump` 不能替代这里的基础物理备份。
+
+参考：[连续归档与 PITR](https://www.postgresql.org/docs/16/continuous-archiving.html)、[pg_basebackup](https://www.postgresql.org/docs/16/app-pgbasebackup.html)、[备份校验](https://www.postgresql.org/docs/16/app-pgverifybackup.html)。
+
+---
+
+[上一篇：有备份文件之后，还要证明能恢复](/notes/database-15-backup-restore) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：副本有多新，切换时怎样避免两个主库](/notes/database-17-replication-ha)
+10:["$","$L18",null,{"note":{"slug":"database-16-wal-pitr","title":"数据库 16：用基础备份和连续 WAL 回到误删之前","date":"2026-11-13","excerpt":"误删以后，恢复目标通常是错误发生之前的状态。这里用命名恢复点把位置说清楚，再把基础备份与连续 WAL 恢复到独立数据卷，通过两边不同的标记确认停在了哪里。","tags":["数据库","PostgreSQL"],"category":"database-recovery","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"error":"$undefined","content":"$19"},"back":"$L1a","comments":"$L1b"}]
+1c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+1a:["$","$Lf",null,{"href":"/notes?category=database-recovery","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
+1b:["$","$L1c",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
+15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]
+1d:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+13:null
+17:[["$","title","0",{"children":"数据库 16：用基础备份和连续 WAL 回到误删之前 | JasBlog"}],["$","meta","1",{"name":"description","content":"误删以后，恢复目标通常是错误发生之前的状态。这里用命名恢复点把位置说清楚，再把基础备份与连续 WAL 恢复到独立数据卷，通过两边不同的标记确认停在了哪里。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1d","3",{}]]

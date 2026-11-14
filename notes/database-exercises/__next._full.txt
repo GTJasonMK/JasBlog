@@ -1,0 +1,119 @@
+1:"$Sreact.fragment"
+3:I[605500,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"Image"]
+4:I[402971,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+5:I[963310,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+c:I[168027,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+:HL["/_next/static/chunks/744deeb44d1d908f.css","style"]
+:HL["/_next/static/chunks/5418d8b7153252a1.css","style"]
+:HL["/_next/static/chunks/773957f472007a6e.css","style"]
+:HC["/",""]
+2:[["$","source",null,{"media":"(max-width: 767px)","srcSet":"/backgrounds/lake-mobile.webp","type":"image/webp"}],["$","$L3",null,{"src":"/backgrounds/lake.webp","alt":"","width":2400,"height":1600,"loading":"eager","fetchPriority":"high","unoptimized":true}]]
+0:{"P":null,"b":"Lce4hgqZcvwFwf7yktvnD","c":["","notes","database-exercises"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","database-exercises","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
+d:I[339756,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+e:I[837457,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+11:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+12:"$Sreact.suspense"
+14:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"ViewportBoundary"]
+16:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"MetadataBoundary"]
+6:["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","section",null,{"className":"site-message","children":[["$","p",null,{"className":"site-message-code","children":"404"}],["$","h1",null,{"children":"这一页暂时找不到"}],["$","p",null,{"children":"页面不存在，或暂未公开。"}],["$","$Lf",null,{"href":"/","className":"btn-primary","children":"返回首页"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]
+7:["$","footer",null,{"className":"site-footer","children":[["$","span",null,{"className":"footer-rule","aria-hidden":"true"}],["$","p",null,{"children":["© ",2026," ","JasBlog"]}],["$","span",null,{"className":"footer-rule","aria-hidden":"true"}]]}]
+8:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+9:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+a:["$","$1","c",{"children":["$L10",[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true,"nonce":"$undefined"}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}]
+b:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]
+18:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+1a:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+19:T17f9,
+读懂解释之后，我会用这些问题检查自己能否独立写出 SQL、复现并发顺序并判断结果。先记录预期，再保留实际输出；没有运行的部分就留作待验证，不靠推测填结果。
+
+可以先独立完成，再看[参考答案](/notes/database-exercise-answers)。每题保留 SQL 或操作顺序、预期、实际输出和解释。
+
+## 阶段一：基础、建模与 SQL
+
+前置：第 1 至 6 章，尚未提交修改种子数据。
+
+| 题号 | 任务 | 验收要求 |
+|---|---|---|
+| E01 | 报告数据库、身份、版本、时区和隔离级别 | 以 SQL 输出为依据，解释默认自动提交 |
+| E02 | 为客户联系人与多仓库库存建模 | 明确主键、外键、唯一性、必填与数量约束 |
+| E03 | 查零库存商品与 1 月 10 日 UTC 的订单 | 商品为 id 3，订单为 id 1、2；使用半开时间区间 |
+| E04 | 列出所有客户的订单数、总金额 | 包括无订单客户，金额单位明确 |
+| E05 | 找无订单客户，算已支付且存在成功支付的订单总额 | 客户 id 3；金额 59700 分；不重复计算 |
+| E06 | 比较错误支付关联求和与正确求和 | 解释 99500 分怎样产生，不能用 `SUM(DISTINCT 金额)` 补救 |
+| E07 | 求每位客户最新订单与客户内累计金额 | 最新订单为客户 1 的订单 2、客户 2 的订单 3；处理同时间排序 |
+| E08 | 给 1 月 9 至 12 日每日已支付订单额补零 | 四行依次 0、39800、19900、0 分；按 UTC |
+
+通过条件：八题结果正确，并能解释每个关联的结果粒度。语句能运行但金额错，不进入下一阶段。
+
+## 阶段二：事务与应用边界
+
+前置：第 7 至 10 章，安装下单函数。
+
+| 题号 | 任务 | 验收要求 |
+|---|---|---|
+| E09 | 双会话复现 RC 与 RR 的读取差异 | 保存执行顺序与两次读取结果 |
+| E10 | 在 RR 下复现值班写偏斜，再换 Serializable | 展示跨行规则破坏与 `40001`，说明完整重试 |
+| E11 | 复现阻塞与死锁 | 找出阻塞 PID；获取 `40P01`；最终回滚 |
+| E12 | 验证正常下单、重复请求、换内容复用键、缺货、零数量、空参数 | 自检通过，失败不残留业务记录 |
+| E13 | 两会话竞争同请求，再竞争只够一单的库存 | 同键仅一单；不同键只有一个成功；账与库存相符 |
+| E14 | 分析提交时断网与连接池预算 | 解释结果未知、原键确认、重试边界与总连接数 |
+
+E13 用自己新建的客户和库存为 1 的测试商品，初始库存同时写 `opening` 流水，不修改种子商品。保存夹具 id，不依赖序列连续。
+
+通过条件：没有负库存、重复订单、重复扣减、失败残留或未说明的超时状态。只能展示顺序调用不足以通过并发题。
+
+## 阶段三：性能与维护
+
+前置：第 11 至 13 章。
+
+| 题号 | 任务 | 验收要求 |
+|---|---|---|
+| E15 | 执行 L4，分析索引前后的同一查询 | 20 万行、前后计划、扫描量、块数、至少五次时间测量 |
+| E16 | 为客户列表、待发送事件、商品订单查询选索引 | 检查已有索引，说明键顺序、写入代价与覆盖限制 |
+| E17 | 观察更新、VACUUM、长事务与大小 | 区分可复用空间、文件缩小和统计更新 |
+| E18 | 建立月分区事件表，对比带与不带分区键的查询 | 解释裁剪与跨分区唯一性限制 |
+
+通过条件：不靠强制优化器开关制造结论，不把三行小表或一次缓存差异当成性能证据。
+
+## 阶段四：安全、恢复、运维与发布
+
+前置：第 14 至 20 章。
+
+| 题号 | 任务 | 验收要求 |
+|---|---|---|
+| E19 | 建立只读组与真实登录用户 | 读取成功；写入、原始邮箱和建表被拒绝；凭据不入文档 |
+| E20 | 把逻辑备份恢复到新库 | 目录可读、无恢复错误、业务核对、实际耗时 |
+| E21 | 完成 L7，恢复误删前数据 | 源库标记为 1、3；恢复库为 1、2；目标暂停状态与日志 |
+| E22 | 给异步复制和跨区容灾制定承诺 | 说明 RPO/RTO 证据、同步条件、防双主与旧主回归 |
+| E23 | 排查 WAL 增长、复制延迟与连接耗尽 | 每种现象至少给一个可排除的假设和对应查询 |
+| E24 | 制定容量与告警方案 | 预算包含索引、WAL、备份、临时文件和重写空间 |
+| E25 | 完成新增必填字段与分批回填 | 可中断续跑，非法值失败，验证历史数据，DDL 有等待上限 |
+| E26 | 提交一次故障复盘与一次数据变更单 | 有范围、因果证据、预期行数、恢复依据和业务确认 |
+
+通过条件：实际完成 E20、E21。备份生成成功但未恢复不能通过；同机恢复不宣称通过异地容灾。
+
+## 阶段五：迁移方法与交付
+
+前置：第 21 至 23 章。
+
+| 题号 | 任务 | 验收要求 |
+|---|---|---|
+| E27 | 在独立 MySQL 8.4 环境复现范围锁与恢复 | 保存版本、隔离设置、锁等待、独立恢复结果；未运行就标未完成 |
+| E28 | 写出 PG 与 MySQL 的五项业务相关差异 | 至少包含隔离、存储、日志、DDL、索引限制 |
+| E29 | 设计重复取消订单与支付回调去重 | 明确状态条件、流水唯一性、事务与重复请求行为，不调用真实支付 |
+| E30 | 写一页缓存、分析副本与分片选型说明 | 每项给触发测量、事实来源、数据延迟、失败与恢复责任 |
+| E31 | 为示例订单库比较两个关系型数据库候选 | 分别写优点、代价、五个兼容验证点和选择依据，不用品牌排名代替证据 |
+| E32 | 分析四个产品承诺的实际边界 | 解释 Redis 持久化、MongoDB 事务、TiDB 的 MySQL 兼容，以及 OpenSearch 与 Elasticsearch 的迁移要求 |
+| E33 | 为订单、搜索、销售报表设计最小数据架构 | 说明事实来源、允许延迟、删除传播、恢复方式和增加组件的触发条件 |
+
+随后按[综合项目](/notes/database-order-project)交付。可记录 PostgreSQL 主线通过、MySQL 尚未完成，不能将二者合并为全部通过。
+
+---
+
+[数据库目录](/notes/database-00-learning-guide)
+10:["$","$L18",null,{"note":{"slug":"database-exercises","title":"数据库动手练习：从查询到恢复的 33 个问题","date":"2026-11-13","excerpt":"读懂解释之后，我会用这些问题检查自己能否独立写出 SQL、复现并发顺序并判断结果。先记录预期，再保留实际输出；没有运行的部分就留作待验证，不靠推测填结果。","tags":["数据库","PostgreSQL"],"category":"database-resources","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"error":"$undefined","content":"$19"},"back":["$","$Lf",null,{"href":"/notes?category=database-resources","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L1a",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}]
+15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]
+1b:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+13:null
+17:[["$","title","0",{"children":"数据库动手练习：从查询到恢复的 33 个问题 | JasBlog"}],["$","meta","1",{"name":"description","content":"读懂解释之后，我会用这些问题检查自己能否独立写出 SQL、复现并发顺序并判断结果。先记录预期，再保留实际输出；没有运行的部分就留作待验证，不靠推测填结果。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1b","3",{}]]

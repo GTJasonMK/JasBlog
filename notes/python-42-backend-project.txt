@@ -1,0 +1,208 @@
+1:"$Sreact.fragment"
+3:I[605500,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"Image"]
+4:I[402971,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+5:I[963310,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+c:I[168027,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+:HL["/_next/static/chunks/744deeb44d1d908f.css","style"]
+:HL["/_next/static/chunks/5418d8b7153252a1.css","style"]
+:HL["/_next/static/chunks/773957f472007a6e.css","style"]
+:HC["/",""]
+2:[["$","source",null,{"media":"(max-width: 767px)","srcSet":"/backgrounds/lake-mobile.webp","type":"image/webp"}],["$","$L3",null,{"src":"/backgrounds/lake.webp","alt":"","width":2400,"height":1600,"loading":"eager","fetchPriority":"high","unoptimized":true}]]
+0:{"P":null,"b":"Lce4hgqZcvwFwf7yktvnD","c":["","notes","python-42-backend-project"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","python-42-backend-project","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
+d:I[339756,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+e:I[837457,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+11:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+12:"$Sreact.suspense"
+14:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"ViewportBoundary"]
+16:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"MetadataBoundary"]
+6:["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","section",null,{"className":"site-message","children":[["$","p",null,{"className":"site-message-code","children":"404"}],["$","h1",null,{"children":"这一页暂时找不到"}],["$","p",null,{"children":"页面不存在，或暂未公开。"}],["$","$Lf",null,{"href":"/","className":"btn-primary","children":"返回首页"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]
+7:["$","footer",null,{"className":"site-footer","children":[["$","span",null,{"className":"footer-rule","aria-hidden":"true"}],["$","p",null,{"children":["© ",2026," ","JasBlog"]}],["$","span",null,{"className":"footer-rule","aria-hidden":"true"}]]}]
+8:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+9:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+a:["$","$1","c",{"children":["$L10",[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true,"nonce":"$undefined"}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}]
+b:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]
+18:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+19:T1b06,
+这里先把任务的增删改查完整连起来，再补数据库初始化和测试。SQLite 让本地例子容易运行；迁移、部署和真实用户的访问控制则需要另外讲清楚，不能从这个演示直接推断。
+
+数据层采用 SQLModel，它基于 SQLAlchemy 与 Pydantic；路由和 SQLite 驱动都使用同步调用，避免把阻塞数据库操作直接放进异步事件循环。
+
+安装依赖：`python -m pip install fastapi uvicorn sqlmodel pytest httpx`。
+
+把下面保存为 `app.py`：
+
+```python
+import os
+
+from fastapi import Depends, FastAPI, HTTPException, Response
+from sqlmodel import Field, Session, SQLModel, create_engine, select
+
+database_url = os.environ.get("DATABASE_URL", "sqlite:///tasks.db")
+connect_args = {"check_same_thread": False} if database_url.startswith("sqlite") else {}
+engine = create_engine(database_url, connect_args=connect_args)
+
+
+class TaskBase(SQLModel):
+    title: str = Field(min_length=1, max_length=120)
+    done: bool = False
+
+
+class Task(TaskBase, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+
+
+class TaskCreate(TaskBase):
+    pass
+
+
+class TaskUpdate(SQLModel):
+    title: str | None = Field(default=None, min_length=1, max_length=120)
+    done: bool | None = None
+
+
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
+app = FastAPI()
+
+
+@app.post("/tasks", response_model=Task, status_code=201)
+def create_task(data: TaskCreate, session: Session = Depends(get_session)):
+    task = Task(title=data.title, done=data.done)
+    session.add(task)
+    session.commit()
+    session.refresh(task)
+    return task
+
+
+@app.get("/tasks", response_model=list[Task])
+def list_tasks(session: Session = Depends(get_session)):
+    return session.exec(select(Task).order_by(Task.id)).all()
+
+
+@app.patch("/tasks/{task_id}", response_model=Task)
+def update_task(
+    task_id: int, data: TaskUpdate, session: Session = Depends(get_session)
+):
+    task = session.get(Task, task_id)
+    if task is None:
+        raise HTTPException(status_code=404, detail="任务不存在")
+    changes = data.model_dump(exclude_unset=True)
+    if not changes or any(value is None for value in changes.values()):
+        raise HTTPException(status_code=422, detail="至少提供一个非空更新字段")
+    for key, value in changes.items():
+        setattr(task, key, value)
+    session.add(task)
+    session.commit()
+    session.refresh(task)
+    return task
+
+
+@app.delete("/tasks/{task_id}", status_code=204)
+def delete_task(task_id: int, session: Session = Depends(get_session)):
+    task = session.get(Task, task_id)
+    if task is None:
+        raise HTTPException(status_code=404, detail="任务不存在")
+    session.delete(task)
+    session.commit()
+    return Response(status_code=204)
+```
+
+首次本地运行前，创建 `init_db.py`：
+
+```python
+from sqlmodel import SQLModel
+from app import engine
+
+SQLModel.metadata.create_all(engine)
+```
+
+执行 `python init_db.py` 后，再运行 `uvicorn app:app --reload`，用 `/docs` 创建任务并验证 CRUD。`--reload` 只用于开发；生产项目通过 Alembic 迁移建表，不在服务启动时自动修改数据库结构。
+
+## 部署与交付
+
+1. **管理配置：**默认 SQLite URL 可用于本地学习。部署 PostgreSQL 时，通过 `DATABASE_URL` 设置连接串，并安装对应数据库驱动；不要把连接密码提交到仓库。
+2. **管理迁移：**安装 Alembic 后运行 `alembic init migrations`；在 `migrations/env.py` 里导入 `SQLModel` 和任务模型，把 `target_metadata` 指向 `SQLModel.metadata`，并从 `DATABASE_URL` 设置 Alembic 的连接地址；运行 `alembic revision --autogenerate -m "create tasks"`，检查生成的 SQL 后再运行 `alembic upgrade head`。不要在生产启动时自动调用 `create_all`。
+3. **锁定依赖：**依赖至少包括 FastAPI、Uvicorn、SQLModel、Alembic 和目标数据库驱动；在已验证环境中记录 Python 与依赖版本，再生成部署使用的锁文件或带精确版本的依赖清单。
+4. **构建容器：**把下列内容保存为 `Dockerfile`，并提供锁定后的 `requirements.txt`：
+
+```dockerfile
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN python -m pip install --no-cache-dir -r requirements.txt
+COPY app.py .
+COPY alembic.ini .
+COPY migrations ./migrations
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+5. **运行服务：**容器或服务器使用不带 `--reload` 的 ASGI 服务；生产环境还需 TLS 反向代理、健康检查、日志、数据库备份及访问控制。认证应使用成熟的框架方案，并对每个资源检查授权。
+
+## 测试思路
+
+在项目根目录创建 `test_app.py`，用临时 SQLite 文件隔离测试数据：
+
+```python
+import app as task_app
+from fastapi.testclient import TestClient
+from sqlmodel import SQLModel, create_engine
+
+
+def test_task_crud(tmp_path, monkeypatch):
+    test_engine = create_engine(
+        f"sqlite:///{tmp_path / 'test.db'}",
+        connect_args={"check_same_thread": False},
+    )
+    monkeypatch.setattr(task_app, "engine", test_engine)
+    try:
+        SQLModel.metadata.create_all(test_engine)
+        with TestClient(task_app.app) as client:
+            created = client.post("/tasks", json={"title": "学习 Python"})
+            assert created.status_code == 201
+            task_id = created.json()["id"]
+
+            updated = client.patch(f"/tasks/{task_id}", json={"done": True})
+            assert updated.json()["done"] is True
+            assert client.get("/tasks").json()[0]["title"] == "学习 Python"
+            assert client.delete(f"/tasks/{task_id}").status_code == 204
+            assert client.patch("/tasks/999", json={"done": True}).status_code == 404
+            assert client.post("/tasks", json={"title": ""}).status_code == 422
+    finally:
+        test_engine.dispose()
+```
+
+运行 `python -m pytest`。测试覆盖成功路径、更新、删除、缺失资源和输入校验，且不会污染开发数据库。
+
+## 动手验证
+
+**练习：**增加 `GET /tasks/{task_id}`，找不到任务时返回 `404`。
+
+```python
+@app.get("/tasks/{task_id}", response_model=Task)
+def get_task(task_id: int, session: Session = Depends(get_session)):
+    task = session.get(Task, task_id)
+    if task is None:
+        raise HTTPException(status_code=404, detail="任务不存在")
+    return task
+```
+
+## 本地演示和真实用户服务的边界
+
+不要把开发数据库或密钥提交到仓库。删除和更新前确认资源存在；真实用户数据需要身份认证和授权，不能只依赖输入模型校验。
+
+---
+
+[上一篇：FastAPI：一次请求如何经过校验和业务处理](/notes/python-41-backend) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：采集、办公、GUI 与科学计算：Python 的几条延伸方向](/notes/python-43-other-domains)
+
+10:["$","$L18",null,{"note":{"slug":"python-42-backend-project","title":"Python 42：用 FastAPI 和 SQLite 做一个任务 API","date":"2026-11-12","excerpt":"这里先把任务的增删改查完整连起来，再补数据库初始化和测试。SQLite 让本地例子容易运行；迁移、部署和真实用户的访问控制则需要另外讲清楚，不能从这个演示直接推断。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"error":"$undefined","content":"$19"},"back":"$L1a","comments":"$L1b"}]
+1c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+1a:["$","$Lf",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
+1b:["$","$L1c",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
+15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]
+1d:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+13:null
+17:[["$","title","0",{"children":"Python 42：用 FastAPI 和 SQLite 做一个任务 API | JasBlog"}],["$","meta","1",{"name":"description","content":"这里先把任务的增删改查完整连起来，再补数据库初始化和测试。SQLite 让本地例子容易运行；迁移、部署和真实用户的访问控制则需要另外讲清楚，不能从这个演示直接推断。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1d","3",{}]]

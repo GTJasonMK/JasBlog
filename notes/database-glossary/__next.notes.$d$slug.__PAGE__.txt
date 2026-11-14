@@ -1,0 +1,67 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T114a,
+这些词有的描述数据模型，有的描述执行和恢复机制。我会把术语放回它影响的查询或故障中理解，例如 WAL 位置差是字节数，不能直接当作业务延迟的秒数。
+
+| 术语 | 这组笔记中的含义 |
+|---|---|
+| DBMS | 管理存储、查询、事务、授权与恢复的数据库管理系统 |
+| 实例 | 一组正在运行的数据库服务进程及其管理的状态 |
+| 集簇 | PG 中由一个实例管理的一组数据库；不自动表示多机高可用 |
+| schema | PG 数据库内的命名空间；MySQL 中与 database 基本同义 |
+| OLTP / OLAP | 面向短事务的业务处理 / 面向大量数据聚合的分析处理 |
+| 主键 / 候选键 | 被选为行身份的键 / 能唯一标识行的其他最小键 |
+| 外键 | 要求引用值在目标键中存在的约束，不自动承担完整业务流程 |
+| 规范化 | 根据依赖拆分事实，降低插入、更新和删除异常 |
+| 粒度 | 结果一行代表一个什么事实，例如一单、一客户或一天 |
+| NULL | 缺失或未知，参与比较时常产生未知结果 |
+| CTE | `WITH` 定义的命名子查询，是否物化受具体实现与写法影响 |
+| 窗口函数 | 在保留当前行的基础上，对相关行执行排名、累计等计算 |
+| 视图 / 物化视图 | 保存查询定义 / 保存查询结果并需要刷新 |
+| 事务 | 一组作为整体提交或撤销的数据库操作 |
+| ACID | 原子性、一致性、隔离性、持久性；业务规则仍需正确实现 |
+| MVCC / 快照 | 多版本并发控制 / 一次读取采用的可见性边界 |
+| 脏读 | 读取其他事务尚未提交的数据 |
+| 不可重复读 | 同一事务两次读同一行，看见不同已提交值 |
+| 幻读 | 同一条件再次查询时，匹配行集合发生变化；不同实现防护不同 |
+| 写偏斜 | 并发事务基于相同事实修改不同记录，共同破坏跨行规则 |
+| 死锁 | 等待依赖形成环，需要中止至少一方才能继续 |
+| SQLSTATE | 数据库错误分类代码；`40001` 为序列化失败，`40P01` 为 PG 死锁 |
+| 幂等 | 相同业务请求重复执行，不增加重复业务效果 |
+| outbox | 在本地业务事务中记录待交付事件，再异步发送的模式 |
+| 对账 | 将独立来源的业务事实进行核对，定位缺失或不一致 |
+| B-tree | 有序多路索引结构，用于等值、范围与排序等访问 |
+| 选择性 | 条件筛掉多少记录的程度，应结合具体值与分布判断 |
+| 覆盖 / 回表 | 索引含有所需字段 / 仍需访问表记录或可见性信息 |
+| SARGable | 条件可被索引等访问方式用于定位，而非必须逐行计算 |
+| 执行计划 | 具体扫描、连接、过滤、排序与聚合的数据流安排 |
+| 统计信息 | 优化器估计行数与成本所依据的数据分布信息 |
+| WAL / redo | 先写日志思想 / 崩溃恢复所需的重做信息；对象随系统不同 |
+| undo | InnoDB 等用于撤销和构造历史版本的数据 |
+| binlog | MySQL 复制与时间点恢复使用的二进制日志，不能等同于 InnoDB redo |
+| LSN | PG WAL 中的位置，用于描述日志进度；差值为字节差 |
+| checkpoint | 推进崩溃恢复起点的检查点机制 |
+| VACUUM / ANALYZE | 回收不再需要的版本等维护 / 更新优化器统计 |
+| 膨胀 | 历史版本、空闲空间等使关系体积相对有效数据变大 |
+| HOT | PG 满足条件时减少索引维护的堆内更新优化 |
+| RPO / RTO | 可容忍数据丢失窗口 / 可容忍业务恢复时长 |
+| PITR | 利用基础备份与连续日志恢复到指定位置或时间 |
+| 复制槽 | 保留复制消费者仍需日志等状态的机制，失活可导致占用增长 |
+| failover / fencing | 切换到新主 / 隔离旧主以防继续写入 |
+| 读己之写 | 客户端随后读取能看到自己已提交的写入，读取副本时需额外保证 |
+| CDC | 捕获数据库变化，向其他系统传输并应用增量 |
+| 分区 / 分片 | 通常指同库内按规则分表管理 / 分散到独立数据库或节点 |
+| SLO | 业务服务目标，如延迟、可用性或恢复要求 |
+| p95 | 95% 样本不超过的数值，平均值无法替代它 |
+
+学习中遇到新词，先找到它影响的查询、数据或故障，再回到对应章节。只有能解释触发条件和结果，才算掌握术语。
+
+---
+
+[数据库目录](/notes/database-00-learning-guide)
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-glossary","title":"数据库术语速查：快照、日志、复制与恢复","date":"2026-11-13","excerpt":"这些词有的描述数据模型，有的描述执行和恢复机制。我会把术语放回它影响的查询或故障中理解，例如 WAL 位置差是字节数，不能直接当作业务延迟的秒数。","tags":["数据库","PostgreSQL"],"category":"database-resources","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-resources","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

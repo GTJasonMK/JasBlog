@@ -1,0 +1,75 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tfb3,
+删掉很多行，文件大小可能几乎不变。要解释这个现象，需要区分旧版本回收、空间复用和文件重写；分区则主要帮助裁剪查询与管理数据生命周期，不能代替这些维护工作。
+
+## 旧版本什么时候能回收
+
+MVCC 更新和删除会留下旧版本。只有没有相关快照需要它们时，VACUUM 才能回收并使空间供后续写入复用。长事务、未结束的复制需求等可能延迟清理，持续产生旧版本后表和索引会膨胀。
+
+普通 `VACUUM` 通常不把文件大幅缩小，也不等于整理成紧凑副本。`VACUUM FULL` 会重写表、需要强锁和额外空间，不应作为高峰期常规维护。重写、索引重建、归档要分别核算锁与磁盘成本。
+
+`ANALYZE` 更新优化器统计，`VACUUM` 清理旧版本并维护可见性等信息，两者作用不同。autovacuum 负责自动维护，也承担防止事务 ID 回卷的关键任务，不要为了降低短期 I/O 直接关闭。
+
+```sql
+SELECT relname, n_live_tup, n_dead_tup,
+       last_autovacuum, last_autoanalyze
+FROM pg_stat_user_tables ORDER BY n_dead_tup DESC;
+
+SELECT datname, age(datfrozenxid) AS xid_age FROM pg_database;
+SELECT pid, now() - xact_start AS age, state, backend_xmin
+FROM pg_stat_activity WHERE xact_start IS NOT NULL
+ORDER BY xact_start;
+```
+
+`n_dead_tup` 是估计值，不是精确膨胀率。判断空间问题时还要结合关系大小、写入速率、长事务、维护进度和必要的受控测量。
+
+## 观察一次更新与维护
+
+在 L4 练习表上更新一部分记录，记录更新前后大小、死元组估计和计划。结束所有旧事务后，在事务块外执行：
+
+```sql
+VACUUM (ANALYZE) practice.orders_perf;
+```
+
+重新查询大小。文件没有明显缩小并不表示失败；观察空间是否能被后续写入复用、统计是否更新、Index Only Scan 的 heap fetch 是否变化。不要要求统计在每一瞬间精确反映刚刚写入。
+
+## 分区主要帮助裁剪与生命周期管理
+
+把同一逻辑表按时间范围拆为分区，查询带分区键时可以只扫描相关分区，过期数据也可以分批归档和移除。分区不会自动解决不带分区键的查询，也不会自动把数据分散到多台服务器。
+
+```sql
+CREATE TABLE practice.events (
+    id bigint NOT NULL,
+    occurred_at timestamptz NOT NULL,
+    payload jsonb NOT NULL,
+    PRIMARY KEY (occurred_at, id)
+) PARTITION BY RANGE (occurred_at);
+
+CREATE TABLE practice.events_202601 PARTITION OF practice.events
+FOR VALUES FROM ('2026-01-01 00:00:00+00') TO ('2026-02-01 00:00:00+00');
+```
+
+PostgreSQL 的分区表唯一约束有分区键限制，不能照搬原来单列主键设计。上例主键包含时间，所以不能保证 `id` 跨不同月份全局唯一。业务需要单一全局身份时另行设计约束来源。
+
+要提前创建未来分区，监控无匹配分区导致的插入失败。分区过多增加规划和维护成本。默认分区能接住遗漏范围，但可能掩盖管理缺陷并影响后续挂载，使用前明确维护流程。
+
+## 归档先保证能找回
+
+定义保留期、查询需求、法律留存、脱敏与恢复办法；导出后核对记录数、校验和、时间范围及读取能力，再进行分区移除或删除。备份里的旧数据也受保留与访问管理约束。
+
+## 动手验证
+
+说明大批量删除后空间为什么没有归还，以及长期不提交的报表事务会有什么影响。为一年事件数据设计月分区，分别展示带时间条件和不带时间条件的 `EXPLAIN`，比较扫描分区。
+
+参考：[日常维护](https://www.postgresql.org/docs/16/routine-vacuuming.html)、[分区](https://www.postgresql.org/docs/16/ddl-partitioning.html)。
+
+---
+
+[上一篇：从执行计划解释查询为什么慢](/notes/database-12-query-plans) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：把连接身份、对象权限和数据安全分开检查](/notes/database-14-security)
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-13-vacuum-partitions","title":"数据库 13：删除后文件为什么没变小，分区又能解决什么","date":"2026-11-13","excerpt":"删掉很多行，文件大小可能几乎不变。要解释这个现象，需要区分旧版本回收、空间复用和文件重写；分区则主要帮助裁剪查询与管理数据生命周期，不能代替这些维护工作。","tags":["数据库","PostgreSQL"],"category":"database-performance","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=database-performance","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

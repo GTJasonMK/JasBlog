@@ -1,0 +1,46 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Ta30,
+Lua 能把 Redis 内的一组检查和写入放在一起执行，但不会顺便提交 MySQL 订单。我会先把这条边界画出来，再设计消息发送失败、超时和重复补偿如何处理。
+
+## 原子库存预留
+
+先查再减会产生竞争窗口。Lua 脚本在 Redis 内原子执行检查与扣减：
+
+~~~lua
+local stock = tonumber(redis.call("GET", KEYS[1]) or "0")
+if stock <= 0 then
+  return 0
+end
+redis.call("DECR", KEYS[1])
+return 1
+~~~
+
+脚本执行期间不会被其他命令插入，但这不等于脚本出错时自动回滚已经执行的写命令；应先验证参数和 key 类型，尽量把可能失败的检查放在写入前，并用预留记录和对账处理部分执行的异常。脚本也会占用所在分片的执行线程，必须保持短小。它不能同时提交 MySQL 订单。若 Redis 预扣成功、消息发送失败，系统需要释放预留或通过超时对账恢复；不能仅凭接口返回失败就认为库存自动恢复。
+
+完整的抢购脚本还要把“用户是否已参与、幂等键是否已处理、剩余库存是否足够、写入预留记录”放在同一个原子操作里，否则并发重复请求可能重复扣库存。Redis Cluster 中 Lua 使用的所有 key 必须落在同一 hash slot；可用 {campaign_id} hash tag 组织相关 key，同时评估这会不会形成单个活动的热点分片。
+
+## 缓存热点与限流
+
+单个热门活动可能成为 Redis 热点。可以用本地缓存、分片计数或排队入口减轻压力，但会改变数据一致性和容量边界，需要压测验证。令牌桶或固定窗口可做限流；限流 key 维度和过期时间要防止无限增长。
+
+库存 key 一旦分片，跨分片无法用一个 Lua 脚本原子扣减。此时需选择单分片串行化、分桶库存加异步汇总，或排队削峰等方案，并接受相应的一致性和可售库存取舍。
+
+## 分布式锁
+
+锁要有唯一值、租约和安全释放；过期时间过短会让持锁任务仍在执行时锁已被其他实例获取。需要 fencing token 等机制的场景，单纯 SET NX PX 并不足够。抢购库存优先用原子条件更新或队列控制，不把锁当作默认方案。
+
+## 动手验证
+
+为活动库存写一个原子预扣脚本，并设计 Redis 操作成功、Kafka 投递失败和消费者写库失败三种情况下的恢复方式。
+
+---
+
+[上一篇：Redis 缓存：命中之外，还要考虑失效和恢复](/notes/go-25-redis-cache) · [Go 目录](/notes/go-00-learning-guide) · [下一篇：Kafka：顺序、offset 与重复消费](/notes/go-27-kafka)
+
+0:{"buildId":"Lce4hgqZcvwFwf7yktvnD","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-26-redis-concurrency","title":"Go 26：Redis 高并发：原子预留与跨系统事务的区别","date":"2026-11-12","excerpt":"Lua 能把 Redis 内的一组检查和写入放在一起执行，但不会顺便提交 MySQL 订单。我会先把这条边界画出来，再设计消息发送失败、超时和重复补偿如何处理。","tags":["Go","数据库、缓存与消息"],"category":"go-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=go-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

@@ -1,0 +1,113 @@
+1:"$Sreact.fragment"
+3:I[605500,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"Image"]
+4:I[402971,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+5:I[963310,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js"],"default"]
+c:I[168027,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+:HL["/_next/static/chunks/744deeb44d1d908f.css","style"]
+:HL["/_next/static/chunks/5418d8b7153252a1.css","style"]
+:HL["/_next/static/chunks/773957f472007a6e.css","style"]
+:HC["/",""]
+2:[["$","source",null,{"media":"(max-width: 767px)","srcSet":"/backgrounds/lake-mobile.webp","type":"image/webp"}],["$","$L3",null,{"src":"/backgrounds/lake.webp","alt":"","width":2400,"height":1600,"loading":"eager","fetchPriority":"high","unoptimized":true}]]
+0:{"P":null,"b":"Lce4hgqZcvwFwf7yktvnD","c":["","notes","database-06-windows-reports"],"q":"","i":false,"f":[[["",{"children":["notes",{"children":[["slug","database-06-windows-reports","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/744deeb44d1d908f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/5418d8b7153252a1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/773957f472007a6e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/95f220ea84d8100f.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/12e0fee80551138b.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"name":"base-path","content":""}],["$","script",null,{"id":"site-theme","dangerouslySetInnerHTML":{"__html":"(()=>{const saved=localStorage.getItem(\"jasblog:theme\");const mode=saved==='light'||saved==='dark'?saved:'system';const root=document.documentElement;root.dataset.themeMode=mode;root.classList.toggle('dark',mode==='dark'||mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)})()"}}]]}],["$","body",null,{"className":"site-shell flex flex-col","children":[["$","div",null,{"className":"site-background","aria-hidden":"true","children":["$","picture",null,{"children":"$2"}]}],["$","a",null,{"href":"#site:main-content","className":"skip-link","children":"跳到正文"}],["$","$L4",null,{"name":"JasBlog","navItems":[{"target":"home","href":"/","label":"首页"},{"target":"projects","href":"/projects","label":"开源项目"},{"target":"notes","href":"/notes","label":"学习笔记"},{"target":"photography","href":"/photography","label":"摄影作品"},{"target":"graphs","href":"/graphs","label":"知识图谱"},{"target":"page:friends","href":"/pages/friends","label":"友链"},{"target":"timeline","href":"/timeline","label":"时间线"}]}],["$","main",null,{"id":"site:main-content","tabIndex":-1,"data-pagefind-body":true,"className":"site-main","children":["$","$L5",null,{"sections":{"home":{"title":"首页","description":"","enabled":true},"notes":{"title":"学习笔记","description":"记录学习过程中的收获与思考","enabled":true},"projects":{"title":"开源项目","description":"分享我的开源作品","enabled":true},"diary":{"title":"考研日志","description":"按天聚合的考研日志时间线。","enabled":false},"graphs":{"title":"知识图谱","description":"可视化的知识体系","enabled":true},"roadmap":{"title":"我的规划","description":"我的学习和开发计划","enabled":true},"photography":{"title":"摄影作品","description":"记录光线、风景与日常。","enabled":true},"timeline":{"title":"发布时间线","description":"按时间浏览笔记、项目与摄影作品的发布记录。","enabled":true}},"noteCategories":[{"id":"python","name":"Python"},{"id":"python-part1","name":"语言基础","parentId":"python"},{"id":"python-part2","name":"函数与程序组织","parentId":"python"},{"id":"python-part3","name":"标准库与工程实践","parentId":"python"},{"id":"python-part4","name":"运行机制与并发","parentId":"python"},{"id":"python-part5","name":"应用与项目","parentId":"python"},{"id":"go","name":"Go"},{"id":"go-part1","name":"语言与工具链","parentId":"go"},{"id":"go-part2","name":"HTTP 与服务设计","parentId":"go"},{"id":"go-part3","name":"数据库、缓存与消息","parentId":"go"},{"id":"go-part4","name":"促销订单项目","parentId":"go"},{"id":"go-part5","name":"测试、性能与微服务","parentId":"go"},{"id":"go-part6","name":"部署与运维","parentId":"go"},{"id":"go-advanced","name":"进阶专题","parentId":"go"},{"id":"typescript","name":"TypeScript"},{"id":"typescript-01-web","name":"Web 基础","parentId":"typescript"},{"id":"typescript-02-javascript","name":"JavaScript 语法","parentId":"typescript"},{"id":"typescript-03-js-engineering","name":"JavaScript 异步与工具","parentId":"typescript"},{"id":"typescript-04-typescript-core","name":"TypeScript 类型基础","parentId":"typescript"},{"id":"typescript-05-typescript-modeling","name":"类型收窄与泛型","parentId":"typescript"},{"id":"typescript-06-typescript-advanced","name":"进阶类型","parentId":"typescript"},{"id":"typescript-07-typescript-engineering","name":"TypeScript 工程实践","parentId":"typescript"},{"id":"typescript-08-react","name":"React 组件","parentId":"typescript"},{"id":"typescript-09-frontend-app","name":"前端应用","parentId":"typescript"},{"id":"typescript-10-backend","name":"Node.js 与 Express","parentId":"typescript"},{"id":"typescript-11-database-security","name":"数据库与安全","parentId":"typescript"},{"id":"typescript-12-delivery","name":"全栈整合与发布","parentId":"typescript"},{"id":"database","name":"数据库"},{"id":"database-sql","name":"基础与 SQL","parentId":"database"},{"id":"database-transactions","name":"事务与应用","parentId":"database"},{"id":"database-performance","name":"性能与维护","parentId":"database"},{"id":"database-recovery","name":"安全与恢复","parentId":"database"},{"id":"database-operations","name":"运维与变更","parentId":"database"},{"id":"database-choices","name":"对照与选型","parentId":"database"},{"id":"database-resources","name":"练习与资料","parentId":"database"},{"id":"database-labs","name":"实验与实作","parentId":"database"}],"commentsEnabled":false,"children":"$L6"}]}],"$L7",false]}]]}]]}],{"children":["$L8",{"children":["$L9",{"children":["$La",{},null,false,false]},null,false,false]},null,false,false]},null,false,false],"$Lb",false]],"m":"$undefined","G":["$c",[]],"S":true}
+d:I[339756,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+e:I[837457,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"default"]
+f:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+11:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+12:"$Sreact.suspense"
+14:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"ViewportBoundary"]
+16:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"MetadataBoundary"]
+6:["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","section",null,{"className":"site-message","children":[["$","p",null,{"className":"site-message-code","children":"404"}],["$","h1",null,{"children":"这一页暂时找不到"}],["$","p",null,{"children":"页面不存在，或暂未公开。"}],["$","$Lf",null,{"href":"/","className":"btn-primary","children":"返回首页"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]
+7:["$","footer",null,{"className":"site-footer","children":[["$","span",null,{"className":"footer-rule","aria-hidden":"true"}],["$","p",null,{"children":["© ",2026," ","JasBlog"]}],["$","span",null,{"className":"footer-rule","aria-hidden":"true"}]]}]
+8:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+9:["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Le",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+a:["$","$1","c",{"children":["$L10",[["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true,"nonce":"$undefined"}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}]
+b:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]
+18:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+1a:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+19:Tfdf,
+既要保留每笔订单，又要算客户内排名或累计金额时，窗口函数就很合适。这里最容易漏掉的是排序、窗口框架和报表口径，同一段 SQL 换个时区或状态条件，结果的含义就会改变。
+
+## 聚合与窗口的区别
+
+`GROUP BY` 将多行折叠成一组一行；窗口函数在保留当前结果行的基础上查看相关行。
+
+```sql
+SELECT id, customer_id, total_cents,
+       row_number() OVER (
+           PARTITION BY customer_id ORDER BY created_at, id
+       ) AS customer_order_no,
+       sum(total_cents) OVER (
+           PARTITION BY customer_id ORDER BY created_at, id
+           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+       ) AS cumulative_cents
+FROM shop.orders
+ORDER BY customer_id, created_at, id;
+```
+
+`PARTITION BY` 定义每个客户的窗口，窗口内排序定义计算顺序。张同学的累计金额依次为 39800、49700 分。外层 `ORDER BY` 仍然负责最终输出顺序。
+
+显式写 `ROWS` 是为了按行累计。默认窗口框架可能把排序值相同的同伴行一起纳入，遇到同时间记录时结果与预期不同。`row_number` 每行唯一编号，`rank` 并列后跳号，`dense_rank` 并列后不跳号，选择由业务排名规则决定。
+
+## 取每个客户的最新订单
+
+窗口结果要在外层筛选：
+
+```sql
+WITH ranked AS (
+    SELECT id, customer_id, total_cents,
+           row_number() OVER (
+               PARTITION BY customer_id ORDER BY created_at DESC, id DESC
+           ) AS rn
+    FROM shop.orders
+)
+SELECT id, customer_id, total_cents FROM ranked WHERE rn = 1
+ORDER BY customer_id;
+```
+
+`lag` 可以取前一行的金额或日期，用来分析相邻订单间隔。但它看到的是当前查询过滤后剩下的行，不一定是数据库里真正的上一笔事件。
+
+## 报表必须规定口径
+
+“每日销售额”至少要确定：按下单还是支付时间、哪些状态、是否扣退款、什么时区、是否包含税费、什么币种。示例只计算按创建日归类的已支付订单额：
+
+```sql
+SELECT (created_at AT TIME ZONE 'UTC')::date AS business_day,
+       count(*) AS paid_orders, sum(total_cents) AS amount_cents
+FROM shop.orders WHERE status = 'paid'
+GROUP BY (created_at AT TIME ZONE 'UTC')::date
+ORDER BY business_day;
+```
+
+没有订单的日期不会自动出现。要显示零值日期，先用 `generate_series` 产生日期集合，再左连接每日汇总。正式财务报表还要处理支付时间、退款、迟到事件与结账后的修订流程。
+
+## 视图与物化视图
+
+经常复用的报表可以保存为视图，视图每次查询仍读取当时基础数据；物化视图保存结果，需要刷新，因此存在延迟和刷新成本。并发刷新对唯一索引等有要求，不能只把普通视图换成物化视图就宣称查询与更新都免费。
+
+## 大列表使用稳定游标
+
+`OFFSET 100000` 仍需要处理前面的大量行，而且并发插入会改变偏移。按确定的排序键继续读取：
+
+```sql
+SELECT id, created_at, total_cents FROM shop.orders
+WHERE customer_id = 1
+  AND (created_at, id) < (timestamptz '2026-01-10 11:00:00+00', 2::bigint)
+ORDER BY created_at DESC, id DESC LIMIT 20;
+```
+
+这里从订单 2 后继续，返回订单 1。游标应包含全部排序键，并与筛选条件绑定。它不能自动提供跨多次请求的一致快照；业务若要求固定导出结果，需要单独设计快照或导出任务。
+
+## 动手验证
+
+完成每位客户最新订单、客户内累计金额、2026 年 1 月 9 至 12 日每日已支付金额并补零。说明窗口框架和时区各会怎样改变结果。参考答案见[练习答案](/notes/database-exercise-answers)。
+
+参考：[窗口函数](https://www.postgresql.org/docs/16/tutorial-window.html)。
+
+---
+
+[上一篇：关联之后，为什么金额会多算](/notes/database-05-joins-subqueries) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：快照稳定了，业务规则就一定正确吗](/notes/database-07-transactions-mvcc)
+10:["$","$L18",null,{"note":{"slug":"database-06-windows-reports","title":"数据库 06：用窗口函数做排名、累计和报表","date":"2026-11-13","excerpt":"既要保留每笔订单，又要算客户内排名或累计金额时，窗口函数就很合适。这里最容易漏掉的是排序、窗口框架和报表口径，同一段 SQL 换个时区或状态条件，结果的含义就会改变。","tags":["数据库","PostgreSQL"],"category":"database-sql","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"error":"$undefined","content":"$19"},"back":["$","$Lf",null,{"href":"/notes?category=database-sql","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L1a",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}]
+15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","media":"(prefers-color-scheme: light)","content":"#f3f2ea"}],["$","meta","3",{"name":"theme-color","media":"(prefers-color-scheme: dark)","content":"#11251f"}]]
+1b:I[27201,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"IconMark"]
+13:null
+17:[["$","title","0",{"children":"数据库 06：用窗口函数做排名、累计和报表 | JasBlog"}],["$","meta","1",{"name":"description","content":"既要保留每笔订单，又要算客户内排名或累计金额时，窗口函数就很合适。这里最容易漏掉的是排序、窗口框架和报表口径，同一段 SQL 换个时区或状态条件，结果的含义就会改变。"}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}],["$","$L1b","3",{}]]
