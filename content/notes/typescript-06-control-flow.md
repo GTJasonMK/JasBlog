@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 06：判断、循环与默认值：0 和空字符串怎么办"
 date: "2026-11-12"
-excerpt: "给配置设置默认值时，我会先确认 0 或空字符串是否是合法输入。这个答案决定了该用空值合并还是逻辑或，不能只看两种写法哪一种更短。"
+excerpt: "用户明确传0，程序却用了20，默认值为什么覆盖了输入？对照逻辑或与空值合并，再把整数、NaN和范围校验接到同一分页例子。"
 tags: [ "TypeScript", "JavaScript 语法" ]
 category: "typescript-02-javascript"
 publication: "published"
@@ -9,19 +9,31 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-给配置设置默认值时，我会先确认 0 或空字符串是否是合法输入。这个答案决定了该用空值合并还是逻辑或，不能只看两种写法哪一种更短。
+`requestedSize || 20` 看起来是一个简洁默认值，传0却会得到20。若0应该被拒绝，这个写法反而把错误藏起来；若0表示关闭，又改变了合法含义。默认值只在允许省略时补上，验证则判断提供的值是否合法。
 
 使用 if/else 表达分支，使用 for...of 遍历可迭代集合。&&、|| 会返回操作数本身，可用于短路求值。?? 只在值为 null 或 undefined 时使用默认值。
 
 ~~~js
-const pageSize = requestedSize ?? 20;
-
-if (pageSize < 1 || pageSize > 100) {
-  throw new Error("pageSize 必须在 1 到 100 之间");
+function pageSizeOf(requestedSize) {
+  const pageSize = requestedSize ?? 20;
+  if (!Number.isInteger(pageSize) || pageSize < 1 || pageSize > 100) {
+    throw new Error("pageSize 必须是1到100之间的整数");
+  }
+  return pageSize;
 }
 ~~~
 
 常见假值包括空字符串、0、NaN、null、undefined 和 false。?? 与 || 的差异在于：如果合法值是 0 或空字符串，|| 也会触发默认值。
+
+函数不传参数返回20，传10返回10，传0、1.5、NaN或文本都报错。只写大小比较会漏掉NaN，因为NaN与上下界的比较都为false；Number.isInteger把类型和整数条件一起检查。HTTP查询参数是文本时，先按明确格式转换，再调用这项规则。
+
+与Python不同，空数组和空对象在JavaScript里都是真值。检查列表是否有内容用length，不写 `if (items)` 来判断非空。`&&`、`||` 返回操作数而非强制布尔，因此表达式结果还要按实际类型理解。
+
+## 循环选择也有语义
+
+for...of遍历可迭代值，适合数组元素；for...in枚举属性键，还可能涉及继承属性，不是数组元素循环的替代。需要提前退出、复杂失败处理时，普通循环比强塞进map或forEach更清楚；forEach回调里的return不会退出外层函数。
+
+遍历时删除同一数组的元素，索引移动可能跳过下一项。可以先筛选得到新数组，或按明确的索引策略处理。循环、短路和默认值都在改变实际执行路径，先用边界输入追踪一次，比只背语法更容易发现错误。
 
 ## 默认值不能覆盖本来合法的输入
 

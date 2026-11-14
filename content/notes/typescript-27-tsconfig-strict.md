@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 27：tsconfig 与 strict：每个检查选项在管什么"
 date: "2026-11-12"
-excerpt: "遇到配置问题，我会先确认哪些文件参与检查，再看目标运行时、模块模式和严格选项。strict 包含一组检查，但不会自动打开所有质量规则。"
+excerpt: "strict已经打开，数组越界与未使用变量为什么还没报错？拆开检查范围、空值、索引与未使用选项，让tsconfig对应实际运行和质量要求。"
 tags: [ "TypeScript", "TypeScript 工程实践" ]
 category: "typescript-07-typescript-engineering"
 publication: "published"
@@ -9,7 +9,7 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-遇到配置问题，我会先确认哪些文件参与检查，再看目标运行时、模块模式和严格选项。strict 包含一组检查，但不会自动打开所有质量规则。
+打开strict不等于开启TypeScript所有检查。数组下标可能仍被当成必定存在，未使用变量也可能没有提示。配置要按每项规则的实际范围理解，不能用一个“严格模式”概括全部保障。
 
 tsconfig.json 定义编译输入、输出和检查规则。strict 打开一组严格检查；noEmit 可只检查、不输出文件；目标和库选项决定可用语法与内置 API 类型。
 
@@ -31,11 +31,21 @@ tsconfig.json 定义编译输入、输出和检查规则。strict 打开一组�
 
 不同运行时和构建工具需要不同 module 配置，不能把网上某个 tsconfig 无条件复制到所有项目。
 
+strictNullChecks让null与undefined不能随意当成普通值使用，noImplicitAny防止部分未推断参数悄悄变成any。noUncheckedIndexedAccess与未使用检查单独开启，分别处理索引风险与无用声明；它们解决不同问题。
+
+target影响输出语法，lib提供运行API的类型知识，不会自动安装polyfill。NodeNext按Node模块规则解析，浏览器打包项目常使用另一套适合打包器的配置。配置选择跟实际执行者走，不以哪份示例更短决定。
+
 ## 配置要和实际工具链一起核对
 
 - skipLibCheck 不是修复应用代码类型错误的办法。
 - include 和 exclude 会影响哪些文件参与检查。
 - 开启 strict 后，优先修正真实边界问题，不要批量添加类型断言。
+
+include与exclude控制初始文件发现，已被导入的文件仍可能进入程序，exclude不是访问隔离。怀疑文件没被检查时，查看展开后的配置与文件列表，不能因为命令退出成功就假定整个仓库都纳入了检查。
+
+noEmit适合把类型检查交给tsc、产物交给其他工具的项目；需要tsc生成代码时则使用明确outDir与无错误输出策略。测试、服务端和浏览器可能各有配置，但公共选项有清楚来源，避免复制多份后逐渐漂移。
+
+新增检查发现错误以后，先看它暴露的是实际可空、未知输入还是错误声明。只有调用点确实有检查器无法推导的证据时才使用断言；批量加感叹号，会让新配置只剩形式。
 
 ## 动手验证
 

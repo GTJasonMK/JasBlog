@@ -1,7 +1,7 @@
 ---
 title: "Go 16：net/http：请求处理、超时与优雅关闭"
 date: "2026-11-12"
-excerpt: "理解框架之前，我想先看清标准库怎么接住请求。Handler 只是其中一层；连接空闲、请求体大小、读写超时和退出时的清理，都需要服务自己负责。"
+excerpt: "路由函数已经返回，连接和后台任务会不会自动结束？沿net/http的Handler、响应写入与Server生命周期，区分超时、大小上限、资源关闭和优雅退出。"
 tags: [ "Go", "HTTP 与服务设计" ]
 category: "go-part2"
 publication: "published"
@@ -9,7 +9,7 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-理解框架之前，我想先看清标准库怎么接住请求。Handler 只是其中一层；连接空闲、请求体大小、读写超时和退出时的清理，都需要服务自己负责。
+一个HTTP服务既要回答请求，也要管理连接。Handler只处理当前请求；慢速发送请求头、长时间保持空闲连接、进程收到终止信号，都是Handler之外仍然会发生的事。只写一个路由函数，还没有定义整个服务怎样运行。
 
 ## Handler
 
@@ -42,11 +42,23 @@ func newServer() *http.Server {
 
 实际程序中还要检查 ListenAndServe 返回值，处理 SIGTERM 并调用 Shutdown，让正在处理的请求有机会结束。
 
+方法模式 `GET /healthz` 使用Go 1.22起的ServeMux路由能力。可以用httptest创建请求和ResponseRecorder，不启动真实端口就检查状态码、Content-Type和JSON；检查路由本身时，把请求交给mux，而不只直接调用health函数。
+
+Header必须在WriteHeader或首次Write之前设置。没显式写状态时，首次写出内容通常隐式使用200；响应已经开始后，再想改成500通常来不及。因此先完成可能失败的解析和业务步骤，再确定响应，写出失败则记录传输问题，不能重新假装发送另一份完整JSON。
+
 绑定请求体时可用 http.MaxBytesReader 限制大小。反向代理后要正确配置可信代理来源，不能无条件相信客户端提供的 X-Forwarded-For 或 X-Forwarded-Proto。
 
 ## 中间件
 
 中间件也是 Handler，可以在调用下一个 Handler 前后记录日志、检查身份或设置请求标识。中间件应该有明确顺序；认证和授权不能只靠前端隐藏按钮。
+
+超时机制各有范围。服务器写超时约束连接写入，不会自动中断仍在计算的业务goroutine；业务调用仍应传播请求context并响应取消。流式响应需要单独规划，不能直接套一个很短的普通响应超时。
+
+## 退出时先给请求收尾机会
+
+Shutdown先关闭监听器与空闲连接，再等待活动请求结束，直到传入context到期。ListenAndServe因此返回ErrServerClosed属于预期关闭，其他监听错误应报告。调用Shutdown的清理流程要等到完成，不能启动一个goroutine后main立即退出。
+
+升级或劫持的连接、独立worker与消费者不全由Shutdown管理，应用仍需分别停止并等待。关闭HTTP以后再关数据库，可以让尚在处理的请求完成提交；顺序反过来，就可能把正常退出变成请求失败。
 
 ## HTTP 客户端
 

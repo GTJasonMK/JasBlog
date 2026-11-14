@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 51：npm workspaces：组织前端、API 和共享包"
 date: "2026-11-12"
-excerpt: "前后端开始共享 API 规则之后，我会把共享代码单独放成一个包。workspaces 统一安装和锁文件，但每个包依赖什么、先构建谁，仍然需要在项目里写明。"
+excerpt: "共享文件放进同一仓库，为什么Node仍不能直接导入？从npm工作区的包身份、依赖声明与导出入口说明共享Schema怎样被前后端真正使用。"
 tags: [ "TypeScript", "全栈整合与发布" ]
 category: "typescript-12-delivery"
 publication: "published"
@@ -9,7 +9,7 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-前后端开始共享 API 规则之后，我会把共享代码单独放成一个包。workspaces 统一安装和锁文件，但每个包依赖什么、先构建谁，仍然需要在项目里写明。
+前端把标题限制写成100，后端写成120，规则已经漂移。把相同API规则提到共享包可以减少副本，但仅仅放在同一个仓库不会自动解决依赖、构建和运行时路径。共享包仍然是一个需要公开入口的包。
 
 npm workspaces 让多个 package 共用依赖安装和锁文件，同时保留各自脚本与依赖。示例项目结构：
 
@@ -24,11 +24,23 @@ package.json
 
 根 package.json 声明 workspaces。web、api 和 shared 各有自己的 package.json。shared 导出 Schema；web 和 api 通过 workspace 依赖导入。先保证简单的运行与构建顺序，再考虑复杂打包工具。
 
+根可声明private与 `"workspaces": ["apps/*", "packages/*"]`，shared取明确名称，例如@task/shared。消费者在自己的dependencies声明与本地版本匹配的依赖，再从包名导入，不能直接跨目录引用兄弟应用源码。npm按工作区规则链接本地包，具体依赖语法不要混用其他包管理器协议。
+
+shared的exports指向可使用入口。若Node消费编译产物，先构建shared并输出声明与JavaScript，再构建API；前端打包器能处理源码，也不能证明生产Node具有相同能力。脚本明确顺序，工作区本身不会自动理解完整任务图。
+
+## 包边界保持到运行产物
+
+只共享浏览器也能使用的Schema、状态与公开类型，不把Prisma客户端、密码实现或环境配置从同一入口导出。否则前端打包可能触及服务端依赖，类型便利反而扩大了边界。
+
 ## 共享包只放真正共享的合同
 
 - workspace 不会自动解决所有模块解析和构建依赖。
 - shared 只能放真正共享的 API 契约，不要变成杂物包。
 - 锁文件放根目录并提交。
+
+统一锁文件用于复现安装，每个包仍声明自己实际使用的依赖。依赖被提升到根以后，本机可能碰巧找到未声明包，独立构建时却失败；验证消费者时按实际包入口运行，避免靠目录邻近偶然通过。
+
+先用一个常量验证包名与导出，再换成Schema并分别执行前端构建、API类型检查和生产启动。只让编辑器跳转到shared，不足以证明部署产物已经包含所需实现。
 
 ## 动手验证
 

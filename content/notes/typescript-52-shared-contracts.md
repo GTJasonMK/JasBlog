@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 52：共享 Schema：让前后端使用同一份接口规则"
 date: "2026-11-12"
-excerpt: "请求类型写一份、校验规则再写一份，修改时就可能遗漏。我会从 Schema 推导类型，让前端反馈和后端校验使用同一份约定，同时保持后端独立执行检查。"
+excerpt: "共享了CreateTask类型，服务端为什么仍要parse？让公开Schema同时提供真实规则与静态关系，再为创建、局部修改和公开响应分别限制字段。"
 tags: [ "TypeScript", "全栈整合与发布" ]
 category: "typescript-12-delivery"
 publication: "published"
@@ -9,7 +9,7 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-请求类型写一份、校验规则再写一份，修改时就可能遗漏。我会从 Schema 推导类型，让前端反馈和后端校验使用同一份约定，同时保持后端独立执行检查。
+同一条标题规则分别写在接口类型、前端校验和后端判断里，改一处很容易漏两处。Schema可以成为共同来源，类型从它推导，实际数据再通过它解析；共享消除规则副本，不消除每个可信边界的验证责任。
 
 在 shared 中定义请求和响应 Schema。API 使用 parse 或 safeParse 验证真实请求；前端可使用同一 Schema 做即时表单反馈；类型从 Schema 推导，避免另外维护一份手写接口类型。
 
@@ -19,18 +19,31 @@ import { z } from "zod";
 export const CreateTaskSchema = z.object({
   title: z.string().trim().min(1).max(120),
   status: z.enum(["todo", "in_progress", "done"]),
-});
+}).strict();
 
 export type CreateTaskInput = z.infer<typeof CreateTaskSchema>;
+
+export const UpdateTaskSchema = CreateTaskSchema.partial().refine(
+  (value) => Object.keys(value).length > 0,
+  { message: "至少提供一个修改字段" },
+);
 ~~~
 
 共享契约代表公开 API，不应包含数据库私有字段。响应 Schema 也需要校验或由服务端可靠映射，避免意外泄露字段。
+
+这个小合同只包含title与status，创建都必填；标题先trim再检查。修改允许省略其中一项，却拒绝空对象与未知字段，不能传id或ownerId。若项目加入description、dueAt，继续明确可空与省略含义，再扩展公开Schema，而不是直接Partial整张数据库表。
+
+响应同样需要白名单映射。把数据库行标注为某个响应类型不会删掉passwordHash；真正构造公开对象，再按合同检查必要字段与序列化结果。共享包也不应导出只能在服务器运行的数据库实现。
 
 ## 共享规则不等于只校验一次
 
 - 前端 Schema 校验不能代替后端校验。
 - 服务端输出不应直接序列化数据库模型。
 - API 变更要考虑前后端部署版本短暂不一致。
+
+浏览器可能仍缓存旧版本脚本，API已经升级，所以合同变更还要评估部署窗口。增加可选响应通常较容易，删除状态或把可选输入改必填可能直接破坏旧页面。不要为了消除类型错误同时上线两边，就假定所有浏览器立刻更新。
+
+验证同一输入在前端反馈与API解析得到相同规范化结果，再从直接HTTP请求绕过页面检查服务端仍拒绝非法值。创建、修改与响应各有用途，共享的是相同事实，不把不同职责硬合成一个万能Schema。
 
 ## 动手验证
 

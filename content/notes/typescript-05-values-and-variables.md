@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 05：JavaScript 变量：const 限制的到底是什么"
 date: "2026-11-12"
-excerpt: "const 声明的对象还能改属性，这一点很容易和“常量不能变”混在一起。我会把变量绑定与对象内容分开看，再理解 null、undefined 和几种基本类型。"
+excerpt: "const对象改了名字，另一个变量读到的名字也变了，究竟复制了什么？从绑定和对象身份解释修改，再看number精度、严格相等与空值的边界。"
 tags: [ "TypeScript", "JavaScript 语法" ]
 category: "typescript-02-javascript"
 publication: "published"
@@ -9,7 +9,7 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-const 声明的对象还能改属性，这一点很容易和“常量不能变”混在一起。我会把变量绑定与对象内容分开看，再理解 null、undefined 和几种基本类型。
+const声明的user可以修改name，为什么却不能换成另一个对象？因为限制的是变量绑定，而不是对象内部。先区分“这个名字指向谁”和“对象里存了什么”，后面的数组复制与React状态才容易解释。
 
 常见原始类型包括 string、number、boolean、bigint、symbol、undefined 和 null。数组、函数和普通对象都属于对象一类。const 禁止重新绑定变量，但不冻结对象内部属性。
 
@@ -24,11 +24,23 @@ count += 1;
 
 Python 的 None 与 JavaScript 的 null 接近；undefined 常表示尚未赋值或属性不存在。使用 typeof 可检查部分值，但 typeof null 是历史兼容行为，结果为 object。
 
+这段输出Mei。再写 `const other = user`，other与user仍然访问同一对象，修改任一方的name都会在另一方读到。若写 `user = { name: "Ada" }`，则违反const绑定限制；let允许重新绑定，却同样不会自动复制对象。
+
+原始值没有可修改内部字段，例如字符串操作返回新字符串。对象相等比较身份，两个内容一样的独立对象仍然不满足严格相等；比较业务内容需要按字段规则判断，不把引用相同等同于内容永远没变。
+
+## 缺失与数值都需要明确含义
+
+函数没有return时得到undefined，JSON能表达null却不能直接表达undefined。可选字段缺失、显式清空和空字符串可能是三种不同业务输入，不应在解析时一律合并。typeof适合部分基础检查，数组用Array.isArray，null先单独判断。
+
+number采用双精度浮点表示，整数只有在安全范围内才能逐个精确表达。很大的数据库编号可以按字符串传递；bigint能表达大整数，但不能直接通过普通JSON序列化，接口也要约定表示。金额使用明确整数最小单位或十进制方案，不能以“看起来是整数”忽略范围。
+
 ## 绑定不变不代表对象不可修改
 
 - const 对象仍可修改；需要不可变数据时，应通过新对象更新。
 - == 会进行类型转换；大多数业务代码优先用 ===。
 - JavaScript 的 number 同时表示整数和浮点数，需留意精度边界。
+
+严格相等避免隐式转换，但NaN仍不等于自身，应按需要用Number.isNaN判断。外部字符串转换成数字也要检查有限性和业务范围；Number空字符串得到0，parseInt可能只接受前面的数字部分，这些都不等于输入完整合法。
 
 ## 动手验证
 

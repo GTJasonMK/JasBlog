@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 34：React 状态与列表更新"
 date: "2026-11-12"
-excerpt: "切换一条任务状态时，我会创建新数组，只替换对应的对象。这样变化来自哪里比较明确，配合稳定的 key，React 也能保留每一项的身份。"
+excerpt: "push以后界面没变，连续更新又少了一次，React状态究竟保存了什么？用一份完整列表组件说明状态快照、函数式更新与稳定key。"
 tags: [ "TypeScript", "React 组件" ]
 category: "typescript-08-react"
 publication: "published"
@@ -9,29 +9,54 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-切换一条任务状态时，我会创建新数组，只替换对应的对象。这样变化来自哪里比较明确，配合稳定的 key，React 也能保留每一项的身份。
+状态数组里push了一个任务，调用setTasks传回同一数组，界面可能没有按预期变化。React需要新的状态值来表达更新；同时，当前事件处理器看到的仍是本次渲染的快照，调用setter不会立即改写手中的变量。
 
 useState 用于组件状态。状态更新应创建新值，React 根据新状态重新渲染。表单、列表选中项和加载状态都可以是组件状态。
 
 ~~~tsx
-const [tasks, setTasks] = useState<Task[]>([]);
+import { useState } from "react";
+import { TaskCard } from "./TaskCard";
 
-function addTask(task: Task) {
-  setTasks((current) => [...current, task]);
+type Task = { id: string; title: string; status: "todo" | "in_progress" | "done" };
+
+export function TaskList({ initialTasks, onOpenTask }: {
+  initialTasks: Task[];
+  onOpenTask: (id: string) => void;
+}) {
+  const [tasks, setTasks] = useState(initialTasks);
+
+  function toggleTask(id: string) {
+    setTasks((current) => current.map((task) => task.id === id
+      ? { ...task, status: task.status === "done" ? "todo" : "done" }
+      : task));
+  }
+
+  return <ul>{tasks.map((task) => (
+    <li key={task.id}>
+      <TaskCard title={task.title} status={task.status} onOpen={() => onOpenTask(task.id)} />
+      <button type="button" onClick={() => toggleTask(task.id)}>
+        {task.status === "done" ? "重开" : "完成"}
+      </button>
+    </li>
+  ))}</ul>;
 }
-
-return tasks.map((task) => (
-  <TaskCard key={task.id} title={task.title} status={task.status} onOpen={() => {}} />
-));
 ~~~
 
 列表 key 应稳定标识元素，不用数组下标表示可插入、删除或排序的数据。
+
+组件从33章导入TaskCard，当前只在本地切换状态，不声称已经持久化。函数式更新接到React队列里的最新current，连续动作不会都基于同一份旧闭包计算；只替换匹配对象，其他任务引用保留。
+
+initialTasks只用于初始化，之后父级传新数组不会自动覆盖当前state。这里明确让组件拥有本地练习状态；真实服务端列表若由上层管理，可以改为受控输入与回调，避免两边各保存一份任务。不要为了同步Props再无条件effect覆盖用户编辑。
+
+key帮助React在同级列表中识别元素身份。按下标作key，头部插入或排序后，某行输入与局部状态可能跟到另一条任务上；业务编号比当前位置更合适。key不作为普通Props传入，需要编号时仍显式传。
 
 ## 引用、闭包与派生状态都要留意
 
 - 直接 push 原数组不会可靠地触发更新。
 - 更新依赖旧状态时使用函数式更新，避免闭包拿到过期值。
 - 状态不要重复保存可从其他状态计算出的值。
+
+未完成数量可以直接由tasks计算，不再存一份openCount。重复状态越多，需要同步的路径越多；新增、删除和切换漏更新一处就会矛盾。先保留必要来源，再考虑实际测量后的缓存。
 
 ## 动手验证
 

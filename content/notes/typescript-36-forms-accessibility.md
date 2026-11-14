@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 36：把表单做完整：输入、错误、提交和键盘"
 date: "2026-11-12"
-excerpt: "一个表单能点提交，还不代表它已经好用。我会用键盘走一遍，检查标签能否说明字段、错误能否定位、失败后输入是否保留，以及提交中会不会再次发送。"
+excerpt: "请求失败后标题清空了，或者连按回车重复创建，表单哪里没有收尾？沿输入、校验、提交和失败恢复写一个可用示例，并让错误有正确的字段关联。"
 tags: [ "TypeScript", "React 组件" ]
 category: "typescript-08-react"
 publication: "published"
@@ -9,54 +9,61 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-一个表单能点提交，还不代表它已经好用。我会用键盘走一遍，检查标签能否说明字段、错误能否定位、失败后输入是否保留，以及提交中会不会再次发送。
+标题写了一半，请求失败后却被清空，用户得重新输入；按钮禁用了，另一条提交路径又发送了一次。表单的工作不只是在成功时调用API，还要保护草稿、限制进行中的操作，并说明失败发生在哪里。
 
 受控输入的 value 来自 React 状态，onChange 更新状态。提交时先阻止浏览器默认刷新，再校验并发送请求。错误信息应关联到输入框，成功和加载状态也应清楚可见。
 
 ~~~tsx
-import { useState } from "react";
+import { useId, useRef, useState } from "react";
 import type { FormEvent } from "react";
 
 type TaskFormProps = {
-  createTask: (input: { title: string }) => Promise<unknown>;
+  createTask: (input: { title: string; status: "todo" }) => Promise<unknown>;
 };
 
-function TaskForm({ createTask }: TaskFormProps) {
+export function TaskForm({ createTask }: TaskFormProps) {
+  const titleId = useId();
+  const errorId = titleId + "-error";
+  const submitting = useRef(false);
   const [title, setTitle] = useState("");
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ kind: "title" | "submit"; message: string } | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitting.current) return;
     const value = title.trim();
-    if (!value) {
-      setError("请输入任务标题");
+    if (!value || value.length > 120) {
+      setError({ kind: "title", message: "标题需要1到120个字符" });
       return;
     }
 
+    submitting.current = true;
     setPending(true);
     setError(null);
     try {
-      await createTask({ title: value });
+      await createTask({ title: value, status: "todo" });
       setTitle("");
     } catch {
-      setError("保存失败，请重试");
+      setError({ kind: "submit", message: "保存失败，请重试" });
     } finally {
+      submitting.current = false;
       setPending(false);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="title">任务标题</label>
+    <form onSubmit={handleSubmit} aria-busy={pending}>
+      <label htmlFor={titleId}>任务标题</label>
       <input
-        id="title"
+        id={titleId}
         value={title}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? "title-error" : undefined}
+        disabled={pending}
+        aria-invalid={error?.kind === "title"}
+        aria-describedby={error?.kind === "title" ? errorId : undefined}
         onChange={(event) => setTitle(event.target.value)}
       />
-      {error && <p id="title-error" role="alert">{error}</p>}
+      {error && <p id={errorId} role="alert">{error.message}</p>}
       <button type="submit" disabled={pending}>
         {pending ? "正在添加…" : "添加任务"}
       </button>
@@ -67,11 +74,21 @@ function TaskForm({ createTask }: TaskFormProps) {
 
 示例假设 createTask 是注入的异步函数。用真实 label、button 和输入控件；保留可见焦点样式。提交中禁用重复提交，并通过 role=alert 播报动态错误。
 
+新任务固定以todo创建，提交时显式提供status，与29章和共享创建Schema的必填合同一致。若界面要选择初始状态，增加相应控件与输入类型，不依赖数据库默认值替API补字段。
+
+useId让多个表单实例的标签不冲突。标题错误通过aria-describedby关联输入，网络保存失败则只作为提交错误，不把合法标题标成无效。显示相同红色提示并不能表达这两种失败的区别。
+
+pending用于界面，ref作为同步提交入口守卫，避免界面尚未提交更新时再次进入。禁用输入还避免请求发出后用户改了新草稿，旧请求成功却把新内容清掉。若允许提交中编辑，就需要单独保留提交版本与当前草稿，而不是无条件setTitle空文本。
+
+成功以后才清空标题，失败保留输入，finally恢复可操作状态。示例只做客户端交互保护，服务器仍要校验字段，并按业务需要处理相同请求重试；浏览器取消或超时不能证明任务一定没创建。
+
 ## 反馈需要文字和语义，不只靠颜色
 
 - 仅有颜色或 placeholder 不能充分说明错误或字段含义。
 - 非提交按钮需使用 type=button。
 - 前端提示是用户体验；服务端仍需再次验证数据。
+
+实际检查用Tab聚焦、回车提交，验证空白标题不调用createTask，提交未完成时再次触发也只调用一次，失败后原文还在，成功后才清空。键盘与错误恢复都走通，才比“按钮能点”多提供了可用性证据。
 
 ## 动手验证
 

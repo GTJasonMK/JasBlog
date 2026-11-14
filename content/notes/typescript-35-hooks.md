@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 35：Hooks：同步外部系统与复用组件逻辑"
 date: "2026-11-12"
-excerpt: "我会先问一段逻辑是否真的需要和外部系统同步。纯粹能从已有数据算出的结果，直接计算就好；请求、订阅和定时器才需要进一步考虑 effect 的依赖与清理。"
+excerpt: "根据任务计算数量需要effect吗，发请求又为什么需要清理？区分纯计算、用户动作和外部同步，再用可刷新的加载Hook处理依赖与过期结果。"
 tags: [ "TypeScript", "React 组件" ]
 category: "typescript-08-react"
 publication: "published"
@@ -9,16 +9,18 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-我会先问一段逻辑是否真的需要和外部系统同步。纯粹能从已有数据算出的结果，直接计算就好；请求、订阅和定时器才需要进一步考虑 effect 的依赖与清理。
+任务数量可以在渲染时从列表算出，却常被写成另一份state，再用effect同步。这样多出一次更新，也多出短暂不一致。effect适合与请求、订阅等外部系统同步，不是所有“某值变了再做点事”的默认容器。
 
 依赖数组要包含 effect 读取的响应式值，清理函数则负责取消订阅或停止过期工作。
 
 ~~~tsx
-function useTasks() {
-  const [state, setState] = useState<LoadState<Task[]>>({ kind: "loading" });
+export function useTasks<T>(loadTasks: (signal: AbortSignal) => Promise<T>) {
+  const [state, setState] = useState<LoadState<T>>({ kind: "loading" });
+  const [version, setVersion] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
+    setState({ kind: "loading" });
 
     async function run() {
       try {
@@ -37,15 +39,23 @@ function useTasks() {
 
     void run();
     return () => controller.abort();
-  }, [loadTasks]);
+  }, [loadTasks, version]);
 
-  return state;
+  return { state, refresh: () => setVersion((current) => current + 1) };
 }
 ~~~
 
-此示例是自定义 Hook，依赖 React 的 useEffect 与 useState；LoadState 来自[第 38 章](/notes/typescript-38-api-requests)，loadTasks 是模块级函数。若 loadTasks 是传入的回调，应确保其引用稳定。useRef 保存不触发渲染的值或 DOM 引用；useContext 读取共享上下文；useReducer 适合状态转换较集中时。
+示例需导入React的useEffect与useState，LoadState来自[第38章](/notes/typescript-38-api-requests)。调用方提供稳定的loadTasks函数，它接收signal并返回已经解析的结果；每次刷新增加version，清理旧同步后重新加载。模块级客户端函数通常有稳定引用，不能在每次渲染临时创建回调又导致effect不断重跑。
+
+AbortController取消相关请求，结果写入前再确认信号未取消，避免已经结束的请求覆盖新状态。请求函数还须真的把signal传给fetch；只有创建controller却没有下传，不会停止网络等待。取消也不等于服务端回滚，写操作仍需要独立合同。
+
+这里选择刷新时重新进入loading，不保留旧结果。若产品需要旧数据继续可见，应明确建模“已有数据且正在刷新”，不能再叠几个互相矛盾的布尔值。Hook复用状态流程，每次调用仍有自己的状态，并不会自动形成全局缓存。
+
+useRef保存不触发渲染的值或DOM引用，useContext读取共享上下文，useReducer集中表达转换。计数变化要显示到页面就用state，仅保存计时器身份则可用ref；按数据用途选择，不是哪个Hook更新更方便就用哪个。
 
 React StrictMode 在开发环境可能重复执行 effect 的设置与清理，用于暴露不安全副作用；请求应支持取消或保持幂等。Error Boundary 可隔离渲染期间的子树错误；它不能捕获普通事件处理器或异步请求错误。
+
+用户点击创建任务属于事件处理，不应通过“某个提交标记变了”的effect间接发送，否则开发重放与依赖变化都可能增加意外请求。先明确动作来源，effect只管理真正需要持续同步的外部关系。
 
 ## effect 的依赖和清理必须成对考虑
 

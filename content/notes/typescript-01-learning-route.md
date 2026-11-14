@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 01：从 Python 转向 TypeScript，先分清运行环境"
 date: "2026-11-12"
-excerpt: "从 Python 转过来，我会先把 JavaScript、TypeScript、Node.js 和 npm 的职责分开。先知道代码由谁检查、由谁执行，再搭前后端项目，报错时才容易找对位置。"
+excerpt: "终端能运行JavaScript，浏览器却提示process不存在，为什么？先分清语言、运行环境与工具，再决定TypeScript检查发生在哪里，避免把安装依赖当成配置好了整套项目。"
 tags: [ "TypeScript", "Web 基础" ]
 category: "typescript-01-web"
 publication: "published"
@@ -9,7 +9,7 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-从 Python 转过来，我会先把 JavaScript、TypeScript、Node.js 和 npm 的职责分开。先知道代码由谁检查、由谁执行，再搭前后端项目，报错时才容易找对位置。
+熟悉Python以后，变量、函数和循环都不陌生，换到Web却可能在第一步卡住：为什么同一段代码在Node里能运行，放进浏览器却没有process？语言相同，宿主环境提供的能力不同，先把这层区别分开。
 
 学习顺序是：Web 基础 → JavaScript → TypeScript → React → Node/Express → PostgreSQL/Prisma → 测试与部署。Python 基础能帮助理解变量、函数和数据结构，但 JavaScript 的运行时、异步方式和对象模型需要单独学习。
 
@@ -29,11 +29,23 @@ console.log(process.version);
 
 运行 node hello.js。代码保存在文件中，终端命令负责启动 Node.js 执行它。
 
+console.log由环境提供输出能力，process是Node的进程接口，浏览器没有同样的全局对象。相反，document与窗口DOM属于浏览器，普通Node进程不会自动出现。判断一段示例能否直接运行，先看它依赖哪些环境API。
+
 ## 语言、运行时和工具不是同一层
 
 - Node.js 是 JavaScript 运行时，不是另一种编程语言。
 - npm 管理依赖和脚本；它不是 TypeScript 编译器。
 - 先读错误的文件名和行号，再判断是命令、环境还是代码问题。
+
+JavaScript定义值与执行规则，TypeScript在这些代码上增加静态检查。npm负责安装包并运行项目声明的脚本，真正检查类型通常由tsc完成；Vite等工具可以把TS转成浏览器资源，却不一定替你做完整类型检查。
+
+某些现代运行时可以直接处理部分TS语法，这也不等于运行前完成了tsc检查。类型注解被移除以后，请求里的字符串不会自动变成数字，外部JSON仍须解析与验证。先掌握JavaScript运行行为，再看TypeScript怎样描述它，才不会把类型当成运行时魔法。
+
+## 从小程序走到前后端
+
+先独立运行一个文件，接着拆成模块，再让浏览器发一条请求，最后由服务端保存到数据库。每次只增加一个边界，报错时就能判断是路径、网络、类型还是数据规则。
+
+Python的None、容器与函数能帮助类比，但JavaScript的真值、number精度、对象引用和异步调度要重新核对。尤其不要把async理解成自动多线程，或者把const理解成冻结对象，后面的例子会逐步检查这些直觉。
 
 ## 动手验证
 

@@ -1,7 +1,7 @@
 ---
 title: "TypeScript 14：TypeScript 的检查发生在什么时候"
 date: "2026-11-12"
-excerpt: "TypeScript 能提前检查很多误用，但运行时拿到的 JSON 并不会带着类型一起到来。我会把静态检查和真实输入校验分开，分别交给编译器和边界解析代码。"
+excerpt: "写了number参数，为什么运行时仍可能收到字符串？区分tsc静态检查、转译与运行，理解类型注解被移除以后哪些保障仍在、哪些必须由解析代码提供。"
 tags: [ "TypeScript", "TypeScript 类型基础" ]
 category: "typescript-04-typescript-core"
 publication: "published"
@@ -9,9 +9,9 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-TypeScript 能提前检查很多误用，但运行时拿到的 JSON 并不会带着类型一起到来。我会把静态检查和真实输入校验分开，分别交给编译器和边界解析代码。
+函数参数写成number，编辑器会拒绝普通字符串调用；但JSON来自另一台机器，不会先问过你的编辑器。TypeScript描述已知代码之间的类型关系，外部数据是否符合描述仍需要运行时证据。
 
-TypeScript 是 JavaScript 的超集：它保留 JavaScript 的运行语义，同时让编译器在开发时检查类型。运行时执行的仍是 JavaScript，类型会在编译时擦除。因此类型不能校验 HTTP 请求、数据库记录或用户输入。
+类型别名、接口与注解通常在转译或运行前被移除，不会自动生成字段检查。TS中也有产生运行时代码的语法，不能笼统认为所有TS语法都只存在于检查阶段；这里先学习可被擦除的注解与类型关系。
 
 在空目录中安装并编译：
 
@@ -23,11 +23,31 @@ npx tsc --init
 
 新建 main.ts，再运行 npx tsc -p .。编译器会按 tsconfig 检查项目并生成 JavaScript 文件；若只想检查，可配置 noEmit。
 
+main.ts先写一段完整小例子：
+
+~~~ts
+function double(value: number): number {
+  return value * 2;
+}
+
+console.log(double(3));
+~~~
+
+合法调用应输出6，把3改成字符串则应在检查中失败。查看生成的JavaScript，参数上的number已经没有了；它没有变成typeof判断。若跳过检查执行另一份JavaScript调用，运行仍按JavaScript自己的转换规则进行。
+
+## 检查通过与产物生成分开看
+
+`tsc --noEmit` 只检查不输出；需要有错误就禁止产物时配置noEmitOnError。部分工具只负责快速转译，可能在存在类型错误时仍启动开发页面；现代Node对部分TS语法的直接支持，也不等于完整tsc检查。项目应有独立、失败时退出非零的typecheck命令。
+
+tsconfig同时影响严格程度、目标语法、模块和库声明。dom类型让检查器认识document，不会在Node里安装一个DOM；目标语法转换也不会自动给旧浏览器补齐全部运行API。声明可用与运行存在要分别验证。
+
 ## 通过类型检查不代表运行条件已经满足
 
 - 类型正确不代表业务逻辑正确。
 - 编译成功不代表部署时依赖、环境变量或数据库都正常。
 - 不要把 TypeScript 当作运行时校验器。
+
+边界先把未知JSON作为unknown，解析并验证后返回已确认的业务值，内部再使用静态类型减少误用。这样类型与验证各有明确入口，不必在每个函数里重新猜外部数据，也不通过as把没有证据的值直接标成可信。
 
 ## 动手验证
 

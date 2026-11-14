@@ -1,7 +1,7 @@
 ---
 title: "Python 09：参数、闭包与函数式工具"
 date: "2026-11-12"
-excerpt: "一个函数有很多可选参数时，我更在意调用处能不能一眼看懂。让超时之类的选项必须按名字传入，常常比再补一段注释有效。默认参数的创建时机也值得单独看。"
+excerpt: "同一个函数第二次调用，为什么会带上第一次的数据？从参数传递和默认值的创建时机，走到闭包如何保留外层绑定，再看 lambda、map 和 partial 分别适合怎样的调用。"
 tags: [ "Python", "函数与程序组织" ]
 category: "python-part2"
 publication: "published"
@@ -9,9 +9,9 @@ display: { "toc": true }
 publishedAt: 2026-11-12
 ---
 
-一个函数有很多可选参数时，我更在意调用处能不能一眼看懂。让超时之类的选项必须按名字传入，常常比再补一段注释有效。默认参数的创建时机也值得单独看。
+看到 `connect("localhost", 5432, 2)`，前两个值大概是主机和端口，最后那个2却不容易猜。是超时秒数，还是重试次数？参数的写法影响的不只有函数体，还影响每一个调用它的人能不能读懂代码。
 
-Python 函数可以接收位置参数、关键字参数、可变位置参数 `*args` 和可变关键字参数 `**kwargs`。用 `*` 后的参数强制关键字传入，能让调用更明确。
+给可选行为一个明确的参数名，调用就能解释自己：
 
 ```python
 def connect(host, port=5432, *, timeout=5):
@@ -20,11 +20,26 @@ def connect(host, port=5432, *, timeout=5):
 print(connect("localhost", timeout=2))
 ```
 
-闭包可以记住外层作用域中的值；`lambda` 适合极短的匿名函数。`map`、`filter`、`functools.partial` 等工具可用于组合操作，但列表推导式通常更易读。
+`host` 可以按位置或按名称提供，`port` 有默认值5432，单独的 `*` 则要求它后面的 `timeout` 必须按名称提供。现在把 `2` 写成第三个位置参数会报 `TypeError`，这种限制正好阻止含糊的调用。
 
-## 可变默认参数会被重复使用
+调用者可以覆盖默认值，但不能漏掉必需参数，也不能给同一个参数重复赋值。比如 `connect("a", host="b")` 就有两个 `host`，Python 不会替你猜哪个才算数。
 
-不要把列表或字典作为可变默认参数。默认值在函数定义时只创建一次：
+## 默认值并不是每次调用前重新创建
+
+下面这个函数想在不传列表时创建一个新列表：
+
+```python
+def collect(item, items=[]):
+    items.append(item)
+    return items
+
+print(collect("a"))  # ['a']
+print(collect("b"))  # ['a', 'b']
+```
+
+第二次结果多出一个 `a`，原因在于默认值在执行函数定义时求值。两次调用没有提供 `items`，使用的都是同一个默认列表，第一次的修改留到了第二次。
+
+如果希望每次调用互相独立，就把“没有传入”单独表达，在函数体中创建列表：
 
 ```python
 def add_item(item, items=None):
@@ -34,14 +49,72 @@ def add_item(item, items=None):
     return items
 ```
 
-## 动手验证
+这里必须检查 `is None`。写 `items = items or []`，会把调用者刻意传来的空列表也换成新列表，导致调用者看不到函数的修改。默认值的问题，最后仍然落在对象是否共享上。
 
-**练习：**写一个函数，接受任意数量的数字并返回总和。
+日期时间等默认值也有类似情况。把获取当前时间的调用直接放进参数默认值，得到的是定义时的时间。需要调用时刻，就在函数执行期间计算。
+
+## 接收多少参数，与接收什么参数
+
+`*args` 接住剩余的位置参数，得到一个元组；`**kwargs` 接住剩余的关键字参数，得到一个字典。名称可以自己起，星号才决定语义：
 
 ```python
 def total(*numbers):
     return sum(numbers)
+
+values = [3, 6, 9]
+print(total(3, 6, 9))  # 18
+print(total(*values))  # 18
 ```
+
+调用处的 `*values` 把序列展开成位置参数，与函数定义处的收集方向相反。配置字典也可以通过 `connect(**options)` 展开，但键名必须符合接收函数的参数约定。
+
+这类写法适合数量可变的聚合操作、转发调用的包装函数。业务接口如果参数固定，直接写出名称更容易检查。滥用 `**kwargs` 会把拼错名字之类的问题推迟到更深的调用层，甚至被不使用这些键的代码悄悄忽略。
+
+## 函数结束后，外层变量为什么还能被使用
+
+有时只想先确定一个配置，再把具体数据留到后面提供。可以让函数返回另一个函数：
+
+```python
+def make_multiplier(factor):
+    def multiply(value):
+        return factor * value
+    return multiply
+
+double = make_multiplier(2)
+triple = make_multiplier(3)
+print(double(10), triple(10))  # 20 30
+```
+
+内层函数使用了外层的 `factor`，这份绑定会随着函数一起保留，形成闭包。它适合生成带配置的回调、筛选器等小型行为；如果需要管理很多可变状态，用一个明确的对象可能更好理解。
+
+闭包捕获的是外层绑定，并不保证记住“定义那一瞬间的值”。循环创建回调时尤其容易看错：
+
+```python
+callbacks = [lambda: value for value in range(3)]
+print([callback() for callback in callbacks])  # [2, 2, 2]
+
+fixed = [lambda value=value: value for value in range(3)]
+print([callback() for callback in fixed])      # [0, 1, 2]
+```
+
+第一组函数调用时都去读同一个外层绑定，循环结束时它已经变成2。第二组把当次值作为函数默认参数保存，求值时机提前到了定义各个函数时。也可以像前面的工厂函数一样，每次调用创建自己的外层绑定。
+
+## 小工具要让调用更清楚
+
+`lambda` 只能写一个表达式，适合排序键等短小用途，例如 `sorted(records, key=lambda row: row["score"])`。逻辑需要解释、分支或处理错误时，用有名字的 `def` 更便于阅读和调试。
+
+`map` 将函数应用到每一项，`filter` 保留判断为真的项，它们在Python3中返回惰性的迭代器。简单的变换和筛选用推导式通常更直观；已经有一个合适的命名函数，或需要逐项消费时，使用这些工具也很自然。
+
+`functools.partial` 则预先绑定一部分参数：
+
+```python
+from functools import partial
+
+local_connect = partial(connect, "localhost", timeout=2)
+print(local_connect(port=5433))  # localhost:5433 (timeout=2)
+```
+
+它省去了一层只负责转发的包装函数，但没有执行连接，也没有冻结其中可变参数对象的内容。参数是在什么时候求值、对象由谁持有、真正调用发生在什么时候，把这三件事分清楚，默认参数、闭包和部分应用就能放在一起理解。
 
 ---
 
