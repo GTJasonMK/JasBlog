@@ -202,7 +202,7 @@ def get_task(task_id: int, session: Session = Depends(get_session)):
 
 [上一篇：FastAPI：一次请求如何经过校验和业务处理](/notes/python-41-backend) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：采集、办公、GUI 与科学计算：Python 的几条延伸方向](/notes/python-43-other-domains)
 
-0:{"buildId":"mFpTP6LGY6A6PRul_h0if","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-42-backend-project","title":"Python 42：用 FastAPI 和 SQLite 做一个任务 API","date":"2026-11-12","excerpt":"任务创建后为什么要提交，再刷新一次？用FastAPI和SQLite把增删改查串起来，沿请求追踪校验、会话和事务，并区分PATCH里的省略、空值与false。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-42-backend-project","title":"Python 42：用 FastAPI 和 SQLite 做一个任务 API","date":"2026-11-12","excerpt":"任务创建后为什么要提交，再刷新一次？用FastAPI和SQLite把增删改查串起来，沿请求追踪校验、会话和事务，并区分PATCH里的省略、空值与false。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

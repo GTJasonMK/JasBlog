@@ -91,7 +91,7 @@ e:"$Sreact.suspense"
 
 应用部分可以按交付物选择：34生成订单CSV，36生成汇总与图表，38保存可重载分类管线，40训练数字分类网络，42提供有测试的任务API。每个项目各自说明范围，不代表已经具备正式服务的全部能力。完成一个小项目后再检查失败输入、重复运行与环境复现，才能知道自己掌握到哪一步。
 
-0:{"buildId":"mFpTP6LGY6A6PRul_h0if","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-00-learning-guide","title":"Python 学习笔记：目录与阅读路线","date":"2026-11-12","excerpt":"从改一个列表为什么影响另一个变量，到脚本怎样处理文件、服务怎样保存请求，把Python学习中互相依赖的几条线串起来。可以按顺序读，也可以从手头的问题返回相应章节。","tags":["Python"],"category":"python","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-00-learning-guide","title":"Python 学习笔记：目录与阅读路线","date":"2026-11-12","excerpt":"从改一个列表为什么影响另一个变量，到脚本怎样处理文件、服务怎样保存请求，把Python学习中互相依赖的几条线串起来。可以按顺序读，也可以从手头的问题返回相应章节。","tags":["Python"],"category":"python","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

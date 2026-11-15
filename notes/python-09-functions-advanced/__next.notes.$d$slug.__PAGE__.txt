@@ -116,7 +116,7 @@ print(local_connect(port=5433))  # localhost:5433 (timeout=2)
 
 [上一篇：函数、返回值与作用域](/notes/python-08-functions) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：异常处理：在哪里接住失败](/notes/python-10-exceptions)
 
-0:{"buildId":"mFpTP6LGY6A6PRul_h0if","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-09-functions-advanced","title":"Python 09：参数、闭包与函数式工具","date":"2026-11-12","excerpt":"同一个函数第二次调用，为什么会带上第一次的数据？从参数传递和默认值的创建时机，走到闭包如何保留外层绑定，再看 lambda、map 和 partial 分别适合怎样的调用。","tags":["Python","函数与程序组织"],"category":"python-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-09-functions-advanced","title":"Python 09：参数、闭包与函数式工具","date":"2026-11-12","excerpt":"同一个函数第二次调用，为什么会带上第一次的数据？从参数传递和默认值的创建时机，走到闭包如何保留外层绑定，再看 lambda、map 和 partial 分别适合怎样的调用。","tags":["Python","函数与程序组织"],"category":"python-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

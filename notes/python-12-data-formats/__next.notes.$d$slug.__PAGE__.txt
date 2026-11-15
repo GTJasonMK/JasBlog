@@ -94,7 +94,7 @@ JSON与CSV的选择最终取决于数据关系。嵌套的订单和订单项适�
 
 [上一篇：文件、路径与编码：先确认读写的对象](/notes/python-11-files-paths) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：模块、导入与程序入口](/notes/python-13-modules-imports)
 
-0:{"buildId":"mFpTP6LGY6A6PRul_h0if","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-12-data-formats","title":"Python 12：JSON、CSV 与序列化边界","date":"2026-11-12","excerpt":"接口传来的 JSON 能解析，为什么程序还是会在取字段时出错？从 Python 对象与交换格式的区别开始，说明 JSON、CSV 怎样保存数据、在哪里校验，以及哪些内容无法无损往返。","tags":["Python","函数与程序组织"],"category":"python-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-12-data-formats","title":"Python 12：JSON、CSV 与序列化边界","date":"2026-11-12","excerpt":"接口传来的 JSON 能解析，为什么程序还是会在取字段时出错？从 Python 对象与交换格式的区别开始，说明 JSON、CSV 怎样保存数据、在哪里校验，以及哪些内容无法无损往返。","tags":["Python","函数与程序组织"],"category":"python-part2","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python-part2","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

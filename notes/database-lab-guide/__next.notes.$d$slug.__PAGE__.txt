@@ -133,7 +133,7 @@ docker compose start --wait
 ---
 
 [数据库目录](/notes/database-00-learning-guide)
-0:{"buildId":"mFpTP6LGY6A6PRul_h0if","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-lab-guide","title":"数据库实验手册：启动环境与八组实验","date":"2026-11-13","excerpt":"先确认实验库，再用同一份虚构订单复现SQL、并发、索引和恢复。按八组实验保存预期与输出，明确哪些步骤回滚、哪些成果会留下，避免重复初始化覆盖已做内容。","tags":["数据库","PostgreSQL"],"category":"database-labs","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-lab-guide","title":"数据库实验手册：启动环境与八组实验","date":"2026-11-13","excerpt":"先确认实验库，再用同一份虚构订单复现SQL、并发、索引和恢复。按八组实验保存预期与输出，明确哪些步骤回滚、哪些成果会留下，避免重复初始化覆盖已做内容。","tags":["数据库","PostgreSQL"],"category":"database-labs","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-labs","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]
