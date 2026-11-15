@@ -93,7 +93,7 @@ print(df.loc[books, ["order_id", "product", "revenue"]])
 
 [上一篇：NumPy、pandas 与图表：从数据形状开始分析](/notes/python-35-data-analysis) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：机器学习流程：先分数据，再比较模型](/notes/python-37-machine-learning)
 
-0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-36-analysis-project","title":"Python 36：把订单 CSV 整理成能重跑的销售分析","date":"2026-11-12","excerpt":"五笔订单总共卖了多少钱，分地区和分月份汇总以后还能对上吗？通过一份内置CSV把读取、连接、收入计算和画图连起来，解释如何用已知总额核查分析，而不只看有没有生成图片。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-36-analysis-project","title":"Python 36：把订单 CSV 整理成能重跑的销售分析","date":"2026-11-12","excerpt":"五笔订单总共卖了多少钱，分地区和分月份汇总以后还能对上吗？通过一份内置CSV把读取、连接、收入计算和画图连起来，解释如何用已知总额核查分析，而不只看有没有生成图片。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

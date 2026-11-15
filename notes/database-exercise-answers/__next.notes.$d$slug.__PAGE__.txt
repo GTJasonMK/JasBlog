@@ -136,7 +136,7 @@ FROM days d LEFT JOIN daily s ON s.day = d.day ORDER BY d.day;
 ---
 
 [数据库目录](/notes/database-00-learning-guide)
-0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-exercise-answers","title":"数据库练习参考：查询结果、并发顺序和判断依据","date":"2026-11-13","excerpt":"同样得到59700分，SQL就一定对了吗？按题号核对粒度、金额、并发与恢复依据，用边界输入排除只在当前样本碰巧成立的写法。","tags":["数据库","PostgreSQL"],"category":"database-resources","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-exercise-answers","title":"数据库练习参考：查询结果、并发顺序和判断依据","date":"2026-11-13","excerpt":"同样得到59700分，SQL就一定对了吗？按题号核对粒度、金额、并发与恢复依据，用边界输入排除只在当前样本碰巧成立的写法。","tags":["数据库","PostgreSQL"],"category":"database-resources","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-resources","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

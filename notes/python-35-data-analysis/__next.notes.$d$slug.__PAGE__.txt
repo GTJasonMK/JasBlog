@@ -93,7 +93,7 @@ df.loc[df["sales"] >= 10]
 
 [上一篇：写一个订单 ETL 工具：读取、校验、转换和输出](/notes/python-34-etl-project) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：把订单 CSV 整理成能重跑的销售分析](/notes/python-36-analysis-project)
 
-0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-35-data-analysis","title":"Python 35：NumPy、pandas 与图表：从数据形状开始分析","date":"2026-11-12","excerpt":"平均销售额算出来以前，先确认一行代表什么、缺失值意味着什么、连接有没有复制记录。借助NumPy数组和pandas表格说明形状、分组、连接与透视，避免API执行成功却回答了另一个问题。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-35-data-analysis","title":"Python 35：NumPy、pandas 与图表：从数据形状开始分析","date":"2026-11-12","excerpt":"平均销售额算出来以前，先确认一行代表什么、缺失值意味着什么、连接有没有复制记录。借助NumPy数组和pandas表格说明形状、分组、连接与透视，避免API执行成功却回答了另一个问题。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

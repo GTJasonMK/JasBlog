@@ -121,7 +121,7 @@ Go 语法示例按 Go 1.27 系列整理；涉及旧版循环变量行为时会�
 
 读片段时先列出所需类型、导入和外部资源，避免把事务片段直接当完整程序。验证语言行为使用临时模块，验证锁与SQL使用隔离数据库，故障练习只操作自己创建的资源。运行结果与预期不同，先沿输入和状态变化解释差异，再添加组件。
 
-0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-00-learning-guide","title":"Go 学习笔记：目录与阅读路线","date":"2026-11-12","excerpt":"写出接口以后，还要回答超时有没有下单、重复消息有没有重复扣库存。按一次请求从语言到持久化的路径整理Go笔记，让组件与它要解决的问题对应起来。","tags":["Go"],"category":"go","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-00-learning-guide","title":"Go 学习笔记：目录与阅读路线","date":"2026-11-12","excerpt":"写出接口以后，还要回答超时有没有下单、重复消息有没有重复扣库存。按一次请求从语言到持久化的路径整理Go笔记，让组件与它要解决的问题对应起来。","tags":["Go"],"category":"go","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=go","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

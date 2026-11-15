@@ -117,7 +117,7 @@ DDL 与数据回滚能力逐项确认。数据库事务无法撤销已完成的�
 ---
 
 [数据库目录](/notes/database-00-learning-guide)
-0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-runbooks","title":"数据库操作速查：连接、等待、空间和恢复","date":"2026-11-13","excerpt":"更新卡住、连接用完或WAL增长时，先查什么才能缩小原因？把只读诊断与后续处置依据放在一起，沿目标、等待链、计划和空间逐步确认。","tags":["数据库","PostgreSQL"],"category":"database-operations","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-runbooks","title":"数据库操作速查：连接、等待、空间和恢复","date":"2026-11-13","excerpt":"更新卡住、连接用完或WAL增长时，先查什么才能缩小原因？把只读诊断与后续处置依据放在一起，沿目标、等待链、计划和空间逐步确认。","tags":["数据库","PostgreSQL"],"category":"database-operations","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-operations","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

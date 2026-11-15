@@ -124,7 +124,7 @@ e:"$Sreact.suspense"
 56. Supertest 验证未登录 401 和越权隔离；Playwright 登录后创建任务并在列表看到。
 57. 在干净环境按 README 安装、设置环境变量、迁移、启动、测试和构建；缺的步骤补回 README。
 
-0:{"buildId":"BlYPLoCafjDay_yzdjRG5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-exercise-answers","title":"TypeScript 练习参考：57 个问题的实现思路","date":"2026-11-11","excerpt":"练习结果相同，是否就算做对了？按57个问题核对输入、状态、错误与权限，并补上判断依据，帮助区分正常样本跑通与规则真正成立。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-exercise-answers","title":"TypeScript 练习参考：57 个问题的实现思路","date":"2026-11-11","excerpt":"练习结果相同，是否就算做对了？按57个问题核对输入、状态、错误与权限，并补上判断依据，帮助区分正常样本跑通与规则真正成立。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=typescript","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]
