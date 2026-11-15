@@ -119,7 +119,7 @@ CSV 先导入 staging 表，显式规定编码、列、分隔符、日期和空�
 ---
 
 [上一篇：用等待链、计划和存储证据定位故障](/notes/database-19-troubleshooting) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：把 PostgreSQL 的经验迁到 MySQL 时，要重查哪些行为](/notes/database-21-mysql)
-0:{"buildId":"ICp6NWfM2EY7uNVg2g2r_","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-20-migrations","title":"数据库 20：从调用方到历史数据，完成一次可核对的迁移","date":"2026-11-13","excerpt":"历史行补齐了，新请求却继续写NULL，回填为什么永远跑不完？用来源字段串起调用方更新、分批迁移与约束验证，并明确每一阶段的继续条件。","tags":["数据库","PostgreSQL"],"category":"database-operations","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"mFpTP6LGY6A6PRul_h0if","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-20-migrations","title":"数据库 20：从调用方到历史数据，完成一次可核对的迁移","date":"2026-11-13","excerpt":"历史行补齐了，新请求却继续写NULL，回填为什么永远跑不完？用来源字段串起调用方更新、分批迁移与约束验证，并明确每一阶段的继续条件。","tags":["数据库","PostgreSQL"],"category":"database-operations","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-operations","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

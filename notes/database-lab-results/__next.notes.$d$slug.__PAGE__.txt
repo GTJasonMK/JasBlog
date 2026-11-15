@@ -82,7 +82,7 @@ MySQL 专章提供版本明确的练习与官方资料，尚未作为已实测�
 ---
 
 [数据库目录](/notes/database-00-learning-guide)
-0:{"buildId":"ICp6NWfM2EY7uNVg2g2r_","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-lab-results","title":"数据库实验记录：已测结果与适用范围","date":"2026-11-13","excerpt":"一组毫秒数能证明什么，要连同版本、数据与缓存条件一起读。保留2026年11月13日的原始实验结果，并区分后来复核的机制、尚未验证的环境与性能结论。","tags":["数据库","PostgreSQL"],"category":"database-labs","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"mFpTP6LGY6A6PRul_h0if","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-lab-results","title":"数据库实验记录：已测结果与适用范围","date":"2026-11-13","excerpt":"一组毫秒数能证明什么，要连同版本、数据与缓存条件一起读。保留2026年11月13日的原始实验结果，并区分后来复核的机制、尚未验证的环境与性能结论。","tags":["数据库","PostgreSQL"],"category":"database-labs","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-labs","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

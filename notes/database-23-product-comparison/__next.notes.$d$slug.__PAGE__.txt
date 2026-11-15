@@ -218,7 +218,7 @@ ClickHouse、Doris 和 StarRocks 都需要用真实数据分布、关联方式�
 ---
 
 [上一篇：什么时候该加缓存、分析库或分片](/notes/database-22-cache-distribution) · [数据库目录](/notes/database-00-learning-guide) · [订单数据库实作](/notes/database-order-project)
-0:{"buildId":"ICp6NWfM2EY7uNVg2g2r_","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-23-product-comparison","title":"数据库 23：33 种数据库、扩展与服务，按场景比较用途和代价","date":"2026-11-13","excerpt":"同样一份订单，交易、搜索和年度报表为什么会选不同存储？按需要保持的事实与访问路径比较33种产品和扩展，保留已有系统能满足需求时的简单选择。","tags":["数据库","PostgreSQL","MySQL"],"category":"database-choices","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"mFpTP6LGY6A6PRul_h0if","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-23-product-comparison","title":"数据库 23：33 种数据库、扩展与服务，按场景比较用途和代价","date":"2026-11-13","excerpt":"同样一份订单，交易、搜索和年度报表为什么会选不同存储？按需要保持的事实与访问路径比较33种产品和扩展，保留已有系统能满足需求时的简单选择。","tags":["数据库","PostgreSQL","MySQL"],"category":"database-choices","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-choices","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]
