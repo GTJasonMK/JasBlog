@@ -1,0 +1,29 @@
+{
+  "version": "0.1.1",
+  "commit": "67997fe2601a5710e356af3a8e46122d2b835145",
+  "components": {
+    "typescript": "0.1.0",
+    "python": "0.1.0"
+  },
+  "outputs": {
+    "jas-learning-v0.1.1.zip": "9fa43dc51b6cf243022d2c73f168eb3088eb251f20ebd727d49ac8a0ec3855e7",
+    "database-labs.zip": "0f9f9560dce6674cc6c8f0ffed73d5f622da157bcf2f95aa0cdb6431689bc5d8",
+    "database-labs/.gitignore": "f1eefba1be7b8bd4928c96421673cadc73a1af3ad501a94f42171e45c3c22d4d",
+    "database-labs/compose.recovery.yaml": "08b560b00f4f92083af2b8a41d523318ebe6ebfd0482b8eded822b88c1ca27b2",
+    "database-labs/compose.yaml": "9b59e3f6f4824611cabb53b76a1c1bfc2aebb5b0f6bf97b9f4b2e9b96b8cfd23",
+    "database-labs/sql/00-schema.sql": "b1a4aaf244cd811b677d4cbf666315f02012b960678949eb541b4940ddae887e",
+    "database-labs/sql/01-seed.sql": "8acdeb03aa4d6c0bc3b27fa5d9c953c046854fa85e7bb58c804f5d824cd4e980",
+    "database-labs/sql/02-checks.sql": "3e59c9c2d2bb30da7f042342fea372ad3579cf14b2c090d40deb3079bfa5d070",
+    "database-labs/sql/03-place-order.sql": "92fcdce215b13980daa2f499941db97ab8c88bbd9a2e1b07eab58eb206f55b57",
+    "database-labs/sql/04-order-checks.sql": "bc8b790bf0e421fa59b31960d54ca3c23cacf481741fb8e56e3852b56b4cc358",
+    "database-labs/sql/05-performance.sql": "2c306e543e24a401d4a13a170320f7451bfc7bda4cb72c1a92606df37607f08c",
+    "database-labs/sql/06-security-checks.sql": "8a6329a7752eaf526cb7ecf074829edb324d6a6be884ce418b37fd39d261ff64",
+    "database-labs/README.md": "de305cb6a5685c02d58ef8e9c7cb81e10edec657cb55e3a6660cbf389fa351c1",
+    "notes/database-production-lab.md": "897a2c46f38d971a0056b213fcbd02040587a861164dc5f8718e9f01733fe5df",
+    "notes/typescript-production-lab.md": "bd2a6ebd8c8f9fee0324e76f6eedb1e834130b503058830663b30ec88dbb5c3b",
+    "notes/go-production-lab.md": "d072c929e30a1155b5ebf30f183a87cf4f513d39e9a43d629318f78f690c9915",
+    "notes/python-production-lab.md": "d033be549381b3cae49647f926bb4d58c3c4a72d179601ac3c5e6e6346116d01",
+    "notes/python-model-production-lab.md": "18b14f9a3064dacd2c469fe550cf9e79b1f742222730332408eceb83541d60ac",
+    "notes/go-kubernetes-lab.md": "106940015d27b1caf8510f632e6dc9a705b1ae1595f1873e89392d1cda183f5c"
+  }
+}

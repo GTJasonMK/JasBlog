@@ -86,7 +86,7 @@ CREATE TABLE practice.contacts (
 ---
 
 [上一篇：一条 SQL 从执行到落盘经历了什么](/notes/database-02-storage-execution) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：把筛选、NULL 和修改范围写准确](/notes/database-04-sql-basics)
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-03-modeling-types","title":"数据库 03：从业务事实推导表、约束和数据类型","date":"2026-11-13","excerpt":"商品改价后，旧订单不该跟着改，为什么这里的重复字段反而必要？从当前资料与成交事实推导关系，再把请求唯一、金额与时间含义落实到约束和类型。","tags":["数据库","PostgreSQL"],"category":"database-sql","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-03-modeling-types","title":"数据库 03：从业务事实推导表、约束和数据类型","date":"2026-11-13","excerpt":"商品改价后，旧订单不该跟着改，为什么这里的重复字段反而必要？从当前资料与成交事实推导关系，再把请求唯一、金额与时间含义落实到约束和类型。","tags":["数据库","PostgreSQL"],"category":"database-sql","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-sql","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

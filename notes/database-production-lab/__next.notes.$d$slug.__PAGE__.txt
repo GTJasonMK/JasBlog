@@ -1,0 +1,104 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+b:I[522016,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+c:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+e:"$Sreact.suspense"
+3:T182b,
+[下载 0.1.1 版完整源码](/downloads/jas-learning-v0.1.1.zip)，解压后从项目根目录按步骤运行。[版本与校验信息](/downloads/jas-learning-v0.1.1.json)。
+
+同一笔下单返回一次成功，不能证明库存只扣了一次。工程沿同一份数据检查订单、明细、库存流水与待发送事件，再恢复到独立数据库。源码版本为 0.1.0。
+
+## 完整工程入口
+
+以下命令从 JasLearning 根目录执行。使用已激活且安装了锁定依赖的 Python 环境：
+
+```bash
+python3 scripts/services.py start postgres
+python3 scripts/services.py run -- .venv/bin/python database/test_postgres.py
+python3 scripts/services.py start mysql
+python3 scripts/services.py run -- .venv/bin/python database/mysql/check.py
+```
+
+启动器将随机密码保存在权限为 0600 的 `.local/services.json`，run 只把它注入子进程。删除该文件不会改变已有数据卷的密码。Docker Hub 不可达时显式设置 POSTGRES_IMAGE、MYSQL_IMAGE 等变量并记录实际摘要，不自动换源或降版本。
+
+测试创建带随机后缀的专用源库和恢复库，不清空已有学习成果。日常停止使用 `python3 scripts/services.py stop postgres mysql`，保留数据卷。
+
+## 沿源码检查五项结果
+
+`sql/00-schema.sql` 将邮箱、请求键、外键和非负库存约束落到数据库；`01-seed.sql` 提供可以手工核对的三笔订单。先运行 `02-checks.sql`，才能区分算法变化和夹具变化。
+
+`03-place-order.sql` 是唯一的 PostgreSQL 下单入口。它通过用户与请求键唯一约束处理竞争，再条件扣库存，并在同一事务内写订单、明细、流水与 Outbox。任一步失败都回滚；同键同内容返回原订单，换内容复用键明确冲突。
+
+`04-order-checks.sql` 验证顺序路径和坏输入。`test_postgres.py` 再使用两个真实连接和屏障制造竞争，同时核对订单、库存和流水。只检查返回编号或把两条 SQL 顺次运行，都不能证明并发正确。
+
+`06-security-checks.sql` 对当前数据库建立只读角色与去掉邮箱的视图，再检查查询允许、更新拒绝、读取原始邮箱拒绝和建表拒绝。本版将创建与拒绝测试放在同一事务后回滚，不留下全局角色。真实密码登录仍按原实验手册另行验证。
+
+迁移演练先增加可空字段并提交部分回填，再用 WHERE region IS NULL 继续，随后验证约束并收紧非空。恢复依据是已提交状态，不能靠重置数据库模拟续跑。真实大表另需测量锁等待、批次大小与日志空间。
+
+逻辑恢复先生成自定义格式 dump，再在独立新库恢复，最后查询业务结果。备份文件存在与数据可恢复是两项证据；小库耗时不能直接当作企业 RTO。PITR 继续使用 compose.recovery.yaml 与原第 16 章的命名恢复点步骤，本轮逻辑恢复不代表已经复验跨主机容灾。
+
+## MySQL 迁移方法
+
+`mysql/schema.sql` 提供独立夹具。检查脚本先证明最后库存只有一个条件更新成功，再在 RR 下持有范围锁，让另一连接插入范围内记录。它查询 performance_schema.data_lock_waits 确认真实阻塞，释放锁后确认插入完成，最后做独立逻辑恢复。
+
+PostgreSQL 的快照输出不能证明 MySQL 的范围锁。条件、索引和隔离级别改变后必须重新观察。性能部分沿用 05-performance.sql 的 20 万行数据，固定 SQL 与参数并重复测量，保留索引写入代价。
+
+## 单独运行 PostgreSQL 附件
+
+这里包含两份 Compose 配置和七份 SQL 脚本。数据均为虚构订单，邮箱使用保留的 .invalid 域名。完整讲解见[实验手册](https://blog.imggb.top/notes/database-lab-guide)，已有结果与限制见[实验记录](https://blog.imggb.top/notes/database-lab-results)。
+
+## 启动
+
+需要 Docker Engine、Docker Compose 和 Bash。建议至少准备 2 核 CPU、4 GB 可用内存与 4 GB 可用磁盘。解压资源包后，在它的父目录中逐条运行：
+
+```bash
+cd database-labs
+read -rsp '输入实验数据库密码: ' LAB_DB_PASSWORD
+printf '\n'
+export LAB_DB_PASSWORD
+docker compose up -d --wait
+docker compose exec db psql -X -U lab_admin -d db_lab
+```
+
+连接使用本机 127.0.0.1:55432，数据库为 db_lab，管理员为 lab_admin。这个身份是实验超级用户。配置没有生产 TLS 与远程网络设置。
+
+在 psql 中检查目标，再退出：
+
+```sql
+SELECT version(), current_database(), current_user;
+SELECT id, sku, stock FROM shop.products ORDER BY id;
+\q
+```
+
+## 自检与下单函数
+
+在 database-labs 目录逐条运行，每条成功后再继续：
+
+```bash
+docker compose exec -T db psql -X -v ON_ERROR_STOP=1 -U lab_admin -d db_lab < sql/02-checks.sql
+docker compose exec -T db psql -X -v ON_ERROR_STOP=1 -U lab_admin -d db_lab < sql/03-place-order.sql
+docker compose exec -T db psql -X -v ON_ERROR_STOP=1 -U lab_admin -d db_lab < sql/04-order-checks.sql
+```
+
+00-schema.sql 和 01-seed.sql 只在空数据目录首次启动时自动执行。03-place-order.sql 安装一次即可；04-order-checks.sql 回滚业务写入，可以重复运行，序列编号可能留空洞。其余实验按在线手册的前置条件分别执行，不能把全部 SQL 一次性重跑到已有成果上。
+
+## 保存成果
+
+输出与备份保存在本地 .local 目录，不把密码、备份和敏感日志放进公开仓库。stop 保留容器和数据；down 保留命名数据卷。down -v 会删除数据，不能用作日常重启。
+
+启动过恢复容器后，用两份配置一起管理环境，例如 docker compose -f compose.yaml -f compose.recovery.yaml stop。PITR 必须完成归档、基础备份和恢复点步骤后再启动恢复容器，不能只启动 compose.recovery.yaml 就当作恢复完成。
+
+新终端需要重新设置 LAB_DB_PASSWORD。这个环境变量不会修改已有数据库的密码。postgres:16 标签会更新补丁版本，运行后记录自己的实际版本和镜像摘要；该资源包不包含已经运行的数据库或备份。
+
+
+[系列目录](/notes/database-00-learning-guide) · [Kubernetes 配置](/notes/go-kubernetes-lab)
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-production-lab","title":"数据库完整实作：并发、权限、迁移与恢复","date":"2026-11-15","excerpt":"沿固定版本完整工程解释业务边界、失败处理与验证，区分本地实测、配置检查和待运行场景。","tags":["数据库","工程实践"],"category":"database-labs","publication":"published","publishedAt":"2026-11-15","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+4:["$","$Lb",null,{"href":"/notes?category=database-labs","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
+5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]
+7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
+8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
+9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]
+a:["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
+f:null

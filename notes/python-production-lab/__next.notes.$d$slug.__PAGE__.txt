@@ -1,0 +1,73 @@
+1:"$Sreact.fragment"
+2:I[927655,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+5:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T11bb,
+[下载 0.1.1 版完整源码](/downloads/jas-learning-v0.1.1.zip)，解压后从项目根目录按步骤运行。[版本与校验信息](/downloads/jas-learning-v0.1.1.json)。
+
+脚本中途退出以后，要知道哪些结果仍然有效；API 换用户以后，不能按编号修改他人的任务。本工程分别完成文件处理、用户服务和模型交付。版本为 0.1.0。
+
+## 安装锁定环境
+
+从 JasLearning 根目录执行：
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r python/requirements.lock
+.venv/bin/python -m pip install --no-deps -e python
+```
+
+锁文件含测试和 CPU 图像依赖。平台没有对应 wheel 时明确报告，另一台机器的记录不能作为本机通过。外部目录、模型和凭据通过参数或环境提供。
+
+## 订单 ETL 怎样续跑
+
+```bash
+.venv/bin/python -m learning.etl python/fixtures/orders .local/etl
+```
+
+src/learning/etl.py 逐行读取 JSONL，每行最多 1 MiB。模型限制编号、正整数数量和十进制字符串金额，布尔值不能作为数量，NaN 与无穷价格被拒绝。输出只保留编号、数量和金额，不把客户姓名写入报表和异常日志。
+
+每个文件对应固定输出分区，SQLite 保存输入输出摘要、行数和已见编号。摘要均相同才跳过，输入变化只重做相应分区；跨文件重复订单明确失败。
+
+先写同目录临时文件，全部通过后 fsync、原子替换，再提交检查点。若替换后、提交前中断，下次重做同一分区，仍覆盖同一目标而不追加重复记录。坏输入保留旧结果，文件锁拒绝两个进程同时管理同一成果目录。
+
+批次按文件保存成果，后一个文件失败不会抹掉先前检查点。消费者只使用本次成功报告列出的分区，历史文件不自动计入当前数据；删掉输入也不自动删除成果。
+
+## 任务 API 的持久化与归属
+
+```bash
+python3 scripts/services.py start postgres
+python3 scripts/services.py run -- .venv/bin/python -m learning.migrate
+python3 scripts/services.py run -- env APP_ORIGIN=http://127.0.0.1:8000 .venv/bin/uvicorn learning.server:app --host 127.0.0.1 --port 8000
+```
+
+上述启动命令为 /docs 明确设置当前来源。services.py 保护实验数据库地址，额外配置通过 run -- env 传给本次子进程，避免其他项目的环境变量误指向真实数据。不能为调试删除来源检查。
+
+api.py 分开定义 User、LoginSession、Task 与公开响应。密码使用 Argon2，Cookie 保存随机令牌，数据库只存其 SHA256。登录建立新会话，退出删除服务端状态，生产启用 HTTPS 与 Secure。
+
+会话有 30 分钟空闲和 8 小时绝对上限。每条查询与行锁绑定用户，PATCH 区分省略、false 和 null。更新和删除锁定已授权记录，不能查完权限再无条件写入。
+
+认证频率由数据库原子计数维护，多实例共享规则。字段错误只返回位置、原因与类型，不回显密码；请求体同时检查声明大小与实际接收量。数据库失败返回 503，不返回假空列表。
+
+src/learning/migrations/versions/001_tasks.py 是可审查的迁移，与 Alembic 配置一起进入安装包。源码与安装后的服务使用同一迁移入口，启动只检查必要表，不执行 create_all。生产将迁移权限与 API 运行权限分开，迁移失败停止发布并保存恢复依据。
+
+## 模型作为下一阶段交付
+
+业务预测和田间图片识别都完成固定数据下载、训练、评估、重载与 HTTP 推理。数据时间边界、类别合同和版本回滚见 docs/models.md。Iris 与内置数字数据保留为算法入门，完整工程另外验证业务输入和运行生命周期。
+
+## 执行验证
+
+```bash
+python3 scripts/services.py run -- .venv/bin/python -m pytest python/tests -q
+```
+
+测试覆盖 ETL 重跑、坏输入、重复与成果保留；API 使用真实 PostgreSQL 和 Alembic 检查未登录、越权、false 更新、会话撤销与最终数据库值。模型合同测试明确使用基线，真实模型另跑 scripts/check_models.py。
+
+Dockerfile 使用非 root 运行不带 reload 的 Uvicorn。Kubernetes 将迁移放进 Job，ETL 使用 CronJob；Forbid 只限制同一 CronJob 重叠，文件锁、检查点和幂等仍由业务负责。部署清单检查通过不等于集群运行通过。
+
+
+[系列目录](/notes/python-00-learning-guide) · [模型交付](/notes/python-model-production-lab) · [Kubernetes 配置](/notes/go-kubernetes-lab)
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-production-lab","title":"Python 完整实作：安全重跑与多用户服务","date":"2026-11-15","excerpt":"沿固定版本完整工程解释业务边界、失败处理与验证，区分本地实测、配置检查和待运行场景。","tags":["Python","工程实践"],"category":"python-part5","publication":"published","publishedAt":"2026-11-15","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+8:null

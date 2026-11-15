@@ -4,12 +4,18 @@ b:I[522016,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2
 c:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
-3:T1d9e,
+3:T1fb2,
 两张表关联后金额多了一笔，两个请求都买到最后一件库存，或者备份存在却恢复不了。这些问题比“SQL语法写对了吗”更往前一步，涉及结果粒度、共同提交与恢复条件。笔记用同一套订单数据把它们连起来。
 
 主线使用 PostgreSQL 16，以 MySQL 8.4 作对照，SQL 都围绕同一套 shop 模型。阅读顺序可以按基础、事务、性能、恢复和运维推进，遇到具体问题也可以直接按主题查找。数据库操作能力要由实验和输出证明，实际值班还需要熟悉所在环境的权限、依赖和应急流程。
 
 先把59700分的已支付订单算对，再观察错误连接为什么变成99500；先复现普通下单，再用两个连接检验竞争；最后从独立恢复结果确认数据真的可找回。概念不是孤立名词，它应能解释这些前后变化。
+
+## 完整工程与生产实作
+
+[数据库完整实作](/notes/database-production-lab)将现有 SQL 作为唯一实现来源，补上可重复运行的双连接竞争、权限拒绝、迁移续跑及独立恢复。MySQL 8.4 使用自己的范围锁与恢复实验，不能用 PostgreSQL 的结果替代。
+
+原 PostgreSQL 附件地址继续保留；新的固定版本源码同时包含四套独立工程。阅读完成、配置检查和实际运行分别记录，数据库的单机恢复也不代表跨主机容灾已经通过。
 
 ## 从这里开始
 
@@ -72,7 +78,7 @@ e:"$Sreact.suspense"
 - [数据库学习记录模板：保存过程、输出与待验证问题](/notes/database-learning-template)
 - [数据库实验手册：启动环境与八组实验](/notes/database-lab-guide)
 - [数据库实验记录：已测结果与适用范围](/notes/database-lab-results)
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-00-learning-guide","title":"数据库学习笔记：目录、实验和阅读顺序","date":"2026-11-13","excerpt":"会写SELECT以后，还要解释金额为何多算、最后一件库存怎样竞争、误删怎样找回。围绕同一套订单数据安排阅读与实验，让每一步都能用实际结果核对。","tags":["数据库","PostgreSQL"],"category":"database","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-00-learning-guide","title":"数据库学习笔记：目录、实验和阅读顺序","date":"2026-11-13","excerpt":"会写SELECT以后，还要解释金额为何多算、最后一件库存怎样竞争、误删怎样找回。围绕同一套订单数据安排阅读与实验，让每一步都能用实际结果核对。","tags":["数据库","PostgreSQL"],"category":"database","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

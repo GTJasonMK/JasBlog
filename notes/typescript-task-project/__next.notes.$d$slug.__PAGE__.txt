@@ -4,10 +4,14 @@
 5:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 6:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-3:T1268,
+3:T13c7,
 一个任务列表可以只写几十行组件，但它还没有回答数据如何保存、用户如何区分、失败后草稿是否留下。这个学习项目把范围收在个人任务管理，用一条完整读写路径连接各章，而不扩成团队协作或大型工作流。
 
 这里定义实现目标与合同，章节片段按需要逐步接入。先完成一位用户的创建与刷新，再加入第二位用户检查隔离，最后覆盖修改、删除、错误与部署；每一步都有能观察的完成条件。
+
+## 配套完整实现
+
+[TypeScript 完整实作](/notes/typescript-production-lab)按本篇合同提供可运行工程、真实数据库测试和浏览器回归。先完成用户与任务读写，再验证失败草稿、截止时间保留、会话恢复和固定制品交付。实现使用 Prisma 7，环境与迁移命令以该固定版本为准。
 
 ## 功能边界
 
@@ -80,5 +84,5 @@ shared只公开浏览器与API共同需要的Schema和类型，数据库客户�
 - 浏览器可完成任务 CRUD，并呈现加载、空数据和失败状态。
 - 类型检查、单元测试、API 测试、关键端到端流程和生产构建均可通过。
 
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-task-project","title":"TypeScript 任务管理项目：功能、接口与数据约定","date":"2026-11-11","excerpt":"任务项目怎样算完成：能新增还不够，刷新要保留，换用户要隔离，失败要可恢复。把这些结果落实为功能、数据和接口约定，供各章实现与验收共同使用。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-task-project","title":"TypeScript 任务管理项目：功能、接口与数据约定","date":"2026-11-11","excerpt":"任务项目怎样算完成：能新增还不够，刷新要保留，换用户要隔离，失败要可恢复。把这些结果落实为功能、数据和接口约定，供各章实现与验收共同使用。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":["$","$L5",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]}],[["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
 8:null

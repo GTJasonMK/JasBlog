@@ -93,7 +93,7 @@ Serializable发现无法等价为某个串行顺序时，可以让一方失败�
 ---
 
 [上一篇：用窗口函数做排名、累计和报表](/notes/database-06-windows-reports) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：找到谁在等谁，再处理锁和死锁](/notes/database-08-locks-deadlocks)
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-07-transactions-mvcc","title":"数据库 07：快照稳定了，业务规则就一定正确吗","date":"2026-11-13","excerpt":"两名医生都确认还有别人值班，各自离开，最后却无人值班。用两个连接的交错过程解释稳定快照为何仍可能发生写偏斜，以及Serializable失败后该重试什么。","tags":["数据库","PostgreSQL"],"category":"database-transactions","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-07-transactions-mvcc","title":"数据库 07：快照稳定了，业务规则就一定正确吗","date":"2026-11-13","excerpt":"两名医生都确认还有别人值班，各自离开，最后却无人值班。用两个连接的交错过程解释稳定快照为何仍可能发生写偏斜，以及Serializable失败后该重试什么。","tags":["数据库","PostgreSQL"],"category":"database-transactions","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-transactions","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

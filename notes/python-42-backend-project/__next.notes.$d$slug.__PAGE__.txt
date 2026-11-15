@@ -4,10 +4,14 @@ b:I[522016,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2
 c:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
-3:T25ba,
+3:T275b,
 内存列表也能做任务增删改查，但服务一重启就没了，多进程之间也不会共享同一份列表。这个例子把任务放进SQLite文件，重点看一条HTTP请求如何变成一次数据库操作。
 
 每项任务有编号、标题和完成状态，没有用户归属和登录功能，因此只作为本地学习API。数据层用SQLModel连接SQLAlchemy与Pydantic，SQLite驱动为同步调用，路由使用普通 `def`。
+
+## 从这个例子继续到完整服务
+
+本篇保留 SQLite 与无用户模型，便于观察请求、会话和 PATCH。[Python 完整实作](/notes/python-production-lab)在后续阶段提供 PostgreSQL、Alembic、账号会话、资源归属和真实数据库测试，继续保留 done=false 与省略字段的原有语义。生产交付要完成后续验证，不能把本地初始化脚本当成迁移机制。
 
 ## 先看模型之间的区别
 
@@ -202,7 +206,7 @@ def get_task(task_id: int, session: Session = Depends(get_session)):
 
 [上一篇：FastAPI：一次请求如何经过校验和业务处理](/notes/python-41-backend) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：采集、办公、GUI 与科学计算：Python 的几条延伸方向](/notes/python-43-other-domains)
 
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-42-backend-project","title":"Python 42：用 FastAPI 和 SQLite 做一个任务 API","date":"2026-11-12","excerpt":"任务创建后为什么要提交，再刷新一次？用FastAPI和SQLite把增删改查串起来，沿请求追踪校验、会话和事务，并区分PATCH里的省略、空值与false。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-42-backend-project","title":"Python 42：用 FastAPI 和 SQLite 做一个任务 API","date":"2026-11-12","excerpt":"任务创建后为什么要提交，再刷新一次？用FastAPI和SQLite把增删改查串起来，沿请求追踪校验、会话和事务，并区分PATCH里的省略、空值与false。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

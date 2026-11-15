@@ -4,12 +4,18 @@ b:I[522016,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2
 c:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
-3:T1ceb,
+3:T1f4b,
 一个接口能返回JSON以后，新的问题才开始出现：请求超时究竟有没有创建订单，两个请求怎样争最后一件库存，消费者重启为何又收到同一事件。这些问题分别涉及语言状态、网络边界与持久化规则，不能靠换一个框架一起解决。
 
 这组笔记沿请求路径展开，先掌握值、错误、并发和资源生命周期，再处理HTTP与本地事务，之后讨论缓存、消息与服务拆分。促销订单作为共同例子，重点是能解释成功与失败过程；片段与设计练习不等于一套直接上线的商城。
 
 初学从语言部分顺读，已经会写接口则可以先选23、32和35，把库存事务与验证连接起来。遇到重复消费再读27、28，出现容量证据再读36以后。进阶组件按实际问题选，不要求全部加进同一个项目。
+
+## 完整工程与生产实作
+
+[Go 完整实作](/notes/go-production-lab)提供固定版本源码，把 MySQL 事务、Redis 受理预算、Kafka 重放、支付去重和 Outbox 接成同一个工程。学习时先跑同步订单，再检验异步重复与失败补偿；每一步同时核对响应和最终数据。
+
+[Kubernetes 教学实作](/notes/go-kubernetes-lab)逐段解释部署、探针、权限、资源与迁移 Job。代码和静态检查纳入课程，真实集群发布另行记录。原章节中的独立片段继续用于理解机制，完整实现与验证范围以配套版本为准。
 
 ## 语言与工具链
 
@@ -121,7 +127,7 @@ Go 语法示例按 Go 1.27 系列整理；涉及旧版循环变量行为时会�
 
 读片段时先列出所需类型、导入和外部资源，避免把事务片段直接当完整程序。验证语言行为使用临时模块，验证锁与SQL使用隔离数据库，故障练习只操作自己创建的资源。运行结果与预期不同，先沿输入和状态变化解释差异，再添加组件。
 
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-00-learning-guide","title":"Go 学习笔记：目录与阅读路线","date":"2026-11-12","excerpt":"写出接口以后，还要回答超时有没有下单、重复消息有没有重复扣库存。按一次请求从语言到持久化的路径整理Go笔记，让组件与它要解决的问题对应起来。","tags":["Go"],"category":"go","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"go-00-learning-guide","title":"Go 学习笔记：目录与阅读路线","date":"2026-11-12","excerpt":"写出接口以后，还要回答超时有没有下单、重复消息有没有重复扣库存。按一次请求从语言到持久化的路径整理Go笔记，让组件与它要解决的问题对应起来。","tags":["Go"],"category":"go","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=go","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

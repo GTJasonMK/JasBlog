@@ -99,7 +99,7 @@ ORDER BY status;
 ---
 
 [上一篇：从业务事实推导表、约束和数据类型](/notes/database-03-modeling-types) · [数据库目录](/notes/database-00-learning-guide) · [下一篇：关联之后，为什么金额会多算](/notes/database-05-joins-subqueries)
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-04-sql-basics","title":"数据库 04：把筛选、NULL 和修改范围写准确","date":"2026-11-13","excerpt":"用等于NULL查不到记录，SUM又返回空值，SQL是在算什么？从具体商品筛选推导三值逻辑、时间边界与修改范围，再用RETURNING检查实际结果。","tags":["数据库","PostgreSQL"],"category":"database-sql","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-04-sql-basics","title":"数据库 04：把筛选、NULL 和修改范围写准确","date":"2026-11-13","excerpt":"用等于NULL查不到记录，SUM又返回空值，SQL是在算什么？从具体商品筛选推导三值逻辑、时间边界与修改范围，再用RETURNING检查实际结果。","tags":["数据库","PostgreSQL"],"category":"database-sql","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database-sql","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

@@ -60,7 +60,7 @@ e:"$Sreact.suspense"
 
 文档里的一个可运行片段通常只证明某个接口怎样调用。要迁入自己的项目，继续核对输入范围、异常、资源释放与依赖版本；遇到弃用提示则查该版本的变更说明。先缩小到能复现的最小例子，再查明确的对象与方法，往往比更换整套工具更快找到原因。
 
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-reference","title":"Python 资料索引与常用工具","date":"2026-11-12","excerpt":"列表、数组与张量看起来都能装数字，为什么还要分别使用？按遇到的问题整理数据结构、并发方式与官方资料，让查文档能接着解决当前任务。","tags":["Python"],"category":"python","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-reference","title":"Python 资料索引与常用工具","date":"2026-11-12","excerpt":"列表、数组与张量看起来都能装数字，为什么还要分别使用？按遇到的问题整理数据结构、并发方式与官方资料，让查文档能接着解决当前任务。","tags":["Python"],"category":"python","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

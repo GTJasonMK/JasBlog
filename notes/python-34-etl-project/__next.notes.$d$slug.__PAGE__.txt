@@ -149,7 +149,7 @@ def test_transform_calculates_total():
 
 [上一篇：自动化脚本：先让任务能安全重跑](/notes/python-33-automation) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：NumPy、pandas 与图表：从数据形状开始分析](/notes/python-35-data-analysis)
 
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-34-etl-project","title":"Python 34：写一个订单 ETL 工具：读取、校验、转换和输出","date":"2026-11-12","excerpt":"把订单 JSON 转成 CSV，真正容易出问题的是金额含义、坏记录和覆盖策略。用一份可运行的小数据说明ETL各阶段的职责，沿着具体订单追踪校验、Decimal计算和表格输出。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-34-etl-project","title":"Python 34：写一个订单 ETL 工具：读取、校验、转换和输出","date":"2026-11-12","excerpt":"把订单 JSON 转成 CSV，真正容易出问题的是金额含义、坏记录和覆盖策略。用一份可运行的小数据说明ETL各阶段的职责，沿着具体订单追踪校验、Decimal计算和表格输出。","tags":["Python","应用与项目"],"category":"python-part5","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python-part5","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]

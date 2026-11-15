@@ -116,7 +116,7 @@ HTTPX可以分别控制连接、读取、写入和连接池等待的超时；单
 
 [上一篇：正则、日期与时间：格式之外还有语义](/notes/python-19-regex-datetime) · [Python 目录](/notes/python-00-learning-guide) · [下一篇：虚拟环境与项目结构：让依赖跟着项目走](/notes/python-21-environments-projects)
 
-0:{"buildId":"fhM-mF21PEuI8dWs3olGz","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-20-cli-http","title":"Python 20：命令行、子进程和 HTTP：处理外部输入","date":"2026-11-12","excerpt":"脚本接收参数、调用另一个程序、请求远程接口时，失败方式各不相同。用可运行的命令行和子进程例子，说明参数如何解析、返回码如何检查，以及 HTTP 状态、响应结构和超时各自负责什么。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"SfScejlYqPJpe2rBMjWdg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"python-20-cli-http","title":"Python 20：命令行、子进程和 HTTP：处理外部输入","date":"2026-11-12","excerpt":"脚本接收参数、调用另一个程序、请求远程接口时，失败方式各不相同。用可运行的命令行和子进程例子，说明参数如何解析、返回码如何检查，以及 HTTP 状态、响应结构和超时各自负责什么。","tags":["Python","标准库与工程实践"],"category":"python-part3","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=python-part3","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]
