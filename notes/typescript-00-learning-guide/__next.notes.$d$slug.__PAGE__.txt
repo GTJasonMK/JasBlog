@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+2:I[927655,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+b:I[522016,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+c:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
 3:T20c3,
@@ -142,10 +142,10 @@ e:"$Sreact.suspense"
 
 这一系列提供讲解与分阶段练习，配套项目说明定义交付目标，不表示所有片段已经自动组成完整产品。最终在干净环境安装、迁移、启动、测试与构建，才能确认自己完成的那份应用真正可交付。
 
-0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-00-learning-guide","title":"TypeScript 学习笔记：目录与阅读路线","date":"2026-11-12","excerpt":"从点击新增任务到刷新后仍能找到它，前后端之间经过了哪些边界？按JavaScript执行、TypeScript检查、页面交互与持久化组织阅读路线，避免先背整套框架。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"ICp6NWfM2EY7uNVg2g2r_","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-00-learning-guide","title":"TypeScript 学习笔记：目录与阅读路线","date":"2026-11-12","excerpt":"从点击新增任务到刷新后仍能找到它，前后端之间经过了哪些边界？按JavaScript执行、TypeScript检查、页面交互与持久化组织阅读路线，避免先背整套框架。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=typescript","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
-6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]
 7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
 8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
 9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]

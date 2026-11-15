@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+2:I[927655,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+b:I[522016,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+c:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
 3:T25dc,
@@ -124,10 +124,10 @@ e:"$Sreact.suspense"
 56. Supertest 验证未登录 401 和越权隔离；Playwright 登录后创建任务并在列表看到。
 57. 在干净环境按 README 安装、设置环境变量、迁移、启动、测试和构建；缺的步骤补回 README。
 
-0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-exercise-answers","title":"TypeScript 练习参考：57 个问题的实现思路","date":"2026-11-11","excerpt":"练习结果相同，是否就算做对了？按57个问题核对输入、状态、错误与权限，并补上判断依据，帮助区分正常样本跑通与规则真正成立。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"ICp6NWfM2EY7uNVg2g2r_","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-exercise-answers","title":"TypeScript 练习参考：57 个问题的实现思路","date":"2026-11-11","excerpt":"练习结果相同，是否就算做对了？按57个问题核对输入、状态、错误与权限，并补上判断依据，帮助区分正常样本跑通与规则真正成立。","tags":["TypeScript"],"category":"typescript","publication":"published","publishedAt":"2026-11-11","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=typescript","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
-6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]
 7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
 8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
 9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]

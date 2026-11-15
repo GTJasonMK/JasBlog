@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-b:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-c:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+2:I[927655,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+b:I[522016,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+c:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 d:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 e:"$Sreact.suspense"
 3:T1d9e,
@@ -72,10 +72,10 @@ e:"$Sreact.suspense"
 - [数据库学习记录模板：保存过程、输出与待验证问题](/notes/database-learning-template)
 - [数据库实验手册：启动环境与八组实验](/notes/database-lab-guide)
 - [数据库实验记录：已测结果与适用范围](/notes/database-lab-results)
-0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-00-learning-guide","title":"数据库学习笔记：目录、实验和阅读顺序","date":"2026-11-13","excerpt":"会写SELECT以后，还要解释金额为何多算、最后一件库存怎样竞争、误删怎样找回。围绕同一套订单数据安排阅读与实验，让每一步都能用实际结果核对。","tags":["数据库","PostgreSQL"],"category":"database","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"ICp6NWfM2EY7uNVg2g2r_","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"database-00-learning-guide","title":"数据库学习笔记：目录、实验和阅读顺序","date":"2026-11-13","excerpt":"会写SELECT以后，还要解释金额为何多算、最后一件库存怎样竞争、误删怎样找回。围绕同一套订单数据安排阅读与实验，让每一步都能用实际结果核对。","tags":["数据库","PostgreSQL"],"category":"database","publication":"published","publishedAt":"2026-11-13","display":{"toc":true},"content":"$3"},"back":"$L4","comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 4:["$","$Lb",null,{"href":"/notes?category=database","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}]
 5:["$","$Lc",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
-6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]
 7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
 8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
 9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]

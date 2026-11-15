@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[927655,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
-4:I[522016,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
-b:I[731175,["/_next/static/chunks/95f220ea84d8100f.js","/_next/static/chunks/12e0fee80551138b.js","/_next/static/chunks/8051e13bc8b89305.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
+2:I[927655,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"NoteView"]
+4:I[522016,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],""]
+b:I[731175,["/_next/static/chunks/684552b1c7f1cde1.js","/_next/static/chunks/cf2b2f406f611357.js","/_next/static/chunks/d360ab3fc21036d1.js","/_next/static/chunks/267de094e16f561a.js","/_next/static/chunks/ace9d85dab83cbd4.js"],"default"]
 c:I[897367,["/_next/static/chunks/d96012bcfc98706a.js","/_next/static/chunks/73e3194f06db260e.js"],"OutletBoundary"]
 d:"$Sreact.suspense"
 3:T114f,
@@ -96,9 +96,9 @@ pending用于界面，ref作为同步提交入口守卫，避免界面尚未提�
 
 [上一篇：Hooks：同步外部系统与复用组件逻辑](/notes/typescript-35-hooks) · [TypeScript 目录](/notes/typescript-00-learning-guide) · [下一篇：路由与页面：URL 怎样对应到组件](/notes/typescript-37-routing)
 
-0:{"buildId":"VX31ZvEYwE_KPHAUN8uNe","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-36-forms-accessibility","title":"TypeScript 36：把表单做完整：输入、错误、提交和键盘","date":"2026-11-12","excerpt":"请求失败后标题清空了，或者连按回车重复创建，表单哪里没有收尾？沿输入、校验、提交和失败恢复写一个可用示例，并让错误有正确的字段关联。","tags":["TypeScript","React 组件"],"category":"typescript-08-react","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-08-react","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+0:{"buildId":"ICp6NWfM2EY7uNVg2g2r_","rsc":["$","$1","c",{"children":[["$","$L2",null,{"note":{"slug":"typescript-36-forms-accessibility","title":"TypeScript 36：把表单做完整：输入、错误、提交和键盘","date":"2026-11-12","excerpt":"请求失败后标题清空了，或者连按回车重复创建，表单哪里没有收尾？沿输入、校验、提交和失败恢复写一个可用示例，并让错误有正确的字段关联。","tags":["TypeScript","React 组件"],"category":"typescript-08-react","publication":"published","publishedAt":"2026-11-12","display":{"toc":true},"content":"$3"},"back":["$","$L4",null,{"href":"/notes?category=typescript-08-react","className":"text-sm text-[var(--color-text-muted)] mb-8 inline-block","children":["← 返回","学习笔记"]}],"comments":"$L5"}],["$L6","$L7","$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
 5:["$","$Lb",null,{"config":{"enabled":false,"repo":"","repoId":"","category":"","categoryId":""}}]
-6:["$","script","script-0",{"src":"/_next/static/chunks/8051e13bc8b89305.js","async":true}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/cf2b2f406f611357.js","async":true}]
 7:["$","script","script-1",{"src":"/_next/static/chunks/d360ab3fc21036d1.js","async":true}]
 8:["$","script","script-2",{"src":"/_next/static/chunks/267de094e16f561a.js","async":true}]
 9:["$","script","script-3",{"src":"/_next/static/chunks/ace9d85dab83cbd4.js","async":true}]
