@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "templates": [
+    { "id": "article-list", "label": "文章列表", "kind": "collection", "contentTypes": ["note", "page"], "capabilities": { "pagination": true, "categoryFilter": true, "tagFilter": true, "series": true, "related": true }, "fields": ["title", "description", "pageSize", "rule", "manualItems"] },
+    { "id": "project-list", "label": "项目列表", "kind": "collection", "contentTypes": ["project"], "capabilities": { "pagination": true, "tagFilter": true }, "fields": ["title", "description", "pageSize", "rule", "manualItems"] },
+    { "id": "friends-grid", "label": "友链网格", "kind": "collection", "contentTypes": ["page"], "capabilities": { "pagination": false }, "fields": ["title", "description"] },
+    { "id": "article-detail", "label": "文章详情", "kind": "detail", "contentTypes": ["note", "page"], "capabilities": { "series": true, "related": true }, "fields": ["display"] },
+    { "id": "page-standard", "label": "独立页面", "kind": "page", "contentTypes": ["page"], "capabilities": { "pagination": false }, "fields": ["display"] }
+  ]
+}

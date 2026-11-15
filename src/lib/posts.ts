@@ -6,7 +6,7 @@ import {
 } from "./content-repository";
 import { resolveNoteDisplay, type ParsedContentDocument, type NoteMetadata, type NoteListEntry } from "@jas/content-core";
 
-const notesDirectory = path.join(process.cwd(), "content/notes");
+const notesDirectory = path.join(process.env.JASBLOG_WORKSPACE_ROOT ?? process.cwd(), "content/notes");
 
 export type PostMeta = NoteListEntry;
 

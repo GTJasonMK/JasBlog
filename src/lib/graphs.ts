@@ -12,7 +12,7 @@ import {
   type GraphMeta,
 } from "@/types/graph";
 
-const graphsDirectory = path.join(process.cwd(), "content/graphs");
+const graphsDirectory = path.join(process.env.JASBLOG_WORKSPACE_ROOT ?? process.cwd(), "content/graphs");
 
 function normalizeGraph(slug: string, document: ParsedContentDocument): Graph {
   const parsed = parseGraphDocument(document.content);

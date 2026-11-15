@@ -13,16 +13,18 @@ function directoryPublished(type: JasBlogContentType): boolean {
 export interface ParsedContentFile { slug: string; fullPath: string; parsed: ParsedContentDocument }
 
 function contentFiles(directory: string, recursive = false): string[] {
-  return markdownFiles(process.cwd(), path.relative(process.cwd(), directory), recursive).map((relative) => path.join(process.cwd(), relative));
+  const root = process.env.JASBLOG_WORKSPACE_ROOT ?? process.cwd();
+  return markdownFiles(root, path.relative(root, directory), recursive).map((relative) => path.join(root, relative));
 }
 
 function readContent(fullPath: string, type: JasBlogContentType): ParsedContentFile {
   return { slug: stripMarkdownExtension(path.basename(fullPath)), fullPath, parsed: parseMarkdownContent(fs.readFileSync(fullPath, "utf8"), type) };
 }
 
-export function readParsedContentFiles(directory: string, type: JasBlogContentType, recursive = false): ParsedContentFile[] {
-  if (!directoryPublished(type)) return [];
-  return contentFiles(directory, recursive).map((file) => readContent(file, type)).filter(({ parsed }) => readPublication(parsed.metadata.publication) === "published");
+export function readParsedContentFiles(directory: string, type: JasBlogContentType, recursive = false, options: { ignoreSection?: boolean } = {}): ParsedContentFile[] {
+  if (!options.ignoreSection && !directoryPublished(type)) return [];
+  const preview = process.env.JASBLOG_PREVIEW === "1";
+  return contentFiles(directory, recursive).map((file) => readContent(file, type)).filter(({ parsed }) => preview || readPublication(parsed.metadata.publication) === "published");
 }
 
 export function readParsedContentBySlug(directory: string, slug: string, type: JasBlogContentType): ParsedContentFile | null {
@@ -30,7 +32,7 @@ export function readParsedContentBySlug(directory: string, slug: string, type: J
   const file = contentFiles(directory).find((file) => stripMarkdownExtension(path.basename(file)) === slug);
   if (!file) return null;
   const result = readContent(file, type);
-  return readPublication(result.parsed.metadata.publication) === "published" ? result : null;
+  return process.env.JASBLOG_PREVIEW === "1" || readPublication(result.parsed.metadata.publication) === "published" ? result : null;
 }
 
 export function sortByDateDescThenSlug<T extends { date: string; slug: string }>(items: T[]): T[] {

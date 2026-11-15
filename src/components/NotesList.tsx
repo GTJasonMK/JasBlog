@@ -11,7 +11,7 @@ import Pagination from "./Pagination";
 import { pageHref, paginate } from "@/lib/pagination";
 import type { PostMeta } from "@/lib/posts";
 
-function NotesListContent({ posts, search, page }: { posts: PostMeta[]; search: string; page: number }) {
+function NotesListContent({ posts, search, page, pageSize }: { posts: PostMeta[]; search: string; page: number; pageSize: number }) {
   const router = useRouter();
   const params = new URLSearchParams(search);
   const host = useContentHost();
@@ -32,7 +32,7 @@ function NotesListContent({ posts, search, page }: { posts: PostMeta[]; search: 
   const requestedTag = params.get("tag") ?? "";
   const tag = tags.includes(requestedTag) ? requestedTag : "";
   const filtered = tag ? categoryItems.filter((item) => item.tags.includes(tag)) : categoryItems;
-  const pagination = paginate(filtered, page);
+  const pagination = paginate(filtered, page, pageSize);
   const invalidPage = page > pagination.pageCount;
   const onCategoryChange = (id: string) => {
     if (categoriesOpen) categoryTrigger.current?.focus();
@@ -76,7 +76,7 @@ function NotesQuery({ onChange }: { onChange: (query: string) => void }) {
   return null;
 }
 
-export default function NotesList({ posts, page }: { posts: PostMeta[]; page: number }) {
+export default function NotesList({ posts, page, pageSize }: { posts: PostMeta[]; page: number; pageSize: number }) {
   const [query, setQuery] = useState("");
-  return <><Suspense fallback={null}><NotesQuery onChange={setQuery} /></Suspense><NotesListContent posts={posts} search={query} page={page} /></>;
+  return <><Suspense fallback={null}><NotesQuery onChange={setQuery} /></Suspense><NotesListContent posts={posts} search={query} page={page} pageSize={pageSize} /></>;
 }

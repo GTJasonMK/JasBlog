@@ -46,9 +46,9 @@ export default function RootLayout({
         <script id="site-theme" dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
       </head>
       <body className="site-shell flex flex-col">
-        <SiteBackground />
+        <SiteBackground background={site.background} />
         <a href="#site:main-content" className="skip-link">跳到正文</a>
-        <Header name={site.name} navItems={navigation} />
+        <Header name={site.name} navItems={navigation} background={site.background} />
         <main id="site:main-content" tabIndex={-1} data-pagefind-body className="site-main"><ContentHost sections={site.sections} noteCategories={site.noteCategories} commentsEnabled={site.comments.enabled}>{children}</ContentHost></main>
         <Footer text={site.footer} />
         {process.env.NODE_ENV === "development" && <DevelopmentTools />}

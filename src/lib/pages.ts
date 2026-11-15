@@ -2,7 +2,7 @@ import path from "node:path";
 import { validPageSlug, type PageMetadata } from "@jas/content-core";
 import { readParsedContentBySlug, readParsedContentFiles } from "./content-repository";
 
-const directory = path.join(process.cwd(), "content/pages");
+const directory = path.join(process.env.JASBLOG_WORKSPACE_ROOT ?? process.cwd(), "content/pages");
 export function getAllPages() { return readParsedContentFiles(directory, "page").map(({ slug, parsed }) => ({ slug, ...parsed.metadata as PageMetadata })); }
 export function getPage(slug: string) {
   if (!validPageSlug(slug)) return null;

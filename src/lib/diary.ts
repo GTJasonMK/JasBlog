@@ -8,7 +8,7 @@ import {
 } from "@jas/content-core/diary-contract";
 import { resolveDiaryDisplay, type DiaryMetadata, type DiaryEntry as SharedDiaryEntry, type DiaryDay as SharedDiaryDay, type DiaryListEntry } from "@jas/content-core";
 
-const diaryDirectory = path.join(process.cwd(), "content/diary");
+const diaryDirectory = path.join(process.env.JASBLOG_WORKSPACE_ROOT ?? process.cwd(), "content/diary");
 
 export type DiaryEntry = SharedDiaryEntry;
 export type DiaryDayMeta = DiaryListEntry;

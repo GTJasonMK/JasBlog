@@ -1,7 +1,7 @@
 import NotesPage from "@/components/NotesPage";
 import { pageCount } from "@/lib/pagination";
 import { getAllPosts } from "@/lib/posts";
-import { sectionMetadata } from "@/lib/site";
+import { getSite, sectionMetadata } from "@/lib/site";
 
 interface Props { params: Promise<{ page: string }> }
 const EMPTY_STATIC_PARAM = "__empty_static_params__";
@@ -9,7 +9,7 @@ const EMPTY_STATIC_PARAM = "__empty_static_params__";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  const count = pageCount(getAllPosts().length);
+  const count = pageCount(getAllPosts().length, getSite().sections.notes.pageSize ?? 12);
   return count > 1
     ? Array.from({ length: count - 1 }, (_, index) => ({ page: String(index + 2) }))
     : [{ page: EMPTY_STATIC_PARAM }];

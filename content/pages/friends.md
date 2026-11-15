@@ -1,7 +1,7 @@
 ---
 title: 友链
 description: 常去的博客与站点。
-publication: published
+publication: draft
 publishedAt: "2026-11-14T09:27:12.000Z"
 display:
   toc: false

@@ -6,7 +6,7 @@ import {
 } from "./content-repository";
 import { resolveProjectDisplay, type ParsedContentDocument, type ProjectMetadata, type ProjectListEntry, type TechStackItem } from "@jas/content-core";
 
-const projectsDirectory = path.join(process.cwd(), "content/projects");
+const projectsDirectory = path.join(process.env.JASBLOG_WORKSPACE_ROOT ?? process.cwd(), "content/projects");
 
 export type TechItem = TechStackItem;
 export type ProjectMeta = ProjectMetadata & ProjectListEntry & { date: string; tags: string[]; techStack: TechStackItem[] };

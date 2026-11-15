@@ -51,7 +51,7 @@ function isEditableTarget(target: EventTarget | null): boolean {
   );
 }
 
-export default function Header({ name, navItems }: { name: string; navItems: Array<{ href: string; label: string }> }) {
+export default function Header({ name, navItems, background }: { name: string; navItems: Array<{ href: string; label: string }>; background?: { desktop?: string; mobile?: string; alt: string } }) {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -198,7 +198,7 @@ export default function Header({ name, navItems }: { name: string; navItems: Arr
   return (
     <header className={`site-header${isHome ? " site-header-portal" : ""}`}
       onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setIsNavOpen(false); }}>
-      <div className="site-header-backdrop"><SiteBackground /></div>
+      <div className="site-header-backdrop"><SiteBackground background={background} /></div>
       {isNavOpen && <button type="button" aria-label="关闭导航菜单" className="fixed inset-0 z-40 cursor-default bg-black/10" onClick={() => setIsNavOpen(false)} />}
       {isSearchOpen && (
         <button

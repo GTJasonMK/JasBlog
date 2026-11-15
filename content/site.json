@@ -75,7 +75,7 @@
       "visible": true
     },
     {
-      "target": "page:friends",
+      "target": "collection:friends",
       "label": "友链",
       "visible": true
     },
@@ -85,6 +85,23 @@
       "visible": true
     }
   ],
+  "collections": [
+    {
+      "id": "friends",
+      "slug": "friends",
+      "title": "友链",
+      "description": "常去的博客与站点。",
+      "enabled": true,
+      "templateId": "friends-grid",
+      "pageSize": 24,
+      "manualItems": []
+    }
+  ],
+  "background": {
+    "desktop": "/backgrounds/lake.webp",
+    "mobile": "/backgrounds/lake-mobile.webp",
+    "alt": "湖面与远山"
+  },
   "noteCategories": [
     {
       "id": "python",

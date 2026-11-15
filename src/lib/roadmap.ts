@@ -13,7 +13,7 @@ import {
 } from "./content-repository";
 import { resolveRoadmapDisplay, type ParsedContentDocument, type RoadmapMetadata } from "@jas/content-core";
 
-const roadmapsDirectory = path.join(process.cwd(), "content/roadmaps");
+const roadmapsDirectory = path.join(process.env.JASBLOG_WORKSPACE_ROOT ?? process.cwd(), "content/roadmaps");
 
 export type RoadmapItem = RoadmapContentItem;
 
