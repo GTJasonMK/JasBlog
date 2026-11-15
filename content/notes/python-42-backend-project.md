@@ -13,6 +13,10 @@ publishedAt: 2026-11-12
 
 每项任务有编号、标题和完成状态，没有用户归属和登录功能，因此只作为本地学习API。数据层用SQLModel连接SQLAlchemy与Pydantic，SQLite驱动为同步调用，路由使用普通 `def`。
 
+## 从这个例子继续到完整服务
+
+本篇保留 SQLite 与无用户模型，便于观察请求、会话和 PATCH。[Python 完整实作](/notes/python-production-lab)在后续阶段提供 PostgreSQL、Alembic、账号会话、资源归属和真实数据库测试，继续保留 done=false 与省略字段的原有语义。生产交付要完成后续验证，不能把本地初始化脚本当成迁移机制。
+
 ## 先看模型之间的区别
 
 `TaskCreate` 描述允许创建的字段，不让调用者指定数据库编号；`Task` 对应数据库表；`TaskUpdate` 描述局部更新。它们共享标题与完成状态的定义，但输入职责不同，不能把数据库整行直接当作所有请求的合同。

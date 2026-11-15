@@ -15,6 +15,12 @@ publishedAt: 2026-11-12
 
 熟悉Python可以从05到12对照语言差异，已有前端经验则重点读14到31的类型与工程边界。做任务项目时从配套规格选一条最小读写路径，遇到状态或权限问题再回到相关章节，不需要等57篇全部背完才开始运行。
 
+## 完整工程与生产实作
+
+[TypeScript 完整实作](/notes/typescript-production-lab)提供 React、Express、Zod、Prisma 和 PostgreSQL 的固定版本工程。按共享合同、API、浏览器交互和发布四步阅读，实际验证两个用户隔离、刷新持久化、失败草稿和会话恢复。
+
+配套工程使用 Prisma 7.10.1，连接配置和驱动 adapter 的写法与旧版章节有差别，按工程中的版本说明执行。[Kubernetes 教学实作](/notes/go-kubernetes-lab)补齐部署配置的作用与发布恢复顺序，集群运行与本地通过分别记录。
+
 ## Web 基础
 
 [查看这个分类](/notes?category=typescript-01-web)

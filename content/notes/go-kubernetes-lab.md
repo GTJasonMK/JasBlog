@@ -1,0 +1,113 @@
+---
+title: "Kubernetes 教学实作：配置作用与发布恢复"
+date: "2026-11-15"
+excerpt: "沿固定版本完整工程解释业务边界、失败处理与验证，区分本地实测、配置检查和待运行场景。"
+tags: ["Go", "工程实践"]
+category: "go-part6"
+publication: "published"
+display: { "toc": true }
+publishedAt: "2026-11-15"
+---
+
+[下载 0.1.1 版完整源码](/downloads/jas-learning-v0.1.1.zip)，解压后从项目根目录按步骤运行。[版本与校验信息](/downloads/jas-learning-v0.1.1.json)。
+
+本工程提供可渲染的部署代码，并解释运行机制。实际集群部署是选做；Schema 通过、镜像构建通过和集群业务通过分别记录，不能互相替代。源码版本为 0.1.0。
+
+## 先渲染，再读请求走过的位置
+
+在 JasLearning 根目录安装固定工具并运行检查：
+
+```bash
+env GOBIN="$PWD/.local/bin" go install sigs.k8s.io/kustomize/kustomize/v5@v5.7.1
+env GOBIN="$PWD/.local/bin" go install github.com/yannh/kubeconform/cmd/kubeconform@v0.7.0
+.venv/bin/python scripts/check_deploy.py
+.local/bin/kustomize build typescript/deploy
+```
+
+检查将渲染文件保存到 .local/rendered，以 Kubernetes 1.35.0 Schema 核对字段，并检查选择器、服务目标端口、资源上下限与镜像版本。它不会连接或修改集群，输出 deployed=false。首次 Schema 下载需要网络，后续应在自己的工具缓存策略中固定来源。
+
+公共资源位于 deploy/base，各工程 overlay 只指定镜像、命名空间和差异。这样探针或安全规则只有一个公共来源，应用差异可直接看补丁。命名空间相互独立，不能把一个课程的 Secret 填进另一个课程。
+
+外部请求先到 Ingress Controller，按域名和路径进入 Service，再由标签选择就绪 Pod。Deployment 只维持副本和更新，不提供域名、证书或负载入口；Ingress 清单也不会自动安装 Controller。
+
+TypeScript 将 /api 转到 API Service，其余路径转到静态前端。web 的 nginx.conf 对页面深层路径回退 index.html，对 /api 明确返回 404，避免接口错误被 HTML 掩盖。API 的 /metrics 留给受控监控入口。
+
+## 先构建镜像
+
+以下命令从 JasLearning 根目录执行。前三个目标分别保留 API 运行依赖、静态前端和迁移工具，避免把 Prisma CLI 与开发工具带进 API 运行镜像：
+
+```bash
+docker build --target api -t jaslearning/typescript-api:0.1.0 typescript
+docker build --target migrate -t jaslearning/typescript-migrate:0.1.0 typescript
+docker build --target web -t jaslearning/typescript-web:0.1.0 typescript
+docker build -t jaslearning/go-orders:0.1.0 go
+docker build -t jaslearning/python-api:0.1.0 python
+.venv/bin/python scripts/model_image.py forecast .local/models/forecast-v1
+.venv/bin/python scripts/model_image.py vision .local/models/vision-v1
+.venv/bin/python scripts/check_images.py
+```
+
+镜像检查先在独立数据库中执行三种迁移，再检查非 root 身份、服务就绪和两种模型预测；不修改已有业务库。运行前按各课程完成依赖启动与模型训练。镜像标签与模型、元数据摘要及 Python 运行镜像身份一起核对，已有不同内容时拒绝覆盖。
+
+网络受限时显式设置 Dockerfile 的 NODE_IMAGE、WEB_IMAGE、GO_IMAGE、RUNTIME_IMAGE、PYTHON_IMAGE 或 GOPROXY 构建参数。Linux 本机代理可显式传递 host 构建网络与无认证代理参数；模型构建器提供 --host-proxy，不自动切换网络，也不把代理凭据写入构建参数。
+
+## 每类配置在约束什么
+
+| 配置 | 运行作用 | 错误后果 |
+|---|---|---|
+| selector 与 template labels | Controller 和 Service 找到对应 Pod | 不匹配会无后端或管理错误对象 |
+| containerPort 与 targetPort | 声明容器端口，并把服务流量送到命名端口 | 声明端口不会让进程自动监听 |
+| ConfigMap | 注入端口、环境与来源等非敏感配置 | 修改后不保证现有进程自动重读 |
+| Secret 引用 | 从目标命名空间注入真实凭据 | base64 不是加密，RBAC 与静态加密另行配置 |
+| requests | 参与调度，并作为 CPU HPA 利用率分母 | 过低会错误估计容量与扩容压力 |
+| limits | 限制 CPU 与内存资源 | CPU 被节流，内存超限可能 OOMKilled |
+| securityContext | 非 root、禁提权、丢弃 capability、只读根目录 | 程序需要的写目录必须单独挂载 |
+| NetworkPolicy | 限制进入与离开指定 Pod 的连接 | 依赖支持它的 CNI，不会自动给通信加 TLS |
+
+临时写入使用受限 emptyDir，数据库使用持久卷。日志写标准输出，不写容器镜像层。镜像标签用于教学阅读，正式发布应记录实际 digest 并固定部署同一制品。
+
+## 三种探针与退出顺序
+
+startupProbe 给首次启动留出预算，避免初始化尚未完成就被存活检查重启。readinessProbe 决定是否接新流量，livenessProbe 决定是否重启进程，两者不是同一个“健康”布尔值。
+
+共享数据库故障不应让所有实例不断重启，因此 /healthz 不依赖数据库。/readyz 根据当前服务合同检查依赖或模型加载结果。健康接口返回 200 仍不能证明用户权限和迁移正确，发布后必须执行受控业务请求。
+
+terminationGracePeriodSeconds 为 30 秒，程序自己的关闭预算更短。HTTP 先停止接新请求，等待在途工作，再关闭连接池。worker 取消读取、等待后台转发退出，再关闭 Redis、数据库与 Kafka 客户端；未确认消息保留可重放状态。
+
+## 发布、迁移与回滚
+
+示例 maxUnavailable=0、maxSurge=1，使滚动更新先加一个新 Pod，再退出旧 Pod。新节点资源不足、镜像错误或探针失败都会卡住发布，progressDeadlineSeconds 让停滞可见，不能只检查 apply 返回成功。
+
+迁移 Job 使用单独的 migration-secrets，应用使用 app-secrets。backoffLimit=0 避免把不清楚是否已提交的 DDL 自动重复执行；先查迁移版本和状态，再处理失败。每个版本采用新的 Job 名称，不能假设完成的旧 Job 会再次执行。
+
+有集群时，先准备 Namespace、运行账号、镜像、证书和依赖地址；然后只执行该版本迁移 Job，等待成功，再应用 Deployment 和 Service。不要一次 apply 所有文件后期待控制器自动保证迁移先于应用。
+
+数据库变更按 expand/contract：增加兼容字段，发布兼容读写，分批回填，最后收紧或删除。应用回滚前核对新数据与旧代码兼容性。PITR 或恢复会改变数据，必须明确恢复点、范围与业务确认，不能拿 rollout undo 代替。
+
+HPA 示例以 CPU 70% 为教学起点，需要 metrics-server；真实目标依赖测量。数据库池先饱和时加 Pod 可能放大连接压力。PDB minAvailable=1 限制自愿驱逐，不保证主机故障后仍有副本；副本是否跨主机还需调度、节点和存储条件。
+
+## 身份、网络与存储的前置条件
+
+| 工程 | app-secrets 所需字段 | 迁移身份 |
+|---|---|---|
+| TypeScript | DATABASE_URL、SESSION_SECRET | typescript-migrate 镜像及可执行迁移的 DATABASE_URL |
+| Go | MYSQL_DSN、REDIS_URL、KAFKA_BROKERS、JWT_SECRET | 可执行 schema 的 MYSQL_DSN |
+| Python API | PY_DATABASE_URL | 可执行 Alembic 的 PY_DATABASE_URL |
+| 两种推理服务 | INFERENCE_TOKEN | 无数据库迁移 |
+
+域名 example.invalid 是保留示例，实际部署必须替换域名、app-tls、APP_ORIGIN 和镜像位置。Traefik Controller、TLS 证书、metrics-server、支持 NetworkPolicy 的 CNI 和可用 StorageClass 都是显式前置条件，不由这些 YAML 自动提供。生产可信代理配置仅信任真实代理网段，不取消 HTTPS 或证书校验。
+
+Go 的生产 Broker 可另注入 KAFKA_TLS、KAFKA_CA_FILE、KAFKA_SASL_USER、KAFKA_SASL_PASSWORD；证书文件使用只读挂载，不把私钥写进镜像。QUEUE_PREFIX 统一派生 Redis 前缀、topic 和消费组，同一系统所有实例保持一致，不同测试环境分别设置，避免互相消费。
+
+NetworkPolicy 默认只允许 ingress-system、monitoring 与 learning-data 的规定连接。数据服务位于集群外时，按实际地址增加最小出站范围；不要直接删除策略。CronJob 使用 etl-data PVC，该卷须由操作者准备，并为工作目录赋予 10001 对应权限。
+
+database/kustomization.yaml 的 StatefulSet 用于学习数据库 Pod 身份、初始化和 PVC，只有一个副本。初始化脚本只在空目录运行，更新 ConfigMap 不会替已有数据完成迁移。它不是主从切换方案，也没有证明卷或主机损毁后可恢复。
+
+## 定时任务与运维交接
+
+python/deploy/etl.yaml 的 CronJob 使用 UTC、Forbid、启动期限和总运行期限。Forbid 只阻止同一 CronJob 重叠，外部手动启动或进程崩溃仍需业务锁、检查点和幂等。历史 Job 数量限制也不是成果备份。
+
+每个工程交接版本、配置、依赖、权限、备份位置与恢复步骤。运维练习依次检查就绪失败、错误配置、数据库断开、worker 中断与模型损坏，保存观察和最终业务状态。未实际部署的发布、扩缩容和跨主机演练继续标为待运行。
+
+
+[系列目录](/notes/go-00-learning-guide)

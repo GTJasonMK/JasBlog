@@ -4,13 +4,12 @@ BEGIN;
 CREATE ROLE shop_reader NOLOGIN;
 CREATE VIEW shop.customer_directory AS
     SELECT id, display_name FROM shop.customers;
-GRANT CONNECT ON DATABASE db_lab TO shop_reader;
+DO $$ BEGIN
+    EXECUTE format('GRANT CONNECT ON DATABASE %I TO shop_reader', current_database());
+END $$;
 GRANT USAGE ON SCHEMA shop TO shop_reader;
 GRANT SELECT ON shop.products, shop.orders, shop.order_items,
     shop.customer_directory TO shop_reader;
-COMMIT;
-
-BEGIN;
 SET LOCAL ROLE shop_reader;
 SELECT current_user, count(*) AS visible_orders FROM shop.orders;
 SELECT * FROM shop.customer_directory ORDER BY id;
