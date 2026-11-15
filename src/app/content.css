@@ -47,8 +47,7 @@
 .notes-empty { display: grid; justify-items: center; gap: 1.5rem; padding: 4rem 1.5rem; border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-surface); color: var(--color-text-muted); text-align: center; }
 .site-main .content-list-page { max-width: none; padding: 0; color: var(--site-photo-text); }
 /* 栏目名称由导航展示，正文仅保留读屏所需的标题语义。 */
-.site-main :is(.content-section-heading, .photography-heading),
-.site-main .friends-page .reading-header { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.site-main :is(.content-section-heading, .photography-heading) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .site-main .content-empty { min-height: 0; padding: 1.25rem 1.5rem; border: 1px solid var(--color-border); border-radius: .875rem; background: var(--color-surface); text-align: left; font-size: .9375rem; }
 .site-main .content-list-page .card-hover { border-radius: 1rem; box-shadow: none; color: var(--color-text); }
 .site-main .content-list-page > div > label { color: var(--site-photo-text); }
@@ -62,15 +61,6 @@
 .site-main .reading-header h1 { font-family: var(--site-font-display); font-size: clamp(1.75rem, 3.2vw, 2.5rem); line-height: 1.65; font-weight: 600; letter-spacing: 0; }
 .site-main .reading-header .reading-kicker { color: var(--color-primary-dark); font-weight: 500; }
 .site-main .reading-body { min-width: 0; padding: 2rem 3rem 3rem; border: 1px solid var(--color-border); border-top: 0; border-radius: 0 0 1.125rem 1.125rem; background: var(--color-surface); }
-.site-main .friends-page .reading-body { padding: 1.25rem 1.5rem; border: 1px solid var(--color-border); border-radius: .875rem; }
-.friends-page .prose-chinese { color: var(--color-text-muted); font-size: .9375rem; }
-.friends-page .prose-chinese > :first-child { margin-top: 0; }
-.friends-page .prose-chinese > :last-child { margin-bottom: 0; }
-.friends-page .prose-chinese > ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: .5rem 2rem; margin: 0; padding: 0; list-style: none; }
-.friends-page .prose-chinese > ul > li { min-width: 0; margin: 0; padding-block: .5rem; border-bottom: 1px solid var(--color-border); overflow-wrap: anywhere; }
-.friends-page .prose-chinese > ul > li p { margin: 0; }
-.friends-page .prose-chinese > ul > li a { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; font-size: 1rem; font-weight: 600; overflow-wrap: anywhere; }
-.friends-page .prose-chinese a:focus-visible { outline: 2px solid var(--color-primary-dark); outline-offset: 3px; border-radius: .25rem; }
 .site-main .reading-toc { margin: 0; padding: 1.25rem 3rem 0; border-inline: 1px solid var(--color-border); background: var(--color-surface); }
 .site-main .toc-panel { background: var(--color-surface); border-radius: .875rem; padding: .5rem; box-shadow: var(--shadow-sm); }
 .site-main .toc-panel a { font-size: .8125rem; border-radius: 0 .375rem .375rem 0; }

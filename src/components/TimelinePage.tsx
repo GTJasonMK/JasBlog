@@ -8,11 +8,12 @@ import Pagination from "./Pagination";
 
 export default function TimelinePage({ page = 1 }: { page?: number }) {
   if (!sectionEnabled("timeline")) notFound();
+  const site = getSite();
   const entries = getAllPublications();
-  const pagination = paginate(entries, page);
+  const pagination = paginate(entries, page, site.sections.timeline.pageSize ?? 12);
   if (page > pagination.pageCount) notFound();
   return <div className="publication-page">
-    <h1 className="sr-only">{getSite().sections.timeline.title}</h1>
+    <h1 className="sr-only">{site.sections.timeline.title}</h1>
     <section id="timeline-results" className="publication-results" tabIndex={-1} aria-label="发布记录">
       <div className="publication-toolbar"><p>首次发布</p><span>{entries.length} 条</span></div>
       {entries.length ? <PublicationTimeline entries={pagination.items} /> : <p className="content-empty">暂无发布记录。</p>}

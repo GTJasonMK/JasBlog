@@ -45,3 +45,9 @@ test("分页地址保留分类与标签，第一页使用笔记入口地址", ()
   assert.equal(pageHref("/notes", 1, search), "/notes?category=database&tag=PostgreSQL");
   assert.equal(pageHref("/timeline", 2), "/timeline/page/2");
 });
+
+test("分页器支持栏目自定义每页数量", () => {
+  const items = Array.from({ length: 7 }, (_, index) => index);
+  assert.equal(pageCount(items.length, 3), 3);
+  assert.deepEqual(paginate(items, 2, 3).items, [3, 4, 5]);
+});

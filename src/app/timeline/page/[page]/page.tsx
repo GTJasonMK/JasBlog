@@ -2,13 +2,13 @@ import { notFound } from "next/navigation";
 import TimelinePage from "@/components/TimelinePage";
 import { pageCount } from "@/lib/pagination";
 import { getAllPublications } from "@/lib/publications";
-import { sectionMetadata } from "@/lib/site";
+import { getSite, sectionMetadata } from "@/lib/site";
 
 type Props = { params: Promise<{ page: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  const count = pageCount(getAllPublications().length);
+  const count = pageCount(getAllPublications().length, getSite().sections.timeline.pageSize ?? 12);
   return count > 1 ? Array.from({ length: count - 1 }, (_, index) => ({ page: String(index + 2) })) : [{ page: "__empty_static_params__" }];
 }
 export async function generateMetadata({ params }: Props) {
